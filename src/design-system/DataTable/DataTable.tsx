@@ -149,6 +149,44 @@ export function AGDataTable<T = Record<string, unknown>>({
           spacing: 8,
         });
   }, [isDark]);
+
+  // Inject custom CSS for proper alignment
+  React.useEffect(() => {
+    const customCSS = `
+      .ag-theme-quartz .ag-header-cell-comp-wrapper {
+        justify-content: flex-start !important;
+      }
+      .ag-theme-quartz .ag-header-cell-menu-button {
+        margin-left: 4px !important;
+        margin-right: auto !important;
+      }
+      .ag-theme-quartz .ag-cell-wrapper {
+        height: 100% !important;
+      }
+      .ag-theme-quartz .ag-cell {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+      }
+    `;
+    
+    const styleId = 'ag-grid-custom-alignment';
+    let styleElement = document.getElementById(styleId) as HTMLStyleElement;
+    
+    if (!styleElement) {
+      styleElement = document.createElement('style');
+      styleElement.id = styleId;
+      styleElement.textContent = customCSS;
+      document.head.appendChild(styleElement);
+    }
+    
+    return () => {
+      // Cleanup on unmount
+      if (styleElement && styleElement.parentNode) {
+        styleElement.parentNode.removeChild(styleElement);
+      }
+    };
+  }, []);
   
   // Determine the actual height to use
   const actualHeight = useMemo(() => {
@@ -201,13 +239,18 @@ export function AGDataTable<T = Record<string, unknown>>({
         StatusCellRenderer({ ...params, mode, colDef: col as AGColumnDef<unknown> }) :
         col.cellRenderer ? (params: ICellRendererParams) => col.cellRenderer!(params) : undefined,
       cellStyle: () => {
-        // Apply theme-appropriate cell styling
+        // Apply theme-appropriate cell styling with proper alignment
         return {
           color: isDark ? tableTokens.row.darkColor : tableTokens.row.color,
           fontFamily: tableTokens.row.fontFamily,
           fontSize: tableTokens.row.fontSize,
           fontWeight: tableTokens.row.fontWeight,
           lineHeight: tableTokens.row.lineHeight,
+          display: 'flex',
+          alignItems: 'center', // Vertically center all cell content
+          justifyContent: 'flex-start', // Left-align all cell content
+          height: '100%',
+          padding: '0 12px', // Consistent horizontal padding
         };
       }
     }));
