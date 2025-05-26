@@ -1,5 +1,6 @@
 import React from 'react';
 import { LineChart, BarChart } from '@/design-system/charts';
+import { ArrowTrendingUpIcon } from '@heroicons/react/24/outline';
 
 // Updated to match ChartDataObject with name property
 interface BacklogTrend {
@@ -31,9 +32,7 @@ const BacklogAnalysis: React.FC<BacklogAnalysisProps> = ({ backlogTrends, region
           <div className="flex justify-between items-center mb-2">
             <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Backlog Trend Analysis</h6>
             <button className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-              </svg>
+              <ArrowTrendingUpIcon className="w-5 h-5" />
             </button>
           </div>
           <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
@@ -55,9 +54,7 @@ const BacklogAnalysis: React.FC<BacklogAnalysisProps> = ({ backlogTrends, region
           <div className="flex justify-between items-center mb-2">
             <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Resolution Progress</h6>
             <button className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-              </svg>
+              <ArrowTrendingUpIcon className="w-5 h-5" />
             </button>
           </div>
           <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">

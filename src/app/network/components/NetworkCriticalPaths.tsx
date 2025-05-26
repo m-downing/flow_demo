@@ -1,17 +1,14 @@
 import React from 'react';
 import { Badge } from '@/design-system';
+import { EllipsisHorizontalIcon, SignalIcon as HeroSignalIcon } from '@heroicons/react/24/outline';
 
 // Custom SVG icons to replace Material-UI icons
 const MoreIcon = () => (
-  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-  </svg>
+  <EllipsisHorizontalIcon className="w-5 h-5" />
 );
 
 const SignalIcon = () => (
-  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-  </svg>
+  <HeroSignalIcon className="w-5 h-5" />
 );
 
 export const NetworkCriticalPaths: React.FC = () => {

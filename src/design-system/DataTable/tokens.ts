@@ -57,12 +57,18 @@ export const tableTokens = {
   row: {
     height: '36px',    // Placeholder: typography.ts does not have explicit sizing tokens like 'rowHeight'
     zebraBg: designSystemColors.colors.neutral[50],    // Using neutral[50] for zebra striping
-    hoverBg: designSystemColors.colors.primary[50],    // Using primary[50] for hover background
+    hoverBg: {
+      light: designSystemColors.colors.primary[50],    // Light mode hover background
+      dark: designSystemColors.colors.primary[800],    // Dark mode hover background
+    },
     fontFamily: designSystemTypography.fontFamily.body,
     fontSize: designSystemTypography.fontSize.sm,
     fontWeight: designSystemTypography.fontWeight.normal,
     lineHeight: designSystemTypography.lineHeight.normal,
     color: designSystemColors.colors.neutral[800],    // Using neutral[800] for row text
+    // Dark mode variants
+    darkBg: designSystemColors.colors.primary[900],   // Dark mode row background
+    darkColor: designSystemColors.colors.primary[100], // Dark mode row text color
     // Light and dark mode border variants
     borderBottom: {
       light: `1px solid ${designSystemColors.colors.neutral[300]}`, // Light mode: neutral-300

@@ -2,6 +2,9 @@ import React from 'react';
 import { AGDataTable, AGColumnDef } from '@/design-system/DataTable';
 import { Badge } from '@/design-system';
 import type { BadgeVariant } from '@/design-system/components/feedback/Badge';
+import type { ICellRendererParams } from 'ag-grid-community';
+// Replace custom SVG icons with Heroicons
+import { ExclamationCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
 // Define interfaces for backlogs data
 export interface BacklogItem {
@@ -36,7 +39,8 @@ const backlogColumns: AGColumnDef<BacklogItem>[] = [
       if (row.priority === 'medium') return 'success';
       return 'success';
     },
-    cellRenderer: (row: BacklogItem) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as BacklogItem;
       // Map priorities to Badge variants
       const priorityToVariant: Record<string, BadgeVariant> = {
         'critical': 'critical',
@@ -52,23 +56,29 @@ const backlogColumns: AGColumnDef<BacklogItem>[] = [
     field: 'dataCenter',
     title: 'Data Center',
     width: 140,
-    cellRenderer: (row: BacklogItem) => (
-      <div className="flex flex-col">
-        <span className="font-medium text-neutral-900 dark:text-neutral-50">{row.dataCenter}</span>
-        <span className="text-xs text-neutral-500 dark:text-neutral-400">{row.region}</span>
-      </div>
-    )
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as BacklogItem;
+      return (
+        <div className="flex flex-col">
+          <span className="font-medium text-neutral-900 dark:text-neutral-50">{row.dataCenter}</span>
+          <span className="text-xs text-neutral-500 dark:text-neutral-400">{row.region}</span>
+        </div>
+      );
+    }
   },
   {
     field: 'rackType',
     title: 'Equipment',
     width: 160,
-    cellRenderer: (row: BacklogItem) => (
-      <div className="flex flex-col">
-        <span className="font-medium text-neutral-900 dark:text-neutral-50">{row.rackType}</span>
-        <span className="text-xs text-neutral-500 dark:text-neutral-400">{row.equipmentType}</span>
-      </div>
-    )
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as BacklogItem;
+      return (
+        <div className="flex flex-col">
+          <span className="font-medium text-neutral-900 dark:text-neutral-50">{row.rackType}</span>
+          <span className="text-xs text-neutral-500 dark:text-neutral-400">{row.equipmentType}</span>
+        </div>
+      );
+    }
   },
   {
     field: 'quantity',
@@ -79,7 +89,8 @@ const backlogColumns: AGColumnDef<BacklogItem>[] = [
     field: 'status',
     title: 'Status',
     width: 160,
-    cellRenderer: (row: BacklogItem) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as BacklogItem;
       const statusText: Record<BacklogItem['status'], string> = {
         orderPlaced: 'Order Placed',
         manufacturing: 'Manufacturing',
@@ -90,16 +101,8 @@ const backlogColumns: AGColumnDef<BacklogItem>[] = [
       };
       
       const statusIcon = row.status === 'blocked' 
-        ? (
-          <svg className="w-4 h-4 text-red-500 dark:text-red-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        )
-        : (
-          <svg className="w-4 h-4 text-green-500 dark:text-green-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        );
+        ? <ExclamationCircleIcon className="w-4 h-4 text-red-500 dark:text-red-400 mr-1" />
+        : <CheckCircleIcon className="w-4 h-4 text-green-500 dark:text-green-400 mr-1" />;
       
       const statusColorClass = row.status === 'blocked' ? 'text-red-500 dark:text-red-400' : 'text-neutral-900 dark:text-neutral-50';
       
@@ -115,7 +118,8 @@ const backlogColumns: AGColumnDef<BacklogItem>[] = [
     field: 'delay',
     title: 'Delay (days)',
     width: 120,
-    cellRenderer: (row: BacklogItem) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as BacklogItem;
       let colorClass = 'text-neutral-600 dark:text-neutral-400';
       if (row.delay > 30) colorClass = 'text-red-500 dark:text-red-400';
       else if (row.delay > 15) colorClass = 'text-yellow-500 dark:text-yellow-400';

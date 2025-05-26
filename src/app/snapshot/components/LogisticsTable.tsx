@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { AGDataTable, AGColumnDef } from '@/design-system/DataTable';
 import Badge from '@/design-system/components/feedback/Badge';
 import TableToggle from '@/design-system/components/navigation/TableToggle';
+import { ICellRendererParams } from 'ag-grid-community';
 import { LogisticsEntry, BadgeVariant } from './types';
 
 // Helper function to generate mock logistics data
@@ -45,7 +46,8 @@ const logisticsColumns: AGColumnDef<LogisticsEntry>[] = [
     field: 'status', 
     title: 'Status', 
     width: 120,
-    cellRenderer: (row: LogisticsEntry) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as LogisticsEntry;
       let badgeVariant: BadgeVariant;
       switch(row.status) {
         case 'Delivered': badgeVariant = 'delivered'; break;
@@ -71,7 +73,8 @@ const logisticsColumns: AGColumnDef<LogisticsEntry>[] = [
     field: 'priority', 
     title: 'Priority', 
     width: 100,
-    cellRenderer: (row: LogisticsEntry) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as LogisticsEntry;
       let badgeVariant: BadgeVariant;
       switch(row.priority) {
         case 'High': badgeVariant = 'critical'; break;
@@ -86,7 +89,10 @@ const logisticsColumns: AGColumnDef<LogisticsEntry>[] = [
   { field: 'assignedDc', title: 'Assigned DC', width: 120 },
   { field: 'trackingNumber', title: 'Tracking #', width: 140 },
   { field: 'notes', title: 'Notes', width: 200 },
-  { field: 'lastUpdate', title: 'Last Update', width: 180, cellRenderer: (row: LogisticsEntry) => new Date(row.lastUpdate).toLocaleString() },
+  { field: 'lastUpdate', title: 'Last Update', width: 180, cellRenderer: (params: ICellRendererParams) => {
+    const row = params.data as LogisticsEntry;
+    return new Date(row.lastUpdate).toLocaleString();
+  }},
 ];
 
 interface LogisticsTableProps {
@@ -154,7 +160,8 @@ const LogisticsTable: React.FC<LogisticsTableProps> = ({
       field: 'priority', 
       title: 'Priority', 
       width: 100,
-      cellRenderer: (row: LogisticsEntry) => {
+      cellRenderer: (params: ICellRendererParams) => {
+        const row = params.data as LogisticsEntry;
         let badgeVariant: BadgeVariant;
         switch(row.priority) {
           case 'High': badgeVariant = 'critical'; break;
@@ -177,7 +184,10 @@ const LogisticsTable: React.FC<LogisticsTableProps> = ({
     { field: 'assignedDc', title: 'Assigned DC', width: 120 },
     { field: 'trackingNumber', title: 'Tracking #', width: 140 },
     { field: 'notes', title: 'Notes', width: 200 },
-    { field: 'lastUpdate', title: 'Last Update', width: 180, cellRenderer: (row: LogisticsEntry) => new Date(row.lastUpdate).toLocaleString() },
+    { field: 'lastUpdate', title: 'Last Update', width: 180, cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as LogisticsEntry;
+      return new Date(row.lastUpdate).toLocaleString();
+    }},
   ];
 
   // Determine which columns to use based on the table title

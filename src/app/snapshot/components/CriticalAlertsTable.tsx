@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { AGDataTable, AGColumnDef } from '@/design-system/DataTable';
 import Badge from '@/design-system/components/feedback/Badge';
 import ContactModal from './ContactModal';
+import { ICellRendererParams } from 'ag-grid-community';
 import { AlertItem, BadgeVariant } from './types';
 
 // Mock data for alerts
@@ -62,7 +63,8 @@ const CriticalAlertsTable: React.FC = () => {
       field: 'severity',
       title: 'Severity',
       width: 120,
-      cellRenderer: (row: AlertItem) => {
+      cellRenderer: (params: ICellRendererParams) => {
+        const row = params.data as AlertItem;
         let badgeVariant: BadgeVariant;
         switch(row.severity) {
           case 'critical': badgeVariant = 'critical'; break;
@@ -77,52 +79,67 @@ const CriticalAlertsTable: React.FC = () => {
       field: 'sctId',
       title: 'SCT ID',
       width: 100,
-      cellRenderer: (row: AlertItem) => (
-        <span 
-          onClick={() => navigator.clipboard.writeText(row.sctId)}
-          title="Copy SCT ID"
-        >
-          {row.sctId}
-        </span>
-      )
+      cellRenderer: (params: ICellRendererParams) => {
+        const row = params.data as AlertItem;
+        return (
+          <span 
+            onClick={() => navigator.clipboard.writeText(row.sctId)}
+            title="Copy SCT ID"
+          >
+            {row.sctId}
+          </span>
+        );
+      }
     },
     {
       field: 'message',
       title: 'Occurrence',
       width: 300,
-      cellRenderer: (row: AlertItem) => row.message
+      cellRenderer: (params: ICellRendererParams) => {
+        const row = params.data as AlertItem;
+        return row.message;
+      }
     },
     {
       field: 'location',
       title: 'Location',
       width: 140,
-      cellRenderer: (row: AlertItem) => row.location
+      cellRenderer: (params: ICellRendererParams) => {
+        const row = params.data as AlertItem;
+        return row.location;
+      }
     },
     {
       field: 'timestamp',
       title: 'Event Date',
       width: 180,
-      cellRenderer: (row: AlertItem) => row.timestamp
+      cellRenderer: (params: ICellRendererParams) => {
+        const row = params.data as AlertItem;
+        return row.timestamp;
+      }
     },
     {
       field: 'resolutionLog',
       title: 'Resolution Log',
       width: 140,
-      cellRenderer: (row: AlertItem) => (
-        <div className="flex justify-center items-center h-full">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            strokeWidth={1.5} 
-            stroke="currentColor" 
-            className="w-5 h-5 cursor-pointer hover:opacity-75"
-            onClick={() => handleOpenContactModal(row)}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-          </svg>
-        </div>
-      )
+      cellRenderer: (params: ICellRendererParams) => {
+        const row = params.data as AlertItem;
+        return (
+          <div className="flex justify-center items-center h-full">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              strokeWidth={1.5} 
+              stroke="currentColor" 
+              className="w-5 h-5 cursor-pointer hover:opacity-75"
+              onClick={() => handleOpenContactModal(row)}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+            </svg>
+          </div>
+        );
+      }
     }
   ], [handleOpenContactModal]);
 

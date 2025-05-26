@@ -3,12 +3,12 @@ import { AGDataTable, AGColumnDef } from '@/design-system/DataTable';
 import { Badge } from '@/design-system';
 import type { BadgeVariant } from '@/design-system/components/feedback/Badge';
 import { NetworkIncident, networkIncidents } from './mockData';
+import type { ICellRendererParams } from 'ag-grid-community';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 // Custom SVG icon to replace Material-UI icon
 const WarningIcon = () => (
-  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-  </svg>
+  <ExclamationTriangleIcon className="w-5 h-5" />
 );
 
 // Column definitions for network incidents
@@ -22,7 +22,8 @@ const networkIncidentColumns: AGColumnDef<NetworkIncident>[] = [
       if (row.severity === 'warning') return 'warning';
       return 'success';
     },
-    cellRenderer: (row) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as NetworkIncident;
       // Map severity to Badge variants
       const severityToVariant: Record<string, BadgeVariant> = {
         'critical': 'critical',
@@ -38,12 +39,15 @@ const networkIncidentColumns: AGColumnDef<NetworkIncident>[] = [
     field: 'message',
     title: 'Incident',
     width: 200,
-    cellRenderer: (row) => (
-      <div className="flex flex-col">
-        <span className="font-medium text-neutral-900 dark:text-neutral-50">{row.message}</span>
-        <span className="text-xs text-neutral-500 dark:text-neutral-400">{row.component}</span>
-      </div>
-    )
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as NetworkIncident;
+      return (
+        <div className="flex flex-col">
+          <span className="font-medium text-neutral-900 dark:text-neutral-50">{row.message}</span>
+          <span className="text-xs text-neutral-500 dark:text-neutral-400">{row.component}</span>
+        </div>
+      );
+    }
   },
   {
     field: 'status',
@@ -59,7 +63,8 @@ const networkIncidentColumns: AGColumnDef<NetworkIncident>[] = [
     field: 'duration',
     title: 'Duration',
     width: 100,
-    cellRenderer: (row) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as NetworkIncident;
       const durationInMinutes = Math.floor((new Date().getTime() - new Date(row.timestamp).getTime()) / (1000 * 60));
       let colorClass = 'text-neutral-600 dark:text-neutral-400';
       

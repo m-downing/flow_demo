@@ -2,26 +2,9 @@ import React from 'react';
 import { AGDataTable, AGColumnDef } from '@/design-system/DataTable';
 import { Badge } from '@/design-system';
 import type { BadgeVariant } from '@/design-system/components/feedback/Badge';
+import { ICellRendererParams } from 'ag-grid-community';
+import { ServerIcon, WifiIcon, ServerStackIcon } from '@heroicons/react/24/outline';
 import { NetworkComponent, networkComponents } from './mockData';
-
-// Custom SVG icons to replace Material-UI icons
-const RouterIcon = () => (
-  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-  </svg>
-);
-
-const WifiIcon = () => (
-  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
-  </svg>
-);
-
-const StorageIcon = () => (
-  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
-  </svg>
-);
 
 // Column definitions for network components
 const networkComponentColumns: AGColumnDef<NetworkComponent>[] = [
@@ -37,23 +20,27 @@ const networkComponentColumns: AGColumnDef<NetworkComponent>[] = [
         default: return 'success';
       }
     },
-    cellRenderer: (row) => (
-      <div className="flex flex-col">
-        <span className="font-medium text-neutral-900 dark:text-neutral-50">{row.name}</span>
-        <span className="text-xs text-neutral-500 dark:text-neutral-400">{row.location}</span>
-      </div>
-    )
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as NetworkComponent;
+      return (
+        <div className="flex flex-col">
+          <span className="font-medium text-neutral-900 dark:text-neutral-50">{row.name}</span>
+          <span className="text-xs text-neutral-500 dark:text-neutral-400">{row.location}</span>
+        </div>
+      );
+    }
   },
   {
     field: 'type',
     title: 'Type',
     width: 140,
-    cellRenderer: (row) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as NetworkComponent;
       const typeIconMap = {
-        router: <RouterIcon />,
-        switch: <WifiIcon />,
-        firewall: <WifiIcon />,
-        load_balancer: <StorageIcon />
+        router: <ServerIcon className="w-4 h-4" />,
+        switch: <WifiIcon className="w-4 h-4" />,
+        firewall: <WifiIcon className="w-4 h-4" />,
+        load_balancer: <ServerStackIcon className="w-4 h-4" />
       };
       
       return (
@@ -68,8 +55,8 @@ const networkComponentColumns: AGColumnDef<NetworkComponent>[] = [
     field: 'status',
     title: 'Status',
     width: 140,
-    cellRenderer: (row) => {
-      // Map status to Badge variants
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as NetworkComponent;
       const statusToVariant: Record<string, BadgeVariant> = {
         'operational': 'active',
         'warning': 'highPriority',
@@ -84,7 +71,8 @@ const networkComponentColumns: AGColumnDef<NetworkComponent>[] = [
     field: 'utilization',
     title: 'Utilization',
     width: 140,
-    cellRenderer: (row) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as NetworkComponent;
       const getUtilizationColor = (value: number) => {
         if (value >= 80) return 'bg-red-500 dark:bg-red-400';
         if (value >= 70) return 'bg-yellow-500 dark:bg-amber-700';

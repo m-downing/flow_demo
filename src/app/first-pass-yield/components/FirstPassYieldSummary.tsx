@@ -5,6 +5,7 @@ import { MetricCard, BarChart, LineChart } from '@/design-system/charts';
 import { DataTable, AGColumnDef } from '@/design-system/DataTable';
 import Badge from '@/design-system/components/feedback/Badge';
 import { workstationData, fpyData, throughputData, queueData, QueueChartData } from './mockData';
+import type { ICellRendererParams } from 'ag-grid-community';
 
 // Define columns for queue data table
 const queueColumns: AGColumnDef<QueueChartData>[] = [
@@ -15,7 +16,8 @@ const queueColumns: AGColumnDef<QueueChartData>[] = [
     field: 'change',
     title: 'Change',
     width: 120,
-    cellRenderer: (row) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as QueueChartData;
       const isPositive = row.change > 0;
       const colorClass = isPositive ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400';
       return (
@@ -30,7 +32,8 @@ const queueColumns: AGColumnDef<QueueChartData>[] = [
     field: 'status',
     title: 'Status',
     width: 120,
-    cellRenderer: (row) => {
+    cellRenderer: (params: ICellRendererParams) => {
+      const row = params.data as QueueChartData;
       // Map status to badge variants and labels
       const statusConfig = {
         success: { variant: 'delivered' as const, label: 'On Track' },

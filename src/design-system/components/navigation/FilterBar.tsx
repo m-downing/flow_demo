@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../../../app/contexts/ThemeContext';
 import Button from '../forms/Button';
+import { FunnelIcon } from '@heroicons/react/24/outline';
 
 interface FilterBarProps {
   timeRange: string;
@@ -138,19 +139,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
 
   // Filter icon SVG
   const FilterIcon = () => (
-    <svg 
-      className="w-4 h-4" 
-      fill="none" 
-      stroke="currentColor" 
-      viewBox="0 0 24 24"
-    >
-      <path 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        strokeWidth={2} 
-        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z" 
-      />
-    </svg>
+    <FunnelIcon className="w-4 h-4" />
   );
 
   // Custom button class to match Select components in light mode

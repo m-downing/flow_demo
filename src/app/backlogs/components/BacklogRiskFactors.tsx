@@ -1,13 +1,12 @@
 import React from 'react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 const BacklogRiskFactors: React.FC = () => {
   return (
     <div className="bg-white dark:bg-primary-800 shadow-md rounded-lg p-4">
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center">
-          <svg className="w-5 h-5 text-yellow-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-          </svg>
+          <ExclamationTriangleIcon className="w-5 h-5 text-yellow-500 mr-2" />
           <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">
             Supply Chain Risk Factors
           </h6>

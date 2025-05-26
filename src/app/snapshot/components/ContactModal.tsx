@@ -2,6 +2,7 @@ import React from 'react';
 import Modal from '@/design-system/overlays/Modal';
 import Button from '@/design-system/components/forms/Button';
 import { AlertItem } from './types';
+import { PhoneIcon, EnvelopeIcon, PaperClipIcon, PhotoIcon } from '@heroicons/react/24/outline';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -22,9 +23,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, alert }) =
         <div className="flex justify-between items-center w-full">
           <Button variant="outline" size="sm" onClick={onClose}>
             <div className="flex items-center">
-              <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
+              <PhoneIcon className="w-4 h-4 mr-2" />
               Mark Issue as Resolved
             </div>
           </Button>
@@ -45,9 +44,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, alert }) =
             }}
           >
             <h4 className="text-sm font-medium text-neutral-700 dark:text-neutral-50">Key Contacts ({alert.contacts.length})</h4>
-            <svg className="w-5 h-5 text-neutral-500 dark:text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            <EnvelopeIcon className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
           </div>
           <div id="contacts-section" className="p-3 border-t border-neutral-200 dark:border-neutral-600 hidden">
             <div className="grid grid-cols-2 gap-4">
@@ -63,17 +60,13 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, alert }) =
                         className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
                         onClick={() => window.location.href = `mailto:${contact.email}`}
                       >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
+                        <EnvelopeIcon className="w-4 h-4" />
                       </button>
                       <button 
                         className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
                         onClick={() => window.location.href = `tel:${contact.phone}`}
                       >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
+                        <PhoneIcon className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
@@ -187,14 +180,10 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, alert }) =
           </div>
           <div className="flex gap-2">
             <button className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-              </svg>
+              <PaperClipIcon className="w-5 h-5" />
             </button>
             <button className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+              <PhotoIcon className="w-5 h-5" />
             </button>
           </div>
         </div>
