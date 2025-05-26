@@ -1,0 +1,184 @@
+/*  src/app/globals.css  */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Reset margins and padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--background);
+  color: var(--foreground);
+  height: 100%;
+  width: 100%;
+}
+
+/* Global page scrollbar styling - matches table scrollbars */
+/* CSS custom properties for theme-aware scrollbars */
+:root {
+  --scrollbar-width: 6px;
+  --scrollbar-border-radius: 3px;
+  /* Light mode colors (default) */
+  --scrollbar-track: #f5f5f5; /* neutral-100 */
+  --scrollbar-thumb: #e5e5e5; /* neutral-200 */
+  --scrollbar-thumb-hover: #d4d4d4; /* neutral-300 */
+}
+
+.dark {
+  /* Dark mode colors */
+  --scrollbar-track: #030e19; /* primary-900 */
+  --scrollbar-thumb: #10273b; /* primary-700 */
+  --scrollbar-thumb-hover: #627d98; /* primary-600 */
+}
+
+/* Firefox scrollbar styling */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Webkit scrollbar styling (Chrome, Safari, Edge) */
+html::-webkit-scrollbar {
+  width: var(--scrollbar-width) !important;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--scrollbar-track) !important;
+  border-radius: var(--scrollbar-border-radius);
+}
+
+html::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb) !important;
+  border-radius: var(--scrollbar-border-radius);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover) !important;
+}
+
+html::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track) !important;
+}
+
+/* Also apply to body for consistency */
+body::-webkit-scrollbar {
+  width: var(--scrollbar-width) !important;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--scrollbar-track) !important;
+  border-radius: var(--scrollbar-border-radius);
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb) !important;
+  border-radius: var(--scrollbar-border-radius);
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover) !important;
+}
+
+body::-webkit-scrollbar-corner {
+  background: var(--scrollbar-track) !important;
+}
+
+/* Commented out old data-table scrollbar rules that may interfere with new design system */
+/*
+.data-table-scroll-container::-webkit-scrollbar {
+  width: 0px;
+  height: 8px;
+}
+
+.data-table-scroll-container::-webkit-scrollbar-thumb:horizontal {
+  background: #888;
+  border-radius: 4px;
+}
+
+.data-table-scroll-container::-webkit-scrollbar-track:horizontal {
+  background: #f1f1f1;
+}
+*/
+
+/* AG Grid scrollbar customization */
+/* Hide all vertical scrollbars */
+.ag-theme-alpine[data-mode="summary"] ::-webkit-scrollbar:vertical,
+.ag-theme-alpine[data-mode="drilldown"] ::-webkit-scrollbar:vertical,
+.ag-theme-alpine[data-mode="deepDive"] ::-webkit-scrollbar:vertical,
+.ag-body-viewport::-webkit-scrollbar:vertical,
+.ag-center-cols-viewport::-webkit-scrollbar:vertical,
+div[class*="ag-"]::-webkit-scrollbar:vertical {
+  width: 0 !important;
+  display: none !important;
+  background: transparent !important;
+}
+
+/* Allow horizontal scrollbars but style them nicely */
+.ag-body-viewport::-webkit-scrollbar:horizontal,
+.ag-body-horizontal-scroll-viewport::-webkit-scrollbar:horizontal {
+  height: 8px !important;
+  display: block !important;
+}
+
+.ag-body-viewport::-webkit-scrollbar-thumb:horizontal,
+.ag-body-horizontal-scroll-viewport::-webkit-scrollbar-thumb:horizontal {
+  background: #888;
+  border-radius: 4px;
+}
+
+/* Firefox scrollbar hiding */
+.ag-theme-alpine[data-mode="summary"] *,
+.ag-theme-alpine[data-mode="drilldown"] *,
+.ag-theme-alpine[data-mode="deepDive"] *,
+.ag-body-viewport,
+.ag-center-cols-viewport {
+  scrollbar-width: none !important;
+}
+
+/* IE and Edge scrollbar hiding */
+.ag-theme-alpine[data-mode="summary"] *,
+.ag-theme-alpine[data-mode="drilldown"] *,
+.ag-theme-alpine[data-mode="deepDive"] *,
+.ag-body-viewport,
+.ag-center-cols-viewport {
+  -ms-overflow-style: none !important;
+}
+
+/* Ensure content is still scrollable */
+.ag-body-viewport,
+.ag-center-cols-viewport {
+  overflow: auto !important;
+}
+
+/* IMPORTANT: Hide vertical scrollbars in dashboard tables */
+body .hide-vert-scrollbar .ag-body-viewport::-webkit-scrollbar:vertical,
+body .hide-vert-scrollbar .ag-center-cols-viewport::-webkit-scrollbar:vertical,
+body .no-vertical-scrollbar::-webkit-scrollbar:vertical,
+body .ag-theme-alpine[data-mode="summary"] .ag-body-viewport::-webkit-scrollbar:vertical {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Extreme specificity to ensure these rules win */
+html body .ag-theme-alpine[data-mode="summary"] .ag-body-viewport::-webkit-scrollbar:vertical {
+  width: 0 !important;
+  display: none !important;
+}
+
+/* Direct parent targeting */
+.ag-theme-alpine > div > div > .ag-body-viewport::-webkit-scrollbar:vertical {
+  width: 0 !important;
+  display: none !important;
+}
+
+/* Allow horizontal scrollbars */
+.hide-vert-scrollbar *::-webkit-scrollbar:horizontal {
+  display: block !important;
+  height: 8px !important;
+}
+
