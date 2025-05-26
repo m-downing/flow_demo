@@ -297,7 +297,6 @@ export function AGDataTable<T = Record<string, unknown>>({
         gridOptions={gridOptions}
         onGridReady={onGridReady}
         animateRows={true}
-        enableRangeSelection={true}
         suppressMovableColumns={false}
         suppressMenuHide={false}
         // Enable cell focus for better accessibility
