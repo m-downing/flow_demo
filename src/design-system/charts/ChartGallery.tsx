@@ -6,7 +6,7 @@ import { BarChart, ChartDataObject as BarChartData } from './BarChart';
 import { ScatterPlot, ScatterDataObject } from './ScatterPlot';
 import { ProgressTracker } from './ProgressTracker';
 import { chartTokens } from './tokens'; // For section styling
-import { typography } from '../foundations/tokens/typography';
+import { getTypography } from '../foundations/tokens/typography';
 import { useTheme } from '../../app/contexts/ThemeContext';
 
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
@@ -21,8 +21,8 @@ const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title
       borderRadius: '8px' 
     }}>
       <h2 style={{ 
-        fontFamily: typography.fontFamily.heading, 
-        fontSize: typography.fontSize['xl'], 
+        fontFamily: getTypography.fontFamily('heading'), 
+        fontSize: getTypography.fontSize('xl'), 
         color: isDark ? '#e5e7eb' : '#374151', 
         marginBottom: '20px' 
       }}>
@@ -42,8 +42,8 @@ const ChartVariant: React.FC<{ title: string; children: React.ReactNode }> = ({ 
   return (
     <div style={{ flex: '1 1 300px', minWidth: '300px' }}>
       <h3 style={{ 
-        fontFamily: typography.fontFamily.body, 
-        fontSize: typography.fontSize.lg, 
+        fontFamily: getTypography.fontFamily('body'), 
+        fontSize: getTypography.fontSize('lg'), 
         color: isDark ? '#e5e7eb' : '#374151', 
         marginBottom: '10px' 
       }}>
@@ -87,15 +87,15 @@ const mockScatterData: ScatterDataObject[] = [
 
 export const ChartGallery: React.FC = () => {
   return (
-    <div style={{ padding: '20px', fontFamily: typography.fontFamily.body }}>
-      <h1 style={{ 
-        fontFamily: typography.fontFamily.heading, 
-        fontSize: typography.fontSize['3xl'], 
+    <div style={{ padding: '20px', fontFamily: getTypography.fontFamily('body') }}>
+      <h2 style={{ 
+        fontFamily: getTypography.fontFamily('heading'), 
+        fontSize: getTypography.fontSize('3xl'), 
         marginBottom: '30px', 
         color: chartTokens.status.primary 
       }}>
         Chart & Metric Component Gallery
-      </h1>
+      </h2>
 
       <Section title="MetricCard">
         <ChartVariant title="Success Metric">

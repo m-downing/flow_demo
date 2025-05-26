@@ -75,8 +75,8 @@ const Badge: React.FC<BadgeProps> = ({
   
   // Size classes
   const sizeClasses = size === 'small' 
-    ? 'px-2.5 py-1.5 text-xs' 
-    : 'px-2.5 py-1.5 text-xs';
+    ? 'px-1.5 py-1.5 text-xxs' 
+    : 'px-2 py-1 text-xs';
     
   return (
     <span

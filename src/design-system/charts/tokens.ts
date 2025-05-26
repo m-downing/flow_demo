@@ -4,7 +4,7 @@
  */
 
 import { colors } from '../foundations/tokens/colors';
-import { typography } from '../foundations/tokens/typography';
+import { getTypography } from '../foundations/tokens/typography';
 import { shadows } from '../foundations/tokens/shadows';
 
 export const chartTokens = {
@@ -51,15 +51,15 @@ export const chartTokens = {
     light: {
       stroke: colors.colors.neutral[500],
       strokeWidth: 1,
-      fontFamily: typography.fontFamily.body,
-      fontSize: typography.fontSize.xs,
+      fontFamily: getTypography.fontFamily('body'),
+      fontSize: getTypography.fontSize('xs'),
       color: colors.colors.neutral[700],
     },
     dark: {
       stroke: colors.colors.neutral[400],
       strokeWidth: 1,
-      fontFamily: typography.fontFamily.body,
-      fontSize: typography.fontSize.xs,
+      fontFamily: getTypography.fontFamily('body'),
+      fontSize: getTypography.fontSize('xs'),
       color: colors.colors.neutral[300],
     }
   },
@@ -79,14 +79,14 @@ export const chartTokens = {
       color: colors.colors.neutral[50],
       padding: '8px 12px',
       borderRadius: '4px',
-      fontSize: typography.fontSize.sm,
+      fontSize: getTypography.fontSize('sm'),
     },
     dark: {
       bg: colors.colors.neutral[100],
       color: colors.colors.neutral[800],
       padding: '8px 12px',
       borderRadius: '4px',
-      fontSize: typography.fontSize.sm,
+      fontSize: getTypography.fontSize('sm'),
     }
   },
   card: {

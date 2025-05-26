@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { chartTokens, getChartColors } from './tokens';
-import { typography } from '../foundations/tokens/typography';
+import { getTypography } from '../foundations/tokens/typography';
 import { useTheme } from '../../app/contexts/ThemeContext';
 import { colors } from '../foundations/tokens/colors';
 // colors and shadows might be needed for specific styling not covered by chartTokens directly
@@ -140,10 +140,10 @@ export const PieChart: React.FC<PieChartProps> = ({
   }, []);
 
   if (loading) {
-    return <div style={{ width: width || '100%', height, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: typography.fontFamily.body, color: themeColors.axis.color }}>Loading...</div>;
+    return <div style={{ width: width || '100%', height, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: getTypography.fontFamily('body'), color: themeColors.axis.color }}>Loading...</div>;
   }
   if (!data || data.length === 0) {
-    return <div style={{ width: width || '100%', height, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: typography.fontFamily.body, color: themeColors.axis.color }}>{emptyState}</div>;
+    return <div style={{ width: width || '100%', height, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: getTypography.fontFamily('body'), color: themeColors.axis.color }}>{emptyState}</div>;
   }
 
   let chartColors: string[];
@@ -216,7 +216,7 @@ export const PieChart: React.FC<PieChartProps> = ({
                       borderRadius: themeColors.tooltip.borderRadius,
                       padding: themeColors.tooltip.padding,
                       fontSize: themeColors.tooltip.fontSize,
-                      fontFamily: typography.fontFamily.body,
+                      fontFamily: getTypography.fontFamily('body'),
                       border: 'none'
                   }}
                   labelStyle={{

@@ -5,18 +5,18 @@
 // Please ensure they export the necessary tokens with the expected structure.
 
 import { colors as designSystemColors } from '../foundations/tokens/colors';
-import { typography as designSystemTypography } from '../foundations/tokens/typography';
+import { getTypography } from '../foundations/tokens/typography';
 import { shadows as designSystemShadows } from '../foundations/tokens/shadows';
 
 export const tableTokens = {
   header: {
     bg: designSystemColors.colors.neutral[100],      // Changed to neutral[200] for light mode header background
     color: designSystemColors.colors.neutral[900],    // Using neutral[900] for header text
-    fontFamily: designSystemTypography.fontFamily.body,
-    fontSize: designSystemTypography.fontSize.sm,
-    fontWeight: designSystemTypography.fontWeight.semibold,
-    lineHeight: designSystemTypography.lineHeight.tight,
-    letterSpacing: designSystemTypography.letterSpacing.normal,
+    fontFamily: getTypography.fontFamily('body'),
+    fontSize: getTypography.fontSize('sm'),
+    fontWeight: getTypography.fontWeight('semibold'),
+    lineHeight: getTypography.lineHeight('sm'),
+    letterSpacing: getTypography.letterSpacing('normal'),
     height: '40px',
     // Light and dark mode border variants
     border: {
@@ -32,10 +32,10 @@ export const tableTokens = {
     // Footer styling to match header
     bg: designSystemColors.colors.neutral[100],      // Same as header bg for consistency
     color: designSystemColors.colors.neutral[700],    // Slightly lighter text than header
-    fontFamily: designSystemTypography.fontFamily.body,
-    fontSize: designSystemTypography.fontSize.sm,
-    fontWeight: designSystemTypography.fontWeight.normal,
-    lineHeight: designSystemTypography.lineHeight.normal,
+    fontFamily: getTypography.fontFamily('body'),
+    fontSize: getTypography.fontSize('sm'),
+    fontWeight: getTypography.fontWeight('normal'),
+    lineHeight: getTypography.lineHeight('sm'),
     // Light and dark mode border variants
     border: {
       light: `1px solid ${designSystemColors.colors.neutral[300]}`, // Light mode: neutral-300
@@ -61,10 +61,10 @@ export const tableTokens = {
       light: designSystemColors.colors.primary[50],    // Light mode hover background
       dark: designSystemColors.colors.primary[800],    // Dark mode hover background
     },
-    fontFamily: designSystemTypography.fontFamily.body,
-    fontSize: designSystemTypography.fontSize.sm,
-    fontWeight: designSystemTypography.fontWeight.normal,
-    lineHeight: designSystemTypography.lineHeight.normal,
+    fontFamily: getTypography.fontFamily('body'),
+    fontSize: getTypography.fontSize('sm'),
+    fontWeight: getTypography.fontWeight('normal'),
+    lineHeight: getTypography.lineHeight('sm'),
     color: designSystemColors.colors.neutral[800],    // Using neutral[800] for row text
     // Dark mode variants
     darkBg: designSystemColors.colors.primary[900],   // Dark mode row background

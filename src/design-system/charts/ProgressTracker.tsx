@@ -1,6 +1,6 @@
 import React, { ReactNode, useState, useEffect } from 'react';
 import { chartTokens, getChartColors } from './tokens';
-import { typography } from '../foundations/tokens/typography';
+import { getTypography } from '../foundations/tokens/typography';
 import { colors } from '../foundations/tokens/colors';
 import { useTheme } from '../../app/contexts/ThemeContext';
 
@@ -69,7 +69,7 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
   const themeColors = getChartColors(isDark);
 
   if (loading) {
-    return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: propSize || (mode === 'summary' ? 50 : 100), fontFamily: typography.fontFamily.body, color: themeColors.axis.color }}>Loading...</div>;
+    return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: propSize || (mode === 'summary' ? 50 : 100), fontFamily: getTypography.fontFamily('body'), color: themeColors.axis.color }}>Loading...</div>;
   }
 
   // Handle cases where progress isn't meaningful (optional, based on use case)
@@ -99,7 +99,7 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
         display: 'inline-flex', 
         flexDirection: 'column', 
         alignItems: 'center', 
-        fontFamily: typography.fontFamily.body,
+        fontFamily: getTypography.fontFamily('body'),
         opacity: isMounted ? 1 : 0,
         transition: 'opacity 0.15s ease-in-out' 
       }}
@@ -141,7 +141,8 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
                 textAnchor="middle"
                 fontSize={currentSize / (displayValue.length > 7 ? 5.5 : (displayValue.length > 3 ? 4.5 : 3.5))} // Adjust font size based on text length
                 fill={themeColors.axis.color}
-                fontWeight={typography.fontWeight.semibold}
+                fontWeight={getTypography.fontWeight('semibold')}
+                fontFamily={getTypography.fontFamily('body')}
               >
                 {displayValue}
               </text>
@@ -150,7 +151,7 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
           {label && mode === 'deepDive' && (
             <div style={{
               marginTop: '8px',
-              fontSize: typography.fontSize.sm,
+              fontSize: getTypography.fontSize('sm'),
               color: themeColors.axis.color,
               textAlign: 'center'
             }}>
@@ -160,7 +161,7 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
            {label && mode === 'summary' && (
             <div style={{
               marginTop: '4px',
-              fontSize: typography.fontSize.xs,
+              fontSize: getTypography.fontSize('xs'),
               color: themeColors.axis.color,
               textAlign: 'center'
             }}>

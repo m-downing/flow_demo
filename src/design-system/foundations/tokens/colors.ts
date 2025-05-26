@@ -75,15 +75,15 @@ export const colors = {
       50: '#fffbeb',
       100: '#fef3c7',
       200: '#fde68a',
-      500: '#f5ac31',
-      700: '#F59E0B',
+      500: '#f59e0b',
+      700: '#d97706',
     },
     yellow: {
       50: '#fff6d9',
       100: '#fef9c3',
       200: '#fef08a',
-      500: '#F59E0B',
-      700: '#F59E0B',
+      500: '#d6c242',
+      700: '#8b4513',
     },
     brown: {
       50: '#fbf7ee',
@@ -94,7 +94,7 @@ export const colors = {
       100: '#ffedd5',
       200: '#fed7aa',
       500: '#eb7c52',
-      700: '#bf4300',
+      700: '#bf5e2a',
     },
     magenta: {
       100: '#fef7ff',

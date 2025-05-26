@@ -240,10 +240,20 @@ export function AGDataTable<T = Record<string, unknown>>({
         col.cellRenderer ? (params: ICellRendererParams) => col.cellRenderer!(params) : undefined,
       cellStyle: () => {
         // Apply theme-appropriate cell styling with proper alignment
+        // Handle font family conversion from array to string
+        const fontFamily = Array.isArray(tableTokens.row.fontFamily) 
+          ? tableTokens.row.fontFamily.join(', ') 
+          : tableTokens.row.fontFamily;
+        
+        // Handle font size extraction from array format
+        const fontSize = Array.isArray(tableTokens.row.fontSize) 
+          ? tableTokens.row.fontSize[0] as string
+          : tableTokens.row.fontSize as string;
+        
         return {
           color: isDark ? tableTokens.row.darkColor : tableTokens.row.color,
-          fontFamily: tableTokens.row.fontFamily,
-          fontSize: tableTokens.row.fontSize,
+          fontFamily,
+          fontSize,
           fontWeight: tableTokens.row.fontWeight,
           lineHeight: tableTokens.row.lineHeight,
           display: 'flex',
