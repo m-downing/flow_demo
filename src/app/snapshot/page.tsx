@@ -85,8 +85,6 @@ const SnapshotPage: React.FC = () => {
             <div className="hide-vert-scrollbar">
               <LogisticsTable 
                 title="Warehouse Inventory & Allocation" 
-                showDeepDive={true}
-                deepDiveUrl="#" 
               />
             </div>
           </div>

@@ -15,6 +15,8 @@ interface LightDarkModeToggleProps {
   disabled?: boolean;
   /** Additional class names */
   className?: string;
+  /** Enhanced transition animation */
+  enhanced?: boolean;
 }
 
 const LightDarkModeToggle: React.FC<LightDarkModeToggleProps> = ({
@@ -22,8 +24,10 @@ const LightDarkModeToggle: React.FC<LightDarkModeToggleProps> = ({
   onChange,
   disabled = false,
   className = '',
+  enhanced = false,
 }) => {
   const [currentMode, setCurrentMode] = useState<'light' | 'dark'>('light');
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Function to get current theme from DOM and localStorage
   const getCurrentTheme = useCallback((): 'light' | 'dark' => {
@@ -55,15 +59,27 @@ const LightDarkModeToggle: React.FC<LightDarkModeToggleProps> = ({
     setCurrentMode(detectedMode);
   }, [getCurrentTheme]);
 
-  // Apply theme changes to DOM and localStorage
+  // Apply theme changes to DOM and localStorage with enhanced transitions
   const applyTheme = useCallback((newMode: 'light' | 'dark') => {
+    // Add enhanced transition temporarily if enabled
+    if (enhanced) {
+      document.documentElement.classList.add('theme-transition-enhanced');
+    }
+
     if (newMode === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
     localStorage.setItem('theme', newMode);
-  }, []);
+
+    // Remove enhanced transition class after transition
+    if (enhanced) {
+      setTimeout(() => {
+        document.documentElement.classList.remove('theme-transition-enhanced');
+      }, 450); // Slightly longer than transition duration
+    }
+  }, [enhanced]);
 
   // Update internal state when prop changes
   useEffect(() => {
@@ -81,32 +97,47 @@ const LightDarkModeToggle: React.FC<LightDarkModeToggleProps> = ({
   const handleToggle = () => {
     if (disabled) return;
     
+    setIsTransitioning(true);
     const newMode = currentMode === 'light' ? 'dark' : 'light';
     setCurrentMode(newMode);
     onChange?.(newMode);
+
+    // Reset transitioning state
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 300);
   };
+
+  const toggleClasses = [
+    'relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-900',
+    currentMode === 'light' 
+      ? 'bg-neutral-200 dark:bg-neutral-700' 
+      : 'bg-primary-600',
+    disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+    isTransitioning ? 'scale-105' : '',
+  ].filter(Boolean).join(' ');
+
+  const knobClasses = [
+    'inline-block h-4 w-4 transform rounded-full bg-white shadow-lg transition-all duration-300',
+    currentMode === 'light' ? 'translate-x-1' : 'translate-x-6',
+    isTransitioning ? 'scale-110' : '',
+  ].filter(Boolean).join(' ');
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <label className="flex items-center gap-3 cursor-pointer">
         {/* Light mode icon */}
         <SunIcon 
-          className={`h-5 w-5 transition-colors duration-200 ${
-            // Keep sun amber-500 in both light and dark modes
-            'text-amber-500'
+          className={`h-5 w-5 transition-all duration-300 ${
+            currentMode === 'light' 
+              ? 'text-amber-500 scale-110' 
+              : 'text-amber-400 scale-100'
           }`}
         />
         
         {/* Toggle switch */}
         <div 
-          className={`
-            relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-900
-            ${currentMode === 'light' 
-              ? 'bg-neutral-200 dark:bg-neutral-700' 
-              : 'bg-primary-600'
-            }
-            ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-          `}
+          className={toggleClasses}
           onClick={handleToggle}
           role="switch"
           aria-checked={currentMode === 'dark'}
@@ -120,26 +151,21 @@ const LightDarkModeToggle: React.FC<LightDarkModeToggleProps> = ({
           }}
         >
           {/* Toggle knob */}
-          <span
-            className={`
-              inline-block h-4 w-4 transform rounded-full bg-white shadow-lg transition-transform duration-200
-              ${currentMode === 'light' ? 'translate-x-1' : 'translate-x-6'}
-            `}
-          />
+          <span className={knobClasses} />
         </div>
         
         {/* Dark mode icon */}
         <MoonIcon 
-          className={`h-5 w-5 transition-colors duration-200 ${
+          className={`h-5 w-5 transition-all duration-300 ${
             currentMode === 'dark' 
-              ? 'text-neutral-100' 
-              : 'text-neutral-400 dark:text-neutral-500'
+              ? 'text-neutral-100 scale-110' 
+              : 'text-neutral-400 dark:text-neutral-500 scale-100'
           }`}
         />
       </label>
       
       {/* Mode label */}
-      <span className="text-sm text-neutral-700 dark:text-neutral-300 min-w-[3rem]">
+      <span className="text-sm text-neutral-700 dark:text-neutral-300 min-w-[3rem] transition-colors duration-300">
         {currentMode === 'light' ? 'Light' : 'Dark'}
       </span>
     </div>

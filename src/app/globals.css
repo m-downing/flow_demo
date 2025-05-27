@@ -102,3 +102,73 @@ body::-webkit-scrollbar-corner {
 }
 */
 
+/* ===== SMOOTH THEME TRANSITIONS ===== */
+
+/* Custom properties for theme transition control */
+:root {
+  --theme-transition-duration: 0.3s;
+  --theme-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+  --theme-transition-properties: background-color, color, border-color, fill, stroke, opacity, box-shadow, text-decoration-color, outline-color;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --theme-transition-duration: 0.05s;
+  }
+}
+
+/* Global theme transition for all elements */
+*,
+*::before,
+*::after {
+  transition: var(--theme-transition-properties) var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Enhanced transitions for specific elements that benefit from longer duration */
+.theme-transition-enhanced,
+.theme-transition-enhanced *,
+.theme-transition-enhanced *::before,
+.theme-transition-enhanced *::after {
+  transition-duration: calc(var(--theme-transition-duration) * 1.5) !important;
+}
+
+/* Immediate transition override for when you need instant changes */
+.theme-transition-immediate,
+.theme-transition-immediate *,
+.theme-transition-immediate *::before,
+.theme-transition-immediate *::after {
+  transition-duration: 0s !important;
+}
+
+/* Smooth transition for SVG elements specifically */
+svg,
+svg * {
+  transition: fill var(--theme-transition-duration) var(--theme-transition-timing),
+              stroke var(--theme-transition-duration) var(--theme-transition-timing),
+              opacity var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Ensure scrollbars transition smoothly too */
+::-webkit-scrollbar,
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-corner {
+  transition: background-color var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Special handling for elements that might flicker during transition */
+.theme-transition-stable {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: background-color, color, border-color;
+}
+
+/* Utility class for temporarily disabling transitions */
+.no-transitions,
+.no-transitions *,
+.no-transitions *::before,
+.no-transitions *::after {
+  transition: none !important;
+}
+

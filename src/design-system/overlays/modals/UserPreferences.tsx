@@ -17,20 +17,6 @@ const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({ isOpen, onC
   const [primaryApp, setPrimaryApp] = useState<string>('flow');
   const { theme, setTheme } = useTheme();
   const [localThemeMode, setLocalThemeMode] = useState<'light' | 'dark'>(theme);
-  const [isMounted, setIsMounted] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-    
-    // Add the transition class to the html element
-    document.documentElement.classList.add('theme-transition');
-    
-    // Remove transition class when component unmounts
-    return () => {
-      document.documentElement.classList.remove('theme-transition');
-    };
-  }, []);
 
   // Initialize with current theme when modal opens
   useEffect(() => {
@@ -44,34 +30,6 @@ const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({ isOpen, onC
       }
     }
   }, [isOpen, theme]);
-
-  // Apply theme transition CSS when theme changes
-  useEffect(() => {
-    // Add style tag with transition rules
-    if (!document.getElementById('theme-transition-style')) {
-      const style = document.createElement('style');
-      style.id = 'theme-transition-style';
-      style.innerHTML = `
-        .theme-transition,
-        .theme-transition *,
-        .theme-transition *::before,
-        .theme-transition *::after {
-          transition: background-color 0.5s ease, 
-                      color 0.5s ease, 
-                      border-color 0.5s ease, 
-                      fill 0.5s ease,
-                      stroke 0.5s ease,
-                      opacity 0.5s ease !important;
-        }
-        
-        .enhanced-transition,
-        .enhanced-transition * {
-          transition-duration: 0.5s !important;
-        }
-      `;
-      document.head.appendChild(style);
-    }
-  }, []);
 
   // Primary app options
   const appOptions: SelectOption[] = [
@@ -96,17 +54,9 @@ const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({ isOpen, onC
   };
 
   const handleThemeChange = (mode: 'light' | 'dark') => {
-    // Set transitioning state to add enhanced transition
-    setIsTransitioning(true);
-    
     // Update local and global theme
     setLocalThemeMode(mode);
     setTheme(mode);
-    
-    // Reset transitioning state after transition completes
-    setTimeout(() => {
-      setIsTransitioning(false);
-    }, 500); // Match this to the transition duration in CSS
   };
 
   const modalFooter = (
@@ -135,9 +85,8 @@ const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({ isOpen, onC
       title="User Preferences"
       size="md"
       footer={modalFooter}
-      key={`user-preferences-modal-${theme}-${isMounted}`}
     >
-      <div className={`space-y-6 ${isTransitioning ? 'enhanced-transition' : ''}`}>
+      <div className="space-y-6">
         {/* Primary App Preference */}
         <div>
           <div className="flex items-center gap-2 mb-3">
@@ -173,6 +122,7 @@ const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({ isOpen, onC
           <LightDarkModeToggle
             mode={localThemeMode}
             onChange={handleThemeChange}
+            enhanced={true}
           />
         </div>
       </div>

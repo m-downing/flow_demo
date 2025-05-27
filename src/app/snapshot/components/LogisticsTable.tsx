@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { AGDataTable, AGColumnDef } from '@/design-system/DataTable';
 import Badge from '@/design-system/components/feedback/Badge';
 import { ICellRendererParams } from 'ag-grid-community';
@@ -97,15 +97,11 @@ const logisticsColumns: AGColumnDef<LogisticsEntry>[] = [
 interface LogisticsTableProps {
   title: string;
   data?: LogisticsEntry[];
-  showDeepDive?: boolean;
-  deepDiveUrl?: string;
 }
 
 const LogisticsTable: React.FC<LogisticsTableProps> = ({ 
   title, 
-  data = logisticsData, 
-  showDeepDive = false, 
-  deepDiveUrl 
+  data = logisticsData
 }) => {
   const tableRef = useRef<HTMLDivElement>(null);
   
