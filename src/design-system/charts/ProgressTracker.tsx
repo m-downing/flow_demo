@@ -88,7 +88,7 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
   const offset = circumference - (Math.max(0, Math.min(value, max)) / max) * circumference;
 
   const progressColor = chartTokens.status[status];
-  const trackColor = isDark ? colors.colors.neutral[600] : colors.colors.neutral[200]; // Dark-aware track color
+  const trackColor = isDark ? colors.neutral[600] : colors.neutral[200]; // Dark-aware track color
 
   const defaultFormatter = (val: number, mx: number) => `${Math.round((val / mx) * 100)}%`;
   const displayValue = valueFormatter ? valueFormatter(value, max) : defaultFormatter(value, max);

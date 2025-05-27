@@ -41,14 +41,23 @@ const updateFavicon = (iconPath: string) => {
   }
 };
 
+// Separate component for demo notifications to avoid conditional hook calls
+const DemoNotificationsInitializer: React.FC = () => {
+  useDemoNotifications();
+  return null;
+};
+
 // Inner component that uses the demo hook
 const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
 
-  // Initialize demo notifications
-  useDemoNotifications();
+  // Only initialize demo notifications on client side
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // ========================================
   // BANNER CONTROLS - Change these to enable/disable banners
@@ -73,6 +82,9 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
 
   return (
     <div className="grid grid-cols-[100px_1fr] min-h-screen min-w-[768px] relative">
+      {/* Initialize demo notifications only after client-side hydration */}
+      {isClient && <DemoNotificationsInitializer />}
+      
       <div className="z-50 fixed bottom-4 right-3 flex flex-col items-center">
         <div 
           className="w-[42px] h-[42px] rounded-full bg-primary-600 dark:bg-success-500 flex items-center justify-center cursor-pointer hover:bg-primary-600/65 transition-all duration-50 relative"

@@ -77,7 +77,47 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
     return null;
   }
 
-  const defaultIcon = <InformationCircleIcon className="w-5 h-5 flex-shrink-0" style={{ color: colors.colors.primary[700] }} />;
+  const defaultIcon = <InformationCircleIcon className="w-5 h-5 flex-shrink-0" style={{ color: colors.primary[700] }} />;
+
+  const bannerStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '12px',
+    padding: '12px 16px',
+    backgroundColor: colors.teal[100],
+    borderBottom: `2px solid ${colors.teal[500]}`,
+    fontFamily: 'var(--font-body), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+    fontSize: '14px',
+    lineHeight: '1.5',
+    position: 'relative',
+    zIndex: 1000,
+  };
+
+  const titleStyle: React.CSSProperties = {
+    fontWeight: '600',
+    margin: '0 0 4px 0',
+    color: colors.primary[700]
+  };
+
+  const messageStyle: React.CSSProperties = {
+    margin: '0',
+    color: colors.primary[600]
+  };
+
+  const actionButtonStyle: React.CSSProperties = {
+    padding: '6px 12px',
+    fontSize: '13px',
+    fontWeight: '500',
+    border: '1px solid',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    color: colors.primary[700],
+  };
+
+  const closeButtonStyle: React.CSSProperties = {
+    color: colors.primary[700]
+  };
 
   return (
     <div 
@@ -87,10 +127,7 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
         ${isAnimating ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
         ${className}
       `}
-      style={{
-        backgroundColor: colors.colors.teal[100],
-        borderBottom: `2px solid ${colors.colors.teal[500]}`,
-      }}
+      style={bannerStyle}
       role="banner"
       aria-live="polite"
     >
@@ -102,14 +139,14 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
               {title && (
                 <h3 
                   className="text-sm font-semibold mb-1"
-                  style={{ color: colors.colors.primary[700] }}
+                  style={titleStyle}
                 >
                   {title}
                 </h3>
               )}
               <div 
                 className="text-sm leading-5"
-                style={{ color: colors.colors.primary[600] }}
+                style={messageStyle}
               >
                 {message}
               </div>
@@ -121,9 +158,7 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
               <button
                 onClick={action.onClick}
                 className="text-sm font-medium px-3 py-1.5 rounded-md transition-colors duration-200 hover:bg-teal-200"
-                style={{ 
-                  color: colors.colors.primary[700],
-                }}
+                style={actionButtonStyle}
               >
                 {action.label}
               </button>
@@ -132,7 +167,7 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
             <button
               onClick={handleDismiss}
               className="p-1 rounded-md transition-colors duration-200 hover:bg-teal-200"
-              style={{ color: colors.colors.primary[700] }}
+              style={closeButtonStyle}
               aria-label="Dismiss banner"
             >
               <XMarkIcon className="w-5 h-5" />

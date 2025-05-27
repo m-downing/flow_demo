@@ -1,9 +1,9 @@
 /**
  * Design system shadow tokens
- * These values match what's defined in tailwind.config.js
+ * This is the single source of truth for all shadow values in the design system.
  */
 
-export const shadows = {
+const shadows = {
   xs: '0 1px 2px rgba(0, 0, 0, 0.05)',
   sm: '0 2px 4px rgba(0, 0, 0, 0.1)',
   md: '0 4px 6px rgba(0, 0, 0, 0.1)',
@@ -11,4 +11,7 @@ export const shadows = {
   xl: '0 20px 25px rgba(0, 0, 0, 0.15)',
 };
 
-export default shadows; 
+// ES module exports for TypeScript
+export {
+  shadows,
+}; 

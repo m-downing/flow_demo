@@ -10,80 +10,80 @@ import { shadows } from '../foundations/tokens/shadows';
 export const chartTokens = {
   status: {
     // Maps to dataViz colors for semantic status indicators
-    error: colors.colors.error[500],
-    warning: colors.colors.warning[500],
-    success: colors.colors.success[500],
-    neutral: colors.colors.neutral[500],
-    primary: colors.colors.primary[600],
+    error: colors.error[500],
+    warning: colors.warning[500],
+    success: colors.success[500],
+    neutral: colors.neutral[500],
+    primary: colors.primary[600],
   },
   // Keep original series array for backward compatibility (light mode)
   series: [
     // Data visualization color palette for consistent charting
-    colors.colors.dataViz.primary,    // Main data series
-    colors.colors.dataViz.secondary,  // Comparison data series
-    colors.colors.dataViz.highlight,  // Highlighting specific metrics
-    colors.colors.dataViz.alt,        // Alternative data categories
-    colors.colors.dataViz.positive,   // Positive trends
-    colors.colors.dataViz.negative,   // Negative trends
+    colors.dataViz.primary,    // Main data series
+    colors.dataViz.secondary,  // Comparison data series
+    colors.dataViz.highlight,  // Highlighting specific metrics
+    colors.dataViz.alt,        // Alternative data categories
+    colors.dataViz.positive,   // Positive trends
+    colors.dataViz.negative,   // Negative trends
   ],
   // New theme-specific variants
   seriesVariants: {
     light: [
       // Data visualization color palette for light mode
-      colors.colors.dataViz.primary,    // Main data series - dark blue
-      colors.colors.dataViz.secondary,  // Comparison data series - blue-gray
-      colors.colors.dataViz.highlight,  // Highlighting specific metrics - orange
-      colors.colors.dataViz.alt,        // Alternative data categories - light blue-gray
-      colors.colors.dataViz.positive,   // Positive trends - green
-      colors.colors.dataViz.negative,   // Negative trends - red
+      colors.dataViz.primary,    // Main data series - dark blue
+      colors.dataViz.secondary,  // Comparison data series - blue-gray
+      colors.dataViz.highlight,  // Highlighting specific metrics - orange
+      colors.dataViz.alt,        // Alternative data categories - light blue-gray
+      colors.dataViz.positive,   // Positive trends - green
+      colors.dataViz.negative,   // Negative trends - red
     ],
     dark: [
       // Data visualization color palette for dark mode
-      colors.colors.primary[300],        // Main data series
-      colors.colors.primary[500],          // Comparison data series
-      colors.colors.teal[200],          // Highlighting specific metrics
-      colors.colors.neutral[50],         // Alternative data categories
-      colors.colors.success[500],        // Positive trends
-      colors.colors.error[500],          // Negative trends
+      colors.primary[300],        // Main data series
+      colors.primary[500],          // Comparison data series
+      colors.teal[200],          // Highlighting specific metrics
+      colors.neutral[50],         // Alternative data categories
+      colors.success[500],        // Positive trends
+      colors.error[500],          // Negative trends
     ]
   },
   axis: {
     light: {
-      stroke: colors.colors.neutral[500],
+      stroke: colors.neutral[500],
       strokeWidth: 1,
       fontFamily: getTypography.fontFamily('body'),
       fontSize: getTypography.fontSize('xs'),
-      color: colors.colors.neutral[700],
+      color: colors.neutral[700],
     },
     dark: {
-      stroke: colors.colors.neutral[400],
+      stroke: colors.neutral[400],
       strokeWidth: 1,
       fontFamily: getTypography.fontFamily('body'),
       fontSize: getTypography.fontSize('xs'),
-      color: colors.colors.neutral[300],
+      color: colors.neutral[300],
     }
   },
   grid: {
     light: {
-      stroke: colors.colors.neutral[200],
+      stroke: colors.neutral[200],
       dashArray: '3 3',
     },
     dark: {
-      stroke: colors.colors.neutral[600],
+      stroke: colors.neutral[600],
       dashArray: '3 3',
     }
   },
   tooltip: {
     light: {
-      bg: colors.colors.neutral[800],
-      color: colors.colors.neutral[50],
+      bg: colors.neutral[800],
+      color: colors.neutral[50],
       padding: '8px 12px',
       borderRadius: '4px',
       fontSize: getTypography.fontSize('sm'),
     },
     dark: {
-      bg: colors.colors.neutral[100],
-      color: colors.colors.neutral[800],
+      bg: colors.neutral[100],
+      color: colors.neutral[800],
       padding: '8px 12px',
       borderRadius: '4px',
       fontSize: getTypography.fontSize('sm'),

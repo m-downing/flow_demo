@@ -70,6 +70,19 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 export const useNotifications = (): NotificationContextType => {
   const context = useContext(NotificationContext);
   if (context === undefined) {
+    // Handle case where hook is called outside provider or during SSR
+    if (typeof window === 'undefined') {
+      // During SSR, return a minimal context to prevent errors
+      return {
+        notifications: [],
+        unreadCount: 0,
+        addNotification: () => {},
+        markAsRead: () => {},
+        markAllAsRead: () => {},
+        removeNotification: () => {},
+        clearAllNotifications: () => {},
+      };
+    }
     throw new Error('useNotifications must be used within a NotificationProvider');
   }
   return context;

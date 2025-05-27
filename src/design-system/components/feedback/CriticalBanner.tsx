@@ -57,7 +57,53 @@ const CriticalBanner: React.FC<CriticalBannerProps> = ({
     return null;
   }
 
-  const defaultIcon = <ExclamationTriangleIcon className="w-5 h-5 flex-shrink-0" style={{ color: colors.colors.error[500] }} />;
+  const defaultIcon = <ExclamationTriangleIcon className="w-5 h-5 flex-shrink-0" style={{ color: colors.error[500] }} />;
+
+  const bannerStyle: React.CSSProperties = {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: '12px',
+    padding: '12px 16px',
+    backgroundColor: colors.error[50],
+    borderBottom: `2px solid ${colors.error[500]}`,
+    fontFamily: 'var(--font-body), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
+    fontSize: '14px',
+    lineHeight: '1.5',
+    position: 'relative',
+    zIndex: 1000,
+  };
+
+  const titleStyle: React.CSSProperties = {
+    fontWeight: '600',
+    margin: '0 0 4px 0',
+    color: colors.error[500]
+  };
+
+  const messageStyle: React.CSSProperties = {
+    margin: '0',
+    color: colors.error[500]
+  };
+
+  const actionButtonStyle: React.CSSProperties = {
+    padding: '6px 12px',
+    fontSize: '13px',
+    fontWeight: '500',
+    border: '1px solid',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    color: colors.error[500],
+    borderColor: colors.error[300],
+    backgroundColor: colors.neutral[50]
+  };
+
+  const handleActionMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.style.backgroundColor = colors.error[100];
+  };
+
+  const handleActionMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.style.backgroundColor = colors.neutral[50];
+  };
 
   return (
     <div 
@@ -67,10 +113,7 @@ const CriticalBanner: React.FC<CriticalBannerProps> = ({
         ${isAnimating ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
         ${className}
       `}
-      style={{
-        backgroundColor: colors.colors.error[50],
-        borderBottom: `2px solid ${colors.colors.error[500]}`,
-      }}
+      style={bannerStyle}
       role="alert"
       aria-live="assertive"
     >
@@ -82,14 +125,14 @@ const CriticalBanner: React.FC<CriticalBannerProps> = ({
               {title && (
                 <h3 
                   className="text-sm font-bold mb-1"
-                  style={{ color: colors.colors.error[500] }}
+                  style={titleStyle}
                 >
                   {title}
                 </h3>
               )}
               <div 
                 className="text-sm leading-5 font-medium"
-                style={{ color: colors.colors.error[500] }}
+                style={messageStyle}
               >
                 {message}
               </div>
@@ -101,17 +144,9 @@ const CriticalBanner: React.FC<CriticalBannerProps> = ({
               <button
                 onClick={action.onClick}
                 className="text-sm font-bold px-4 py-2 rounded-md transition-all duration-200 border"
-                style={{ 
-                  color: colors.colors.error[500],
-                  borderColor: colors.colors.error[300],
-                  backgroundColor: colors.colors.neutral[50]
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = colors.colors.error[100];
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = colors.colors.neutral[50];
-                }}
+                style={actionButtonStyle}
+                onMouseEnter={handleActionMouseEnter}
+                onMouseLeave={handleActionMouseLeave}
               >
                 {action.label}
               </button>

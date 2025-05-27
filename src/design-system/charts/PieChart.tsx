@@ -109,7 +109,7 @@ export const PieChart: React.FC<PieChartProps> = ({
   const themeColors = getChartColors(isDark);
   
   // Dark mode specific styling
-  const pieStroke = isDark ? colors.colors.primary[700] : colors.colors.neutral[50];
+  const pieStroke = isDark ? colors.primary[700] : colors.neutral[50];
   const pieStrokeWidth = isDark ? 2 : 1;
 
   useEffect(() => {
