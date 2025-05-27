@@ -10,8 +10,8 @@ import { shadows as designSystemShadows } from '../foundations/tokens/shadows';
 
 export const tableTokens = {
   header: {
-    bg: designSystemColors.colors.neutral[100],      // Changed to neutral[200] for light mode header background
-    color: designSystemColors.colors.neutral[900],    // Using neutral[900] for header text
+    bg: designSystemColors.colors.neutral[100],      // Light mode header background
+    color: designSystemColors.colors.neutral[900],    // Light mode header text
     fontFamily: getTypography.fontFamily('body'),
     fontSize: getTypography.fontSize('sm'),
     fontWeight: getTypography.fontWeight('semibold'),
@@ -21,12 +21,12 @@ export const tableTokens = {
     // Light and dark mode border variants
     border: {
       light: `1px solid ${designSystemColors.colors.neutral[300]}`, // Light mode: neutral-300
-      dark: `1px solid ${designSystemColors.colors.primary[900]}`,  // Dark mode: primary-900
+      dark: `1px solid ${designSystemColors.colors.primary[600]}`,  // Dark mode: primary-600 to match other components
     },
-    // Dark mode variants
-    darkBg: designSystemColors.colors.primary[900],    // Dark mode: primary[600] to match pagination
-    darkColor: designSystemColors.colors.primary[100], // Dark mode: primary[100] for better contrast
-    darkBorder: `1px solid ${designSystemColors.colors.primary[700]}`, // Dark mode border
+    // Dark mode variants - using primary colors to match other components
+    darkBg: designSystemColors.colors.primary[900],    // Dark mode: primary-900 like Select/FilterBar
+    darkColor: designSystemColors.colors.primary[100], // Dark mode: primary-100 for good contrast like Select
+    darkBorder: `1px solid ${designSystemColors.colors.primary[600]}`, // Dark mode border - primary-600
   },
   footer: {
     // Footer styling to match header
@@ -42,8 +42,8 @@ export const tableTokens = {
       dark: `1px solid ${designSystemColors.colors.primary[600]}`,  // Dark mode: primary-600
     },
     // Dark mode variants to match header
-    darkBg: designSystemColors.colors.primary[700],    // Dark mode: primary[700] to match pagination
-    darkColor: designSystemColors.colors.primary[300], // Dark mode: primary[300] for text
+    darkBg: designSystemColors.colors.primary[900],    // Dark mode: primary-900
+    darkColor: designSystemColors.colors.primary[300], // Dark mode: primary-300 for footer text
     darkBorder: `1px solid ${designSystemColors.colors.primary[600]}`, // Dark mode border
   },
   // Height variants for consistent table sizing
@@ -55,24 +55,24 @@ export const tableTokens = {
     fill: '100%',          // Fill parent container
   },
   row: {
-    height: '36px',    // Placeholder: typography.ts does not have explicit sizing tokens like 'rowHeight'
+    height: '36px',    
     zebraBg: designSystemColors.colors.neutral[50],    // Using neutral[50] for zebra striping
     hoverBg: {
       light: designSystemColors.colors.primary[50],    // Light mode hover background
-      dark: designSystemColors.colors.primary[800],    // Dark mode hover background
+      dark: designSystemColors.colors.primary[800],    // Dark mode hover background - primary-800
     },
     fontFamily: getTypography.fontFamily('body'),
     fontSize: getTypography.fontSize('sm'),
     fontWeight: getTypography.fontWeight('normal'),
     lineHeight: getTypography.lineHeight('sm'),
-    color: designSystemColors.colors.neutral[800],    // Using neutral[800] for row text
-    // Dark mode variants
-    darkBg: designSystemColors.colors.primary[900],   // Dark mode row background
-    darkColor: designSystemColors.colors.primary[100], // Dark mode row text color
+    color: designSystemColors.colors.neutral[800],    // Light mode row text
+    // Dark mode variants - using primary colors to match other components
+    darkBg: designSystemColors.colors.primary[700],   // Dark mode row background - primary-700 as requested
+    darkColor: designSystemColors.colors.primary[100], // Dark mode row text color - primary-100 like Select
     // Light and dark mode border variants
     borderBottom: {
       light: `1px solid ${designSystemColors.colors.neutral[300]}`, // Light mode: neutral-300
-      dark: `1px solid ${designSystemColors.colors.primary[600]}`,  // Dark mode: primary-600
+      dark: `1px solid ${designSystemColors.colors.primary[700]}`,  // Dark mode: primary-700 for subtle borders
     },
   },
   scrollbar: {
@@ -93,9 +93,9 @@ export const tableTokens = {
     // Light and dark mode border variants
     border: {
       light: `1px solid ${designSystemColors.colors.neutral[300]}`, // Light mode: neutral-300
-      dark: `1px solid ${designSystemColors.colors.primary[900]}`,  // Dark mode: primary-900
+      dark: `1px solid ${designSystemColors.colors.primary[700]}`,  // Dark mode: primary-700
     },
-    borderRadius: '4px', // Placeholder: typography.ts does not have explicit radii tokens like 'medium' - using a common value
+    borderRadius: '4px', 
     shadow: designSystemShadows.md,                   // Using md from shadows
   },
 }; 

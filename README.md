@@ -118,16 +118,18 @@ src/design-system/
 ### Individual Component Documentation
 Detailed README files are available for each component category:
 
-- **Main Design System:** [`src/design-system/README.md`](src/design-system/README.md)
+- **Main Design System:** [`src/design-system/README.md`](src/design-system/_README_.md)
 - **Component Guides:**
-  - [`src/design-system/README/overview.md`](src/design-system/README/overview.md) - System overview
-  - [`src/design-system/README/tokens.md`](src/design-system/README/tokens.md) - Design tokens guide
-  - [`src/design-system/README/theming.md`](src/design-system/README/theming.md) - Theming and dark mode
-  - [`src/design-system/README/layout.md`](src/design-system/README/layout.md) - Layout components
-  - [`src/design-system/README/charts.md`](src/design-system/README/charts.md) - Chart components
-  - [`src/design-system/README/forms.md`](src/design-system/README/forms.md) - Form components
-  - [`src/design-system/README/feedback.md`](src/design-system/README/feedback.md) - Feedback components
-  - [`src/design-system/README/overlays.md`](src/design-system/README/overlays.md) - Overlay components
+  - [`src/design-system/_README_/_overview.md`](src/design-system/_README_/_overview.md) - System overview
+  - [`src/design-system/_README_/tokens.md`](src/design-system/_README_/tokens.md) - Design tokens guide
+  - [`src/design-system/_README_/theming.md`](src/design-system/_README_/theming.md) - Theming and dark mode
+  - [`src/design-system/_README_/layout.md`](src/design-system/_README_/layout.md) - Layout components
+  - [`src/design-system/_README_/appWrapper.md`](src/design-system/_README_/appWrapper.md) - App shell architecture
+  - [`src/design-system/_README_/charts.md`](src/design-system/_README_/charts.md) - Chart components
+  - [`src/design-system/_README_/cards.md`](src/design-system/_README_/cards.md) - Card components
+  - [`src/design-system/_README_/components.md`](src/design-system/_README_/components.md) - UI components (forms, feedback, navigation)
+  - [`src/design-system/_README_/overlays.md`](src/design-system/_README_/overlays.md) - Overlay components
+  - [`src/design-system/_README_/utilities.md`](src/design-system/_README_/utilities.md) - Utility components
 
 ## 🛠 Technology Stack
 

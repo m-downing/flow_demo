@@ -130,6 +130,11 @@ export function AGDataTable<T = Record<string, unknown>>({
 }: AGDataTableProps<T>) {
   const { theme } = useTheme();
   const gridRef = useRef<AgGridReact>(null);
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const isDark = theme === 'dark';
   
@@ -150,7 +155,7 @@ export function AGDataTable<T = Record<string, unknown>>({
         });
   }, [isDark]);
 
-  // Inject custom CSS for proper alignment
+  // Inject custom CSS for proper alignment 
   React.useEffect(() => {
     const customCSS = `
       .ag-theme-quartz .ag-header-cell-comp-wrapper {
@@ -173,17 +178,20 @@ export function AGDataTable<T = Record<string, unknown>>({
     const styleId = 'ag-grid-custom-alignment';
     let styleElement = document.getElementById(styleId) as HTMLStyleElement;
     
-    if (!styleElement) {
-      styleElement = document.createElement('style');
-      styleElement.id = styleId;
-      styleElement.textContent = customCSS;
-      document.head.appendChild(styleElement);
+    if (styleElement) {
+      styleElement.remove();
     }
+    
+    styleElement = document.createElement('style');
+    styleElement.id = styleId;
+    styleElement.textContent = customCSS;
+    document.head.appendChild(styleElement);
     
     return () => {
       // Cleanup on unmount
-      if (styleElement && styleElement.parentNode) {
-        styleElement.parentNode.removeChild(styleElement);
+      const el = document.getElementById(styleId);
+      if (el) {
+        el.remove();
       }
     };
   }, []);
@@ -338,23 +346,43 @@ export function AGDataTable<T = Record<string, unknown>>({
   const containerHeight = typeof actualHeight === 'number' ? `${actualHeight}px` : actualHeight;
   const containerWidth = typeof width === 'number' ? `${width}px` : width;
 
+  // Create CSS custom properties object with proper typing
+  const customCSSProperties: React.CSSProperties & Record<string, string> = {
+    '--ag-background-color': isDark ? '#030e19' : '#ffffff',
+    '--ag-header-background-color': isDark ? '#030e19' : '#f5f5f5',
+    '--ag-odd-row-background-color': isDark ? '#10273b' : '#ffffff',
+    '--ag-row-background-color': isDark ? '#10273b' : '#ffffff',
+    '--ag-row-hover-color': isDark ? '#091d2d' : '#f0f4f8',
+    '--ag-foreground-color': isDark ? '#d9e2ec' : '#262626',
+    '--ag-header-foreground-color': isDark ? '#d9e2ec' : '#171717',
+    '--ag-border-color': isDark ? '#17314a' : '#d4d4d4',
+    '--ag-header-column-separator-color': isDark ? '#17314a' : '#d4d4d4',
+    '--ag-row-border-color': isDark ? '#17314a' : '#d4d4d4',
+  };
+
   return (
     <div 
       style={{
         height: containerHeight,
         width: containerWidth,
+        opacity: isMounted ? 1 : 0,
+        transition: 'opacity 0.15s ease-in-out',
+        ...customCSSProperties,
       }}
+      key={`datatable-${theme}-${isMounted}`}
     >
-      <AgGridReact
-        ref={gridRef}
-        gridOptions={gridOptions}
-        onGridReady={onGridReady}
-        animateRows={true}
-        suppressMovableColumns={false}
-        suppressMenuHide={false}
-        // Enable cell focus for better accessibility
-        suppressCellFocus={false}
-      />
+      {isMounted && (
+        <AgGridReact
+          ref={gridRef}
+          gridOptions={gridOptions}
+          onGridReady={onGridReady}
+          animateRows={true}
+          suppressMovableColumns={false}
+          suppressMenuHide={false}
+          // Enable cell focus for better accessibility
+          suppressCellFocus={false}
+        />
+      )}
     </div>
   );
 }
