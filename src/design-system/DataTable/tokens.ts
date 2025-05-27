@@ -55,7 +55,7 @@ export const tableTokens = {
     fill: '100%',          // Fill parent container
   },
   row: {
-    height: '36px',    
+    height: '48px',    
     zebraBg: designSystemColors.neutral[50],    // Using neutral[50] for zebra striping
     hoverBg: {
       light: designSystemColors.primary[50],    // Light mode hover background

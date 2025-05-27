@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { AGDataTable, AGColumnDef } from '@/design-system/DataTable';
 import Badge from '@/design-system/components/feedback/Badge';
-import TableToggle from '@/design-system/components/navigation/TableToggle';
 import { ICellRendererParams } from 'ag-grid-community';
 import { LogisticsEntry, BadgeVariant } from './types';
 
@@ -108,15 +107,7 @@ const LogisticsTable: React.FC<LogisticsTableProps> = ({
   showDeepDive = false, 
   deepDiveUrl 
 }) => {
-  const [mode, setMode] = useState<'summary' | 'drilldown' | 'deepDive'>('summary');
   const tableRef = useRef<HTMLDivElement>(null);
-  
-  // Handler for opening deep dive in new tab
-  const handleOpenDeepDiveInNewTab = useCallback(() => {
-    if (deepDiveUrl) {
-      window.open(deepDiveUrl, '_blank');
-    }
-  }, [deepDiveUrl]);
   
   // Effect to hide scrollbars after render
   useEffect(() => {
@@ -197,30 +188,12 @@ const LogisticsTable: React.FC<LogisticsTableProps> = ({
     <div className="bg-neutral-50 dark:bg-primary-800 shadow-md rounded-lg p-4 relative block">
       <div className="flex justify-between items-center mb-6">
         <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">{title}</h6>
-        <div className="absolute top-3 right-3">
-          {/* For Warehouse table, add the deep dive external functionality */}
-          {title === "Warehouse Inventory & Allocation" && deepDiveUrl ? (
-            <TableToggle
-              mode={mode}
-              onChange={setMode}
-              showDeepDive={true}
-              onDeepDiveExternal={handleOpenDeepDiveInNewTab}
-              usePlaceholder={true}
-            />
-          ) : (
-            <TableToggle 
-              mode={mode} 
-              onChange={setMode} 
-              showDeepDive={showDeepDive} 
-            />
-          )}
-        </div>
       </div>
       <div className="w-full overflow-x-auto no-vertical-scrollbar" ref={tableRef}>
         <AGDataTable
           columns={tableColumns}
           data={data}
-          mode={mode}
+          mode="drilldown"
           maxSummaryColumns={10}
           maxRows={10}
           height={300}

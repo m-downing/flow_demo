@@ -158,7 +158,7 @@ const CriticalAlertsTable: React.FC = () => {
               mode="deepDive" 
               maxSummaryColumns={5}
               maxRows={5}
-              heightVariant="comfortable"
+              heightVariant="compact"
               width="100%"
             />
           </div>
