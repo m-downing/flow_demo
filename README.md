@@ -57,26 +57,6 @@ The FLOW Demo showcases a modern enterprise dashboard application with multiple 
 - **TypeScript:** Full type safety throughout
 - **Dark Mode:** System preference with manual toggle
 
-## 🎨 Design System Structure
-
-### Core Design System Location
-All design system components are located in `src/design-system/` and organized as follows:
-
-```
-src/design-system/
-├── README.md                    # Design system overview
-├── index.ts                     # Main exports
-├── foundations/                 # Design tokens and foundations
-│   └── tokens/                 # Core design tokens
-├── layout/                     # Layout components
-├── components/                 # UI components by category
-├── DataTable/                  # Enterprise data table
-├── charts/                     # Data visualization
-├── cards/                      # Card components
-├── overlays/                   # Modals, tooltips
-└── utilities/                  # Helper components
-```
-
 ### 🎯 Critical Design System Files
 
 #### **Design Tokens & Foundations**
