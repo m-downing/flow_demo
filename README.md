@@ -186,3 +186,133 @@ This is a demonstration project showcasing the FLOW Design System. For productio
 ## 📄 License
 
 This project was created by Michael Downing & the Chaos Monkey for training, testing, and demonstration purposes.
+
+## 🔧 Integrating FLOW Design System into Your Project
+
+If you want to integrate this design system into an existing project, here's what you need to move:
+
+### **Required Files**
+
+#### 1. **Core Design System**
+- **Entire `src/design-system/` directory** - Contains all components, tokens, utilities, and documentation
+
+#### 2. **Configuration Files**
+- **`tailwind.config.mjs`** - Imports design tokens and configures Tailwind CSS
+- **`postcss.config.js`** - Required for Tailwind processing
+- **`src/app/globals.css`** - Contains theme transitions, scrollbar styling, and Tailwind imports
+
+#### 3. **Layout Integration**
+- **`src/app/layout.tsx`** - Contains theme detection script and AppWrapper integration
+- **`src/app/not-found.tsx`** - Uses design system styling (recommended)
+
+#### 4. **Context Dependencies** ⚠️ **Critical**
+You'll need to create these React context files (they're referenced by the design system but not included in demo):
+- `src/app/contexts/NotificationContext.tsx` - For notification management
+- `src/app/contexts/ThemeContext.tsx` - For theme switching functionality
+
+### **Optional Demo Files**
+These are only needed if you want the demo notification system:
+- `src/app/hooks/useDemoNotifications.ts` - Demo notification hooks
+- `src/app/services/mockNotificationService.ts` - Mock notification service
+- `src/app/types/notification.ts` - Notification type definitions
+
+### **Assets**
+- `public/icons/` directory - Contains UI icons used by the design system
+
+### **Package Dependencies**
+Add these to your `package.json`:
+```json
+{
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "next": "15.3.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5"
+  }
+}
+```
+
+### **TypeScript Configuration**
+Update your `tsconfig.json` to include the path mapping:
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+### **Integration Steps**
+
+1. **Copy Required Files** - Move all files listed above to your project
+2. **Install Dependencies** - Add the required packages to your project
+3. **Create Context Files** - Implement the missing context providers
+4. **Update Configuration** - Merge the TypeScript and build configurations
+5. **Import Components** - Start using design system components in your app
+
+### **Context Implementation Examples**
+
+You'll need to implement these contexts based on your app's needs:
+
+```typescript
+// src/app/contexts/ThemeContext.tsx
+'use client';
+import { createContext, useContext } from 'react';
+
+const ThemeContext = createContext<{
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}>({
+  theme: 'light',
+  toggleTheme: () => {}
+});
+
+export const useTheme = () => useContext(ThemeContext);
+export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
+  // Your theme implementation here
+  return <ThemeContext.Provider value={...}>{children}</ThemeContext.Provider>;
+};
+```
+
+```typescript
+// src/app/contexts/NotificationContext.tsx
+'use client';
+import { createContext, useContext } from 'react';
+
+const NotificationContext = createContext<{
+  notifications: Notification[];
+  unreadCount: number;
+  markAsRead: (id: string) => void;
+  markAllAsRead: () => void;
+  clearAllNotifications: () => void;
+}>({
+  notifications: [],
+  unreadCount: 0,
+  markAsRead: () => {},
+  markAllAsRead: () => {},
+  clearAllNotifications: () => {}
+});
+
+export const useNotifications = () => useContext(NotificationContext);
+export const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
+  // Your notification implementation here
+  return <NotificationContext.Provider value={...}>{children}</NotificationContext.Provider>;
+};
+```
+
+### **Quick Start After Integration**
+
+1. Wrap your app with the design system providers
+2. Import components from `@/design-system`
+3. Use design tokens in your Tailwind classes
+4. Leverage the responsive layout components
+5. Implement dark/light mode theming
+
+For detailed component documentation, see the individual README files in `src/design-system/_README_/`.
