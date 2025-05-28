@@ -1,15 +1,15 @@
 'use client';
 
 import React from 'react';
-import { MetricCard } from './MetricCard';
-import { PieChart } from './PieChart';
-import { LineChart, ChartDataObject as LineChartData } from './LineChart';
-import { BarChart, ChartDataObject as BarChartData } from './BarChart';
-import { ScatterPlot, ScatterDataObject } from './ScatterPlot';
-import { ProgressTracker } from './ProgressTracker';
-import { chartTokens } from '../foundations/tokens'; // For section styling
-import { getTypography } from '../foundations/tokens/typography';
-import { useTheme } from '../../app/contexts/ThemeContext';
+import { MetricCard } from '../../design-system/charts/MetricCard';
+import { PieChart } from '../../design-system/charts/PieChart';
+import { LineChart, ChartDataObject as LineChartData } from '../../design-system/charts/LineChart';
+import { BarChart, ChartDataObject as BarChartData } from '../../design-system/charts/BarChart';
+import { ScatterPlot, ScatterDataObject } from '../../design-system/charts/ScatterPlot';
+import { ProgressTracker } from '../../design-system/charts/ProgressTracker';
+import { chartTokens } from '../../design-system/foundations/tokens'; // For section styling
+import { getTypography } from '../../design-system/foundations/tokens/typography';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
   const { theme } = useTheme();

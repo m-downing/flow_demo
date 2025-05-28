@@ -1,4 +1,4 @@
-import { ChartGallery } from '../../design-system/charts/ChartGallery';
+import { ChartGallery } from './ChartGalleryDemo';
 
 export default function ChartGalleryPage() {
   return <ChartGallery />;
