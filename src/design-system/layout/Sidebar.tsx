@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
-import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPieIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPieIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon } from '@heroicons/react/24/outline';
 import { UserIcon } from '@heroicons/react/24/solid';
 import NotificationBadge from '../components/feedback/NotificationBadge';
 import { Spinner } from '../components/feedback';
@@ -148,19 +148,21 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     <>
       <div className="relative" ref={sidebarRef}>
         <aside className="sticky top-0 h-screen flex flex-col bg-primary-800/90 font-heading w-full">
-          {/* Top section - App icon and switcher */}
+          {/* Fixed Top section - App icon and switcher */}
           <div className="bg-primary-800/90 w-full">
-            {/* App Home Icon */}
+            {/* App Home Icon - Fixed height container */}
             <Link href="/">
-              <div className="group h-[80px] flex flex-col items-center justify-center pt-2 cursor-pointer transition-colors duration-50 bg-primary-800/90 w-full">
+              <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-colors duration-50 bg-primary-800/90 w-full transition-all duration-200`}>
                 <div className="flex flex-col items-center gap-[5px]">
-                  <Image 
-                    src="/icons/vertical-nav/flow.svg"
-                    alt="FLOW Logo"
-                    width={26}
-                    height={26}
-                    className="group-hover:opacity-60 transition-opacity duration-50"
-                  />
+                  <div className="h-[26px] flex items-center justify-center">
+                    <Image 
+                      src="/icons/vertical-nav/flow.svg"
+                      alt="FLOW Logo"
+                      width={26}
+                      height={26}
+                      className="group-hover:opacity-60 transition-opacity duration-50"
+                    />
+                  </div>
                   {isExpanded && (
                     <h1 className="text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-colors duration-50">FLOW</h1>
                   )}
@@ -168,8 +170,8 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
               </div>
             </Link>
 
-            {/* App Switcher Icon */}
-            <div className="bg-primary-800/90 w-full flex justify-center pb-4">
+            {/* App Switcher Icon - Fixed height container */}
+            <div className="bg-primary-800/90 w-full flex justify-center pb-4 h-[44px] items-center">
               <Image 
                 src="/icons/vertical-nav/app-switcher.svg"
                 alt="App Switcher"
@@ -179,30 +181,33 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 onClick={handleAppSwitcherClick}
               />
             </div>
-
-            {/* App Switcher Submenu */}
-            {isExpanded && isAppSwitcherOpen && (
-              <div className="bg-primary-900 w-full py-4 px-4">
-                <div className="flex flex-col gap-3">
-                  <Link href="#">
-                    <span className="font-semibold text-neutral-50 text-[14px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer block">
-                      Helius
-                    </span>
-                  </Link>
-                  <Link href="#">
-                    <span className="font-semibold text-neutral-50 text-[14px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer block">
-                      Hyperion
-                    </span>
-                  </Link>
-                  <Link href="#">
-                    <span className="font-semibold text-neutral-50 text-[14px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer block">
-                      Oculus
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            )}
           </div>
+
+          {/* App Switcher Submenu - Separate from fixed header */}
+          {isExpanded && isAppSwitcherOpen && (
+            <div className="bg-primary-900 w-full py-4 px-4">
+              <div className="flex flex-col gap-5">
+                <Link href="#">
+                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <FireIcon className="w-5 h-5" />
+                    <span>Helius</span>
+                  </div>
+                </Link>
+                <Link href="#">
+                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <GlobeAltIcon className="w-5 h-5" />
+                    <span>Hyperion</span>
+                  </div>
+                </Link>
+                <Link href="#">
+                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <EyeIcon className="w-5 h-5" />
+                    <span>Oculus</span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          )}
 
           {/* Middle section - navigation tabs */}
           <div className="flex-1 flex flex-col items-center py-8 gap-8 bg-primary-800/90 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
