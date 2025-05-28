@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterBar from '@/design-system/components/navigation/FilterBar';
+import FilterBar from '@/design-system/components/controls/FilterBar';
 
 interface BacklogFiltersProps {
   filterRegion: string;

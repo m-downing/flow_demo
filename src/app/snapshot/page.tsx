@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import FilterBar from '@/design-system/components/navigation/FilterBar';
+import FilterBar from '@/design-system/components/controls/FilterBar';
 
 // Import all modular components
 import KeyMetricsSection from './components/KeyMetricsSection';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '@/design-system/overlays/Modal';
-import Button from '@/design-system/components/forms/Button';
+import Button from '@/design-system/components/primitives/Button';
 import { AlertItem } from './types';
 import { PhoneIcon, EnvelopeIcon, PaperClipIcon, PhotoIcon } from '@heroicons/react/24/outline';
 

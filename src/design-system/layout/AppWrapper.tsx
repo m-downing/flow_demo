@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { ChatBubbleOvalLeftEllipsisIcon, ExclamationTriangleIcon, SparklesIcon } from '@heroicons/react/24/outline';
 import Sidebar from './Sidebar';
-import MainLoadingSpinner from './LoadingSpinner';
+import MainLoadingSpinner from './MainLoadingScreen';
 import AIChatBox from '../utilities/AIChatBox';
 import { InfoBanner, CriticalBanner } from '../components/feedback';
 import { NotificationProvider } from '../../app/contexts/NotificationContext';
@@ -41,6 +41,27 @@ const updateFavicon = (iconPath: string) => {
   }
 };
 
+// Initialize theme on client side
+const initializeTheme = () => {
+  // Check localStorage first
+  const savedTheme = localStorage.getItem('theme');
+  
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+  } else if (savedTheme === 'light') {
+    document.documentElement.classList.remove('dark');
+  } else {
+    // No saved preference, check system preference
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+};
+
 // Separate component for demo notifications to avoid conditional hook calls
 const DemoNotificationsInitializer: React.FC = () => {
   useDemoNotifications();
@@ -58,6 +79,8 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
   // Only initialize demo notifications on client side
   useEffect(() => {
     setIsClient(true);
+    // Initialize theme when component mounts
+    initializeTheme();
   }, []);
 
   // ========================================

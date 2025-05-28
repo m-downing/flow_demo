@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '../../../app/contexts/ThemeContext';
-import Button from '../forms/Button';
+import Button from '../primitives/Button';
 import { FunnelIcon } from '@heroicons/react/24/outline';
 
 interface FilterBarProps {
