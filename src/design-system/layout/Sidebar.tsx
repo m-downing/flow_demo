@@ -228,7 +228,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           )}
 
           {/* Middle section - navigation tabs */}
-          <div className="flex-1 flex flex-col items-center py-8 gap-8 bg-primary-800/90 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-8 gap-8 bg-primary-800/90 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}>
             {appTabs['flow'].map((tab) => (
               <Tooltip
                 key={tab.name}
