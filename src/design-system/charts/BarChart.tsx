@@ -11,7 +11,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { chartTokens, getChartColors } from '../foundations/tokens';
+import { getChartColors } from '../foundations/tokens';
 import { getTypography } from '../foundations/tokens/typography';
 import { useTheme } from '../../app/contexts/ThemeContext';
 
@@ -23,9 +23,9 @@ export interface ChartDataObject {
 }
 
 /**
- * @typedef {'summary' | 'drilldown' | 'deepDive'} DetailLevel
+ * @typedef {'drilldown' | 'deepDive'} DetailLevel
  */
-type DetailLevel = 'summary' | 'drilldown' | 'deepDive';
+type DetailLevel = 'drilldown' | 'deepDive';
 
 /**
  * @typedef BarChartProps
@@ -33,7 +33,6 @@ type DetailLevel = 'summary' | 'drilldown' | 'deepDive';
  * @property {string | string[]} dataKey - Key(s) in data objects for bar(s).
  * @property {string} [xAxisKey='name'] - Key for X-axis labels.
  * @property {string} [yAxisKey] - Key for Y-axis labels (optional, Recharts infers).
- * @property {'vertical' | 'horizontal'} [layout='vertical'] - Orientation of the bars.
  * @property {number} [width]
  * @property {number} [height=300]
  * @property {DetailLevel} [mode='deepDive']
@@ -49,8 +48,6 @@ interface BarChartProps {
   data: ChartDataObject[];
   dataKey: string | string[];
   xAxisKey?: string;
-  yAxisKey?: string; // Only necessary if layout is horizontal and YAxis needs a dataKey
-  layout?: 'vertical' | 'horizontal';
   width?: number;
   height?: number;
   mode?: DetailLevel;
@@ -73,11 +70,9 @@ export const BarChart: React.FC<BarChartProps> = ({
   data,
   dataKey,
   xAxisKey = 'name',
-  yAxisKey, 
-  layout = 'vertical',
   width,
   height = 300,
-  mode = 'deepDive',
+  mode = 'drilldown',
   colors: customColors,
   showLegend: propShowLegend,
   showAxes: propShowAxes,
@@ -124,6 +119,19 @@ export const BarChart: React.FC<BarChartProps> = ({
     return <div style={{ width: width || '100%', height, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: getTypography.fontFamily('body'), color: themeColors.axis.color }}>{emptyState}</div>;
   }
 
+  const dataKeys = Array.isArray(dataKey) ? dataKey : [dataKey];
+
+  // Shared tooltip styling
+  const tooltipStyle = {
+    backgroundColor: themeColors.tooltip.bg,
+    color: themeColors.tooltip.color,
+    borderRadius: themeColors.tooltip.borderRadius,
+    padding: themeColors.tooltip.padding,
+    fontSize: themeColors.tooltip.fontSize,
+    fontFamily: getTypography.fontFamily('body'),
+    border: 'none'
+  };
+
   let chartColors: string[];
   let currentShowLegend = true;
   let currentShowAxes = true;
@@ -131,15 +139,9 @@ export const BarChart: React.FC<BarChartProps> = ({
   let gridDashArray = themeColors.grid.dashArray;
 
   switch (mode) {
-    case 'summary':
-      chartColors = Object.values(chartTokens.status);
-      currentShowLegend = false;
-      currentShowAxes = false;
-      showGrid = false;
-      break;
     case 'drilldown':
       chartColors = themeColors.series;
-      currentShowLegend = propShowLegend !== undefined ? propShowLegend : true;
+      currentShowLegend = propShowLegend !== undefined ? propShowLegend : false;
       currentShowAxes = propShowAxes !== undefined ? propShowAxes : true;
       gridDashArray = '8 8'; 
       showGrid = true;
@@ -157,90 +159,7 @@ export const BarChart: React.FC<BarChartProps> = ({
     chartColors = customColors;
   }
 
-  const dataKeys = Array.isArray(dataKey) ? dataKey : [dataKey];
-  const isHorizontal = layout === 'horizontal';
-
-  // Calculate max value for scaling
-  const maxValue = Math.max(
-    ...data.flatMap(item => 
-      dataKeys.map(key => {
-        const value = item[key];
-        return typeof value === 'number' ? value : 0;
-      })
-    )
-  );
-
-  // Shared tooltip styling
-  const tooltipStyle = {
-    backgroundColor: themeColors.tooltip.bg,
-    color: themeColors.tooltip.color,
-    borderRadius: themeColors.tooltip.borderRadius,
-    padding: themeColors.tooltip.padding,
-    fontSize: themeColors.tooltip.fontSize,
-    fontFamily: getTypography.fontFamily('body'),
-    border: 'none'
-  };
-
-  if (isHorizontal) {
-    // Horizontal bar chart with explicit configuration for Recharts
-    return (
-      <div ref={chartRef} style={{ width: width || '100%', height }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <RechartsBarChart 
-            key={`horizontal-${theme}`}
-            layout="horizontal"
-            data={data}
-            margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
-          >
-            {currentShowAxes && showGrid && (
-              <CartesianGrid 
-                strokeDasharray={gridDashArray} 
-                stroke={themeColors.grid.stroke}
-                horizontal={false} 
-                vertical={true} 
-              />
-            )}
-            <XAxis 
-              type="number" 
-              domain={[0, Math.ceil(maxValue * 1.2)]} // Add 20% for better visualization
-              tick={{ fontSize: themeColors.axis.fontSize, fill: themeColors.axis.color, fontFamily: themeColors.axis.fontFamily }}
-              tickCount={5}
-            />
-            <YAxis 
-              type="category" 
-              dataKey={yAxisKey || xAxisKey} 
-              tick={{ fontSize: themeColors.axis.fontSize, fill: themeColors.axis.color, fontFamily: themeColors.axis.fontFamily }}
-              width={100}
-            />
-            {mode !== 'summary' && (
-              <Tooltip 
-                contentStyle={tooltipStyle}
-                labelStyle={{ color: themeColors.tooltip.color, fontWeight: 'bold' }}
-                itemStyle={{ color: themeColors.tooltip.color }}
-              />
-            )}
-            {currentShowLegend && mode !== 'summary' && dataKeys.length > 1 && (
-              <Legend wrapperStyle={{ fontSize: themeColors.axis.fontSize, fontFamily: themeColors.axis.fontFamily, color: themeColors.axis.color }} />
-            )}
-            {dataKeys.map((key, index) => (
-              <Bar
-                key={key}
-                name={key}
-                dataKey={key}
-                fill={chartColors[index % chartColors.length]}
-                radius={[0, 4, 4, 0]} // Rounded right corners for horizontal bars
-                barSize={20}
-                isAnimationActive={isInView}
-                animationDuration={1000}
-              />
-            ))}
-          </RechartsBarChart>
-        </ResponsiveContainer>
-      </div>
-    );
-  }
-  
-  // Vertical bar chart (default)
+  // Vertical bar chart only
   return (
     <div ref={chartRef} style={{ width: width || '100%', height }}>
       <ResponsiveContainer width="100%" height="100%">
@@ -252,22 +171,24 @@ export const BarChart: React.FC<BarChartProps> = ({
           {currentShowAxes && showGrid && (
             <CartesianGrid strokeDasharray={gridDashArray} stroke={themeColors.grid.stroke} />
           )}
-          <XAxis 
-            dataKey={xAxisKey} 
-            tick={{ fontSize: themeColors.axis.fontSize, fill: themeColors.axis.color, fontFamily: themeColors.axis.fontFamily }}
-          />
-          <YAxis 
-            domain={[0, 'auto']}
-            tick={{ fontSize: themeColors.axis.fontSize, fill: themeColors.axis.color, fontFamily: themeColors.axis.fontFamily }}
-          />
-          {mode !== 'summary' && (
-            <Tooltip 
-              contentStyle={tooltipStyle}
-              labelStyle={{ color: themeColors.tooltip.color, fontWeight: 'bold' }}
-              itemStyle={{ color: themeColors.tooltip.color }}
+          {currentShowAxes && (
+            <XAxis 
+              dataKey={xAxisKey} 
+              tick={{ fontSize: themeColors.axis.fontSize, fill: themeColors.axis.color, fontFamily: themeColors.axis.fontFamily }}
             />
           )}
-          {currentShowLegend && mode !== 'summary' && (
+          {currentShowAxes && (
+            <YAxis 
+              domain={[0, 'auto']}
+              tick={{ fontSize: themeColors.axis.fontSize, fill: themeColors.axis.color, fontFamily: themeColors.axis.fontFamily }}
+            />
+          )}
+          <Tooltip 
+            contentStyle={tooltipStyle}
+            labelStyle={{ color: themeColors.tooltip.color, fontWeight: 'bold' }}
+            itemStyle={{ color: themeColors.tooltip.color }}
+          />
+          {currentShowLegend && dataKeys.length > 1 && (
             <Legend wrapperStyle={{ fontSize: themeColors.axis.fontSize, fontFamily: themeColors.axis.fontFamily, color: themeColors.axis.color }} />
           )}
           {dataKeys.map((key, index) => (
@@ -276,7 +197,7 @@ export const BarChart: React.FC<BarChartProps> = ({
               name={key}
               dataKey={key}
               fill={chartColors[index % chartColors.length]}
-              radius={mode === 'summary' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
+              radius={[4, 4, 0, 0]}
               animationDuration={1000}
               isAnimationActive={isInView}
             />

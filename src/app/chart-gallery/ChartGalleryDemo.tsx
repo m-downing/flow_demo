@@ -7,30 +7,14 @@ import { LineChart, ChartDataObject as LineChartData } from '../../design-system
 import { BarChart, ChartDataObject as BarChartData } from '../../design-system/charts/BarChart';
 import { ScatterPlot, ScatterDataObject } from '../../design-system/charts/ScatterPlot';
 import { ProgressTracker } from '../../design-system/charts/ProgressTracker';
-import { chartTokens } from '../../design-system/foundations/tokens'; // For section styling
-import { getTypography } from '../../design-system/foundations/tokens/typography';
-import { useTheme } from '../contexts/ThemeContext';
 
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-  
   return (
-    <div style={{ 
-      marginBottom: '40px', 
-      padding: '20px', 
-      border: `1px solid ${isDark ? chartTokens.grid.dark.stroke : chartTokens.grid.light.stroke}`, 
-      borderRadius: '8px' 
-    }}>
-      <h2 style={{ 
-        fontFamily: getTypography.fontFamily('heading'), 
-        fontSize: getTypography.fontSize('xl'), 
-        color: isDark ? '#e5e7eb' : '#374151', 
-        marginBottom: '20px' 
-      }}>
+    <div className="mb-10 p-5 border border-neutral-200 dark:border-primary-700 rounded-lg">
+      <h2 className="text-xl font-semibold text-neutral-800 dark:text-neutral-50 mb-5">
         {title}
       </h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', alignItems: 'flex-start' }}>
+      <div className="flex flex-wrap gap-5 items-start">
         {children}
       </div>
     </div>
@@ -38,17 +22,9 @@ const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title
 };
 
 const ChartVariant: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-  
   return (
-    <div style={{ flex: '1 1 300px', minWidth: '300px' }}>
-      <h3 style={{ 
-        fontFamily: getTypography.fontFamily('body'), 
-        fontSize: getTypography.fontSize('lg'), 
-        color: isDark ? '#e5e7eb' : '#374151', 
-        marginBottom: '10px' 
-      }}>
+    <div className="flex-1 min-w-[300px]">
+      <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
         {title}
       </h3>
       {children}
@@ -64,12 +40,12 @@ const mockPieData = [
 ];
 
 const mockLineData: LineChartData[] = [
-  { name: 'Jan', uv: 400, pv: 240 },
-  { name: 'Feb', uv: 300, pv: 139 },
-  { name: 'Mar', uv: 200, pv: 980 },
-  { name: 'Apr', uv: 278, pv: 390 },
-  { name: 'May', uv: 189, pv: 480 },
-  { name: 'Jun', uv: 239, pv: 380 },
+  { name: 'Jan', uv: 400, pv: 240, cv: 180, bounce: 45 },
+  { name: 'Feb', uv: 300, pv: 139, cv: 200, bounce: 52 },
+  { name: 'Mar', uv: 200, pv: 980, cv: 150, bounce: 38 },
+  { name: 'Apr', uv: 278, pv: 390, cv: 290, bounce: 42 },
+  { name: 'May', uv: 189, pv: 480, cv: 320, bounce: 48 },
+  { name: 'Jun', uv: 239, pv: 380, cv: 280, bounce: 40 },
 ];
 
 const mockBarData: BarChartData[] = [
@@ -89,15 +65,17 @@ const mockScatterData: ScatterDataObject[] = [
 
 export const ChartGallery: React.FC = () => {
   return (
-    <div style={{ padding: '20px', fontFamily: getTypography.fontFamily('body') }}>
-      <h2 style={{ 
-        fontFamily: getTypography.fontFamily('heading'), 
-        fontSize: getTypography.fontSize('3xl'), 
-        marginBottom: '30px', 
-        color: chartTokens.status.primary 
-      }}>
-        Chart & Metric Component Gallery
-      </h2>
+    <div className="pt-8 px-6 py-8 pb-16 bg-neutral-50 dark:bg-primary-900 min-h-screen max-w-[1600px] mx-auto">
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          <h4 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-50">
+            Chart & Metric Component Gallery
+          </h4>
+          <p className="text-sm text-neutral-600 dark:text-neutral-200">
+            Interactive showcase of all available chart and metric components with different modes
+          </p>
+        </div>
+      </div>
 
       <Section title="MetricCard">
         <ChartVariant title="Success Metric">
@@ -136,17 +114,17 @@ export const ChartGallery: React.FC = () => {
         <ChartVariant title="Drilldown Mode (Single Line)">
           <LineChart data={mockLineData} dataKey="pv" mode="drilldown" height={250} />
         </ChartVariant>
-        <ChartVariant title="Deep Dive Mode (Multi-Line)">
-          <LineChart data={mockLineData} dataKey={['uv', 'pv']} mode="deepDive" height={300} tooltipFormatter={(val, name) => [`Value: ${val}`, name === 'uv' ? 'Unique Visitors' : 'Page Views']} />
+        <ChartVariant title="Deep Dive Mode (Four Lines)">
+          <LineChart data={mockLineData} dataKey={['uv', 'pv', 'cv', 'bounce']} mode="deepDive" height={300} tooltipFormatter={(val, name) => {
+            const labels = { uv: 'Unique Visitors', pv: 'Page Views', cv: 'Conversions', bounce: 'Bounce Rate' };
+            return [`Value: ${val}`, labels[name as keyof typeof labels] || name];
+          }} />
         </ChartVariant>
       </Section>
 
       <Section title="BarChart">
-        <ChartVariant title="Summary Mode (Vertical)">
-          <BarChart data={mockBarData} dataKey="users" mode="summary" height={200} />
-        </ChartVariant>
-        <ChartVariant title="Drilldown Mode (Horizontal)">
-          <BarChart data={mockBarData} dataKey="sessions" mode="drilldown" layout="horizontal" height={250} />
+        <ChartVariant title="Drilldown Mode (Vertical)">
+          <BarChart data={mockBarData} dataKey="users" mode="drilldown" height={250} />
         </ChartVariant>
         <ChartVariant title="Deep Dive Mode (Grouped Vertical)">
           <BarChart data={mockBarData} dataKey={['users', 'sessions']} mode="deepDive" height={300} />
@@ -154,30 +132,47 @@ export const ChartGallery: React.FC = () => {
       </Section>
 
       <Section title="ScatterPlot">
-        <ChartVariant title="Summary Mode">
-          <ScatterPlot data={mockScatterData} mode="summary" height={250} />
+        <ChartVariant title="Drilldown Mode">
+          <ScatterPlot data={mockScatterData} mode="drilldown" height={250} />
         </ChartVariant>
-        <ChartVariant title="Drilldown Mode (Bubble)">
-          <ScatterPlot data={mockScatterData} mode="drilldown" zAxisKey="z" zAxisProps={{name: 'Size', range: [20, 200]}} height={300} />
-        </ChartVariant>
-        <ChartVariant title="Deep Dive Mode">
-          <ScatterPlot data={mockScatterData} mode="deepDive" height={300} xAxisProps={{name: 'X Value', unit:'px'}} yAxisProps={{name: 'Y Value', unit:'px'}}/>
+        <ChartVariant title="Deep Dive Mode (with Bubble Size)">
+          <ScatterPlot data={mockScatterData} mode="deepDive" zAxisKey="z" zAxisProps={{name: 'Size', range: [20, 200]}} height={300} xAxisProps={{name: 'X Value', unit:'px'}} yAxisProps={{name: 'Y Value', unit:'px'}}/>
         </ChartVariant>
       </Section>
 
       <Section title="ProgressTracker">
-        <ChartVariant title="Summary (Success)">
-          <ProgressTracker value={75} status="success" mode="summary" label="Quick View" />
-        </ChartVariant>
-        <ChartVariant title="Drilldown (Warning)">
-          <ProgressTracker value={40} status="warning" mode="drilldown" label="Medium Detail" valueFormatter={(v,m) => `${v}/${m} tasks`} />
-        </ChartVariant>
-        <ChartVariant title="Deep Dive (Primary)">
-          <ProgressTracker value={90} status="primary" mode="deepDive" label="Capacity Used" size={120} strokeWidth={12} />
-        </ChartVariant>
-         <ChartVariant title="Error State">
-          <ProgressTracker value={25} status="error" mode="deepDive" label="Errors Found" size={100} />
-        </ChartVariant>
+        <div className="flex-1 min-w-[300px] text-center">
+          <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
+            Summary (Success)
+          </h3>
+          <div className="mt-4">
+            <ProgressTracker value={75} status="success" mode="summary" label="Quick View" />
+          </div>
+        </div>
+        <div className="flex-1 min-w-[300px] text-center">
+          <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
+            Drilldown (Warning)
+          </h3>
+          <div className="mt-4">
+            <ProgressTracker value={40} status="warning" mode="drilldown" label="Sprint Progress" valueFormatter={(v,m) => `${v}/${m} tasks`} />
+          </div>
+        </div>
+        <div className="flex-1 min-w-[300px] text-center">
+          <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
+            Deep Dive (Primary)
+          </h3>
+          <div className="mt-4">
+            <ProgressTracker value={90} status="primary" mode="deepDive" label="Capacity Used" size={120} strokeWidth={12} />
+          </div>
+        </div>
+        <div className="flex-1 min-w-[300px] text-center">
+          <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
+            Error State
+          </h3>
+          <div className="mt-4">
+            <ProgressTracker value={25} status="error" mode="deepDive" label="Errors Found" size={100} />
+          </div>
+        </div>
       </Section>
 
        <Section title="Loading & Empty States">

@@ -133,7 +133,7 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
                 transition: 'stroke-dashoffset 0.3s ease-out',
               }}
             />
-            {mode !== 'summary' && !showValueAsTooltip && ( // Conditionally render text if not tooltip mode
+            {mode === 'deepDive' && !showValueAsTooltip && ( // Only deepDive mode shows text inside circle
               <text
                 x="50%"
                 y="50%"
@@ -148,6 +148,17 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
               </text>
             )}
           </svg>
+          {mode === 'drilldown' && !showValueAsTooltip && ( // Drilldown mode shows text below circle
+            <div style={{
+              marginTop: '8px',
+              fontSize: getTypography.fontSize('sm'),
+              color: themeColors.axis.color,
+              textAlign: 'center',
+              fontWeight: getTypography.fontWeight('semibold')
+            }}>
+              {displayValue}
+            </div>
+          )}
           {label && mode === 'deepDive' && (
             <div style={{
               marginTop: '8px',
@@ -159,6 +170,16 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
             </div>
           )}
            {label && mode === 'summary' && (
+            <div style={{
+              marginTop: '4px',
+              fontSize: getTypography.fontSize('xs'),
+              color: themeColors.axis.color,
+              textAlign: 'center'
+            }}>
+              {label}
+            </div>
+          )}
+           {label && mode === 'drilldown' && (
             <div style={{
               marginTop: '4px',
               fontSize: getTypography.fontSize('xs'),

@@ -10,7 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { chartTokens, getChartColors } from '../foundations/tokens';
+import { getChartColors } from '../foundations/tokens';
 import { getTypography } from '../foundations/tokens/typography';
 import { useTheme } from '../../app/contexts/ThemeContext';
 
@@ -30,9 +30,9 @@ export interface ScatterDataObject {
 }
 
 /**
- * @typedef {'summary' | 'drilldown' | 'deepDive'} DetailLevel
+ * @typedef {'drilldown' | 'deepDive'} DetailLevel
  */
-type DetailLevel = 'summary' | 'drilldown' | 'deepDive';
+type DetailLevel = 'drilldown' | 'deepDive';
 
 /**
  * @typedef ScatterPlotProps
@@ -149,12 +149,6 @@ export const ScatterPlot: React.FC<ScatterPlotProps> = ({
   let gridDashArray = themeColors.grid.dashArray;
 
   switch (mode) {
-    case 'summary':
-      chartColors = Object.values(chartTokens.status);
-      currentShowLegend = false;
-      currentShowAxes = false;
-      showGrid = false;
-      break;
     case 'drilldown':
       chartColors = themeColors.series;
       currentShowLegend = propShowLegend !== undefined ? propShowLegend : true;
@@ -217,26 +211,24 @@ export const ScatterPlot: React.FC<ScatterPlotProps> = ({
               name={zAxisProps?.name || zAxisKey}
             />
           )}
-          {mode !== 'summary' && (
-            <Tooltip
-              formatter={tooltipFormatter as ((value: unknown, name: unknown, props: unknown) => React.ReactNode) | undefined}
-              contentStyle={{
-                backgroundColor: themeColors.tooltip.bg,
-                color: themeColors.tooltip.color,
-                borderRadius: themeColors.tooltip.borderRadius,
-                padding: themeColors.tooltip.padding,
-                fontSize: themeColors.tooltip.fontSize,
-                fontFamily: getTypography.fontFamily('body'),
-                border: 'none'
-              }}
-              cursor={{ strokeDasharray: '3 3' }}
-              itemStyle={{ color: themeColors.tooltip.color }}
-              labelFormatter={(label) => nameKey && data[0][nameKey] ? `${data[0][nameKey]}` : `Point (${label})`}
-            />
-          )}
-          {currentShowLegend && mode !== 'summary' && (
+          {currentShowLegend && (
             <Legend wrapperStyle={{ fontSize: themeColors.axis.fontSize, fontFamily: themeColors.axis.fontFamily, color: themeColors.axis.color }} />
           )}
+          <Tooltip
+            formatter={tooltipFormatter as ((value: unknown, name: unknown, props: unknown) => React.ReactNode) | undefined}
+            contentStyle={{
+              backgroundColor: themeColors.tooltip.bg,
+              color: themeColors.tooltip.color,
+              borderRadius: themeColors.tooltip.borderRadius,
+              padding: themeColors.tooltip.padding,
+              fontSize: themeColors.tooltip.fontSize,
+              fontFamily: getTypography.fontFamily('body'),
+              border: 'none'
+            }}
+            cursor={{ strokeDasharray: '3 3' }}
+            itemStyle={{ color: themeColors.tooltip.color }}
+            labelFormatter={(label) => nameKey && data[0][nameKey] ? `${data[0][nameKey]}` : `Point (${label})`}
+          />
           <Scatter
             name={nameKey && data[0][nameKey] ? data[0][nameKey] as string : "Dataset"}
             data={data}
