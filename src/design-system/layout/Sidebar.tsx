@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
-import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPieIcon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPieIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline';
 import { UserIcon } from '@heroicons/react/24/solid';
 import NotificationBadge from '../components/feedback/NotificationBadge';
 import { Spinner } from '../components/feedback';
@@ -13,7 +13,12 @@ import NotificationsModal from '../overlays/modals/Notifications';
 import UserPreferencesModal from '../overlays/modals/UserPreferences';
 import { useNotifications } from '../../app/contexts/NotificationContext';
 
-export default function Sidebar() {
+interface SidebarProps {
+  isExpanded: boolean;
+  onExpandedChange: (expanded: boolean) => void;
+}
+
+export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) {
   const [activeTab, setActiveTab] = useState<string>('Snapshot');
   const [isAppSwitcherOpen, setIsAppSwitcherOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -22,7 +27,7 @@ export default function Sidebar() {
   const [loadingTab, setLoadingTab] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
-  const appSwitcherRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const { unreadCount } = useNotifications();
 
   useEffect(() => {
@@ -44,21 +49,17 @@ export default function Sidebar() {
     setLoadingTab(null);
   }, [pathname]);
 
-  // Handle click outside to close app switcher
+  // Handle click outside to close menus and collapse sidebar
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      
-      // Close user menu if clicking outside
-      if (!target.closest('[data-user-menu-button]') && 
-          !target.closest('.absolute.bottom-full') && 
-          isUserMenuOpen) {
+      // Close menus and collapse if clicking outside sidebar
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
         setIsUserMenuOpen(false);
-      }
-      
-      // Close app switcher if clicking outside
-      if (appSwitcherRef.current && !appSwitcherRef.current.contains(event.target as Node)) {
         setIsAppSwitcherOpen(false);
+        // Only collapse sidebar if menus were open
+        if (isUserMenuOpen || isAppSwitcherOpen) {
+          onExpandedChange(false);
+        }
       }
     };
 
@@ -66,7 +67,7 @@ export default function Sidebar() {
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [isUserMenuOpen]);
+  }, [onExpandedChange, isUserMenuOpen, isAppSwitcherOpen]);
 
   const handleTabClick = (tabName: string, tabPath?: string) => {
     setActiveTab(tabName);
@@ -87,19 +88,22 @@ export default function Sidebar() {
   };
 
   const handleAppSwitcherClick = () => {
+    onExpandedChange(true);
     setIsAppSwitcherOpen(!isAppSwitcherOpen);
-    // Close user menu if it's open
-    if (!isAppSwitcherOpen) {
-      setIsUserMenuOpen(false);
-    }
+    setIsUserMenuOpen(false); // Close user menu
   };
 
-  const toggleUserMenu = () => {
+  const handleUserMenuClick = () => {
+    onExpandedChange(true);
     setIsUserMenuOpen(!isUserMenuOpen);
-    // Close app switcher if it's open
-    if (!isUserMenuOpen) {
-      setIsAppSwitcherOpen(false);
-    }
+    setIsAppSwitcherOpen(false); // Close app switcher
+  };
+
+  const handleExpandClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    onExpandedChange(!isExpanded);
+    setIsUserMenuOpen(false);
+    setIsAppSwitcherOpen(false);
   };
 
   const handleNotificationsClick = () => {
@@ -113,24 +117,27 @@ export default function Sidebar() {
   };
 
   // Function to render the appropriate icon
-  const renderIcon = (iconName: string) => {
+  const renderIcon = (iconName: string, isLarge: boolean = false) => {
+    const iconClass = isLarge ? "w-7 h-7 text-neutral-50" : "w-6 h-6 text-neutral-50";
+    const imageSize = isLarge ? 28 : 24;
+    
     if (iconName === 'ChartBarSquare') {
-      return <ChartBarSquareIcon className="w-6 h-6 text-neutral-50" />;
+      return <ChartBarSquareIcon className={iconClass} />;
     } else if (iconName === 'ServerStack') {
-      return <ServerStackIcon className="w-6 h-6 text-neutral-50" />;
+      return <ServerStackIcon className={iconClass} />;
     } else if (iconName === 'Briefcase') {
-      return <BriefcaseIcon className="w-6 h-6 text-neutral-50" />;
+      return <BriefcaseIcon className={iconClass} />;
     } else if (iconName === 'Cloud') {
-      return <CloudIcon className="w-6 h-6 text-neutral-50" />;
+      return <CloudIcon className={iconClass} />;
     } else if (iconName === 'ChartPie') {
-      return <ChartPieIcon className="w-6 h-6 text-neutral-50" />;
+      return <ChartPieIcon className={iconClass} />;
     } else {
       return (
         <Image 
           src={iconName}
           alt={`icon`}
-          width={24}
-          height={24}
+          width={imageSize}
+          height={imageSize}
           className="mb-2"
         />
       );
@@ -139,65 +146,70 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="relative" ref={appSwitcherRef}>
-        <aside className="sticky top-0 h-screen flex flex-col bg-primary-800/90 w-[100px] font-heading">
-          {/* Top section - always clickable, links to home */}
-          <Link href="/">
-            <div className="group h-[120px] flex flex-col items-center justify-center pt-2 cursor-pointer transition-colors duration-50 bg-primary-800/90 w-full">
-              <div className="flex flex-col items-center gap-[5px]">
-                <Image 
-                  src="/icons/vertical-nav/flow.svg"
-                  alt="FLOW Logo"
-                  width={26}
-                  height={26}
-                  className="mb-1 group-hover:opacity-60 transition-opacity duration-50"
-                />
-                <h1 className="text-neutral-50 group-hover:text-neutral-50/[.6] text-[14px] tracking-wider font-body transition-colors duration-50">FLOW</h1>
+      <div className="relative" ref={sidebarRef}>
+        <aside className="sticky top-0 h-screen flex flex-col bg-primary-800/90 font-heading w-full">
+          {/* Top section - App icon and switcher */}
+          <div className="bg-primary-800/90 w-full">
+            {/* App Home Icon */}
+            <Link href="/">
+              <div className="group h-[80px] flex flex-col items-center justify-center pt-2 cursor-pointer transition-colors duration-50 bg-primary-800/90 w-full">
+                <div className="flex flex-col items-center gap-[5px]">
+                  <Image 
+                    src="/icons/vertical-nav/flow.svg"
+                    alt="FLOW Logo"
+                    width={26}
+                    height={26}
+                    className="group-hover:opacity-60 transition-opacity duration-50"
+                  />
+                  {isExpanded && (
+                    <h1 className="text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-colors duration-50">FLOW</h1>
+                  )}
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
 
-          {/* App Switcher Icon */}
-          <div className="bg-primary-800/90 w-full flex justify-center">
-            <Image 
-              src="/icons/vertical-nav/app-switcher.svg"
-              alt="App Switcher"
-              width={20}
-              height={20}
-              className="mt-2 mb-6 opacity-50 hover:opacity-100 transition-opacity duration-200 cursor-pointer"
-              onClick={handleAppSwitcherClick}
-            />
+            {/* App Switcher Icon */}
+            <div className="bg-primary-800/90 w-full flex justify-center pb-4">
+              <Image 
+                src="/icons/vertical-nav/app-switcher.svg"
+                alt="App Switcher"
+                width={20}
+                height={20}
+                className="opacity-50 hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+                onClick={handleAppSwitcherClick}
+              />
+            </div>
+
+            {/* App Switcher Submenu */}
+            {isExpanded && isAppSwitcherOpen && (
+              <div className="bg-primary-900 w-full py-4 px-4">
+                <div className="flex flex-col gap-3">
+                  <Link href="#">
+                    <span className="font-semibold text-neutral-50 text-[14px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer block">
+                      Helius
+                    </span>
+                  </Link>
+                  <Link href="#">
+                    <span className="font-semibold text-neutral-50 text-[14px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer block">
+                      Hyperion
+                    </span>
+                  </Link>
+                  <Link href="#">
+                    <span className="font-semibold text-neutral-50 text-[14px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer block">
+                      Oculus
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
-
-          {/* App Switcher Submenu - Expanded within sidebar */}
-          {isAppSwitcherOpen && (
-            <div className="bg-primary-900 w-full py-4 px-4">
-              <div className="flex flex-col gap-3 items-center">
-                <Link href="#">
-                  <span className="font-semibold text-neutral-50 text-[10px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    Helius
-                  </span>
-                </Link>
-                <Link href="#">
-                  <span className="font-semibold text-neutral-50 text-[10px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    Hyperion
-                  </span>
-                </Link>
-                <Link href="#">
-                  <span className="font-semibold text-neutral-50 text-[10px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    Oculus
-                  </span>
-                </Link>
-              </div>
-            </div>
-          )}
 
           {/* Middle section - navigation tabs */}
           <div className="flex-1 flex flex-col items-center py-8 gap-8 bg-primary-800/90 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {appTabs['flow'].map((tab) => (
               <div 
                 key={tab.name}
-                className={`flex flex-col items-center cursor-pointer group relative ${activeTab === tab.name ? 'opacity-100' : 'opacity-50'} hover:opacity-100 transition-opacity duration-200`}
+                className={`flex ${isExpanded ? 'flex-row w-full px-4 gap-3' : 'flex-col'} items-center cursor-pointer group relative ${activeTab === tab.name ? 'opacity-100' : 'opacity-50'} hover:opacity-100 transition-opacity duration-200`}
                 onClick={() => handleTabClick(tab.name, tab.path)}
                 role="button"
                 tabIndex={0}
@@ -210,38 +222,42 @@ export default function Sidebar() {
                   </div>
                 )}
                 
-                {/* Tab content - always rendered to maintain height, but made invisible when loading */}
-                <div className={`flex flex-col items-center ${loadingTab === tab.name ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}>
-                  <div className="mb-2">
-                    {renderIcon(tab.icon)}
+                {/* Tab content */}
+                <div className={`flex ${isExpanded ? 'flex-row gap-3' : 'flex-col'} items-center ${loadingTab === tab.name ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}>
+                  <div className={isExpanded ? '' : 'mb-2'}>
+                    {renderIcon(tab.icon, isExpanded)}
                   </div>
-                  <span className="text-neutral-50 text-[11px] tracking-wider">{tab.name}</span>
+                  {isExpanded && (
+                    <span className="text-neutral-50 tracking-wider text-[15px]">
+                      {tab.name}
+                    </span>
+                  )}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Bottom section - User menu */}
-          <div className="h-[80px] bg-primary-800/90 w-full flex flex-col items-center justify-end relative">
-            {/* User Menu Submenu - Positioned absolutely above the icon */}
-            {isUserMenuOpen && (
-              <div className="absolute bottom-full left-0 right-0 bg-primary-900 py-4 px-4">
-                <div className="flex flex-col gap-3 items-center">
+          {/* Bottom section - User menu and expand button */}
+          <div className="bg-primary-800/90 w-full">
+            {/* User Menu Submenu */}
+            {isExpanded && isUserMenuOpen && (
+              <div className="bg-primary-900 py-4 px-4">
+                <div className="flex flex-col gap-3">
                   <span 
                     onClick={handlePreferencesClick}
-                    className="font-medium text-neutral-50 text-[11px] tracking-tight hover:text-neutral-300 transition-colors duration-200 cursor-pointer"
+                    className="font-medium text-neutral-50 text-[14px] tracking-tight hover:text-neutral-300 transition-colors duration-200 cursor-pointer"
                   >
                     Preferences
                   </span>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between">
                     <span 
                       onClick={handleNotificationsClick}
-                      className="font-medium text-neutral-50 text-[11px] tracking-tight hover:text-neutral-300 transition-colors duration-200 cursor-pointer"
+                      className="font-medium text-neutral-50 text-[14px] tracking-tight hover:text-neutral-300 transition-colors duration-200 cursor-pointer"
                     >
                       Alerts
                     </span>
                     {unreadCount > 0 && (
-                      <div className="bg-error-500 text-white text-[10px] px-1 ml-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center font-bold">
+                      <div className="bg-error-500 text-white text-[10px] px-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center font-bold">
                         {unreadCount > 99 ? '99+' : unreadCount}
                       </div>
                     )}
@@ -249,21 +265,40 @@ export default function Sidebar() {
                 </div>
               </div>
             )}
-            
-            <div className="relative">
-              <div 
-                className="w-[24px] h-[24px] rounded-full bg-neutral-300 flex items-center justify-center cursor-pointer hover:bg-neutral-400 transition-all duration-50 shadow-md mb-6"
-                role="button"
-                aria-label="User menu"
-                aria-expanded={isUserMenuOpen}
-                aria-haspopup="true"
-                tabIndex={0}
-                onClick={toggleUserMenu}
-                data-user-menu-button
-              >
-                <UserIcon className="w-4 h-4 text-primary-800" />
+
+            {/* User Profile and Expand Icons */}
+            <div className={`h-[80px] w-full flex flex-col items-center justify-center relative mb-6`}>
+              {/* User Profile Icon */}
+              <div className="relative">
+                <div 
+                  className="w-[24px] h-[24px] rounded-full bg-neutral-300 flex items-center justify-center cursor-pointer hover:bg-neutral-400 transition-all duration-50 shadow-md"
+                  role="button"
+                  aria-label="User menu"
+                  aria-expanded={isUserMenuOpen}
+                  aria-haspopup="true"
+                  tabIndex={0}
+                  onClick={handleUserMenuClick}
+                  data-user-menu-button
+                >
+                  <UserIcon className="w-4 h-4 text-primary-800" />
+                </div>
+                <NotificationBadge count={unreadCount} variant="md" />
               </div>
-              <NotificationBadge count={unreadCount} variant="md" />
+
+              {/* Expand/Collapse Icon */}
+              <div 
+                className="cursor-pointer hover:opacity-60 transition-opacity duration-200 mt-5"
+                onClick={handleExpandClick}
+                role="button"
+                aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+                tabIndex={0}
+              >
+                {isExpanded ? (
+                  <ArrowLeftStartOnRectangleIcon className="w-5 h-5 text-neutral-400 transition-opacity duration-300" />
+                ) : (
+                  <ArrowRightStartOnRectangleIcon className="w-5 h-5 text-neutral-400 transition-opacity duration-300" />
+                )}
+              </div>
             </div>
           </div>
         </aside>
