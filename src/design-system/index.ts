@@ -13,5 +13,8 @@ export * from './overlays';
 // Charts
 export * from './charts';
 
+// Tabular Data
+export * from './tabularData';
+
 // Utilities
 export * from './utilities'; 

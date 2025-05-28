@@ -24,7 +24,7 @@ const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title
 const ChartVariant: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
   return (
     <div className="flex-1 min-w-[300px]">
-      <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
+      <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2 text-center">
         {title}
       </h3>
       {children}
