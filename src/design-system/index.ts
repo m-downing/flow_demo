@@ -4,9 +4,6 @@ export * from './foundations';
 // Components
 export * from './components';
 
-// DataTable (promoted to top level)
-export * from './DataTable';
-
 // Cards (promoted to top level)
 export * from './cards';
 

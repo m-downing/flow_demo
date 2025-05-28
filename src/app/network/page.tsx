@@ -3,12 +3,10 @@
 import React from 'react';
 import { 
   NetworkSummaryMetrics,
-  NetworkIncidents, 
   NetworkUtilization,
   NetworkEquipmentDistribution,
   NetworkLatencyScatter,
-  NetworkCriticalPaths,
-  NetworkComponentsTable
+  NetworkCriticalPaths
 } from './components';
 
 const NetworkPage: React.FC = () => {
@@ -35,8 +33,6 @@ const NetworkPage: React.FC = () => {
       
       <NetworkSummaryMetrics />
       
-      <NetworkIncidents />
-      
       {/* Network Utilization and Equipment Distribution */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
         <div className="md:col-span-8">
@@ -56,8 +52,6 @@ const NetworkPage: React.FC = () => {
           <NetworkCriticalPaths />
         </div>
       </div>
-      
-      <NetworkComponentsTable />
     </div>
   );
 };

@@ -53,7 +53,7 @@ The FLOW Demo showcases a modern enterprise dashboard application with multiple 
 - **Framework:** Next.js 15.3.2 with App Router
 - **Styling:** Tailwind CSS with custom design tokens
 - **UI Components:** Custom FLOW Design System
-- **Data Visualization:** Recharts + AG Grid
+- **Data Visualization:** Recharts for charts and visualizations
 - **TypeScript:** Full type safety throughout
 - **Dark Mode:** System preference with manual toggle
 
@@ -82,16 +82,15 @@ The FLOW Demo showcases a modern enterprise dashboard application with multiple 
 
 ### 🧩 Component Categories
 
-1. **DataTable** - Enterprise-grade data grids with sorting, filtering, and pagination
-2. **Charts** - Data visualization components using Recharts
-3. **Cards** - Various card layouts and containers
-4. **Components** - UI components organized by function:
+1. **Charts** - Data visualization components using Recharts
+2. **Cards** - Various card layouts and containers
+3. **Components** - UI components organized by function:
    - `feedback/` - Badges, alerts, notifications
    - `forms/` - Form inputs and controls
    - `navigation/` - Navigation components
-5. **Layout** - Structural components for app organization
-6. **Overlays** - Modals, tooltips, and popup components
-7. **Utilities** - Helper components and utilities
+4. **Layout** - Structural components for app organization
+5. **Overlays** - Modals, tooltips, and popup components
+6. **Utilities** - Helper components and utilities
 
 ## 📚 Documentation
 
@@ -120,7 +119,6 @@ Detailed README files are available for each component category:
 - **Tailwind CSS 3.4.0** - Utility-first CSS framework
 
 ### UI & Visualization
-- **AG Grid React 33.3.0** - Enterprise data grid
 - **Recharts 2.15.3** - Composable charting library
 - **Heroicons 2.2.0** - Icon library
 - **Material-UI 5.14.18** - Additional UI components

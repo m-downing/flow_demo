@@ -7,7 +7,6 @@ The FLOW Design System is a comprehensive component library organized into logic
 The design system follows a modular architecture with clear separation of concerns:
 
 ### Core Components
-- **DataTable** - Enterprise-grade data tables with advanced features
 - **Charts** - Data visualization components (Bar, Line, Pie, Scatter, Progress)
 - **Cards** - Layout card components
 
@@ -24,12 +23,11 @@ The design system follows a modular architecture with clear separation of concer
 
 ```tsx
 // Direct imports (recommended)
-import { AGDataTable } from '@/design-system/DataTable';
 import { BarChart, LineChart } from '@/design-system/charts';
 import { Button, Input } from '@/design-system/components/forms';
 
 // Main index imports
-import { AGDataTable, BarChart, Button } from '@/design-system';
+import { BarChart, Button } from '@/design-system';
 ```
 
 ## Theming

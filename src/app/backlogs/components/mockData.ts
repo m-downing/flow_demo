@@ -1,4 +1,18 @@
-import { BacklogItem } from './BacklogTable';
+// Define BacklogItem interface for mock data
+export interface BacklogItem {
+  id: number;
+  dataCenter: string;
+  rackType: string;
+  equipmentType: string;
+  region: string;
+  quantity: number;
+  requestDate: string;
+  expectedDelivery: string;
+  delay: number;
+  status: 'manufacturing' | 'orderPlaced' | 'shipping' | 'customs' | 'blocked';
+  priority: 'critical' | 'high' | 'medium' | 'low';
+  blockerReason?: string;
+}
 
 // Mock data for backlogs
 export const backlogItems: BacklogItem[] = [

@@ -59,7 +59,7 @@ const BacklogsPage: React.FC = () => {
         avgDelay={avgDelay}
       />
       
-      <BacklogTabs backlogItems={backlogItems} />
+      <BacklogTabs />
     </div>
   );
 };

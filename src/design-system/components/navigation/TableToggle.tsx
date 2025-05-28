@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { useTheme } from '../../../app/contexts/ThemeContext';
 
-// Define the DetailLevel type to match DataTable
+// Define the DetailLevel type for table views
 type DetailLevel = 'summary' | 'drilldown' | 'deepDive';
 
 export interface TableToggleProps {

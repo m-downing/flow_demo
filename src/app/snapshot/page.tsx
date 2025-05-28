@@ -6,10 +6,8 @@ import FilterBar from '@/design-system/components/navigation/FilterBar';
 import KeyMetricsSection from './components/KeyMetricsSection';
 import CapacityTrendChart from './components/CapacityTrendChart';
 import RackTypeDistribution from './components/RackTypeDistribution';
-import CriticalAlertsTable from './components/CriticalAlertsTable';
 import RegionDistributionChart from './components/RegionDistributionChart';
 import DeploymentProgressSection from './components/DeploymentProgressSection';
-import LogisticsTable from './components/LogisticsTable';
 
 const SnapshotPage: React.FC = () => {
   // Filter state
@@ -68,26 +66,10 @@ const SnapshotPage: React.FC = () => {
           <RackTypeDistribution />
         </div>
         
-        {/* Critical Alerts Section */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          <CriticalAlertsTable />
-        </div>
-        
         {/* Infrastructure Distribution by Region */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
           <RegionDistributionChart />
           <DeploymentProgressSection />
-        </div>
-        
-        {/* Logistics Tables */}
-        <div className="grid grid-cols-1 gap-4">
-          <div className="col-span-1">
-            <div className="hide-vert-scrollbar">
-              <LogisticsTable 
-                title="Warehouse Inventory & Allocation" 
-              />
-            </div>
-          </div>
         </div>
       </div>
     </div>

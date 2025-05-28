@@ -12,7 +12,6 @@ export const appTabs = {
     { name: "Backlogs", icon: "ServerStack", path: "/backlogs" },
     { name: "KPI's", icon: "Briefcase", path: "/kpi" },
     { name: "Network", icon: "Cloud", path: "/network" },
-    { name: "FPY", icon: "ChartPie", path: "/first-pass-yield" },
   ],
   helius: [dashboardTab],
   mimir: [dashboardTab],

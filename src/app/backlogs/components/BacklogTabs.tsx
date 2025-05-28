@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import BacklogTable, { BacklogItem } from './BacklogTable';
 import BacklogAnalysis from './BacklogAnalysis';
 import BacklogRiskFactors from './BacklogRiskFactors';
 
@@ -44,11 +43,7 @@ const regionalBacklogs = [
   { name: 'LATAM', backlogCount: 14, resolvedCount: 10 }
 ];
 
-interface BacklogTabsProps {
-  backlogItems: BacklogItem[];
-}
-
-const BacklogTabs: React.FC<BacklogTabsProps> = ({ backlogItems }) => {
+const BacklogTabs: React.FC = () => {
   const [tabValue, setTabValue] = useState(0);
   const [tabsReady, setTabsReady] = useState(false);
   
@@ -107,17 +102,23 @@ const BacklogTabs: React.FC<BacklogTabsProps> = ({ backlogItems }) => {
       
       {/* All Backlogs Tab */}
       <TabPanel value={tabValue} index={0}>
-        <BacklogTable data={backlogItems} />
+        <div className="p-6 text-center text-neutral-500 dark:text-neutral-400">
+          Backlog table component will be redesigned
+        </div>
       </TabPanel>
       
       {/* Critical Backlogs Tab */}
       <TabPanel value={tabValue} index={1}>
-        <BacklogTable data={backlogItems.filter(item => item.priority === 'critical')} />
+        <div className="p-6 text-center text-neutral-500 dark:text-neutral-400">
+          Critical backlog table component will be redesigned
+        </div>
       </TabPanel>
       
       {/* Blocked Orders Tab */}
       <TabPanel value={tabValue} index={2}>
-        <BacklogTable data={backlogItems.filter(item => item.status === 'blocked')} />
+        <div className="p-6 text-center text-neutral-500 dark:text-neutral-400">
+          Blocked orders table component will be redesigned
+        </div>
       </TabPanel>
       
       {/* Analysis Tab */}
