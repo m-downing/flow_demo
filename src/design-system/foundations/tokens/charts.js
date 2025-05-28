@@ -3,9 +3,9 @@
  * These tokens are specifically for styling chart components and MetricCards.
  */
 
-import { colors } from '../foundations/tokens/colors';
-import { getTypography } from '../foundations/tokens/typography';
-import { shadows } from '../foundations/tokens/shadows';
+import { colors } from './colors.js';
+import { getTypography } from './typography.js';
+import { shadows } from './shadows.js';
 
 export const chartTokens = {
   status: {
@@ -99,13 +99,11 @@ export const chartTokens = {
 };
 
 // Utility function to get theme-appropriate colors
-export const getChartColors = (isDark: boolean = false) => ({
+export const getChartColors = (isDark = false) => ({
   series: isDark ? chartTokens.seriesVariants.dark : chartTokens.seriesVariants.light,
   axis: isDark ? chartTokens.axis.dark : chartTokens.axis.light,
   grid: isDark ? chartTokens.grid.dark : chartTokens.grid.light,
   tooltip: isDark ? chartTokens.tooltip.dark : chartTokens.tooltip.light,
   status: chartTokens.status,
   card: chartTokens.card,
-});
-
-export default chartTokens; 
+}); 

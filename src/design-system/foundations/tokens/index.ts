@@ -3,4 +3,5 @@ export { colors, badgeColors } from './colors.js';
 export { typography, getTypography } from './typography.js';
 export { shadows } from './shadows.js';
 export { borderRadius } from './borderRadius.js';
-export { spacing } from './spacing.js'; 
+export { spacing } from './spacing.js';
+export { chartTokens, getChartColors } from './charts.js'; 

@@ -5,7 +5,7 @@ import { LineChart, ChartDataObject as LineChartData } from './LineChart';
 import { BarChart, ChartDataObject as BarChartData } from './BarChart';
 import { ScatterPlot, ScatterDataObject } from './ScatterPlot';
 import { ProgressTracker } from './ProgressTracker';
-import { chartTokens } from './tokens'; // For section styling
+import { chartTokens } from '../foundations/tokens'; // For section styling
 import { getTypography } from '../foundations/tokens/typography';
 import { useTheme } from '../../app/contexts/ThemeContext';
 

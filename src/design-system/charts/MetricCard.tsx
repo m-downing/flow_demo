@@ -2,7 +2,7 @@
 
 // src/app/components-design-system/charts/MetricCard.tsx
 import React from 'react';
-import { chartTokens } from './tokens';
+import { chartTokens } from '../foundations/tokens';
 
 /**
  * @typedef MetricCardProps

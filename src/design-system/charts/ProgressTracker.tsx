@@ -1,5 +1,5 @@
 import React, { ReactNode, useState, useEffect } from 'react';
-import { chartTokens, getChartColors } from './tokens';
+import { chartTokens, getChartColors } from '../foundations/tokens';
 import { getTypography } from '../foundations/tokens/typography';
 import { colors } from '../foundations/tokens/colors';
 import { useTheme } from '../../app/contexts/ThemeContext';

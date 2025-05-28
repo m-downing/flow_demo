@@ -10,7 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { chartTokens, getChartColors } from './tokens';
+import { chartTokens, getChartColors } from '../foundations/tokens';
 import { getTypography } from '../foundations/tokens/typography';
 import { useTheme } from '../../app/contexts/ThemeContext';
 
