@@ -207,31 +207,29 @@ export const PieChart: React.FC<PieChartProps> = ({
           {currentShowLegend && mode !== 'summary' && (
             <Legend wrapperStyle={{ fontSize: themeColors.axis.fontSize, fontFamily: themeColors.axis.fontFamily, color: themeColors.axis.color }} />
           )}
-          {mode !== 'summary' && (
-              <Tooltip
-                  formatter={tooltipFormatter as ((value: unknown, name: unknown, props: unknown) => React.ReactNode) | undefined}
-                  contentStyle={{
-                      backgroundColor: themeColors.tooltip.bg,
-                      color: themeColors.tooltip.color,
-                      borderRadius: themeColors.tooltip.borderRadius,
-                      padding: themeColors.tooltip.padding,
-                      fontSize: themeColors.tooltip.fontSize,
-                      fontFamily: getTypography.fontFamily('body'),
-                      border: 'none'
-                  }}
-                  labelStyle={{
-                      color: themeColors.tooltip.color,
-                      fontWeight: 'bold'
-                  }}
-                  itemStyle={{
-                      color: themeColors.tooltip.color
-                  }}
-                  wrapperStyle={{
-                      color: themeColors.tooltip.color
-                  }}
-                  cursor={{ fill: 'transparent' }}
-              />
-          )}
+          <Tooltip
+              formatter={tooltipFormatter as ((value: unknown, name: unknown, props: unknown) => React.ReactNode) | undefined}
+              contentStyle={{
+                  backgroundColor: themeColors.tooltip.bg,
+                  color: themeColors.tooltip.color,
+                  borderRadius: themeColors.tooltip.borderRadius,
+                  padding: themeColors.tooltip.padding,
+                  fontSize: themeColors.tooltip.fontSize,
+                  fontFamily: getTypography.fontFamily('body'),
+                  border: 'none'
+              }}
+              labelStyle={{
+                  color: themeColors.tooltip.color,
+                  fontWeight: 'bold'
+              }}
+              itemStyle={{
+                  color: themeColors.tooltip.color
+              }}
+              wrapperStyle={{
+                  color: themeColors.tooltip.color
+              }}
+              cursor={{ fill: 'transparent' }}
+          />
         </RechartsPieChart>
       </ResponsiveContainer>
     </div>
