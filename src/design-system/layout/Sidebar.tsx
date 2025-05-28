@@ -9,6 +9,7 @@ import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPie
 import { UserIcon } from '@heroicons/react/24/solid';
 import NotificationBadge from '../components/feedback/NotificationBadge';
 import { Spinner } from '../components/feedback';
+import Tooltip from '../components/feedback/Tooltip';
 import NotificationsModal from '../overlays/modals/Notifications';
 import UserPreferencesModal from '../overlays/modals/UserPreferences';
 import { useNotifications } from '../../app/contexts/NotificationContext';
@@ -154,34 +155,49 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           <div className="bg-primary-800/90 w-full">
             {/* App Home Icon - Fixed height container */}
             <Link href="/">
-              <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-colors duration-50 bg-primary-800/90 w-full transition-all duration-200`}>
-                <div className="flex flex-col items-center gap-[5px]">
-                  <div className="h-[26px] flex items-center justify-center">
-                    <Image 
-                      src="/icons/vertical-nav/flow.svg"
-                      alt="FLOW Logo"
-                      width={26}
-                      height={26}
-                      className="group-hover:opacity-60 transition-opacity duration-50"
-                    />
+              <Tooltip 
+                content="Flow UI" 
+                position="right" 
+                disabled={isExpanded}
+                delay={200}
+                className="block w-full"
+              >
+                <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-colors duration-50 bg-primary-800/90 w-full transition-all duration-200`}>
+                  <div className="flex flex-col items-center gap-[5px]">
+                    <div className="h-[26px] flex items-center justify-center">
+                      <Image 
+                        src="/icons/vertical-nav/flow.svg"
+                        alt="FLOW Logo"
+                        width={26}
+                        height={26}
+                        className="group-hover:opacity-60 transition-opacity duration-50"
+                      />
+                    </div>
+                    {isExpanded && (
+                      <h1 className="text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-colors duration-50">FLOW</h1>
+                    )}
                   </div>
-                  {isExpanded && (
-                    <h1 className="text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-colors duration-50">FLOW</h1>
-                  )}
                 </div>
-              </div>
+              </Tooltip>
             </Link>
 
             {/* App Switcher Icon - Fixed height container */}
             <div className="bg-primary-800/90 w-full flex justify-center pb-4 h-[44px] items-center">
-              <Image 
-                src="/icons/vertical-nav/app-switcher.svg"
-                alt="App Switcher"
-                width={20}
-                height={20}
-                className="opacity-50 hover:opacity-100 transition-opacity duration-200 cursor-pointer"
-                onClick={handleAppSwitcherClick}
-              />
+              <Tooltip 
+                content="Switch Apps" 
+                position="right" 
+                disabled={isExpanded}
+                delay={200}
+              >
+                <Image 
+                  src="/icons/vertical-nav/app-switcher.svg"
+                  alt="App Switcher"
+                  width={20}
+                  height={20}
+                  className="opacity-50 hover:opacity-100 transition-opacity duration-200 cursor-pointer"
+                  onClick={handleAppSwitcherClick}
+                />
+              </Tooltip>
             </div>
           </div>
 
@@ -214,33 +230,40 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           {/* Middle section - navigation tabs */}
           <div className="flex-1 flex flex-col items-center py-8 gap-8 bg-primary-800/90 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {appTabs['flow'].map((tab) => (
-              <div 
+              <Tooltip
                 key={tab.name}
-                className={`flex ${isExpanded ? 'flex-row w-full px-4 gap-3' : 'flex-col'} items-center cursor-pointer group relative ${activeTab === tab.name ? 'opacity-100' : 'opacity-50'} hover:opacity-100 transition-opacity duration-200`}
-                onClick={() => handleTabClick(tab.name, tab.path)}
-                role="button"
-                tabIndex={0}
-                aria-label={`Go to ${tab.name}`}
+                content={tab.name}
+                position="right"
+                disabled={isExpanded}
+                delay={200}
               >
-                {/* Loading spinner overlay */}
-                {loadingTab === tab.name && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-primary-800/80 rounded-lg z-10">
-                    <Spinner variant="light" size="md" aria-label={`Loading ${tab.name}`} />
-                  </div>
-                )}
-                
-                {/* Tab content */}
-                <div className={`flex ${isExpanded ? 'flex-row gap-3' : 'flex-col'} items-center ${loadingTab === tab.name ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}>
-                  <div className={isExpanded ? '' : 'mb-2'}>
-                    {renderIcon(tab.icon, isExpanded)}
-                  </div>
-                  {isExpanded && (
-                    <span className="text-neutral-50 tracking-wider text-[15px]">
-                      {tab.name}
-                    </span>
+                <div 
+                  className={`flex ${isExpanded ? 'flex-row w-full px-4 gap-3' : 'flex-col'} items-center cursor-pointer group relative ${activeTab === tab.name ? 'opacity-100' : 'opacity-50'} hover:opacity-100 transition-opacity duration-200`}
+                  onClick={() => handleTabClick(tab.name, tab.path)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Go to ${tab.name}`}
+                >
+                  {/* Loading spinner overlay */}
+                  {loadingTab === tab.name && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-primary-800/80 rounded-lg z-10">
+                      <Spinner variant="light" size="md" aria-label={`Loading ${tab.name}`} />
+                    </div>
                   )}
+                  
+                  {/* Tab content */}
+                  <div className={`flex ${isExpanded ? 'flex-row gap-3' : 'flex-col'} items-center ${loadingTab === tab.name ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}>
+                    <div className={isExpanded ? '' : 'mb-2'}>
+                      {renderIcon(tab.icon, isExpanded)}
+                    </div>
+                    {isExpanded && (
+                      <span className="text-neutral-50 tracking-wider text-[15px]">
+                        {tab.name}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Tooltip>
             ))}
           </div>
 
@@ -277,35 +300,49 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
             <div className={`h-[80px] w-full flex flex-col items-center justify-center relative mb-6`}>
               {/* User Profile Icon */}
               <div className="relative">
-                <div 
-                  className="w-[24px] h-[24px] rounded-full bg-neutral-300 flex items-center justify-center cursor-pointer hover:bg-neutral-400 transition-all duration-50 shadow-md"
-                  role="button"
-                  aria-label="User menu"
-                  aria-expanded={isUserMenuOpen}
-                  aria-haspopup="true"
-                  tabIndex={0}
-                  onClick={handleUserMenuClick}
-                  data-user-menu-button
+                <Tooltip
+                  content="User Settings"
+                  position="right"
+                  disabled={isExpanded}
+                  delay={200}
                 >
-                  <UserIcon className="w-4 h-4 text-primary-800" />
-                </div>
+                  <div 
+                    className="w-[24px] h-[24px] rounded-full bg-neutral-300 flex items-center justify-center cursor-pointer hover:bg-neutral-400 transition-all duration-50 shadow-md"
+                    role="button"
+                    aria-label="User menu"
+                    aria-expanded={isUserMenuOpen}
+                    aria-haspopup="true"
+                    tabIndex={0}
+                    onClick={handleUserMenuClick}
+                    data-user-menu-button
+                  >
+                    <UserIcon className="w-4 h-4 text-primary-800" />
+                  </div>
+                </Tooltip>
                 <NotificationBadge count={unreadCount} variant="md" />
               </div>
 
               {/* Expand/Collapse Icon */}
-              <div 
-                className="cursor-pointer hover:opacity-60 transition-opacity duration-200 mt-5"
-                onClick={handleExpandClick}
-                role="button"
-                aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
-                tabIndex={0}
+              <Tooltip
+                content="Expand"
+                position="right"
+                disabled={isExpanded}
+                delay={200}
               >
-                {isExpanded ? (
-                  <ArrowLeftStartOnRectangleIcon className="w-5 h-5 text-neutral-400 transition-opacity duration-300" />
-                ) : (
-                  <ArrowRightStartOnRectangleIcon className="w-5 h-5 text-neutral-400 transition-opacity duration-300" />
-                )}
-              </div>
+                <div 
+                  className="cursor-pointer hover:opacity-60 transition-opacity duration-200 mt-5"
+                  onClick={handleExpandClick}
+                  role="button"
+                  aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+                  tabIndex={0}
+                >
+                  {isExpanded ? (
+                    <ArrowLeftStartOnRectangleIcon className="w-5 h-5 text-neutral-400 transition-opacity duration-300" />
+                  ) : (
+                    <ArrowRightStartOnRectangleIcon className="w-5 h-5 text-neutral-400 transition-opacity duration-300" />
+                  )}
+                </div>
+              </Tooltip>
             </div>
           </div>
         </aside>
