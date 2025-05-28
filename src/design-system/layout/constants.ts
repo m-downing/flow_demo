@@ -12,6 +12,7 @@ export const appTabs = {
     { name: "Backlogs", icon: "ServerStack", path: "/backlogs" },
     { name: "KPI's", icon: "Briefcase", path: "/kpi" },
     { name: "Network", icon: "Cloud", path: "/network" },
+    { name: "Chart Gallery", icon: "PresentationChartLine", path: "/chart-gallery" },
   ],
   helius: [dashboardTab],
   mimir: [dashboardTab],

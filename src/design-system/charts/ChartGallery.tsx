@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { MetricCard } from './MetricCard';
 import { PieChart } from './PieChart';
