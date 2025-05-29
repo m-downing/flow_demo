@@ -70,8 +70,8 @@ export const ListView = <T extends Record<string, any>>({
     width: width || '100%',
     height: currentMode === 'deepDive' ? '100%' : height,
     fontFamily: getTypography.fontFamily('body'),
-    backgroundColor: isDark ? colors.neutral[900] : colors.neutral[50],
-    border: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.primary[800] : colors.neutral[50],
+    border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
     borderRadius: '8px',
     overflow: 'hidden',
     display: 'flex',
@@ -79,8 +79,8 @@ export const ListView = <T extends Record<string, any>>({
   };
 
   const headerStyle: React.CSSProperties = {
-    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
-    borderBottom: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
+    borderBottom: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
     padding: '12px 16px',
     display: 'flex',
     justifyContent: 'space-between',
@@ -88,7 +88,7 @@ export const ListView = <T extends Record<string, any>>({
   };
 
   const titleStyle: React.CSSProperties = {
-    color: isDark ? colors.neutral[100] : colors.neutral[900],
+    color: isDark ? colors.neutral[50] : colors.neutral[900],
     fontSize: '16px',
     fontWeight: '600',
     margin: 0,
@@ -103,15 +103,15 @@ export const ListView = <T extends Record<string, any>>({
   const itemStyle: React.CSSProperties = {
     marginBottom: '8px',
     padding: '12px',
-    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
-    border: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.primary[900] : colors.neutral[100],
+    border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
     borderRadius: '6px',
     cursor: onItemClick ? 'pointer' : 'default',
     transition: 'all 0.2s ease',
   };
 
   const itemHoverStyle: React.CSSProperties = {
-    backgroundColor: isDark ? colors.neutral[700] : colors.neutral[200],
+    backgroundColor: isDark ? colors.primary[700] : colors.neutral[200],
     transform: 'translateY(-1px)',
     boxShadow: `0 2px 4px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
   };
@@ -178,12 +178,12 @@ export const ListView = <T extends Record<string, any>>({
       {currentMode !== 'summary' && (
         <div
           style={{
-            borderTop: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+            borderTop: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
             padding: '12px 16px',
-            backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
+            backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
           }}
         >
-          <span style={{ color: isDark ? colors.neutral[400] : colors.neutral[600], fontSize: '14px' }}>
+          <span style={{ color: isDark ? colors.neutral[300] : colors.neutral[600], fontSize: '14px' }}>
             Showing {processedData.length} of {data.length} items
           </span>
         </div>

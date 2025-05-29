@@ -107,8 +107,14 @@ export const generateDeepDiveUrl = (tableId: string, tableData?: any): string =>
   const baseUrl = `/deepdive/table-id/${tableId}`;
   
   if (tableData) {
-    const encodedData = encodeURIComponent(JSON.stringify(tableData));
-    return `${baseUrl}?data=${encodedData}`;
+    // Generate a unique session key for this table data
+    const sessionKey = `deepdive_${tableId}_${Date.now()}_${Math.random().toString(36).substring(2)}`;
+    
+    // Store the data in sessionStorage with the key
+    sessionStorage.setItem(sessionKey, JSON.stringify(tableData));
+    
+    // Pass only the session key in the URL
+    return `${baseUrl}?sessionKey=${sessionKey}`;
   }
   
   return baseUrl;

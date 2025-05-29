@@ -133,8 +133,8 @@ export const TableView = <T extends Record<string, any>>({
     width: width || '100%',
     height: currentMode === 'deepDive' ? '100%' : height,
     fontFamily: getTypography.fontFamily('body'),
-    backgroundColor: isDark ? colors.neutral[900] : colors.neutral[50],
-    border: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.primary[800] : colors.neutral[50],
+    border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
     borderRadius: '8px',
     overflow: 'hidden',
     display: 'flex',
@@ -142,8 +142,8 @@ export const TableView = <T extends Record<string, any>>({
   };
 
   const headerStyle: React.CSSProperties = {
-    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
-    borderBottom: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
+    borderBottom: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
     padding: '12px 16px',
     display: 'flex',
     justifyContent: 'space-between',
@@ -151,7 +151,7 @@ export const TableView = <T extends Record<string, any>>({
   };
 
   const titleStyle: React.CSSProperties = {
-    color: isDark ? colors.neutral[100] : colors.neutral[900],
+    color: isDark ? colors.neutral[50] : colors.neutral[900],
     fontSize: '16px',
     fontWeight: '600',
     margin: 0,
@@ -164,13 +164,13 @@ export const TableView = <T extends Record<string, any>>({
   };
 
   const thStyle: React.CSSProperties = {
-    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
-    color: isDark ? colors.neutral[200] : colors.neutral[700],
+    backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
+    color: isDark ? colors.neutral[300] : colors.neutral[700],
     padding: '12px 16px',
     textAlign: 'left',
     fontWeight: '600',
-    borderBottom: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
-    borderRight: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+    borderBottom: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
+    borderRight: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
     position: 'sticky',
     top: 0,
     cursor: 'pointer',
@@ -179,8 +179,8 @@ export const TableView = <T extends Record<string, any>>({
 
   const tdStyle: React.CSSProperties = {
     padding: '12px 16px',
-    borderBottom: `1px solid ${isDark ? colors.neutral[800] : colors.neutral[200]}`,
-    borderRight: `1px solid ${isDark ? colors.neutral[800] : colors.neutral[200]}`,
+    borderBottom: `1px solid ${isDark ? colors.primary[700] : colors.neutral[200]}`,
+    borderRight: `1px solid ${isDark ? colors.primary[700] : colors.neutral[200]}`,
     color: isDark ? colors.neutral[300] : colors.neutral[700],
   };
 
@@ -190,7 +190,7 @@ export const TableView = <T extends Record<string, any>>({
   };
 
   const rowHoverStyle: React.CSSProperties = {
-    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
+    backgroundColor: isDark ? colors.primary[700] : colors.neutral[100],
   };
 
   if (loading) {
@@ -316,15 +316,15 @@ export const TableView = <T extends Record<string, any>>({
       {showActualPagination && (
         <div
           style={{
-            borderTop: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+            borderTop: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
             padding: '12px 16px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
+            backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
           }}
         >
-          <span style={{ color: isDark ? colors.neutral[400] : colors.neutral[600], fontSize: '14px' }}>
+          <span style={{ color: isDark ? colors.neutral[300] : colors.neutral[600], fontSize: '14px' }}>
             Showing {processedData.length} of {data.length} rows
           </span>
           <div style={{ display: 'flex', gap: '8px' }}>
