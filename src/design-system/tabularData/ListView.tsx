@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { ListViewProps } from './types';
-import { getModeConstraints, openTableInNewTab } from './utils';
+import { openTableInNewTab } from './utils';
 import { useTheme } from '../../app/contexts/ThemeContext';
 import { colors } from '../foundations/tokens/colors';
 import { getTypography } from '../foundations/tokens/typography';
 import { TableToggle } from '../components/controls/TableToggle';
 
-export const ListView = <T extends Record<string, any>>({
+export const ListView = <T extends Record<string, unknown>>({
   data,
   mode = 'deepDive',
   title,
@@ -28,11 +28,10 @@ export const ListView = <T extends Record<string, any>>({
   
   // Get mode constraints
   const currentMode = localMode;
-  const constraints = getModeConstraints(currentMode);
   
   // Process data based on mode
   const processedData = useMemo(() => {
-    let result = data;
+    const result = data;
     
     // No row limits in any mode - all modes support unlimited scrolling
     // Mode constraints only affect column visibility and layout features

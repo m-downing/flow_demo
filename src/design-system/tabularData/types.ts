@@ -2,11 +2,11 @@ import { ReactNode } from 'react';
 
 export type DetailLevel = 'summary' | 'drilldown' | 'deepDive';
 
-export interface ColumnDef<T = any> {
+export interface ColumnDef<T = unknown> {
   id: string;
   header: string;
-  accessorKey: string;
-  cell?: (value: any, row: T, index: number) => ReactNode;
+  accessorKey: keyof T;
+  cell?: (value: unknown, row: T, index: number) => ReactNode;
   width?: number;
   minWidth?: number;
   maxWidth?: number;
@@ -18,9 +18,9 @@ export interface ColumnDef<T = any> {
 
 export interface FilterConfig {
   column: string;
-  operator: 'equals' | 'contains' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan' | 'between';
-  value: any;
-  value2?: any; // For 'between' operator
+  operator?: 'equals' | 'contains' | 'startsWith' | 'endsWith' | 'greaterThan' | 'lessThan';
+  value: unknown;
+  value2?: unknown; // For 'between' operator
 }
 
 export interface SortConfig {
@@ -28,15 +28,18 @@ export interface SortConfig {
   direction: 'asc' | 'desc';
 }
 
-export interface TableData<T = any> {
+export interface TableData<T = unknown> {
   id: string;
   title: string;
   data: T[];
   columns: ColumnDef<T>[];
   totalRows?: number; // For server-side pagination
+  filters?: FilterConfig[];
+  sortConfig?: SortConfig | null;
+  renderItem?: (item: T, index: number) => ReactNode;
 }
 
-export interface TableViewProps<T = any> {
+export interface TableViewProps<T = unknown> {
   data: T[];
   columns: ColumnDef<T>[];
   mode?: DetailLevel;
@@ -48,9 +51,9 @@ export interface TableViewProps<T = any> {
   onSort?: (sortConfig: SortConfig) => void;
   onFilter?: (filters: FilterConfig[]) => void;
   filters?: FilterConfig[];
-  sortConfig?: SortConfig;
-  height?: number;
-  width?: number;
+  sortConfig?: SortConfig | null;
+  height?: number | string;
+  width?: number | string;
   showPagination?: boolean;
   pageSize?: number;
   currentPage?: number;
@@ -60,7 +63,7 @@ export interface TableViewProps<T = any> {
   showModeToggle?: boolean;
 }
 
-export interface ListViewProps<T = any> {
+export interface ListViewProps<T = unknown> {
   data: T[];
   mode?: DetailLevel;
   title?: string;
@@ -69,8 +72,8 @@ export interface ListViewProps<T = any> {
   emptyState?: ReactNode;
   renderItem: (item: T, index: number) => ReactNode;
   onItemClick?: (item: T, index: number) => void;
-  height?: number;
-  width?: number;
+  height?: number | string;
+  width?: number | string;
   onModeChange?: (mode: DetailLevel) => void;
   showModeToggle?: boolean;
 } 

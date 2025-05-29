@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect, use } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { TableView, ListView, ColumnDef } from '../../../../design-system/tabularData';
+import { TableView, ListView, ColumnDef, FilterConfig, SortConfig } from '../../../../design-system/tabularData';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { colors } from '../../../../design-system/foundations/tokens/colors';
 import { getTypography } from '../../../../design-system/foundations/tokens/typography';
-import Badge from '../../../../design-system/components/feedback/Badge';
+import Badge, { BadgeVariant } from '../../../../design-system/components/feedback/Badge';
 
 interface DeepDivePageProps {
   params: Promise<{
@@ -14,8 +14,17 @@ interface DeepDivePageProps {
   }>;
 }
 
+interface TableDataState {
+  title: string;
+  data: Record<string, unknown>[];
+  columns?: ColumnDef<Record<string, unknown>>[];
+  renderItem?: (item: Record<string, unknown>, index: number) => React.ReactNode;
+  filters?: FilterConfig[];
+  sortConfig?: SortConfig | null;
+}
+
 // Function to recreate columns with Badge components for server data
-const createServerColumns = (): ColumnDef<any>[] => [
+const createServerColumns = (): ColumnDef<Record<string, unknown>>[] => [
   {
     id: 'id',
     header: 'Server ID',
@@ -38,7 +47,7 @@ const createServerColumns = (): ColumnDef<any>[] => [
     sortable: true,
     cell: (value) => {
       // Map status values to badge variants
-      const statusMap: Record<string, string> = {
+      const statusMap: Record<string, BadgeVariant> = {
         planned: 'planned',
         ordered: 'ordered',
         manufacturing: 'manufacturing',
@@ -65,11 +74,11 @@ const createServerColumns = (): ColumnDef<any>[] => [
         delayed: 'Delayed',
       };
       
-      const variant = statusMap[value] || 'standard';
-      const displayText = statusDisplayMap[value] || value;
+      const variant = statusMap[value as string] || 'standard';
+      const displayText = statusDisplayMap[value as string] || String(value);
       
       return (
-        <Badge variant={variant as any}>
+        <Badge variant={variant}>
           {displayText}
         </Badge>
       );
@@ -104,17 +113,17 @@ const createServerColumns = (): ColumnDef<any>[] => [
     sortable: true,
     cell: (value) => {
       // Map priority values to badge variants
-      const priorityMap: Record<string, string> = {
+      const priorityMap: Record<string, BadgeVariant> = {
         critical: 'critical',
         high: 'highPriority',
         standard: 'standard',
       };
       
-      const variant = priorityMap[value] || 'standard';
+      const variant = priorityMap[value as string] || 'standard';
       
       return (
-        <Badge variant={variant as any}>
-          {value}
+        <Badge variant={variant}>
+          {String(value)}
         </Badge>
       );
     },
@@ -132,7 +141,7 @@ const createServerColumns = (): ColumnDef<any>[] => [
     accessorKey: 'cost',
     width: 120,
     sortable: true,
-    cell: (value) => `$${value.toLocaleString()}`,
+    cell: (value) => `$${Number(value).toLocaleString()}`,
   },
   {
     id: 'supplier',
@@ -193,18 +202,18 @@ const createServerColumns = (): ColumnDef<any>[] => [
     sortable: true,
     cell: (value) => {
       // Map service level to badge variants
-      const serviceLevelMap: Record<string, string> = {
+      const serviceLevelMap: Record<string, BadgeVariant> = {
         Basic: 'standard',
         Standard: 'ordered',
         Premium: 'highPriority',
         Enterprise: 'critical',
       };
       
-      const variant = serviceLevelMap[value] || 'standard';
+      const variant = serviceLevelMap[value as string] || 'standard';
       
       return (
-        <Badge variant={variant as any}>
-          {value}
+        <Badge variant={variant}>
+          {String(value)}
         </Badge>
       );
     },
@@ -232,52 +241,60 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   
-  const [tableData, setTableData] = useState<any>(null);
+  const [tableData, setTableData] = useState<TableDataState | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     try {
-      // Try to get data from sessionStorage using the session key
-      const sessionKey = searchParams.get('sessionKey');
+      // First, try to get data from sessionStorage
+      const storedData = sessionStorage.getItem(`table-${tableId}`);
       
-      if (sessionKey) {
-        const storedData = sessionStorage.getItem(sessionKey);
-        if (storedData) {
-          const tableData = JSON.parse(storedData);
-          
-          // For server inventory data, recreate columns with Badge components
-          if (tableId === 'server-inventory-interactive' || tableId === 'server-list-interactive') {
-            tableData.columns = createServerColumns();
-          }
-          
-          setTableData(tableData);
-          setLoading(false);
-          
-          // Clean up the session data after a short delay to free memory
-          setTimeout(() => {
-            sessionStorage.removeItem(sessionKey);
-          }, 1000);
-        } else {
-          setError('Table data not found in session. The link may have expired.');
-          setLoading(false);
-        }
-      } else {
-        // Fallback: Try to get data from URL params (for backward compatibility)
-        const encodedData = searchParams.get('data');
+      if (storedData) {
+        const parsedData = JSON.parse(storedData) as TableDataState;
         
-        if (encodedData) {
-          const decodedData = JSON.parse(decodeURIComponent(encodedData));
-          setTableData(decodedData);
-          setLoading(false);
+        // For server inventory data, recreate columns with Badge components
+        if (tableId === 'server-inventory-interactive' || tableId === 'server-list-interactive') {
+          parsedData.columns = createServerColumns();
+        }
+        
+        setTableData(parsedData);
+        setLoading(false);
+        
+        // Clean up the session data after use
+        sessionStorage.removeItem(`table-${tableId}`);
+      } else {
+        // Fallback: check for sessionKey in URL params (backward compatibility)
+        const sessionKey = searchParams.get('sessionKey');
+        
+        if (sessionKey) {
+          const sessionData = sessionStorage.getItem(sessionKey);
+          if (sessionData) {
+            const parsedData = JSON.parse(sessionData) as TableDataState;
+            
+            // For server inventory data, recreate columns with Badge components
+            if (tableId === 'server-inventory-interactive' || tableId === 'server-list-interactive') {
+              parsedData.columns = createServerColumns();
+            }
+            
+            setTableData(parsedData);
+            setLoading(false);
+            
+            // Clean up the session data after a short delay to free memory
+            setTimeout(() => {
+              sessionStorage.removeItem(sessionKey);
+            }, 1000);
+          } else {
+            setError('Table data not found in session. The link may have expired.');
+            setLoading(false);
+          }
         } else {
           // In a real app, you would fetch data from your API using the tableId
-          // For now, we'll show a message to fetch from your data source
           setError('No table data found. In a production app, this would fetch data from your API using the table ID.');
           setLoading(false);
         }
       }
-    } catch (err) {
+    } catch {
       setError('Failed to load table data');
       setLoading(false);
     }
@@ -393,7 +410,7 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
           <ListView
             data={tableData.data}
             mode="deepDive"
-            renderItem={tableData.renderItem || ((item: any, index: number) => (
+            renderItem={tableData.renderItem || ((item: Record<string, unknown>) => (
               <div style={{ padding: '8px' }}>
                 <pre style={{ 
                   margin: 0, 

@@ -1,29 +1,84 @@
 import { DetailLevel, ColumnDef, FilterConfig, SortConfig } from './types';
 
-export const filterData = <T>(data: T[], filters: FilterConfig[]): T[] => {
-  if (!filters || filters.length === 0) return data;
+// Mode constraints
+interface ModeConstraints {
+  maxColumns: number | null;
+  maxRows: number | null;
+  showPagination: boolean;
+  showFilters: boolean;
+  showSort: boolean;
+  showSearch: boolean;
+  showExport: boolean;
+  showColumnResize: boolean;
+  showRowActions: boolean;
+}
 
+export const getModeConstraints = (mode: DetailLevel): ModeConstraints => {
+  switch (mode) {
+    case 'summary':
+      return {
+        maxColumns: 5,
+        maxRows: null, // No row limit in any mode - all support unlimited scrolling
+        showPagination: false,
+        showFilters: false,
+        showSort: true,
+        showSearch: false,
+        showExport: false,
+        showColumnResize: false,
+        showRowActions: false,
+      };
+    case 'drilldown':
+      return {
+        maxColumns: null,
+        maxRows: null, // No row limit in any mode - all support unlimited scrolling
+        showPagination: false,
+        showFilters: false,
+        showSort: true,
+        showSearch: false,
+        showExport: false,
+        showColumnResize: true,
+        showRowActions: true,
+      };
+    case 'deepDive':
+      return {
+        maxColumns: null,
+        maxRows: null,
+        showPagination: true,
+        showFilters: true,
+        showSort: true,
+        showSearch: true,
+        showExport: true,
+        showColumnResize: true,
+        showRowActions: true,
+      };
+  }
+};
+
+// Filter data based on filter configurations
+export const filterData = <T extends Record<string, unknown>>(
+  data: T[],
+  filters: FilterConfig[]
+): T[] => {
+  if (!filters || filters.length === 0) return data;
+  
   return data.filter(row => {
     return filters.every(filter => {
-      const value = (row as any)[filter.column];
-      
-      if (value === undefined || value === null) return false;
+      const value = row[filter.column];
+      const filterValue = filter.value;
       
       switch (filter.operator) {
         case 'equals':
-          return value === filter.value;
+          return value === filterValue;
         case 'contains':
-          return String(value).toLowerCase().includes(String(filter.value).toLowerCase());
+          return String(value).toLowerCase().includes(String(filterValue).toLowerCase());
         case 'startsWith':
-          return String(value).toLowerCase().startsWith(String(filter.value).toLowerCase());
+          return String(value).toLowerCase().startsWith(String(filterValue).toLowerCase());
         case 'endsWith':
-          return String(value).toLowerCase().endsWith(String(filter.value).toLowerCase());
+          return String(value).toLowerCase().endsWith(String(filterValue).toLowerCase());
         case 'greaterThan':
-          return Number(value) > Number(filter.value);
+          return Number(value) > Number(filterValue);
         case 'lessThan':
-          return Number(value) < Number(filter.value);
-        case 'between':
-          return Number(value) >= Number(filter.value) && Number(value) <= Number(filter.value2);
+          return Number(value) < Number(filterValue);
         default:
           return true;
       }
@@ -31,96 +86,74 @@ export const filterData = <T>(data: T[], filters: FilterConfig[]): T[] => {
   });
 };
 
-export const sortData = <T>(data: T[], sortConfig: SortConfig | null): T[] => {
+// Sort data based on sort configuration
+export const sortData = <T extends Record<string, unknown>>(
+  data: T[],
+  sortConfig: SortConfig | null
+): T[] => {
   if (!sortConfig) return data;
-
+  
   return [...data].sort((a, b) => {
-    const aValue = (a as any)[sortConfig.column];
-    const bValue = (b as any)[sortConfig.column];
+    const aValue = a[sortConfig.column];
+    const bValue = b[sortConfig.column];
     
-    if (aValue === bValue) return 0;
+    if (aValue === null || aValue === undefined) return 1;
+    if (bValue === null || bValue === undefined) return -1;
     
-    let comparison = 0;
-    if (aValue > bValue) comparison = 1;
-    if (aValue < bValue) comparison = -1;
+    const multiplier = sortConfig.direction === 'asc' ? 1 : -1;
     
-    return sortConfig.direction === 'desc' ? -comparison : comparison;
+    if (typeof aValue === 'number' && typeof bValue === 'number') {
+      return (aValue - bValue) * multiplier;
+    }
+    
+    return String(aValue).localeCompare(String(bValue)) * multiplier;
   });
 };
 
-export const paginateData = <T>(data: T[], currentPage: number, pageSize: number): T[] => {
+// Paginate data
+export const paginateData = <T>(
+  data: T[],
+  currentPage: number,
+  pageSize: number
+): T[] => {
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   return data.slice(startIndex, endIndex);
 };
 
-export const getVisibleColumns = <T>(columns: ColumnDef<T>[], mode: DetailLevel): ColumnDef<T>[] => {
+// Get visible columns based on mode
+export const getVisibleColumns = <T>(
+  columns: ColumnDef<T>[],
+  mode: DetailLevel
+): ColumnDef<T>[] => {
   const constraints = getModeConstraints(mode);
   
-  let visibleColumns = columns.filter(col => !col.hidden);
-  
-  if (constraints.maxColumns && visibleColumns.length > constraints.maxColumns) {
-    visibleColumns = visibleColumns.slice(0, constraints.maxColumns);
+  if (constraints.maxColumns && columns.length > constraints.maxColumns) {
+    return columns.slice(0, constraints.maxColumns);
   }
   
-  return visibleColumns;
+  return columns;
 };
 
-export const getModeConstraints = (mode: DetailLevel) => {
-  switch (mode) {
-    case 'summary':
-      return {
-        maxColumns: 5,
-        maxRows: undefined,
-        showColumnResize: false,
-        showAdvancedFilters: false,
-        showPagination: false,
-      };
-    case 'drilldown':
-      return {
-        maxColumns: undefined,
-        maxRows: undefined,
-        showColumnResize: true,
-        showAdvancedFilters: true,
-        showPagination: false,
-      };
-    case 'deepDive':
-      return {
-        maxColumns: undefined,
-        maxRows: undefined,
-        showColumnResize: true,
-        showAdvancedFilters: true,
-        showPagination: true,
-      };
-    default:
-      return {
-        maxColumns: undefined,
-        maxRows: undefined,
-        showColumnResize: true,
-        showAdvancedFilters: true,
-        showPagination: true,
-      };
-  }
-};
-
-export const generateDeepDiveUrl = (tableId: string, tableData?: any): string => {
+// Generate deep dive URL
+export const generateDeepDiveUrl = (tableId: string, tableData?: unknown): string => {
   const baseUrl = `/deepdive/table-id/${tableId}`;
   
   if (tableData) {
-    // Generate a unique session key for this table data
-    const sessionKey = `deepdive_${tableId}_${Date.now()}_${Math.random().toString(36).substring(2)}`;
-    
-    // Store the data in sessionStorage with the key
-    sessionStorage.setItem(sessionKey, JSON.stringify(tableData));
-    
-    // Pass only the session key in the URL
-    return `${baseUrl}?sessionKey=${sessionKey}`;
+    // Store table data in sessionStorage
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem(`table-${tableId}`, JSON.stringify(tableData));
+    }
   }
   
   return baseUrl;
 };
 
-export const openTableInNewTab = (tableId: string, tableData: any): void => {
+// Open table in new tab
+export const openTableInNewTab = (tableId: string, tableData?: unknown): void => {
   const url = generateDeepDiveUrl(tableId, tableData);
-  window.open(url, '_blank');
+  
+  if (typeof window !== 'undefined') {
+    window.open(url, '_blank');
+  }
 }; 

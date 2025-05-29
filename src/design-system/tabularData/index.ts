@@ -20,6 +20,6 @@ export {
   paginateData,
   getVisibleColumns,
   getModeConstraints,
-  generateTableUrl,
+  generateDeepDiveUrl,
   openTableInNewTab,
 } from './utils'; 

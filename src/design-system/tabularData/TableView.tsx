@@ -1,13 +1,13 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { ChevronUpIcon, ChevronDownIcon, FunnelIcon, ArrowsPointingOutIcon } from '@heroicons/react/24/outline';
-import { TableViewProps, SortConfig, FilterConfig, ColumnDef } from './types';
+import React, { useState, useMemo, useRef } from 'react';
+import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { TableViewProps, SortConfig, FilterConfig } from './types';
 import { filterData, sortData, paginateData, getVisibleColumns, getModeConstraints, openTableInNewTab } from './utils';
 import { useTheme } from '../../app/contexts/ThemeContext';
 import { colors } from '../foundations/tokens/colors';
 import { getTypography } from '../foundations/tokens/typography';
 import { TableToggle } from '../components/controls/TableToggle';
 
-export const TableView = <T extends Record<string, any>>({
+export const TableView = <T extends Record<string, unknown>>({
   data,
   columns,
   mode = 'deepDive',
@@ -17,7 +17,6 @@ export const TableView = <T extends Record<string, any>>({
   emptyState = <p>No data available.</p>,
   onRowClick,
   onSort,
-  onFilter,
   filters = [],
   sortConfig,
   height = 400,
@@ -25,7 +24,6 @@ export const TableView = <T extends Record<string, any>>({
   showPagination,
   pageSize = 20,
   currentPage = 1,
-  totalPages,
   onPageChange,
   onModeChange,
   showModeToggle = true,
@@ -37,8 +35,8 @@ export const TableView = <T extends Record<string, any>>({
   // Local state management
   const [localMode, setLocalMode] = useState(mode);
   const [localSortConfig, setLocalSortConfig] = useState<SortConfig | null>(sortConfig || null);
-  const [localFilters, setLocalFilters] = useState<FilterConfig[]>(filters);
-  const [localCurrentPage, setLocalCurrentPage] = useState(currentPage);
+  const [localFilters] = useState<FilterConfig[]>(filters);
+  const [localCurrentPage] = useState(currentPage);
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
   const [resizingColumn, setResizingColumn] = useState<string | null>(null);
 
@@ -304,8 +302,8 @@ export const TableView = <T extends Record<string, any>>({
                 {visibleColumns.map((column) => (
                   <td key={column.id} style={tdStyle}>
                     {column.cell 
-                      ? column.cell(row[column.accessorKey], row, index)
-                      : String(row[column.accessorKey] || '')
+                      ? column.cell(row[column.accessorKey as keyof T], row, index)
+                      : String(row[column.accessorKey as keyof T] || '')
                     }
                   </td>
                 ))}
