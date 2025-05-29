@@ -5,6 +5,7 @@ import { TableView, ListView, ColumnDef, DetailLevel } from '../../design-system
 import { useTheme } from '../contexts/ThemeContext';
 import { colors } from '../../design-system/foundations/tokens/colors';
 import { badgeColors } from '../../design-system/foundations/tokens/colors';
+import Badge from '../../design-system/components/feedback/Badge';
 
 // Sample data for supply chain management
 interface ServerRecord {
@@ -34,7 +35,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-001',
     serverModel: 'Dell PowerEdge R750',
     status: 'manufacturing',
-    location: 'Austin Data Center',
+    location: 'NA-EAST-001',
     orderDate: '2024-01-15',
     expectedDelivery: '2024-02-15',
     priority: 'high',
@@ -55,7 +56,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-002',
     serverModel: 'HP ProLiant DL380',
     status: 'inTransit',
-    location: 'Denver Data Center',
+    location: 'NA-WEST-002',
     orderDate: '2024-01-10',
     expectedDelivery: '2024-02-01',
     priority: 'critical',
@@ -76,7 +77,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-003',
     serverModel: 'Cisco UCS C240',
     status: 'delivered',
-    location: 'Seattle Data Center',
+    location: 'NA-WEST-001',
     orderDate: '2023-12-20',
     expectedDelivery: '2024-01-20',
     priority: 'standard',
@@ -97,7 +98,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-004',
     serverModel: 'Supermicro SuperServer',
     status: 'qualityTesting',
-    location: 'Chicago Data Center',
+    location: 'NA-CENTRAL-001',
     orderDate: '2024-01-05',
     expectedDelivery: '2024-01-30',
     priority: 'high',
@@ -118,7 +119,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-005',
     serverModel: 'Dell PowerEdge R7525',
     status: 'planned',
-    location: 'Phoenix Data Center',
+    location: 'NA-WEST-003',
     orderDate: '2024-02-01',
     expectedDelivery: '2024-03-01',
     priority: 'standard',
@@ -139,7 +140,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-006',
     serverModel: 'HPE Apollo 6500',
     status: 'ordered',
-    location: 'Miami Data Center',
+    location: 'NA-SOUTH-001',
     orderDate: '2024-01-25',
     expectedDelivery: '2024-02-25',
     priority: 'critical',
@@ -160,7 +161,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-007',
     serverModel: 'IBM Power System E1080',
     status: 'delayed',
-    location: 'Boston Data Center',
+    location: 'NA-EAST-002',
     orderDate: '2023-12-01',
     expectedDelivery: '2024-01-15',
     priority: 'high',
@@ -181,7 +182,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-008',
     serverModel: 'Lenovo ThinkSystem SR950',
     status: 'installing',
-    location: 'Atlanta Data Center',
+    location: 'NA-SOUTH-002',
     orderDate: '2023-11-15',
     expectedDelivery: '2023-12-15',
     priority: 'standard',
@@ -202,7 +203,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-009',
     serverModel: 'Dell PowerEdge R740',
     status: 'active',
-    location: 'Portland Data Center',
+    location: 'NA-WEST-004',
     orderDate: '2023-10-01',
     expectedDelivery: '2023-11-01',
     priority: 'standard',
@@ -223,7 +224,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-010',
     serverModel: 'HP ProLiant DL360',
     status: 'readyToShip',
-    location: 'Las Vegas Data Center',
+    location: 'NA-WEST-005',
     orderDate: '2024-01-20',
     expectedDelivery: '2024-02-10',
     priority: 'high',
@@ -245,7 +246,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-011',
     serverModel: 'Dell PowerEdge R640',
     status: 'manufacturing',
-    location: 'New York Data Center',
+    location: 'NA-EAST-003',
     orderDate: '2024-02-05',
     expectedDelivery: '2024-03-05',
     priority: 'standard',
@@ -266,7 +267,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-012',
     serverModel: 'HPE ProLiant DL560',
     status: 'ordered',
-    location: 'Dallas Data Center',
+    location: 'NA-CENTRAL-002',
     orderDate: '2024-02-08',
     expectedDelivery: '2024-03-08',
     priority: 'high',
@@ -287,7 +288,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-013',
     serverModel: 'Cisco UCS C220',
     status: 'inTransit',
-    location: 'San Francisco Data Center',
+    location: 'NA-WEST-006',
     orderDate: '2024-01-28',
     expectedDelivery: '2024-02-28',
     priority: 'critical',
@@ -308,7 +309,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-014',
     serverModel: 'Supermicro Ultra',
     status: 'delivered',
-    location: 'Los Angeles Data Center',
+    location: 'NA-WEST-007',
     orderDate: '2024-01-18',
     expectedDelivery: '2024-02-18',
     priority: 'standard',
@@ -329,7 +330,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-015',
     serverModel: 'Dell PowerEdge R7515',
     status: 'qualityTesting',
-    location: 'Houston Data Center',
+    location: 'NA-CENTRAL-003',
     orderDate: '2024-02-12',
     expectedDelivery: '2024-03-12',
     priority: 'high',
@@ -350,7 +351,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-016',
     serverModel: 'IBM Power System S922',
     status: 'installing',
-    location: 'Detroit Data Center',
+    location: 'NA-CENTRAL-004',
     orderDate: '2024-01-22',
     expectedDelivery: '2024-02-22',
     priority: 'critical',
@@ -371,7 +372,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-017',
     serverModel: 'Lenovo ThinkSystem SR630',
     status: 'active',
-    location: 'Cleveland Data Center',
+    location: 'NA-EAST-004',
     orderDate: '2023-12-10',
     expectedDelivery: '2024-01-10',
     priority: 'standard',
@@ -392,7 +393,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-018',
     serverModel: 'HPE Apollo 4200',
     status: 'planned',
-    location: 'Minneapolis Data Center',
+    location: 'NA-CENTRAL-005',
     orderDate: '2024-02-15',
     expectedDelivery: '2024-03-15',
     priority: 'high',
@@ -413,7 +414,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-019',
     serverModel: 'Dell PowerEdge R450',
     status: 'delayed',
-    location: 'Salt Lake City Data Center',
+    location: 'NA-WEST-008',
     orderDate: '2024-01-30',
     expectedDelivery: '2024-03-01',
     priority: 'standard',
@@ -434,7 +435,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-020',
     serverModel: 'Cisco UCS C480',
     status: 'readyToShip',
-    location: 'Raleigh Data Center',
+    location: 'NA-EAST-005',
     orderDate: '2024-02-02',
     expectedDelivery: '2024-03-02',
     priority: 'critical',
@@ -455,7 +456,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-021',
     serverModel: 'Supermicro BigTwin',
     status: 'manufacturing',
-    location: 'Tampa Data Center',
+    location: 'NA-SOUTH-003',
     orderDate: '2024-02-18',
     expectedDelivery: '2024-03-18',
     priority: 'high',
@@ -476,7 +477,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-022',
     serverModel: 'HPE ProLiant ML350',
     status: 'ordered',
-    location: 'Nashville Data Center',
+    location: 'NA-SOUTH-004',
     orderDate: '2024-02-20',
     expectedDelivery: '2024-03-20',
     priority: 'standard',
@@ -497,7 +498,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-023',
     serverModel: 'Dell PowerEdge T440',
     status: 'inTransit',
-    location: 'Kansas City Data Center',
+    location: 'NA-CENTRAL-006',
     orderDate: '2024-02-10',
     expectedDelivery: '2024-03-10',
     priority: 'high',
@@ -518,7 +519,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-024',
     serverModel: 'Lenovo ThinkSystem ST650',
     status: 'delivered',
-    location: 'Richmond Data Center',
+    location: 'NA-EAST-006',
     orderDate: '2024-02-03',
     expectedDelivery: '2024-03-03',
     priority: 'critical',
@@ -539,7 +540,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-025',
     serverModel: 'IBM Power System S914',
     status: 'qualityTesting',
-    location: 'Charlotte Data Center',
+    location: 'NA-SOUTH-005',
     orderDate: '2024-02-14',
     expectedDelivery: '2024-03-14',
     priority: 'standard',
@@ -560,7 +561,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-026',
     serverModel: 'Cisco UCS C125',
     status: 'installing',
-    location: 'Buffalo Data Center',
+    location: 'NA-EAST-007',
     orderDate: '2024-01-25',
     expectedDelivery: '2024-02-25',
     priority: 'high',
@@ -581,7 +582,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-027',
     serverModel: 'HPE Edgeline EL8000',
     status: 'active',
-    location: 'Sacramento Data Center',
+    location: 'NA-WEST-009',
     orderDate: '2023-11-20',
     expectedDelivery: '2023-12-20',
     priority: 'standard',
@@ -602,7 +603,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-028',
     serverModel: 'Supermicro FatTwin',
     status: 'planned',
-    location: 'Albuquerque Data Center',
+    location: 'EU-WEST-001',
     orderDate: '2024-02-22',
     expectedDelivery: '2024-03-22',
     priority: 'critical',
@@ -623,7 +624,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-029',
     serverModel: 'Dell PowerEdge XR2',
     status: 'delayed',
-    location: 'Tucson Data Center',
+    location: 'EU-WEST-002',
     orderDate: '2024-02-06',
     expectedDelivery: '2024-03-20',
     priority: 'high',
@@ -644,7 +645,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-030',
     serverModel: 'Lenovo ThinkSystem SR860',
     status: 'readyToShip',
-    location: 'Fresno Data Center',
+    location: 'EU-CENTRAL-001',
     orderDate: '2024-02-16',
     expectedDelivery: '2024-03-16',
     priority: 'standard',
@@ -665,7 +666,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-031',
     serverModel: 'HPE ProLiant BL460c',
     status: 'manufacturing',
-    location: 'Spokane Data Center',
+    location: 'EU-NORTH-001',
     orderDate: '2024-02-24',
     expectedDelivery: '2024-03-24',
     priority: 'critical',
@@ -686,7 +687,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-032',
     serverModel: 'Cisco UCS C240 M6',
     status: 'ordered',
-    location: 'Boise Data Center',
+    location: 'APAC-EAST-001',
     orderDate: '2024-02-26',
     expectedDelivery: '2024-03-26',
     priority: 'high',
@@ -707,7 +708,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-033',
     serverModel: 'Dell PowerEdge R6515',
     status: 'inTransit',
-    location: 'Billings Data Center',
+    location: 'APAC-EAST-002',
     orderDate: '2024-02-11',
     expectedDelivery: '2024-03-11',
     priority: 'standard',
@@ -728,7 +729,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-034',
     serverModel: 'IBM LinuxONE III',
     status: 'delivered',
-    location: 'Cheyenne Data Center',
+    location: 'APAC-WEST-001',
     orderDate: '2024-01-12',
     expectedDelivery: '2024-02-12',
     priority: 'critical',
@@ -749,7 +750,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-035',
     serverModel: 'Supermicro GPU Server',
     status: 'qualityTesting',
-    location: 'Fargo Data Center',
+    location: 'APAC-SOUTH-001',
     orderDate: '2024-02-13',
     expectedDelivery: '2024-03-13',
     priority: 'high',
@@ -770,7 +771,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-036',
     serverModel: 'Lenovo ThinkSystem SD530',
     status: 'installing',
-    location: 'Sioux Falls Data Center',
+    location: 'APAC-CENTRAL-001',
     orderDate: '2024-02-04',
     expectedDelivery: '2024-03-04',
     priority: 'standard',
@@ -791,7 +792,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-037',
     serverModel: 'HPE Cloudline CL2200',
     status: 'active',
-    location: 'Madison Data Center',
+    location: 'LATAM-NORTH-001',
     orderDate: '2023-12-28',
     expectedDelivery: '2024-01-28',
     priority: 'critical',
@@ -812,7 +813,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-038',
     serverModel: 'Cisco UCS S3260',
     status: 'planned',
-    location: 'Des Moines Data Center',
+    location: 'LATAM-SOUTH-001',
     orderDate: '2024-02-28',
     expectedDelivery: '2024-03-28',
     priority: 'high',
@@ -833,7 +834,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-039',
     serverModel: 'Dell PowerEdge C6420',
     status: 'delayed',
-    location: 'Omaha Data Center',
+    location: 'MEA-CENTRAL-001',
     orderDate: '2024-02-07',
     expectedDelivery: '2024-03-21',
     priority: 'standard',
@@ -854,7 +855,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-040',
     serverModel: 'Supermicro MicroCloud',
     status: 'readyToShip',
-    location: 'Lincoln Data Center',
+    location: 'MEA-WEST-001',
     orderDate: '2024-02-19',
     expectedDelivery: '2024-03-19',
     priority: 'critical',
@@ -875,7 +876,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-041',
     serverModel: 'HPE Synergy 480',
     status: 'manufacturing',
-    location: 'Topeka Data Center',
+    location: 'NA-CENTRAL-007',
     orderDate: '2024-03-01',
     expectedDelivery: '2024-03-31',
     priority: 'high',
@@ -896,7 +897,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-042',
     serverModel: 'Lenovo ThinkSystem SR570',
     status: 'ordered',
-    location: 'Wichita Data Center',
+    location: 'NA-CENTRAL-008',
     orderDate: '2024-02-25',
     expectedDelivery: '2024-03-25',
     priority: 'standard',
@@ -917,7 +918,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-043',
     serverModel: 'Cisco UCS C460',
     status: 'inTransit',
-    location: 'Oklahoma City Data Center',
+    location: 'NA-SOUTH-006',
     orderDate: '2024-02-17',
     expectedDelivery: '2024-03-17',
     priority: 'critical',
@@ -938,7 +939,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-044',
     serverModel: 'Dell PowerEdge R350',
     status: 'delivered',
-    location: 'Little Rock Data Center',
+    location: 'NA-SOUTH-007',
     orderDate: '2024-02-09',
     expectedDelivery: '2024-03-09',
     priority: 'high',
@@ -959,7 +960,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-045',
     serverModel: 'IBM Power System H924',
     status: 'qualityTesting',
-    location: 'Jackson Data Center',
+    location: 'NA-SOUTH-008',
     orderDate: '2024-02-21',
     expectedDelivery: '2024-03-21',
     priority: 'standard',
@@ -980,7 +981,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-046',
     serverModel: 'Supermicro TwinPro',
     status: 'installing',
-    location: 'Memphis Data Center',
+    location: 'NA-SOUTH-009',
     orderDate: '2024-02-15',
     expectedDelivery: '2024-03-15',
     priority: 'critical',
@@ -1001,7 +1002,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-047',
     serverModel: 'HPE ProLiant DL325',
     status: 'active',
-    location: 'Mobile Data Center',
+    location: 'NA-SOUTH-010',
     orderDate: '2023-12-15',
     expectedDelivery: '2024-01-15',
     priority: 'high',
@@ -1022,7 +1023,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-048',
     serverModel: 'Lenovo ThinkAgile HX3320',
     status: 'planned',
-    location: 'Birmingham Data Center',
+    location: 'EU-EAST-001',
     orderDate: '2024-03-02',
     expectedDelivery: '2024-04-01',
     priority: 'standard',
@@ -1043,7 +1044,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-049',
     serverModel: 'Cisco UCS C245',
     status: 'delayed',
-    location: 'Huntsville Data Center',
+    location: 'EU-SOUTH-001',
     orderDate: '2024-02-23',
     expectedDelivery: '2024-04-05',
     priority: 'critical',
@@ -1064,7 +1065,7 @@ const sampleData: ServerRecord[] = [
     id: 'SRV-050',
     serverModel: 'Dell PowerEdge R7625',
     status: 'readyToShip',
-    location: 'Montgomery Data Center',
+    location: 'APAC-NORTH-001',
     orderDate: '2024-02-27',
     expectedDelivery: '2024-03-27',
     priority: 'high',
@@ -1114,35 +1115,41 @@ export default function DemoTablesPage() {
       width: 150,
       sortable: true,
       cell: (value) => {
-        const statusColors = {
-          planned: badgeColors.planned,
-          ordered: badgeColors.ordered,
-          manufacturing: badgeColors.manufacturing,
-          qualityTesting: badgeColors.qualityTesting,
-          readyToShip: badgeColors.readyToShip,
-          inTransit: badgeColors.inTransit,
-          delivered: badgeColors.delivered,
-          installing: badgeColors.installing,
-          active: badgeColors.active,
-          delayed: badgeColors.delayed,
+        // Map status values to badge variants
+        const statusMap: Record<string, string> = {
+          planned: 'planned',
+          ordered: 'ordered',
+          manufacturing: 'manufacturing',
+          qualityTesting: 'qualityTesting',
+          readyToShip: 'readyToShip',
+          inTransit: 'inTransit',
+          delivered: 'delivered',
+          installing: 'installing',
+          active: 'active',
+          delayed: 'delayed',
         };
         
-        const colorConfig = statusColors[value as keyof typeof statusColors] || badgeColors.standard;
+        // Map status values to proper display text
+        const statusDisplayMap: Record<string, string> = {
+          planned: 'Planned',
+          ordered: 'Ordered',
+          manufacturing: 'Manufacturing',
+          qualityTesting: 'QA Testing',
+          readyToShip: 'Ready to Ship',
+          inTransit: 'In Transit',
+          delivered: 'Delivered',
+          installing: 'Installing',
+          active: 'Active',
+          delayed: 'Delayed',
+        };
+        
+        const variant = statusMap[value] || 'standard';
+        const displayText = statusDisplayMap[value] || value;
         
         return (
-          <span
-            style={{
-              backgroundColor: colorConfig.bg,
-              color: colorConfig.text,
-              padding: '4px 8px',
-              borderRadius: '4px',
-              fontSize: '12px',
-              fontWeight: '500',
-              textTransform: 'capitalize',
-            }}
-          >
-            {value.replace(/([A-Z])/g, ' $1').trim()}
-          </span>
+          <Badge variant={variant as any}>
+            {displayText}
+          </Badge>
         );
       },
     },
@@ -1174,28 +1181,19 @@ export default function DemoTablesPage() {
       width: 100,
       sortable: true,
       cell: (value) => {
-        const priorityColors = {
-          critical: badgeColors.critical,
-          high: badgeColors.highPriority,
-          standard: badgeColors.standard,
+        // Map priority values to badge variants
+        const priorityMap: Record<string, string> = {
+          critical: 'critical',
+          high: 'highPriority',
+          standard: 'standard',
         };
         
-        const colorConfig = priorityColors[value as keyof typeof priorityColors] || badgeColors.standard;
+        const variant = priorityMap[value] || 'standard';
         
         return (
-          <span
-            style={{
-              backgroundColor: colorConfig.bg,
-              color: colorConfig.text,
-              padding: '4px 8px',
-              borderRadius: '4px',
-              fontSize: '12px',
-              fontWeight: '500',
-              textTransform: 'capitalize',
-            }}
-          >
+          <Badge variant={variant as any}>
             {value}
-          </span>
+          </Badge>
         );
       },
     },
@@ -1273,28 +1271,20 @@ export default function DemoTablesPage() {
       width: 120,
       sortable: true,
       cell: (value) => {
-        const serviceLevelColors = {
-          Basic: badgeColors.standard,
-          Standard: badgeColors.ordered,
-          Premium: badgeColors.highPriority,
-          Enterprise: badgeColors.critical,
+        // Map service level to badge variants
+        const serviceLevelMap: Record<string, string> = {
+          Basic: 'standard',
+          Standard: 'ordered',
+          Premium: 'highPriority',
+          Enterprise: 'critical',
         };
         
-        const colorConfig = serviceLevelColors[value as keyof typeof serviceLevelColors] || badgeColors.standard;
+        const variant = serviceLevelMap[value] || 'standard';
         
         return (
-          <span
-            style={{
-              backgroundColor: colorConfig.bg,
-              color: colorConfig.text,
-              padding: '4px 8px',
-              borderRadius: '4px',
-              fontSize: '12px',
-              fontWeight: '500',
-            }}
-          >
+          <Badge variant={variant as any}>
             {value}
-          </span>
+          </Badge>
         );
       },
     },

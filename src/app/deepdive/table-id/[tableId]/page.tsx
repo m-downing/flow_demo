@@ -6,12 +6,224 @@ import { TableView, ListView, ColumnDef } from '../../../../design-system/tabula
 import { useTheme } from '../../../contexts/ThemeContext';
 import { colors } from '../../../../design-system/foundations/tokens/colors';
 import { getTypography } from '../../../../design-system/foundations/tokens/typography';
+import Badge from '../../../../design-system/components/feedback/Badge';
 
 interface DeepDivePageProps {
   params: Promise<{
     tableId: string;
   }>;
 }
+
+// Function to recreate columns with Badge components for server data
+const createServerColumns = (): ColumnDef<any>[] => [
+  {
+    id: 'id',
+    header: 'Server ID',
+    accessorKey: 'id',
+    width: 120,
+    sortable: true,
+  },
+  {
+    id: 'serverModel',
+    header: 'Server Model',
+    accessorKey: 'serverModel',
+    width: 200,
+    sortable: true,
+  },
+  {
+    id: 'status',
+    header: 'Status',
+    accessorKey: 'status',
+    width: 150,
+    sortable: true,
+    cell: (value) => {
+      // Map status values to badge variants
+      const statusMap: Record<string, string> = {
+        planned: 'planned',
+        ordered: 'ordered',
+        manufacturing: 'manufacturing',
+        qualityTesting: 'qualityTesting',
+        readyToShip: 'readyToShip',
+        inTransit: 'inTransit',
+        delivered: 'delivered',
+        installing: 'installing',
+        active: 'active',
+        delayed: 'delayed',
+      };
+      
+      // Map status values to proper display text
+      const statusDisplayMap: Record<string, string> = {
+        planned: 'Planned',
+        ordered: 'Ordered',
+        manufacturing: 'Manufacturing',
+        qualityTesting: 'QA Testing',
+        readyToShip: 'Ready to Ship',
+        inTransit: 'In Transit',
+        delivered: 'Delivered',
+        installing: 'Installing',
+        active: 'Active',
+        delayed: 'Delayed',
+      };
+      
+      const variant = statusMap[value] || 'standard';
+      const displayText = statusDisplayMap[value] || value;
+      
+      return (
+        <Badge variant={variant as any}>
+          {displayText}
+        </Badge>
+      );
+    },
+  },
+  {
+    id: 'location',
+    header: 'Location',
+    accessorKey: 'location',
+    width: 180,
+    sortable: true,
+  },
+  {
+    id: 'orderDate',
+    header: 'Order Date',
+    accessorKey: 'orderDate',
+    width: 120,
+    sortable: true,
+  },
+  {
+    id: 'expectedDelivery',
+    header: 'Expected Delivery',
+    accessorKey: 'expectedDelivery',
+    width: 140,
+    sortable: true,
+  },
+  {
+    id: 'priority',
+    header: 'Priority',
+    accessorKey: 'priority',
+    width: 100,
+    sortable: true,
+    cell: (value) => {
+      // Map priority values to badge variants
+      const priorityMap: Record<string, string> = {
+        critical: 'critical',
+        high: 'highPriority',
+        standard: 'standard',
+      };
+      
+      const variant = priorityMap[value] || 'standard';
+      
+      return (
+        <Badge variant={variant as any}>
+          {value}
+        </Badge>
+      );
+    },
+  },
+  {
+    id: 'quantity',
+    header: 'Quantity',
+    accessorKey: 'quantity',
+    width: 100,
+    sortable: true,
+  },
+  {
+    id: 'cost',
+    header: 'Cost',
+    accessorKey: 'cost',
+    width: 120,
+    sortable: true,
+    cell: (value) => `$${value.toLocaleString()}`,
+  },
+  {
+    id: 'supplier',
+    header: 'Supplier',
+    accessorKey: 'supplier',
+    width: 160,
+    sortable: true,
+  },
+  {
+    id: 'warrantyExpiry',
+    header: 'Warranty Expiry',
+    accessorKey: 'warrantyExpiry',
+    width: 130,
+    sortable: true,
+  },
+  {
+    id: 'cpuCores',
+    header: 'CPU Cores',
+    accessorKey: 'cpuCores',
+    width: 100,
+    sortable: true,
+    cell: (value) => `${value} cores`,
+  },
+  {
+    id: 'ramSize',
+    header: 'RAM Size',
+    accessorKey: 'ramSize',
+    width: 100,
+    sortable: true,
+  },
+  {
+    id: 'storageSize',
+    header: 'Storage Size',
+    accessorKey: 'storageSize',
+    width: 120,
+    sortable: true,
+  },
+  {
+    id: 'powerConsumption',
+    header: 'Power (W)',
+    accessorKey: 'powerConsumption',
+    width: 100,
+    sortable: true,
+    cell: (value) => `${value}W`,
+  },
+  {
+    id: 'rackUnit',
+    header: 'Rack Unit',
+    accessorKey: 'rackUnit',
+    width: 110,
+    sortable: true,
+  },
+  {
+    id: 'serviceLevel',
+    header: 'Service Level',
+    accessorKey: 'serviceLevel',
+    width: 120,
+    sortable: true,
+    cell: (value) => {
+      // Map service level to badge variants
+      const serviceLevelMap: Record<string, string> = {
+        Basic: 'standard',
+        Standard: 'ordered',
+        Premium: 'highPriority',
+        Enterprise: 'critical',
+      };
+      
+      const variant = serviceLevelMap[value] || 'standard';
+      
+      return (
+        <Badge variant={variant as any}>
+          {value}
+        </Badge>
+      );
+    },
+  },
+  {
+    id: 'lastMaintenance',
+    header: 'Last Maintenance',
+    accessorKey: 'lastMaintenance',
+    width: 140,
+    sortable: true,
+  },
+  {
+    id: 'nextMaintenance',
+    header: 'Next Maintenance',
+    accessorKey: 'nextMaintenance',
+    width: 140,
+    sortable: true,
+  },
+];
 
 export default function DeepDivePage({ params }: DeepDivePageProps) {
   const resolvedParams = use(params);
@@ -33,6 +245,12 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
         const storedData = sessionStorage.getItem(sessionKey);
         if (storedData) {
           const tableData = JSON.parse(storedData);
+          
+          // For server inventory data, recreate columns with Badge components
+          if (tableId === 'server-inventory-interactive' || tableId === 'server-list-interactive') {
+            tableData.columns = createServerColumns();
+          }
+          
           setTableData(tableData);
           setLoading(false);
           
@@ -63,7 +281,7 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
       setError('Failed to load table data');
       setLoading(false);
     }
-  }, [searchParams]);
+  }, [searchParams, tableId]);
 
   const containerStyle: React.CSSProperties = {
     height: 'calc(100vh - 80px)', // Use more of the viewport height
