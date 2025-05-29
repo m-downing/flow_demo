@@ -57,8 +57,8 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
         setIsUserMenuOpen(false);
         setIsAppSwitcherOpen(false);
-        // Only collapse sidebar if menus were open
-        if (isUserMenuOpen || isAppSwitcherOpen) {
+        // Collapse sidebar if it's expanded (regardless of submenu state)
+        if (isExpanded) {
           onExpandedChange(false);
         }
       }
@@ -68,7 +68,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [onExpandedChange, isUserMenuOpen, isAppSwitcherOpen]);
+  }, [onExpandedChange, isExpanded]);
 
   const handleTabClick = (tabName: string, tabPath?: string) => {
     setActiveTab(tabName);
@@ -78,6 +78,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     if (tabPath) {
       setLoadingTab(tabName);
     }
+    
+    // Collapse sidebar when a tab is clicked
+    onExpandedChange(false);
     
     // Navigate to the specified path
     if (tabPath) {
