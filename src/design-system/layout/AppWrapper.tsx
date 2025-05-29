@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { ChatBubbleOvalLeftEllipsisIcon, ExclamationTriangleIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon, SparklesIcon } from '@heroicons/react/24/outline';
 import Sidebar from './Sidebar';
+import AccountDrawer from './AccountDrawer';
 import MainLoadingSpinner from './MainLoadingScreen';
-import AIChatBox from '../utilities/AIChatBox';
 import { InfoBanner, CriticalBanner } from '../components/feedback';
 import { NotificationProvider } from '../../app/contexts/NotificationContext';
 import { ThemeProvider } from '../../app/contexts/ThemeContext';
@@ -71,7 +71,6 @@ const DemoNotificationsInitializer: React.FC = () => {
 // Inner component that uses the demo hook
 const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
   const [loading, setLoading] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
   const pathname = usePathname();
@@ -109,21 +108,8 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
       {/* Initialize demo notifications only after client-side hydration */}
       {isClient && <DemoNotificationsInitializer />}
       
-      <div className="z-50 fixed bottom-4 right-3 flex flex-col items-center">
-        <div 
-          className="w-[42px] h-[42px] rounded-full bg-primary-600 dark:bg-success-500 flex items-center justify-center cursor-pointer hover:bg-primary-600/65 transition-all duration-50 relative"
-          style={{ filter: 'drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2))' }}
-          onClick={() => setIsChatOpen(!isChatOpen)}
-        >
-          <ChatBubbleOvalLeftEllipsisIcon className="w-6 h-6 text-neutral-50" />
-        </div>
-      </div>
-      
-      {/* AI Chat Box */}
-      <AIChatBox 
-        isOpen={isChatOpen}
-        onClose={() => setIsChatOpen(false)}
-      />
+      {/* Account Drawer */}
+      <AccountDrawer />
       
       <Sidebar 
         isExpanded={isSidebarExpanded}

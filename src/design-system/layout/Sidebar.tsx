@@ -6,13 +6,10 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
 import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon } from '@heroicons/react/24/outline';
-import { UserIcon } from '@heroicons/react/24/solid';
-import NotificationBadge from '../components/feedback/NotificationBadge';
+import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '../components/feedback';
 import Tooltip from '../components/feedback/Tooltip';
-import NotificationsModal from '../overlays/modals/Notifications';
-import UserPreferencesModal from '../overlays/modals/UserPreferences';
-import { useNotifications } from '../../app/contexts/NotificationContext';
+import AIChatBox from '../utilities/AIChatBox';
 
 interface SidebarProps {
   isExpanded: boolean;
@@ -22,14 +19,11 @@ interface SidebarProps {
 export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) {
   const [activeTab, setActiveTab] = useState<string>('Snapshot');
   const [isAppSwitcherOpen, setIsAppSwitcherOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isNotificationsModalOpen, setIsNotificationsModalOpen] = useState(false);
-  const [isUserPreferencesModalOpen, setIsUserPreferencesModalOpen] = useState(false);
+  const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [loadingTab, setLoadingTab] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const { unreadCount } = useNotifications();
 
   useEffect(() => {
     // Determine active tab based on current pathname
@@ -55,7 +49,6 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     const handleClickOutside = (event: MouseEvent) => {
       // Close menus and collapse if clicking outside sidebar
       if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-        setIsUserMenuOpen(false);
         setIsAppSwitcherOpen(false);
         // Collapse sidebar if it's expanded (regardless of submenu state)
         if (isExpanded) {
@@ -94,30 +87,16 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const handleAppSwitcherClick = () => {
     onExpandedChange(true);
     setIsAppSwitcherOpen(!isAppSwitcherOpen);
-    setIsUserMenuOpen(false); // Close user menu
-  };
-
-  const handleUserMenuClick = () => {
-    onExpandedChange(true);
-    setIsUserMenuOpen(!isUserMenuOpen);
-    setIsAppSwitcherOpen(false); // Close app switcher
   };
 
   const handleExpandClick = (event: React.MouseEvent) => {
     event.stopPropagation();
     onExpandedChange(!isExpanded);
-    setIsUserMenuOpen(false);
     setIsAppSwitcherOpen(false);
   };
 
-  const handleNotificationsClick = () => {
-    setIsNotificationsModalOpen(true);
-    setIsUserMenuOpen(false); // Close user menu when opening notifications
-  };
-
-  const handlePreferencesClick = () => {
-    setIsUserPreferencesModalOpen(true);
-    setIsUserMenuOpen(false); // Close user menu when opening preferences
+  const handleAIChatClick = () => {
+    setIsAIChatOpen(true);
   };
 
   // Function to render the appropriate icon
@@ -272,60 +251,26 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
             ))}
           </div>
 
-          {/* Bottom section - User menu and expand button */}
+          {/* Bottom section - AI Chat button and expand button */}
           <div className="bg-primary-800/90 w-full">
-            {/* User Menu Submenu */}
-            {isExpanded && isUserMenuOpen && (
-              <div className="bg-primary-900 py-4 px-4">
-                <div className="flex flex-col gap-3">
-                  <span 
-                    onClick={handlePreferencesClick}
-                    className="font-medium text-neutral-50 text-[14px] tracking-tight hover:text-neutral-300 transition-colors duration-200 cursor-pointer"
-                  >
-                    Preferences
-                  </span>
-                  <div className="flex items-center justify-between">
-                    <span 
-                      onClick={handleNotificationsClick}
-                      className="font-medium text-neutral-50 text-[14px] tracking-tight hover:text-neutral-300 transition-colors duration-200 cursor-pointer"
-                    >
-                      Alerts
-                    </span>
-                    {unreadCount > 0 && (
-                      <div className="bg-error-500 text-white text-[10px] px-1 min-w-[14px] h-[14px] rounded-full flex items-center justify-center font-bold">
-                        {unreadCount > 99 ? '99+' : unreadCount}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* User Profile and Expand Icons */}
             <div className={`h-[80px] w-full flex flex-col items-center justify-center relative mb-6`}>
-              {/* User Profile Icon */}
-              <div className="relative">
-                <Tooltip
-                  content="User Settings"
-                  position="right"
-                  disabled={isExpanded}
-                  delay={200}
+              {/* AI Chat Icon */}
+              <Tooltip
+                content="IRIS AI Assistant"
+                position="right"
+                disabled={isExpanded}
+                delay={200}
+              >
+                <div 
+                  className="w-[32px] h-[32px] rounded-full bg-gradient-to-br from-success-400 to-success-600 flex items-center justify-center cursor-pointer hover:from-success-500 hover:to-success-700 transition-all duration-200 shadow-md"
+                  role="button"
+                  aria-label="Open AI Chat"
+                  tabIndex={0}
+                  onClick={handleAIChatClick}
                 >
-                  <div 
-                    className="w-[24px] h-[24px] rounded-full bg-neutral-300 flex items-center justify-center cursor-pointer hover:bg-neutral-400 transition-all duration-50 shadow-md"
-                    role="button"
-                    aria-label="User menu"
-                    aria-expanded={isUserMenuOpen}
-                    aria-haspopup="true"
-                    tabIndex={0}
-                    onClick={handleUserMenuClick}
-                    data-user-menu-button
-                  >
-                    <UserIcon className="w-4 h-4 text-primary-800" />
-                  </div>
-                </Tooltip>
-                <NotificationBadge count={unreadCount} variant="md" />
-              </div>
+                  <SparklesIcon className="w-5 h-5 text-neutral-50" />
+                </div>
+              </Tooltip>
 
               {/* Expand/Collapse Icon */}
               <Tooltip
@@ -342,9 +287,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                   tabIndex={0}
                 >
                   {isExpanded ? (
-                    <ArrowLeftStartOnRectangleIcon className="w-5 h-5 text-neutral-400 transition-opacity duration-300" />
+                    <ArrowLeftStartOnRectangleIcon className="w-5 h-5 text-neutral-400 dark:text-neutral-200 transition-opacity duration-300" />
                   ) : (
-                    <ArrowRightStartOnRectangleIcon className="w-5 h-5 text-neutral-400 transition-opacity duration-300" />
+                    <ArrowRightStartOnRectangleIcon className="w-5 h-5 text-neutral-400 dark:text-neutral-200 transition-opacity duration-300" />
                   )}
                 </div>
               </Tooltip>
@@ -353,16 +298,12 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
         </aside>
       </div>
 
-      {/* Notifications Modal */}
-      <NotificationsModal
-        isOpen={isNotificationsModalOpen}
-        onClose={() => setIsNotificationsModalOpen(false)}
-      />
-
-      {/* User Preferences Modal */}
-      <UserPreferencesModal
-        isOpen={isUserPreferencesModalOpen}
-        onClose={() => setIsUserPreferencesModalOpen(false)}
+      {/* AI Chat Box */}
+      <AIChatBox
+        isOpen={isAIChatOpen}
+        onClose={() => setIsAIChatOpen(false)}
+        title="IRIS"
+        placeholder="Ask anything about your supply chain..."
       />
     </>
   );

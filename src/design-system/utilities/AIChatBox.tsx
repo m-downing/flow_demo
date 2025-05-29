@@ -189,16 +189,16 @@ export default function AIChatBox({
         className={`
           fixed z-50 transition-all duration-300 ease-out
           ${isMinimized 
-            ? 'bottom-4 right-20 w-80 h-14' 
-            : 'bottom-4 right-20 w-[600px] h-[420px] md:w-[600px] md:h-[420px] lg:right-20 xl:right-20'
+            ? 'bottom-4 left-20 w-80 h-14' 
+            : 'bottom-4 left-20 w-[600px] h-[420px] md:w-[600px] md:h-[420px] lg:left-20 xl:left-20'
           }
-          max-md:bottom-0 max-md:right-0 max-md:left-0 max-md:w-full max-md:h-full
-          max-lg:right-3 max-lg:w-[480px]
+          max-md:bottom-0 max-md:left-0 max-md:right-0 max-md:w-full max-md:h-full
+          max-lg:left-3 max-lg:w-[480px]
           rounded-lg md:rounded-xl shadow-2xl
           ${chatWindowClasses}
           ${isOpen 
             ? 'translate-x-0 opacity-100' 
-            : 'translate-x-4 opacity-0 pointer-events-none'
+            : '-translate-x-4 opacity-0 pointer-events-none'
           }
         `}
         style={{ 
