@@ -1433,12 +1433,13 @@ export default function DemoTablesPage() {
         <div style={demoContainerStyle}>
           <div style={modeInfoStyle}>
             Current Mode: {listMode}
-            {listMode === 'summary' && ' (5 key columns displayed, unlimited items)'}
-            {listMode === 'drilldown' && ' (all data displayed, layout constrained)'}
+            {listMode === 'summary' && ' (key information only, unlimited items)'}
+            {listMode === 'drilldown' && ' (treated as Deep Dive for ListView)'}
             {listMode === 'deepDive' && ' (unlimited features)'}
           </div>
           <p style={descriptionStyle}>
-            The ListView displays the same data in cards. Summary mode shows only key information, while Drilldown and Deep Dive show progressively more detail.
+            The ListView displays the same data in cards. ListView only supports Summary mode (key information) and Deep Dive mode (opens in new tab). 
+            Drilldown mode is not applicable since there are no columns to show/hide.
           </p>
           <ListView
             data={sampleData}
@@ -1457,12 +1458,13 @@ export default function DemoTablesPage() {
         <h2 style={subHeaderStyle}>TableToggle Component Features</h2>
         <div style={{ color: isDark ? colors.neutral[300] : colors.neutral[700], fontSize: '14px' }}>
           <ul style={{ lineHeight: '1.6' }}>
-            <li><strong>Summary Mode:</strong> Shows 5 key columns (developer-controlled) with unlimited scrolling</li>
-            <li><strong>Drilldown Mode:</strong> Shows all columns, constrained by page layout dimensions</li>
-            <li><strong>Deep Dive Mode:</strong> Full-featured table in dedicated page with no constraints</li>
+            <li><strong>Summary Mode:</strong> Shows 5 key columns (TableView) or key information (ListView) with unlimited scrolling</li>
+            <li><strong>Drilldown Mode:</strong> Shows all columns, constrained by page layout dimensions (TableView only)</li>
+            <li><strong>Deep Dive Mode:</strong> Full-featured table/list in dedicated page with no constraints</li>
             <li><strong>Smart Deep Dive:</strong> Rocket icon opens full table in new tab instead of inline mode change</li>
+            <li><strong>ListView Simplicity:</strong> ListView only shows Summary and Deep Dive modes (no Drilldown since no columns)</li>
             <li><strong>Always Scrollable:</strong> All modes support vertical scrolling when data exceeds container height</li>
-            <li><strong>Column Management:</strong> Sortable, resizable columns (where mode permits)</li>
+            <li><strong>Column Management:</strong> Sortable, resizable columns (TableView only)</li>
             <li><strong>Theme Integration:</strong> Automatic light/dark theme support matching your design system</li>
           </ul>
         </div>

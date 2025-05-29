@@ -42,6 +42,12 @@ export const ListView = <T extends Record<string, any>>({
 
   // Handle mode change
   const handleModeChange = (newMode: 'summary' | 'drilldown' | 'deepDive') => {
+    // ListView only supports summary and deepDive modes
+    if (newMode === 'drilldown') {
+      // If drilldown is requested, treat it as deepDive for ListView
+      newMode = 'deepDive';
+    }
+    
     if (newMode === 'deepDive' && tableId) {
       // Don't change local mode for deep dive, just trigger external navigation
       return;
@@ -146,6 +152,7 @@ export const ListView = <T extends Record<string, any>>({
             mode={currentMode}
             onChange={handleModeChange}
             showDeepDive={!!tableId}
+            showDrilldown={false}
             onDeepDiveExternal={handleDeepDiveExternal}
           />
         )}

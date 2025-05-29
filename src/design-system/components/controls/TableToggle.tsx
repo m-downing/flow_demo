@@ -10,6 +10,7 @@ export interface TableToggleProps {
   mode: DetailLevel;
   onChange: (mode: DetailLevel) => void;
   showDeepDive?: boolean;
+  showDrilldown?: boolean;
   className?: string;
   onDeepDiveExternal?: () => void;
   usePlaceholder?: boolean;
@@ -19,6 +20,7 @@ export const TableToggle: React.FC<TableToggleProps> = ({
   mode,
   onChange,
   showDeepDive = false,
+  showDrilldown = true,
   className,
   onDeepDiveExternal,
   usePlaceholder = false,
@@ -80,16 +82,18 @@ export const TableToggle: React.FC<TableToggleProps> = ({
         >
           Summary
         </button>
-        <button
-          className={clsx(
-            'px-4 py-2 text-sm font-medium transition-colors',
-            `border-l ${borderClasses}`,
-            getButtonClasses(mode === 'drilldown')
-          )}
-          onClick={() => onChange('drilldown')}
-        >
-          Drill Down
-        </button>
+        {showDrilldown && (
+          <button
+            className={clsx(
+              'px-4 py-2 text-sm font-medium transition-colors',
+              `border-l ${borderClasses}`,
+              getButtonClasses(mode === 'drilldown')
+            )}
+            onClick={() => onChange('drilldown')}
+          >
+            Drill Down
+          </button>
+        )}
       </div>
 
       {/* Deep Dive button with rocket icon */}
