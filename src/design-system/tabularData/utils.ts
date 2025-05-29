@@ -1,5 +1,13 @@
 import { DetailLevel, ColumnDef, FilterConfig, SortConfig } from './types';
 
+// Table data structure for deep dive
+interface TableDataStructure {
+  title?: string;
+  data?: unknown[];
+  columns?: unknown[];
+  [key: string]: unknown;
+}
+
 // Mode constraints
 interface ModeConstraints {
   maxColumns: number | null;
@@ -139,10 +147,23 @@ export const getVisibleColumns = <T>(
 export const generateDeepDiveUrl = (tableId: string, tableData?: unknown): string => {
   const baseUrl = `/deepdive/table-id/${tableId}`;
   
-  if (tableData) {
-    // Store table data in sessionStorage
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem(`table-${tableId}`, JSON.stringify(tableData));
+  if (tableData && typeof window !== 'undefined') {
+    try {
+      // Store table data in sessionStorage
+      const dataToStore = JSON.stringify(tableData);
+      sessionStorage.setItem(`table-${tableId}`, dataToStore);
+      console.log(`Stored table data for ${tableId}`);
+    } catch (err) {
+      // If JSON.stringify fails (e.g., due to circular references or functions),
+      // store a simplified version
+      console.warn('Failed to serialize table data, storing simplified version:', err);
+      const tableDataTyped = tableData as TableDataStructure;
+      const simplified = {
+        title: tableDataTyped.title,
+        data: tableDataTyped.data,
+        // Don't store columns as they contain functions
+      };
+      sessionStorage.setItem(`table-${tableId}`, JSON.stringify(simplified));
     }
   }
   
@@ -151,9 +172,13 @@ export const generateDeepDiveUrl = (tableId: string, tableData?: unknown): strin
 
 // Open table in new tab
 export const openTableInNewTab = (tableId: string, tableData?: unknown): void => {
+  console.log('openTableInNewTab called with:', { tableId, hasTableData: !!tableData });
+  
   const url = generateDeepDiveUrl(tableId, tableData);
+  console.log('Generated URL:', url);
   
   if (typeof window !== 'undefined') {
+    console.log('Opening new tab...');
     window.open(url, '_blank');
   }
 }; 

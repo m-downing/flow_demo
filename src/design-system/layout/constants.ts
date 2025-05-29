@@ -13,6 +13,7 @@ export const appTabs = {
     { name: "KPI's", icon: "Briefcase", path: "/kpi" },
     { name: "Network", icon: "Cloud", path: "/network" },
     { name: "Chart Gallery", icon: "PresentationChartLine", path: "/chart-gallery" },
+    { name: "Tables Demo", icon: "TableCells", path: "/demo-tables" },
   ],
   helius: [dashboardTab],
   mimir: [dashboardTab],
