@@ -175,6 +175,7 @@ export const TableView = <T extends Record<string, any>>({
     top: 0,
     cursor: 'pointer',
     userSelect: 'none',
+    zIndex: 10,
   };
 
   const tdStyle: React.CSSProperties = {
@@ -247,7 +248,8 @@ export const TableView = <T extends Record<string, any>>({
                     width: columnWidths[column.id] || column.width || 'auto',
                     minWidth: column.minWidth || 100,
                     maxWidth: column.maxWidth || 'none',
-                    position: 'relative',
+                    position: 'sticky',
+                    top: 0,
                   }}
                   onClick={() => column.sortable !== false && handleSort(column.id)}
                 >
@@ -275,6 +277,7 @@ export const TableView = <T extends Record<string, any>>({
                         width: '4px',
                         cursor: 'col-resize',
                         backgroundColor: resizingColumn === column.id ? colors.primary[500] : 'transparent',
+                        zIndex: 11,
                       }}
                       onMouseDown={(e) => handleMouseDown(e, column.id)}
                     />
