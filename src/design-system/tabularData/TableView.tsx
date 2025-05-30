@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 import { TableViewProps, SortConfig, FilterConfig } from './types';
 import { filterData, sortData, paginateData, getVisibleColumns, getModeConstraints, openTableInNewTab } from './utils';
@@ -44,11 +44,27 @@ export const TableView = <T extends Record<string, unknown>>({
   const [localPageSize, setLocalPageSize] = useState(initialPageSize);
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
   const [resizingColumn, setResizingColumn] = useState<string | null>(null);
+  const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map(col => col.id));
+  const [draggedColumn, setDraggedColumn] = useState<string | null>(null);
+  const [dragOverColumn, setDragOverColumn] = useState<string | null>(null);
+  const [isResizing, setIsResizing] = useState(false);
+
+  // Add this helper function after the state declarations
+  const getColumnWidth = (columnId: string, column: typeof visibleColumns[0]) => {
+    return columnWidths[columnId] || column.width || 150; // Default to 150px instead of 'auto'
+  };
 
   // Get mode constraints
   const currentMode = localMode;
   const constraints = getModeConstraints(currentMode);
   const visibleColumns = getVisibleColumns(columns, currentMode);
+  
+  // Apply column order to visible columns
+  const orderedVisibleColumns = useMemo(() => {
+    return columnOrder
+      .map(id => visibleColumns.find(col => col.id === id))
+      .filter(col => col !== undefined) as typeof visibleColumns;
+  }, [visibleColumns, columnOrder]);
   
   // Calculate pagination - only for deep dive mode with explicit pagination
   const showActualPagination = showPagination !== undefined ? showPagination : constraints.showPagination;
@@ -107,6 +123,11 @@ export const TableView = <T extends Record<string, unknown>>({
 
   // Handle sorting
   const handleSort = (columnId: string) => {
+    // Don't sort if we just finished resizing
+    if (isResizing) {
+      return;
+    }
+    
     const newSortConfig: SortConfig = {
       column: columnId,
       direction: localSortConfig?.column === columnId && localSortConfig.direction === 'asc' ? 'desc' : 'asc',
@@ -121,10 +142,27 @@ export const TableView = <T extends Record<string, unknown>>({
   // Column resizing
   const handleMouseDown = (e: React.MouseEvent, columnId: string) => {
     e.preventDefault();
+    e.stopPropagation();
     setResizingColumn(columnId);
+    setIsResizing(true);
+    
+    // Find the th element by traversing up the DOM tree
+    let thElement = e.currentTarget as HTMLElement;
+    while (thElement && thElement.tagName !== 'TH') {
+      thElement = thElement.parentElement as HTMLElement;
+    }
+    
+    if (!thElement) {
+      console.error('Could not find TH element for resizing');
+      return;
+    }
+    
+    const startX = e.clientX;
+    const startWidth = thElement.offsetWidth;
     
     const handleMouseMove = (e: MouseEvent) => {
-      const newWidth = Math.max(100, e.clientX - tableRef.current!.getBoundingClientRect().left);
+      const deltaX = e.clientX - startX;
+      const newWidth = Math.max(100, startWidth + deltaX);
       setColumnWidths(prev => ({ ...prev, [columnId]: newWidth }));
     };
     
@@ -132,10 +170,70 @@ export const TableView = <T extends Record<string, unknown>>({
       setResizingColumn(null);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = 'default';
+      
+      // Reset isResizing after a short delay to ensure click event has been processed
+      setTimeout(() => {
+        setIsResizing(false);
+      }, 100);
     };
     
+    document.body.style.cursor = 'col-resize';
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  // Column drag and drop handlers
+  const handleDragStart = (e: React.DragEvent, columnId: string) => {
+    setDraggedColumn(columnId);
+    e.dataTransfer.effectAllowed = 'move';
+    // Add a visual effect
+    if (e.currentTarget instanceof HTMLElement) {
+      e.currentTarget.style.opacity = '0.5';
+    }
+  };
+
+  const handleDragEnd = (e: React.DragEvent) => {
+    setDraggedColumn(null);
+    setDragOverColumn(null);
+    // Remove visual effect
+    if (e.currentTarget instanceof HTMLElement) {
+      e.currentTarget.style.opacity = '1';
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDragEnter = (e: React.DragEvent, columnId: string) => {
+    if (draggedColumn && draggedColumn !== columnId) {
+      setDragOverColumn(columnId);
+    }
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    if (e.currentTarget === e.target) {
+      setDragOverColumn(null);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent, targetColumnId: string) => {
+    e.preventDefault();
+    if (!draggedColumn || draggedColumn === targetColumnId) return;
+
+    const newOrder = [...columnOrder];
+    const draggedIndex = newOrder.indexOf(draggedColumn);
+    const targetIndex = newOrder.indexOf(targetColumnId);
+
+    // Remove dragged column
+    newOrder.splice(draggedIndex, 1);
+    // Insert at new position
+    newOrder.splice(targetIndex, 0, draggedColumn);
+
+    setColumnOrder(newOrder);
+    setDragOverColumn(null);
   };
 
   // Handle page change
@@ -228,9 +326,10 @@ export const TableView = <T extends Record<string, unknown>>({
     width: '100%',
     borderCollapse: 'collapse' as const,
     fontSize: '14px',
+    tableLayout: 'fixed',
   };
 
-  const thStyle: React.CSSProperties = {
+  const getThStyle = (columnId: string): React.CSSProperties => ({
     backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
     color: isDark ? colors.neutral[300] : colors.neutral[700],
     padding: '12px 16px',
@@ -238,12 +337,13 @@ export const TableView = <T extends Record<string, unknown>>({
     fontWeight: '600',
     borderBottom: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
     borderRight: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
-    position: 'sticky',
-    top: 0,
-    cursor: 'pointer',
+    position: 'relative',
     userSelect: 'none',
     zIndex: 10,
-  };
+    cursor: constraints.showColumnReorder ? 'grab' : 'pointer',
+    transition: 'border-color 0.2s',
+    borderLeft: dragOverColumn === columnId ? `3px solid ${colors.primary[500]}` : undefined,
+  });
 
   const tdStyle: React.CSSProperties = {
     padding: '12px 16px',
@@ -307,20 +407,32 @@ export const TableView = <T extends Record<string, unknown>>({
         <table style={tableStyle}>
           <thead>
             <tr>
-              {visibleColumns.map((column) => (
+              {orderedVisibleColumns.map((column) => (
                 <th
                   key={column.id}
                   style={{
-                    ...thStyle,
-                    width: columnWidths[column.id] || column.width || 'auto',
+                    ...getThStyle(column.id),
+                    width: getColumnWidth(column.id, column),
                     minWidth: column.minWidth || 100,
                     maxWidth: column.maxWidth || 'none',
                     position: 'sticky',
                     top: 0,
                   }}
                   onClick={() => column.sortable !== false && handleSort(column.id)}
+                  draggable={constraints.showColumnReorder}
+                  onDragStart={(e) => constraints.showColumnReorder && handleDragStart(e, column.id)}
+                  onDragEnd={handleDragEnd}
+                  onDragOver={handleDragOver}
+                  onDragEnter={(e) => handleDragEnter(e, column.id)}
+                  onDragLeave={handleDragLeave}
+                  onDrop={(e) => handleDrop(e, column.id)}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between',
+                    pointerEvents: 'none',
+                  }}>
                     <span>{column.header}</span>
                     {column.sortable !== false && localSortConfig?.column === column.id && (
                       <span style={{ marginLeft: '8px' }}>
@@ -338,16 +450,42 @@ export const TableView = <T extends Record<string, unknown>>({
                     <div
                       style={{
                         position: 'absolute',
-                        right: 0,
+                        right: -3, // Position it centered on the border
                         top: 0,
                         bottom: 0,
-                        width: '4px',
+                        width: '10px', // Wider area for easier grabbing
                         cursor: 'col-resize',
-                        backgroundColor: resizingColumn === column.id ? colors.primary[500] : 'transparent',
-                        zIndex: 11,
+                        backgroundColor: 'transparent',
+                        zIndex: 20, // Higher z-index to ensure it's on top
+                        padding: '0 2px', // Add padding for easier interaction
                       }}
-                      onMouseDown={(e) => handleMouseDown(e, column.id)}
-                    />
+                      onMouseDown={(e) => {
+                        e.stopPropagation(); // Prevent triggering column drag
+                        handleMouseDown(e, column.id);
+                      }}
+                      onDragStart={(e) => {
+                        e.preventDefault(); // Prevent this element from being draggable
+                        e.stopPropagation();
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '2px',
+                          height: '100%',
+                          backgroundColor: resizingColumn === column.id ? colors.primary[500] : 'transparent',
+                          margin: '0 auto',
+                          transition: 'background-color 0.2s',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = colors.primary[400];
+                        }}
+                        onMouseLeave={(e) => {
+                          if (resizingColumn !== column.id) {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                          }
+                        }}
+                      />
+                    </div>
                   )}
                 </th>
               ))}
@@ -368,8 +506,11 @@ export const TableView = <T extends Record<string, unknown>>({
                 }}
                 onClick={() => onRowClick && onRowClick(row, index)}
               >
-                {visibleColumns.map((column) => (
-                  <td key={column.id} style={tdStyle}>
+                {orderedVisibleColumns.map((column) => (
+                  <td key={column.id} style={{
+                    ...tdStyle,
+                    width: getColumnWidth(column.id, column),
+                  }}>
                     {column.cell 
                       ? column.cell(row[column.accessorKey as keyof T], row, index)
                       : String(row[column.accessorKey as keyof T] || '')

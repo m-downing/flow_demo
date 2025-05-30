@@ -19,6 +19,7 @@ interface ModeConstraints {
   showExport: boolean;
   showColumnResize: boolean;
   showRowActions: boolean;
+  showColumnReorder: boolean;
 }
 
 export const getModeConstraints = (mode: DetailLevel): ModeConstraints => {
@@ -34,6 +35,7 @@ export const getModeConstraints = (mode: DetailLevel): ModeConstraints => {
         showExport: false,
         showColumnResize: false,
         showRowActions: false,
+        showColumnReorder: false,
       };
     case 'drilldown':
       return {
@@ -46,6 +48,7 @@ export const getModeConstraints = (mode: DetailLevel): ModeConstraints => {
         showExport: false,
         showColumnResize: true,
         showRowActions: true,
+        showColumnReorder: true,
       };
     case 'deepDive':
       return {
@@ -58,6 +61,7 @@ export const getModeConstraints = (mode: DetailLevel): ModeConstraints => {
         showExport: true,
         showColumnResize: true,
         showRowActions: true,
+        showColumnReorder: true,
       };
   }
 };
