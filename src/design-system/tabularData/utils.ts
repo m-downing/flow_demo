@@ -27,7 +27,7 @@ export const getModeConstraints = (mode: DetailLevel): ModeConstraints => {
       return {
         maxColumns: 5,
         maxRows: null, // No row limit in any mode - all support unlimited scrolling
-        showPagination: false,
+        showPagination: true,
         showFilters: false,
         showSort: true,
         showSearch: false,
@@ -39,7 +39,7 @@ export const getModeConstraints = (mode: DetailLevel): ModeConstraints => {
       return {
         maxColumns: null,
         maxRows: null, // No row limit in any mode - all support unlimited scrolling
-        showPagination: false,
+        showPagination: true,
         showFilters: false,
         showSort: true,
         showSearch: false,

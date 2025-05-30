@@ -76,4 +76,8 @@ export interface ListViewProps<T = unknown> {
   width?: number | string;
   onModeChange?: (mode: DetailLevel) => void;
   showModeToggle?: boolean;
+  showPagination?: boolean;
+  pageSize?: number;
+  currentPage?: number;
+  onPageChange?: (page: number) => void;
 } 

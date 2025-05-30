@@ -192,7 +192,7 @@ export default function AccountDrawer() {
       {!isOpen && (
         <div
           className={`
-            fixed top-4 right-0 transition-all duration-300 ease-out z-40
+            fixed top-4 right-0 transition-all duration-300 ease-out z-[60]
           `}
         >
           <button
@@ -214,7 +214,7 @@ export default function AccountDrawer() {
       <div
         ref={drawerRef}
         className={`
-          fixed top-0 right-0 h-full w-[500px] z-50
+          fixed top-0 right-0 h-full w-[500px] z-[60]
           transform transition-transform duration-300 ease-out
           ${isOpen ? 'translate-x-0' : 'translate-x-full'}
           ${drawerClasses}
