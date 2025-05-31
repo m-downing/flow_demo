@@ -49,6 +49,11 @@ export default function AccountDrawer() {
   // Handle click outside to close drawer
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      // Don't close drawer if a modal is open
+      if (isNotificationsModalOpen || isUserPreferencesModalOpen) {
+        return;
+      }
+      
       if (drawerRef.current && !drawerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
@@ -60,7 +65,7 @@ export default function AccountDrawer() {
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }
-  }, [isOpen]);
+  }, [isOpen, isNotificationsModalOpen, isUserPreferencesModalOpen]);
 
   const handleNotificationsClick = () => {
     setIsNotificationsModalOpen(true);
@@ -202,9 +207,9 @@ export default function AccountDrawer() {
             className={`
               relative
               flex items-center justify-center
-              w-10 h-14 rounded-l-xl border border-r-0
+              w-8 h-14 rounded-l-xl border border-r-0
               transition-all duration-300
-              hover:w-12
+              hover:w-9
               ${tabClasses}
             `}
             aria-label="Open drawer"
@@ -231,7 +236,14 @@ export default function AccountDrawer() {
           {/* Background pattern */}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
-              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, currentColor 35px, currentColor 70px)`,
+              backgroundImage: `repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 25px,
+                currentColor 50px,
+                transparent 75px,
+                transparent 100px
+              )`,
             }} />
           </div>
           
@@ -241,7 +253,7 @@ export default function AccountDrawer() {
               className="cursor-pointer group"
               onClick={handlePreferencesClick}
             >
-              <h2 className={`text-xl font-semibold ${textClasses} group-hover:text-primary-600 transition-colors duration-200`}>Preferences</h2>
+              <h2 className={`text-xl font-semibold ${textClasses} ${isDark ? 'group-hover:text-neutral-400' : 'group-hover:text-primary-600'} transition-colors duration-200`}>Preferences</h2>
               <p className={`text-sm ${subtextClasses} mt-0.5`}>Manage your account settings</p>
             </div>
             
@@ -276,7 +288,7 @@ export default function AccountDrawer() {
                 onChange={(e) => setNoteTitle(e.target.value)}
                 placeholder="Note title..."
                 className={`
-                  w-full px-4 py-3 pr-10 text-sm border rounded-xl
+                  w-full px-4 py-3 pr-10 text-sm border rounded-md
                   focus:outline-none transition-all duration-200
                   ${inputClasses}
                 `}
@@ -296,7 +308,7 @@ export default function AccountDrawer() {
               onChange={(e) => setNoteContent(e.target.value)}
               placeholder="Write your note here..."
               className={`
-                w-full px-4 py-3 text-sm border rounded-xl
+                w-full px-4 py-3 text-sm border rounded-md
                 focus:outline-none transition-all duration-200
                 resize-none h-48
                 ${inputClasses}
@@ -306,7 +318,7 @@ export default function AccountDrawer() {
               onClick={handleSaveNote}
               disabled={!noteTitle.trim() || !noteContent.trim()}
               className={`
-                w-full px-4 py-3 text-sm font-medium rounded-xl
+                w-full px-4 py-3 text-sm font-medium rounded-md
                 transition-all duration-300
                 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none
                 flex items-center justify-center gap-2
