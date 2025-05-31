@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { ListViewProps } from './types';
 import { openTableInNewTab, paginateData } from './utils';
-import { useTheme } from '../../app/contexts/ThemeContext';
-import { colors } from '../foundations/tokens/colors';
-import { getTypography } from '../foundations/tokens/typography';
-import { TableToggle } from '../components/controls/TableToggle';
+import { useTheme } from '@/app/contexts/ThemeContext';
+import { colors } from '@/design-system/foundations/tokens/colors';
+import { getTypography } from '@/design-system/foundations/tokens/typography';
+import { TableToggle } from '@/design-system/components/controls/TableToggle';
 import { ChevronLeftIcon, ChevronRightIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 
 export const ListView = <T extends Record<string, unknown>>({

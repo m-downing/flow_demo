@@ -1,5 +1,5 @@
 import React, { SelectHTMLAttributes, forwardRef, useState, useEffect } from 'react';
-import { useTheme } from '../../../app/contexts/ThemeContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 /**
  * Option item for Select component

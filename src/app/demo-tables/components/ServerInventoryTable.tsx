@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TableView, ColumnDef, DetailLevel } from '../../../design-system/tabularData';
-import Badge, { BadgeVariant } from '../../../design-system/components/feedback/Badge';
+import { TableView, ColumnDef, DetailLevel } from '@/design-system/tabularData';
+import Badge, { BadgeVariant } from '@/design-system/components/feedback/Badge';
 import { ServerRecord, sampleData } from './mockData';
 
 // Column definitions

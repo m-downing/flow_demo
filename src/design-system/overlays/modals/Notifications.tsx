@@ -9,11 +9,11 @@ import {
   TrashIcon,
   CheckIcon
 } from '@heroicons/react/24/outline';
-import Modal from '../Modal';
-import Badge from '../../components/feedback/Badge';
-import { useNotifications } from '../../../app/contexts/NotificationContext';
-import { useTheme } from '../../../app/contexts/ThemeContext';
-import { Notification } from '../../../app/types/notification';
+import Modal from '@/design-system/overlays/Modal';
+import Badge from '@/design-system/components/feedback/Badge';
+import { useNotifications } from '@/app/contexts/NotificationContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
+import { Notification } from '@/app/types/notification';
 
 interface NotificationsModalProps {
   isOpen: boolean;

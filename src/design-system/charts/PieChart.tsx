@@ -7,13 +7,11 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { chartTokens, getChartColors } from '../foundations/tokens';
-import { getTypography } from '../foundations/tokens/typography';
-import { useTheme } from '../../app/contexts/ThemeContext';
-import { colors } from '../foundations/tokens/colors';
-// colors and shadows might be needed for specific styling not covered by chartTokens directly
-// import { colors as designSystemColors } from '../../components/design-system/tokens/colors';
-// import { shadows } from '../../components/design-system/tokens/shadows';
+import { chartTokens, getChartColors } from '@/design-system/foundations/tokens';
+import { getTypography } from '@/design-system/foundations/tokens/typography';
+import { useTheme } from '@/app/contexts/ThemeContext';
+import { colors } from '@/design-system/foundations/tokens/colors';
+
 
 /**
  * @typedef {'summary' | 'drilldown' | 'deepDive'} DetailLevel

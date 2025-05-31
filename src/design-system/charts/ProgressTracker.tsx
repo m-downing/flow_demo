@@ -1,8 +1,8 @@
 import React, { ReactNode, useState, useEffect } from 'react';
-import { chartTokens, getChartColors } from '../foundations/tokens';
-import { getTypography } from '../foundations/tokens/typography';
-import { colors } from '../foundations/tokens/colors';
-import { useTheme } from '../../app/contexts/ThemeContext';
+import { chartTokens, getChartColors } from '@/design-system/foundations/tokens';
+import { getTypography } from '@/design-system/foundations/tokens/typography';
+import { colors } from '@/design-system/foundations/tokens/colors';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 /**
  * @typedef {'summary' | 'drilldown' | 'deepDive'} DetailLevel

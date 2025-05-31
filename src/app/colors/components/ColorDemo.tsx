@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { colors } from '../../../design-system/foundations/tokens/colors.js';
+import { colors } from '@/design-system/foundations/tokens/colors.js';
 
 // Define the color groups we want to display
 const colorGroups = [

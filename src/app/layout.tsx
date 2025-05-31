@@ -1,7 +1,7 @@
 // src/app/layout.tsx
 
 import type { Metadata } from "next";
-import AppWrapper from "../design-system/layout/AppWrapper";
+import AppWrapper from "@/design-system/layout/AppWrapper";
 import "./globals.css";
 
 // Define system UI font variables

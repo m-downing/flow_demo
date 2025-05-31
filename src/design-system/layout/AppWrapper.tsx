@@ -6,10 +6,10 @@ import { ExclamationTriangleIcon, SparklesIcon } from '@heroicons/react/24/outli
 import Sidebar from './Sidebar';
 import AccountDrawer from './AccountDrawer';
 import MainLoadingSpinner from './MainLoadingScreen';
-import { InfoBanner, CriticalBanner } from '../components/feedback';
-import { NotificationProvider } from '../../app/contexts/NotificationContext';
-import { ThemeProvider } from '../../app/contexts/ThemeContext';
-import { useDemoNotifications } from '../../app/hooks/useDemoNotifications';
+import { InfoBanner, CriticalBanner } from '@/design-system/components/feedback';
+import { NotificationProvider } from '@/app/contexts/NotificationContext';
+import { ThemeProvider } from '@/app/contexts/ThemeContext';
+import { useDemoNotifications } from '@/app/hooks/useDemoNotifications';
 
 interface AppWrapperProps {
   children: React.ReactNode;

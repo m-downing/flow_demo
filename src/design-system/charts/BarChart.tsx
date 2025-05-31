@@ -11,9 +11,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { getChartColors } from '../foundations/tokens';
-import { getTypography } from '../foundations/tokens/typography';
-import { useTheme } from '../../app/contexts/ThemeContext';
+import { getChartColors } from '@/design-system/foundations/tokens';
+import { getTypography } from '@/design-system/foundations/tokens/typography';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 // Re-using ChartDataObject from LineChart, assuming similar data structure needs
 export interface ChartDataObject {

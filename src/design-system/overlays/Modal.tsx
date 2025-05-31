@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, ReactNode, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useTheme } from '../../app/contexts/ThemeContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 /**

@@ -2,10 +2,10 @@ import React, { useState, useMemo, useRef } from 'react';
 import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 import { TableViewProps, SortConfig, FilterConfig } from './types';
 import { filterData, sortData, paginateData, getVisibleColumns, getModeConstraints, openTableInNewTab } from './utils';
-import { useTheme } from '../../app/contexts/ThemeContext';
-import { colors } from '../foundations/tokens/colors';
-import { getTypography } from '../foundations/tokens/typography';
-import { TableToggle } from '../components/controls/TableToggle';
+import { useTheme } from '@/app/contexts/ThemeContext';
+import { colors } from '@/design-system/foundations/tokens/colors';
+import { getTypography } from '@/design-system/foundations/tokens/typography';
+import { TableToggle } from '@/design-system/components/controls/TableToggle';
 
 export const TableView = <T extends Record<string, unknown>>({
   data,

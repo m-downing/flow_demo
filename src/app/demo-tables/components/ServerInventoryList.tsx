@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ListView, DetailLevel } from '../../../design-system/tabularData';
-import Badge, { BadgeVariant } from '../../../design-system/components/feedback/Badge';
-import { useTheme } from '../../contexts/ThemeContext';
-import { colors } from '../../../design-system/foundations/tokens/colors';
+import { ListView, DetailLevel } from '@/design-system/tabularData';
+import Badge, { BadgeVariant } from '@/design-system/components/feedback/Badge';
+import { useTheme } from '@/app/contexts/ThemeContext';
+import { colors } from '@/design-system/foundations/tokens/colors';
 import { ServerRecord, sampleData } from './mockData';
 import { MapPinIcon, CalendarIcon, CurrencyDollarIcon, CubeIcon } from '@heroicons/react/24/outline';
 

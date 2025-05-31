@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 interface UseThemeTransitionOptions {
   /** Duration of the transition in milliseconds */

@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import { MetricCard } from '../../design-system/charts/MetricCard';
-import { PieChart } from '../../design-system/charts/PieChart';
-import { LineChart, ChartDataObject as LineChartData } from '../../design-system/charts/LineChart';
-import { BarChart, ChartDataObject as BarChartData } from '../../design-system/charts/BarChart';
-import { ScatterPlot, ScatterDataObject } from '../../design-system/charts/ScatterPlot';
-import { ProgressTracker } from '../../design-system/charts/ProgressTracker';
+import { MetricCard } from '@/design-system/charts/MetricCard';
+import { PieChart } from '@/design-system/charts/PieChart';
+import { LineChart, ChartDataObject as LineChartData } from '@/design-system/charts/LineChart';
+import { BarChart, ChartDataObject as BarChartData } from '@/design-system/charts/BarChart';
+import { ScatterPlot, ScatterDataObject } from '@/design-system/charts/ScatterPlot';
+import { ProgressTracker } from '@/design-system/charts/ProgressTracker';
 
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
   return (

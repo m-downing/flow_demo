@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes, useState, useEffect } from 'react';
-import { useTheme } from '../../../app/contexts/ThemeContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
 /**

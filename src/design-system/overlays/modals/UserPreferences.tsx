@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
-import Modal from '../Modal';
-import Select, { SelectOption } from '../../components/forms/Select';
-import Tooltip from '../../components/feedback/Tooltip';
-import LightDarkModeToggle from '../../utilities/LightDarkModeToggle';
-import { useTheme } from '../../../app/contexts/ThemeContext';
+import Modal from '@/design-system/overlays/Modal';
+import Select, { SelectOption } from '@/design-system/components/forms/Select';
+import Tooltip from '@/design-system/components/feedback/Tooltip';
+import LightDarkModeToggle from '@/design-system/utilities/LightDarkModeToggle';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 interface UserPreferencesModalProps {
   isOpen: boolean;

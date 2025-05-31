@@ -7,10 +7,10 @@ import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
 import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
-import { Spinner } from '../components/feedback';
-import Tooltip from '../components/feedback/Tooltip';
-import AIChatBox from '../utilities/AIChatBox';
-import { useTheme } from '../../app/contexts/ThemeContext';
+import { Spinner } from '@/design-system/components/feedback';
+import Tooltip from '@/design-system/components/feedback/Tooltip';
+import AIChatBox from '@/design-system/utilities/AIChatBox';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 interface SidebarProps {
   isExpanded: boolean;

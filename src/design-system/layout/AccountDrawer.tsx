@@ -3,11 +3,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeftIcon, PlusIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { UserIcon } from '@heroicons/react/24/solid';
-import { useTheme } from '../../app/contexts/ThemeContext';
-import { useNotifications } from '../../app/contexts/NotificationContext';
-import NotificationBadge from '../components/feedback/NotificationBadge';
-import NotificationsModal from '../overlays/modals/Notifications';
-import UserPreferencesModal from '../overlays/modals/UserPreferences';
+import { useTheme } from '@/app/contexts/ThemeContext';
+import { useNotifications } from '@/app/contexts/NotificationContext';
+import NotificationBadge from '@/design-system/components/feedback/NotificationBadge';
+import NotificationsModal from '@/design-system/overlays/modals/Notifications';
+import UserPreferencesModal from '@/design-system/overlays/modals/UserPreferences';
 
 // Note interface
 interface Note {

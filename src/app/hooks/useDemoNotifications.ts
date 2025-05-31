@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useNotifications } from '../contexts/NotificationContext';
-import { getDemoNotifications } from '../services/mockNotificationService';
+import { useNotifications } from '@/app/contexts/NotificationContext';
+import { getDemoNotifications } from '@/app/services/mockNotificationService';
 
 export const useDemoNotifications = () => {
   const { addNotification } = useNotifications();

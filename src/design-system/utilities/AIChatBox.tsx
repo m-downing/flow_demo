@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useTheme } from '../../app/contexts/ThemeContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
 import { 
   XMarkIcon, 
   ChevronDownIcon, 

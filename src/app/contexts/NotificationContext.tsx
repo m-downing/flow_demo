@@ -1,8 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import { Notification, NotificationContextType } from '../types/notification';
-import { generateMockNotifications } from '../services/mockNotificationService';
+import { Notification, NotificationContextType } from '@/app/types/notification';
+import { generateMockNotifications } from '@/app/services/mockNotificationService';
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
 

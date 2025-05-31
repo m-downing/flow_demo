@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { useTheme } from '../../../app/contexts/ThemeContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 /**
  * Tooltip positions

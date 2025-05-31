@@ -1,4 +1,4 @@
-import { Notification } from '../types/notification';
+import { Notification } from '@/app/types/notification';
 
 // Data centers for realistic notifications
 const dataCenters = [

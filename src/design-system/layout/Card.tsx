@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '../../app/contexts/ThemeContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 /**
  * Card component props

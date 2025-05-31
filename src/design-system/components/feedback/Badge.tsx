@@ -1,7 +1,7 @@
 // src/app/components/design-system/Badge.tsx
 
 import React from 'react';
-import { badgeColors } from '../../foundations/tokens/colors';
+import { badgeColors } from '@/design-system/foundations/tokens/colors';
 
 /**
  * Badge variants for all possible status indicators in the application

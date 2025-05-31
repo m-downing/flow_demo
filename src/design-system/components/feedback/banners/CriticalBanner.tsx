@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import { colors } from '../../../foundations/tokens/colors';
+import { colors } from '@/design-system/foundations/tokens/colors';
 
 /**
  * CriticalBanner component props

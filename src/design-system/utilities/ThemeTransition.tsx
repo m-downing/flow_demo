@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useTheme } from '../../app/contexts/ThemeContext';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 interface ThemeTransitionProps {
   children: React.ReactNode;

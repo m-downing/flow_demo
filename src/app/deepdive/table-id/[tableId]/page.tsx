@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect, use } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { TableView, ListView, ColumnDef, FilterConfig, SortConfig } from '../../../../design-system/tabularData';
-import { useTheme } from '../../../contexts/ThemeContext';
-import { colors } from '../../../../design-system/foundations/tokens/colors';
-import { getTypography } from '../../../../design-system/foundations/tokens/typography';
-import Badge, { BadgeVariant } from '../../../../design-system/components/feedback/Badge';
+import { TableView, ListView, ColumnDef, FilterConfig, SortConfig } from '@/design-system/tabularData';
+import { useTheme } from '@/app/contexts/ThemeContext';
+import { colors } from '@/design-system/foundations/tokens/colors';
+import { getTypography } from '@/design-system/foundations/tokens/typography';
+import Badge, { BadgeVariant } from '@/design-system/components/feedback/Badge';
 
 interface DeepDivePageProps {
   params: Promise<{
