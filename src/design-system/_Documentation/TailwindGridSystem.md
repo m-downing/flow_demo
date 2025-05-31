@@ -4,7 +4,7 @@ This guide covers our standard implementation of Tailwind's grid system for crea
 
 ## Grid Fundamentals
 
-Our design system leverages Tailwind's powerful grid utilities to create flexible, responsive layouts. We primarily use a 12-column grid system for maximum flexibility.
+This design system leverages Tailwind's powerful grid utilities to create flexible, responsive layouts. We primarily use a 12-column grid system for maximum flexibility.
 
 ### Basic Grid Setup
 
@@ -18,7 +18,7 @@ Our design system leverages Tailwind's powerful grid utilities to create flexibl
 
 ### Responsive Breakpoints
 
-- **Mobile (default)**: Single column layouts
+- **Mobile (default)**: Single column layouts (not fully implemented yet - need to make updates to NavBar component, will do later)
 - **Tablet (md)**: 12-column grid activates at 768px
 - **Desktop (lg)**: Refined spacing and sizing at 1024px
 - **Wide (xl)**: Maximum content width containers at 1280px
