@@ -68,10 +68,14 @@ export default function AccountDrawer() {
   }, [isOpen, isNotificationsModalOpen, isUserPreferencesModalOpen]);
 
   const handleNotificationsClick = () => {
+    // Close preferences modal if open
+    setIsUserPreferencesModalOpen(false);
     setIsNotificationsModalOpen(true);
   };
 
   const handlePreferencesClick = () => {
+    // Close notifications modal if open
+    setIsNotificationsModalOpen(false);
     setIsUserPreferencesModalOpen(true);
   };
 

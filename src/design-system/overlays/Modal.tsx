@@ -166,7 +166,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <ClientOnlyPortal>
       <div 
-        className="fixed inset-0 z-50 flex overflow-y-auto"
+        className="fixed inset-0 z-[1100] flex overflow-y-auto"
         style={{ 
           alignItems: centered ? 'center' : 'flex-start',
           visibility: isMounted ? 'visible' : 'hidden'
