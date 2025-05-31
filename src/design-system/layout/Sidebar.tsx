@@ -24,6 +24,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const [isAppSwitcherOpen, setIsAppSwitcherOpen] = useState(false);
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [loadingTab, setLoadingTab] = useState<string | null>(null);
+  const [showText, setShowText] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -32,6 +33,20 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const sidebarBg = isDark ? 'bg-neutral-800' : 'bg-primary-800/90';
   const submenuBg = isDark ? 'bg-neutral-900' : 'bg-primary-900';
   const loadingBg = isDark ? 'bg-neutral-800/80' : 'bg-primary-800/80';
+
+  // Handle text visibility based on expansion state
+  useEffect(() => {
+    if (isExpanded) {
+      // Delay showing text until expansion is nearly complete (80% done)
+      const timer = setTimeout(() => {
+        setShowText(true);
+      }, 160); // Start showing text at 80% of the transition
+      return () => clearTimeout(timer);
+    } else {
+      // Hide text immediately when collapsing
+      setShowText(false);
+    }
+  }, [isExpanded]);
 
   useEffect(() => {
     // Determine active tab based on current pathname
@@ -146,14 +161,14 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       <div className="relative" ref={sidebarRef}>
         <aside className={`sticky top-0 h-screen flex flex-col ${sidebarBg} font-heading ${isExpanded ? 'w-[180px]' : 'w-[64px]'} transition-all duration-300 ease-in-out`}>
           {/* Fixed Top section - App icon and switcher */}
-          <div className={`w-full transition-all duration-300 ease-in-out`}>
+          <div className={`w-full transition-all duration-150 ease-in-out`}>
             {/* App Home Icon - Fixed height container */}
             <Link href="/">
               <Tooltip 
                 content="Flow UI" 
                 position="right" 
                 disabled={isExpanded}
-                delay={200}
+                delay={100}
                 className="block w-full"
               >
                 <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-all duration-300 ease-in-out w-full`}>
@@ -168,7 +183,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                       />
                     </div>
                     {isExpanded && (
-                      <h1 className="text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out">FLOW</h1>
+                      <h1 className={`text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out ${showText ? 'opacity-100' : 'opacity-0'}`}>FLOW</h1>
                     )}
                   </div>
                 </div>
@@ -181,7 +196,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 content="Switch Apps" 
                 position="right" 
                 disabled={isExpanded}
-                delay={200}
+                delay={100}
               >
                 <Image 
                   src="/icons/vertical-nav/app-switcher.svg"
@@ -197,7 +212,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
 
           {/* App Switcher Submenu - Separate from fixed header */}
           {isExpanded && isAppSwitcherOpen && (
-            <div className={`${submenuBg} w-full py-4 px-4`}>
+            <div className={`${submenuBg} w-full py-4 px-4 transition-all duration-300 ease-in-out ${showText ? 'opacity-100' : 'opacity-0'}`}>
               <div className="flex flex-col gap-5">
                 <Link href="#">
                   <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
@@ -229,7 +244,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 content={tab.name}
                 position="right"
                 disabled={isExpanded}
-                delay={200}
+                delay={100}
               >
                 <div 
                   className={`flex ${isExpanded ? 'flex-row w-full px-4 gap-3' : 'flex-col'} items-center cursor-pointer group relative ${activeTab === tab.name ? 'opacity-100' : 'opacity-50'} hover:opacity-100 transition-opacity duration-200`}
@@ -251,7 +266,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                       {renderIcon(tab.icon, isExpanded)}
                     </div>
                     {isExpanded && (
-                      <span className="text-neutral-50 tracking-wider text-[15px]">
+                      <span className={`text-neutral-50 tracking-wider text-[15px] transition-all duration-300 ease-in-out ${showText ? 'opacity-100' : 'opacity-0'}`}>
                         {tab.name}
                       </span>
                     )}
@@ -269,7 +284,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 content="IRIS AI Assistant"
                 position="right"
                 disabled={isExpanded}
-                delay={200}
+                delay={100}
               >
                 <div 
                   className="w-[32px] h-[32px] rounded-full bg-gradient-to-br from-success-400 to-success-600 flex items-center justify-center cursor-pointer hover:from-success-500 hover:to-success-700 transition-all duration-200 shadow-md"
@@ -287,7 +302,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 content="Expand"
                 position="right"
                 disabled={isExpanded}
-                delay={200}
+                delay={100}
               >
                 <div 
                   className="cursor-pointer hover:opacity-60 transition-opacity duration-200 mt-5"
