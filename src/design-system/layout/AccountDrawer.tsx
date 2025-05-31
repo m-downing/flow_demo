@@ -198,6 +198,7 @@ export default function AccountDrawer() {
           <button
             onClick={() => setIsOpen(true)}
             className={`
+              relative
               flex items-center justify-center
               w-8 h-12 rounded-l-lg border border-r-0
               transition-all duration-200
@@ -206,6 +207,7 @@ export default function AccountDrawer() {
             aria-label="Open drawer"
           >
             <ChevronLeftIcon className={`w-4 h-4 ${iconClasses}`} />
+            <NotificationBadge count={unreadCount} variant="sm" className="-top-1 -left-1" />
           </button>
         </div>
       )}

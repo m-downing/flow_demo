@@ -10,6 +10,7 @@ export const appTabs = {
   'flow': [
     { name: "Chart Gallery", icon: "PresentationChartLine", path: "/" },
     { name: "Tables Demo", icon: "TableCells", path: "/demo-tables" },
+    { name: "Color Tokens", icon: "Swatch", path: "/colors" },
     dashboardTab,
     { name: "Backlogs", icon: "ServerStack", path: "/backlogs" },
     { name: "KPI's", icon: "Briefcase", path: "/kpi" },

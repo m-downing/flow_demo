@@ -130,48 +130,46 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
       role="banner"
       aria-live="polite"
     >
-      <div className="px-6 py-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-start gap-3 flex-1 min-w-0">
-            {icon || defaultIcon}
-            <div className="flex-1 min-w-0">
-              {title && (
-                <h3 
-                  className="text-sm font-semibold mb-1"
-                  style={titleStyle}
-                >
-                  {title}
-                </h3>
-              )}
-              <div 
-                className="text-sm leading-5"
-                style={messageStyle}
+      <div className="flex items-start justify-between gap-4 w-full">
+        <div className="flex items-start gap-3 flex-1 min-w-0">
+          {icon || defaultIcon}
+          <div className="flex-1 min-w-0">
+            {title && (
+              <h3 
+                className="text-sm font-semibold mb-1"
+                style={titleStyle}
               >
-                {message}
-              </div>
+                {title}
+              </h3>
+            )}
+            <div 
+              className="text-sm leading-5"
+              style={messageStyle}
+            >
+              {message}
             </div>
           </div>
-          
-          <div className="flex items-center gap-3 flex-shrink-0">
-            {action && (
-              <button
-                onClick={action.onClick}
-                className="text-sm font-medium px-3 py-1.5 rounded-md transition-colors duration-200 hover:bg-teal-200"
-                style={actionButtonStyle}
-              >
-                {action.label}
-              </button>
-            )}
-            
+        </div>
+        
+        <div className="flex items-center gap-3 flex-shrink-0">
+          {action && (
             <button
-              onClick={handleDismiss}
-              className="p-1 rounded-md transition-colors duration-200 hover:bg-teal-200"
-              style={closeButtonStyle}
-              aria-label="Dismiss banner"
+              onClick={action.onClick}
+              className="text-sm font-medium px-3 py-1.5 rounded-md transition-colors duration-200 hover:bg-teal-200"
+              style={actionButtonStyle}
             >
-              <XMarkIcon className="w-5 h-5" />
+              {action.label}
             </button>
-          </div>
+          )}
+          
+          <button
+            onClick={handleDismiss}
+            className="p-1 rounded-md transition-colors duration-200 hover:bg-teal-200"
+            style={closeButtonStyle}
+            aria-label="Dismiss banner"
+          >
+            <XMarkIcon className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </div>

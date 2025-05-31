@@ -63,19 +63,18 @@ const CriticalBanner: React.FC<CriticalBannerProps> = ({
     display: 'flex',
     alignItems: 'flex-start',
     gap: '12px',
-    padding: '12px 16px',
+    padding: '11px 16px',
     backgroundColor: colors.error[50],
     borderBottom: `2px solid ${colors.error[500]}`,
     fontFamily: 'var(--font-body), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
     fontSize: '14px',
     lineHeight: '1.5',
     position: 'relative',
-    zIndex: 1000,
   };
 
   const titleStyle: React.CSSProperties = {
     fontWeight: '600',
-    margin: '0 0 4px 0',
+    margin: '0 0 2px 0',
     color: colors.error[500]
   };
 
@@ -117,42 +116,40 @@ const CriticalBanner: React.FC<CriticalBannerProps> = ({
       role="alert"
       aria-live="assertive"
     >
-      <div className="px-6 py-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-start gap-3 flex-1 min-w-0">
-            {icon || defaultIcon}
-            <div className="flex-1 min-w-0">
-              {title && (
-                <h3 
-                  className="text-sm font-bold mb-1"
-                  style={titleStyle}
-                >
-                  {title}
-                </h3>
-              )}
-              <div 
-                className="text-sm leading-5 font-medium"
-                style={messageStyle}
+      <div className="flex items-start justify-between gap-4 w-full">
+        <div className="flex items-start gap-3 flex-1 min-w-0">
+          {icon || defaultIcon}
+          <div className="flex-1 min-w-0">
+            {title && (
+              <h3 
+                className="text-sm font-bold mb-1"
+                style={titleStyle}
               >
-                {message}
-              </div>
+                {title}
+              </h3>
+            )}
+            <div 
+              className="text-sm leading-5 font-medium"
+              style={messageStyle}
+            >
+              {message}
             </div>
           </div>
-          
-          {action && (
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <button
-                onClick={action.onClick}
-                className="text-sm font-bold px-4 py-2 rounded-md transition-all duration-200 border"
-                style={actionButtonStyle}
-                onMouseEnter={handleActionMouseEnter}
-                onMouseLeave={handleActionMouseLeave}
-              >
-                {action.label}
-              </button>
-            </div>
-          )}
         </div>
+        
+        {action && (
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <button
+              onClick={action.onClick}
+              className="text-sm font-bold px-4 py-1.5 rounded-md transition-all duration-200 border"
+              style={actionButtonStyle}
+              onMouseEnter={handleActionMouseEnter}
+              onMouseLeave={handleActionMouseLeave}
+            >
+              {action.label}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

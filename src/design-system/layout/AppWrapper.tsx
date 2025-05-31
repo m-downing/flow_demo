@@ -86,7 +86,7 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
   // BANNER CONTROLS - Change these to enable/disable banners
   // ========================================
   const showInfoBanner = true;     // Set to 'true' to enable InfoBanner
-  const showCriticalBanner = false;  // Set to 'true' to enable CriticalBanner
+  const showCriticalBanner = true;  // Set to 'true' to enable CriticalBanner
 
   useEffect(() => {
     document.title = APP_TITLES['FLOW'] || 'FLOW | UI Demo';
@@ -134,7 +134,7 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
 
         {/* InfoBanner - For feature announcements, tips, non-critical updates */}
         <InfoBanner
-          id="flow-redesign-info-2025"
+          id="flow-redesign"
           title="FLOW v2.0 Design System Demo"
           message={
             <div className="space-y-1">

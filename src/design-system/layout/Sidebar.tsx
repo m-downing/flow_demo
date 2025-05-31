@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
-import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '../components/feedback';
 import Tooltip from '../components/feedback/Tooltip';
@@ -118,6 +118,8 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       return <PresentationChartLineIcon className={iconClass} />;
     } else if (iconName === 'TableCells') {
       return <TableCellsIcon className={iconClass} />;
+    } else if (iconName === 'Swatch') {
+      return <SwatchIcon className={iconClass} />;
     } else {
       return (
         <Image 
