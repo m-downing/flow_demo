@@ -149,44 +149,44 @@ export default function AccountDrawer() {
 
   // Theme-aware classes
   const drawerClasses = isDark
-    ? 'bg-neutral-900 border-neutral-700'
-    : 'bg-white border-neutral-200';
+    ? 'bg-gradient-to-br from-neutral-900 to-neutral-800 border-neutral-700'
+    : 'bg-gradient-to-br from-white to-neutral-50 border-neutral-200';
 
   const tabClasses = isDark
-    ? 'bg-neutral-800 hover:bg-neutral-700 border-neutral-600'
-    : 'bg-neutral-100 hover:bg-neutral-200 border-neutral-300';
+    ? 'bg-gradient-to-r from-neutral-800 to-neutral-700 hover:from-neutral-700 hover:to-neutral-600 border-neutral-600 shadow-lg'
+    : 'bg-gradient-to-r from-white to-neutral-50 hover:from-neutral-50 hover:to-neutral-100 border-neutral-300 shadow-lg';
 
   const textClasses = isDark
     ? 'text-neutral-100'
     : 'text-neutral-900';
 
   const subtextClasses = isDark
-    ? 'text-neutral-300'
-    : 'text-neutral-500';
+    ? 'text-neutral-400'
+    : 'text-neutral-600';
 
   const dividerClasses = isDark 
-    ? 'border-neutral-600'
-    : 'border-neutral-300';
+    ? 'border-neutral-700'
+    : 'border-neutral-200';
 
   const iconClasses = isDark
-    ? 'text-neutral-200'
-    : 'text-neutral-700';
+    ? 'text-neutral-300'
+    : 'text-neutral-600';
 
   const inputClasses = isDark
-    ? 'bg-neutral-800 border-neutral-600 text-neutral-100 placeholder-neutral-400 focus:border-neutral-400 focus:ring-neutral-400'
-    : 'bg-white border-neutral-300 text-neutral-900 placeholder-neutral-500 focus:border-primary-600 focus:ring-primary-600';
+    ? 'bg-neutral-800/50 backdrop-blur border-neutral-600 text-neutral-100 placeholder-neutral-500 focus:border-neutral-400 focus:ring-2 focus:ring-neutral-400/20 shadow-inner'
+    : 'bg-white/70 backdrop-blur border-neutral-200 text-neutral-900 placeholder-neutral-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 shadow-sm';
 
   const buttonClasses = isDark
-    ? 'bg-neutral-700 hover:bg-neutral-600 text-neutral-100'
-    : 'bg-primary-600 hover:bg-primary-700 text-white';
+    ? 'bg-gradient-to-r from-neutral-700 to-neutral-600 hover:from-neutral-600 hover:to-neutral-500 text-neutral-100 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
+    : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5';
 
   const noteItemClasses = isDark
-    ? 'bg-neutral-800 hover:bg-neutral-700 border-neutral-700'
-    : 'bg-neutral-50 hover:bg-neutral-100 border-neutral-200';
+    ? 'bg-gradient-to-br from-neutral-800 to-neutral-750 hover:from-neutral-750 hover:to-neutral-700 border-neutral-700 shadow-md hover:shadow-lg'
+    : 'bg-gradient-to-br from-white to-neutral-50 hover:from-neutral-50 hover:to-neutral-100 border-neutral-200 shadow-sm hover:shadow-md';
 
   const timestampClasses = isDark
-    ? 'text-neutral-400'
-    : 'text-neutral-500';
+    ? 'text-neutral-500'
+    : 'text-neutral-400';
 
   return (
     <>
@@ -202,13 +202,14 @@ export default function AccountDrawer() {
             className={`
               relative
               flex items-center justify-center
-              w-8 h-12 rounded-l-lg border border-r-0
-              transition-all duration-200
+              w-10 h-14 rounded-l-xl border border-r-0
+              transition-all duration-300
+              hover:w-12
               ${tabClasses}
             `}
             aria-label="Open drawer"
           >
-            <ChevronLeftIcon className={`w-4 h-4 ${iconClasses}`} />
+            <ChevronLeftIcon className={`w-5 h-5 ${iconClasses} transition-all duration-300`} />
             <NotificationBadge count={unreadCount} variant="sm" className="-top-1 -left-1" />
           </button>
         </div>
@@ -219,31 +220,45 @@ export default function AccountDrawer() {
         ref={drawerRef}
         className={`
           fixed top-0 right-0 h-full w-[500px] z-[60]
-          transform transition-transform duration-300 ease-out
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+          transform transition-all duration-500 ease-out
+          ${isOpen ? 'translate-x-0 shadow-2xl' : 'translate-x-full'}
           ${drawerClasses}
-          border-l shadow-2xl flex flex-col
+          border-l flex flex-col
         `}
       >
         {/* Header */}
-        <div className={`p-6 border-b ${dividerClasses} flex-shrink-0`}>
-          <div className="flex items-center justify-between">
+        <div className={`p-6 border-b ${dividerClasses} flex-shrink-0 relative overflow-hidden`}>
+          {/* Background pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, currentColor 35px, currentColor 70px)`,
+            }} />
+          </div>
+          
+          <div className="flex items-center justify-between relative z-10">
             {/* Preferences text */}
             <div 
-              className="cursor-pointer"
+              className="cursor-pointer group"
               onClick={handlePreferencesClick}
             >
-              <h2 className={`text-lg font-semibold ${textClasses}`}>Preferences</h2>
-              <p className={`text-sm ${subtextClasses}`}>Manage your account settings</p>
+              <h2 className={`text-xl font-semibold ${textClasses} group-hover:text-primary-600 transition-colors duration-200`}>Preferences</h2>
+              <p className={`text-sm ${subtextClasses} mt-0.5`}>Manage your account settings</p>
             </div>
             
             {/* User Profile Icon */}
             <div className="relative">
               <div 
-                className="w-10 h-10 rounded-full bg-neutral-300 flex items-center justify-center cursor-pointer hover:bg-neutral-400 transition-all duration-50 shadow-md"
+                className={`
+                  w-12 h-12 rounded-full flex items-center justify-center cursor-pointer 
+                  transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105
+                  ${isDark 
+                    ? 'bg-gradient-to-br from-neutral-600 to-neutral-700 hover:from-neutral-500 hover:to-neutral-600' 
+                    : 'bg-gradient-to-br from-primary-400 to-primary-600 hover:from-primary-500 hover:to-primary-700'
+                  }
+                `}
                 onClick={handleNotificationsClick}
               >
-                <UserIcon className="w-6 h-6 text-neutral-700" />
+                <UserIcon className="w-7 h-7 text-white" />
               </div>
               <NotificationBadge count={unreadCount} variant="md" />
             </div>
@@ -261,15 +276,15 @@ export default function AccountDrawer() {
                 onChange={(e) => setNoteTitle(e.target.value)}
                 placeholder="Note title..."
                 className={`
-                  w-full px-3 py-2 pr-8 text-sm border rounded-lg
-                  focus:outline-none focus:ring-1
+                  w-full px-4 py-3 pr-10 text-sm border rounded-xl
+                  focus:outline-none transition-all duration-200
                   ${inputClasses}
                 `}
               />
               {(noteTitle || noteContent) && (
                 <button
                   onClick={handleClearForm}
-                  className={`absolute right-2 top-2 p-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors`}
+                  className={`absolute right-3 top-3 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-all duration-200`}
                   aria-label="Clear form"
                 >
                   <XMarkIcon className={`w-4 h-4 ${iconClasses}`} />
@@ -281,8 +296,8 @@ export default function AccountDrawer() {
               onChange={(e) => setNoteContent(e.target.value)}
               placeholder="Write your note here..."
               className={`
-                w-full px-3 py-2 text-sm border rounded-lg
-                focus:outline-none focus:ring-1
+                w-full px-4 py-3 text-sm border rounded-xl
+                focus:outline-none transition-all duration-200
                 resize-none h-48
                 ${inputClasses}
               `}
@@ -291,9 +306,9 @@ export default function AccountDrawer() {
               onClick={handleSaveNote}
               disabled={!noteTitle.trim() || !noteContent.trim()}
               className={`
-                w-full px-4 py-2 text-sm font-medium rounded-lg
-                transition-colors duration-150
-                disabled:opacity-50 disabled:cursor-not-allowed
+                w-full px-4 py-3 text-sm font-medium rounded-xl
+                transition-all duration-300
+                disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none
                 flex items-center justify-center gap-2
                 ${buttonClasses}
               `}
@@ -303,18 +318,30 @@ export default function AccountDrawer() {
             </button>
           </div>
 
-          {/* Divider */}
-          <div className={`border-t ${dividerClasses}`} />
+          {/* Divider with gradient */}
+          <div className={`h-px ${isDark ? 'bg-gradient-to-r from-transparent via-neutral-600 to-transparent' : 'bg-gradient-to-r from-transparent via-neutral-300 to-transparent'}`} />
 
           {/* Saved Notes List - Bottom Half */}
-          <div className="flex-1 overflow-y-auto p-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <h3 className={`text-sm font-medium ${textClasses} mb-3`}>Previous Notes</h3>
+          <div className="flex-1 overflow-y-auto p-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className={`text-sm font-semibold ${textClasses} uppercase tracking-wider`}>Previous Notes</h3>
+              {notes.length > 0 && (
+                <span className={`text-xs ${subtextClasses} bg-neutral-200 dark:bg-neutral-700 px-2 py-1 rounded-full`}>
+                  {notes.length} {notes.length === 1 ? 'note' : 'notes'}
+                </span>
+              )}
+            </div>
             {notes.length === 0 ? (
-              <p className={`text-sm ${subtextClasses} text-center py-8`}>
-                No notes yet. Create your first note above!
-              </p>
+              <div className="text-center py-12">
+                <div className={`w-20 h-20 mx-auto mb-4 rounded-full ${isDark ? 'bg-neutral-800' : 'bg-neutral-100'} flex items-center justify-center`}>
+                  <ClockIcon className={`w-10 h-10 ${subtextClasses}`} />
+                </div>
+                <p className={`text-sm ${subtextClasses}`}>
+                  No notes yet. Create your first note above!
+                </p>
+              </div>
             ) : (
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {notes.map((note) => (
                   <div
                     key={note.id}
@@ -322,37 +349,42 @@ export default function AccountDrawer() {
                     onMouseEnter={() => setHoveredNoteId(note.id)}
                     onMouseLeave={() => setHoveredNoteId(null)}
                     className={`
-                      p-3 rounded-lg border cursor-pointer
-                      transition-all duration-150 relative
+                      p-4 rounded-xl border cursor-pointer
+                      transition-all duration-300 relative
+                      transform hover:-translate-y-1
                       ${noteItemClasses}
-                      ${expandedNoteId === note.id ? 'ring-2 ring-neutral-500' : ''}
+                      ${expandedNoteId === note.id ? 'ring-2 ring-primary-500 ring-opacity-50' : ''}
                     `}
                   >
                     {/* Delete button */}
-                    {hoveredNoteId === note.id && (
-                      <button
-                        onClick={(e) => handleDeleteNote(note.id, e)}
-                        className={`
-                          absolute top-2 right-2 p-1 rounded
-                          hover:bg-neutral-200 dark:hover:bg-neutral-600
-                          transition-all duration-150
-                        `}
-                        aria-label="Delete note"
-                      >
-                        <XMarkIcon className={`w-4 h-4 ${iconClasses}`} />
-                      </button>
-                    )}
+                    <button
+                      onClick={(e) => handleDeleteNote(note.id, e)}
+                      className={`
+                        absolute top-3 right-3 p-1.5 rounded-lg
+                        ${hoveredNoteId === note.id ? 'opacity-100' : 'opacity-0'}
+                        hover:bg-red-100 dark:hover:bg-red-900/20
+                        transition-all duration-200
+                      `}
+                      aria-label="Delete note"
+                    >
+                      <XMarkIcon className={`w-4 h-4 hover:text-red-600 dark:hover:text-red-400 ${iconClasses}`} />
+                    </button>
                     
-                    <h4 className={`text-sm font-medium ${textClasses} mb-1 pr-6`}>
+                    <h4 className={`text-sm font-semibold ${textClasses} mb-2 pr-8`}>
                       {note.title}
                     </h4>
-                    <div className={`flex items-center gap-1 text-xs ${timestampClasses} mb-2`}>
-                      <ClockIcon className="w-3 h-3" />
+                    <div className={`flex items-center gap-1.5 text-xs ${timestampClasses} mb-3`}>
+                      <ClockIcon className="w-3.5 h-3.5" />
                       {formatTimestamp(note.timestamp)}
                     </div>
-                    <p className={`text-xs ${subtextClasses} ${expandedNoteId === note.id ? '' : 'line-clamp-1'}`}>
+                    <p className={`text-xs ${subtextClasses} leading-relaxed ${expandedNoteId === note.id ? '' : 'line-clamp-2'}`}>
                       {expandedNoteId === note.id ? note.content : truncateText(note.content)}
                     </p>
+                    {expandedNoteId !== note.id && note.content.length > 80 && (
+                      <p className={`text-xs ${isDark ? 'text-primary-400' : 'text-primary-600'} mt-2 font-medium`}>
+                        Click to expand...
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
