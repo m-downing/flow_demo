@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { colors } from '../../../design-system/foundations/tokens/colors.js';
-import { chartTokens } from '../../../design-system/foundations/tokens/charts.js';
 
 // Define the color groups we want to display
 const colorGroups = [
@@ -179,7 +178,7 @@ const ColorDemo: React.FC = () => {
             </div>
             <div className="bg-neutral-50 dark:bg-neutral-800 rounded-md p-4 border border-neutral-200 dark:border-neutral-700">
               <code className="text-sm">
-                <span className="text-gray-600 dark:text-gray-400">// Dark mode example</span><br/>
+                <span className="text-gray-600 dark:text-gray-400">{'// Dark mode example'}</span><br/>
                 <span className="text-purple-700 dark:text-purple-400">&lt;div</span>{' '}
                 <span className="text-blue-700 dark:text-blue-400">className</span>=
                 <span className="text-green-700 dark:text-green-400">&quot;bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100&quot;</span>
