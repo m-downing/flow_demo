@@ -90,7 +90,6 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
     fontSize: '14px',
     lineHeight: '1.5',
     position: 'relative',
-    zIndex: 1000,
   };
 
   const titleStyle: React.CSSProperties = {

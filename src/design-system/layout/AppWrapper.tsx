@@ -134,7 +134,7 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
 
         {/* InfoBanner - For feature announcements, tips, non-critical updates */}
         <InfoBanner
-          id="flow-redesign-demo-info-2025"
+          id="flow-redesign-info-2025"
           title="FLOW v2.0 Design System Demo"
           message={
             <div className="space-y-1">

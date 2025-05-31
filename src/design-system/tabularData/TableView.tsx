@@ -172,6 +172,27 @@ export const TableView = <T extends Record<string, unknown>>({
       document.removeEventListener('mouseup', handleMouseUp);
       document.body.style.cursor = 'default';
       
+      // Force table repaint to fix border rendering issues
+      if (tableRef.current) {
+        const scrollContainer = tableRef.current.querySelector('div[style*="overflow"]') as HTMLElement;
+        const table = tableRef.current.querySelector('table');
+        
+        if (table && scrollContainer) {
+          // Save current scroll position
+          const scrollLeft = scrollContainer.scrollLeft;
+          const scrollTop = scrollContainer.scrollTop;
+          
+          // Force repaint
+          table.style.display = 'none';
+          table.offsetHeight; // This line forces a reflow
+          table.style.display = '';
+          
+          // Restore scroll position
+          scrollContainer.scrollLeft = scrollLeft;
+          scrollContainer.scrollTop = scrollTop;
+        }
+      }
+      
       // Reset isResizing after a short delay to ensure click event has been processed
       setTimeout(() => {
         setIsResizing(false);
@@ -343,6 +364,7 @@ export const TableView = <T extends Record<string, unknown>>({
     cursor: constraints.showColumnReorder ? 'grab' : 'pointer',
     transition: 'border-color 0.2s',
     borderLeft: dragOverColumn === columnId ? `3px solid ${colors.primary[500]}` : undefined,
+    boxSizing: 'border-box',
   });
 
   const tdStyle: React.CSSProperties = {
@@ -350,6 +372,7 @@ export const TableView = <T extends Record<string, unknown>>({
     borderBottom: `1px solid ${isDark ? colors.primary[700] : colors.neutral[200]}`,
     borderRight: `1px solid ${isDark ? colors.primary[700] : colors.neutral[200]}`,
     color: isDark ? colors.neutral[300] : colors.neutral[700],
+    boxSizing: 'border-box',
   };
 
   const rowStyle: React.CSSProperties = {
