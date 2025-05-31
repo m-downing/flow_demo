@@ -30,7 +30,7 @@ export const TableToggle: React.FC<TableToggleProps> = ({
   
   // Theme-aware border classes
   const borderClasses = isDark
-    ? 'border-primary-600'
+    ? 'border-neutral-600'
     : 'border-neutral-300';
 
   // Handle the deep dive button click
@@ -54,19 +54,21 @@ export const TableToggle: React.FC<TableToggleProps> = ({
   // Get button classes based on active state and theme
   const getButtonClasses = (isActive: boolean) => {
     if (isActive) {
-      return 'bg-primary-600 text-white';
+      return isDark
+        ? 'bg-neutral-700 text-white'
+        : 'bg-neutral-700 text-white';
     }
     return isDark
-      ? 'bg-primary-800 text-primary-200 hover:bg-primary-700'
+      ? 'bg-neutral-800 text-neutral-200 hover:bg-neutral-700'
       : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200';
   };
 
   const deepDiveButtonClasses = isDark
     ? mode === 'deepDive' 
-      ? 'bg-primary-600 text-white' 
-      : 'bg-transparent hover:bg-primary-800 text-primary-300'
+      ? 'bg-neutral-700 text-white' 
+      : 'bg-transparent hover:bg-neutral-800 text-neutral-300'
     : mode === 'deepDive'
-      ? 'bg-primary-100 text-primary-700'
+      ? 'bg-neutral-700 text-white'
       : 'bg-transparent hover:bg-neutral-100 text-neutral-600';
 
   return (

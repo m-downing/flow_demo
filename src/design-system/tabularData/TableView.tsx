@@ -319,8 +319,8 @@ export const TableView = <T extends Record<string, unknown>>({
     width: width || '100%',
     height: currentMode === 'deepDive' ? '100%' : height,
     fontFamily: getTypography.fontFamily('body'),
-    backgroundColor: isDark ? colors.primary[800] : colors.neutral[50],
-    border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.neutral[900] : colors.neutral[50],
+    border: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
     borderRadius: '8px',
     overflow: 'hidden',
     display: 'flex',
@@ -328,8 +328,8 @@ export const TableView = <T extends Record<string, unknown>>({
   };
 
   const headerStyle: React.CSSProperties = {
-    backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
-    borderBottom: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
+    borderBottom: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
     padding: '12px 16px',
     display: 'flex',
     justifyContent: 'space-between',
@@ -351,13 +351,13 @@ export const TableView = <T extends Record<string, unknown>>({
   };
 
   const getThStyle = (columnId: string): React.CSSProperties => ({
-    backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
+    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
     color: isDark ? colors.neutral[300] : colors.neutral[700],
     padding: '12px 16px',
     textAlign: 'left',
     fontWeight: '600',
-    borderBottom: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
-    borderRight: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
+    borderBottom: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+    borderRight: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
     position: 'relative',
     userSelect: 'none',
     zIndex: 10,
@@ -369,8 +369,8 @@ export const TableView = <T extends Record<string, unknown>>({
 
   const tdStyle: React.CSSProperties = {
     padding: '12px 16px',
-    borderBottom: `1px solid ${isDark ? colors.primary[700] : colors.neutral[200]}`,
-    borderRight: `1px solid ${isDark ? colors.primary[700] : colors.neutral[200]}`,
+    borderBottom: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
+    borderRight: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
     color: isDark ? colors.neutral[300] : colors.neutral[700],
     boxSizing: 'border-box',
   };
@@ -381,7 +381,7 @@ export const TableView = <T extends Record<string, unknown>>({
   };
 
   const rowHoverStyle: React.CSSProperties = {
-    backgroundColor: isDark ? colors.primary[700] : colors.neutral[100],
+    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
   };
 
   if (loading) {
@@ -550,12 +550,12 @@ export const TableView = <T extends Record<string, unknown>>({
       {showActualPagination && (
         <div
           style={{
-            borderTop: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
+            borderTop: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
             padding: '12px 16px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
+            backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
           }}
         >
           <span style={{ color: isDark ? colors.neutral[300] : colors.neutral[600], fontSize: '14px' }}>
@@ -574,9 +574,9 @@ export const TableView = <T extends Record<string, unknown>>({
                 value={localPageSize}
                 onChange={(e) => handlePageSizeChange(Number(e.target.value))}
                 style={{
-                  backgroundColor: isDark ? colors.primary[700] : colors.neutral[50],
+                  backgroundColor: isDark ? colors.neutral[700] : colors.neutral[50],
                   color: isDark ? colors.neutral[300] : colors.neutral[700],
-                  border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                  border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                   borderRadius: '4px',
                   padding: '4px 8px',
                   fontSize: '14px',
@@ -597,7 +597,7 @@ export const TableView = <T extends Record<string, unknown>>({
               style={{
                 padding: '4px 8px',
                 backgroundColor: 'transparent',
-                border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                 borderRadius: '4px',
                 cursor: localCurrentPage === 1 ? 'not-allowed' : 'pointer',
                 opacity: localCurrentPage === 1 ? 0.5 : 1,
@@ -620,7 +620,7 @@ export const TableView = <T extends Record<string, unknown>>({
               style={{
                 padding: '4px 8px',
                 backgroundColor: 'transparent',
-                border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                 borderRadius: '4px',
                 cursor: localCurrentPage === 1 ? 'not-allowed' : 'pointer',
                 opacity: localCurrentPage === 1 ? 0.5 : 1,
@@ -652,12 +652,12 @@ export const TableView = <T extends Record<string, unknown>>({
                     style={{
                       padding: '4px 8px',
                       backgroundColor: localCurrentPage === page 
-                        ? (isDark ? colors.primary[600] : colors.primary[500])
+                        ? (isDark ? colors.neutral[700] : colors.neutral[700])
                         : 'transparent',
                       border: `1px solid ${
                         localCurrentPage === page 
-                          ? (isDark ? colors.primary[600] : colors.primary[500])
-                          : (isDark ? colors.primary[600] : colors.neutral[300])
+                          ? (isDark ? colors.neutral[700] : colors.neutral[700])
+                          : (isDark ? colors.neutral[600] : colors.neutral[300])
                       }`,
                       borderRadius: '4px',
                       cursor: 'pointer',
@@ -685,7 +685,7 @@ export const TableView = <T extends Record<string, unknown>>({
               style={{
                 padding: '4px 8px',
                 backgroundColor: 'transparent',
-                border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                 borderRadius: '4px',
                 cursor: localCurrentPage === totalPages ? 'not-allowed' : 'pointer',
                 opacity: localCurrentPage === totalPages ? 0.5 : 1,
@@ -708,7 +708,7 @@ export const TableView = <T extends Record<string, unknown>>({
               style={{
                 padding: '4px 8px',
                 backgroundColor: 'transparent',
-                border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                 borderRadius: '4px',
                 cursor: localCurrentPage === totalPages ? 'not-allowed' : 'pointer',
                 opacity: localCurrentPage === totalPages ? 0.5 : 1,

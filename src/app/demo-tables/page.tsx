@@ -57,7 +57,7 @@ export default function DemoTablesPage() {
       {/* Usage Notes */}
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-neutral-900 dark:text-neutral-50">Implementation Notes</h2>
-        <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded">
+        <div className="bg-blue-50 dark:bg-neutral-900 border-l-4 border-blue-500 dark:border-neutral-600 p-4 rounded">
           <p className="font-semibold mb-2 text-neutral-900 dark:text-neutral-50">Ready for Production Integration:</p>
           <ul className="list-disc list-inside space-y-1 text-sm text-neutral-700 dark:text-neutral-100">
               <li>Replace sample data with your GraphQL/SQL data sources</li>

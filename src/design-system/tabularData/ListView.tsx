@@ -151,8 +151,8 @@ export const ListView = <T extends Record<string, unknown>>({
     width: width || '100%',
     height: currentMode === 'deepDive' ? '100%' : height,
     fontFamily: getTypography.fontFamily('body'),
-    backgroundColor: isDark ? colors.primary[800] : colors.neutral[50],
-    border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.neutral[900] : colors.neutral[50],
+    border: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
     borderRadius: '8px',
     overflow: 'hidden',
     display: 'flex',
@@ -160,8 +160,8 @@ export const ListView = <T extends Record<string, unknown>>({
   };
 
   const headerStyle: React.CSSProperties = {
-    backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
-    borderBottom: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
+    borderBottom: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
     padding: '12px 16px',
     display: 'flex',
     justifyContent: 'space-between',
@@ -184,15 +184,15 @@ export const ListView = <T extends Record<string, unknown>>({
   const itemStyle: React.CSSProperties = {
     marginBottom: '8px',
     padding: '12px',
-    backgroundColor: isDark ? colors.primary[900] : colors.neutral[100],
-    border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
+    backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
+    border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[200]}`,
     borderRadius: '6px',
     cursor: onItemClick ? 'pointer' : 'default',
     transition: 'all 0.2s ease',
   };
 
   const itemHoverStyle: React.CSSProperties = {
-    backgroundColor: isDark ? colors.primary[700] : colors.neutral[200],
+    backgroundColor: isDark ? colors.neutral[700] : colors.neutral[200],
     transform: 'translateY(-1px)',
     boxShadow: `0 2px 4px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`,
   };
@@ -260,12 +260,12 @@ export const ListView = <T extends Record<string, unknown>>({
       {showActualPagination && (
         <div
           style={{
-            borderTop: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
+            borderTop: `1px solid ${isDark ? colors.neutral[700] : colors.neutral[200]}`,
             padding: '12px 16px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: isDark ? colors.primary[800] : colors.neutral[100],
+            backgroundColor: isDark ? colors.neutral[800] : colors.neutral[100],
           }}
         >
           <span style={{ color: isDark ? colors.neutral[300] : colors.neutral[600], fontSize: '14px' }}>
@@ -284,9 +284,9 @@ export const ListView = <T extends Record<string, unknown>>({
                 value={localPageSize}
                 onChange={(e) => handlePageSizeChange(Number(e.target.value))}
                 style={{
-                  backgroundColor: isDark ? colors.primary[700] : colors.neutral[50],
+                  backgroundColor: isDark ? colors.neutral[700] : colors.neutral[50],
                   color: isDark ? colors.neutral[300] : colors.neutral[700],
-                  border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                  border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                   borderRadius: '4px',
                   padding: '4px 8px',
                   fontSize: '14px',
@@ -307,7 +307,7 @@ export const ListView = <T extends Record<string, unknown>>({
               style={{
                 padding: '4px 8px',
                 backgroundColor: 'transparent',
-                border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                 borderRadius: '4px',
                 cursor: localCurrentPage === 1 ? 'not-allowed' : 'pointer',
                 opacity: localCurrentPage === 1 ? 0.5 : 1,
@@ -330,7 +330,7 @@ export const ListView = <T extends Record<string, unknown>>({
               style={{
                 padding: '4px 8px',
                 backgroundColor: 'transparent',
-                border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                 borderRadius: '4px',
                 cursor: localCurrentPage === 1 ? 'not-allowed' : 'pointer',
                 opacity: localCurrentPage === 1 ? 0.5 : 1,
@@ -362,12 +362,12 @@ export const ListView = <T extends Record<string, unknown>>({
                     style={{
                       padding: '4px 8px',
                       backgroundColor: localCurrentPage === page 
-                        ? (isDark ? colors.primary[600] : colors.primary[500])
+                        ? (isDark ? colors.neutral[700] : colors.neutral[700])
                         : 'transparent',
                       border: `1px solid ${
                         localCurrentPage === page 
-                          ? (isDark ? colors.primary[600] : colors.primary[500])
-                          : (isDark ? colors.primary[600] : colors.neutral[300])
+                          ? (isDark ? colors.neutral[700] : colors.neutral[700])
+                          : (isDark ? colors.neutral[600] : colors.neutral[300])
                       }`,
                       borderRadius: '4px',
                       cursor: 'pointer',
@@ -395,7 +395,7 @@ export const ListView = <T extends Record<string, unknown>>({
               style={{
                 padding: '4px 8px',
                 backgroundColor: 'transparent',
-                border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                 borderRadius: '4px',
                 cursor: localCurrentPage === totalPages ? 'not-allowed' : 'pointer',
                 opacity: localCurrentPage === totalPages ? 0.5 : 1,
@@ -418,7 +418,7 @@ export const ListView = <T extends Record<string, unknown>>({
               style={{
                 padding: '4px 8px',
                 backgroundColor: 'transparent',
-                border: `1px solid ${isDark ? colors.primary[600] : colors.neutral[300]}`,
+                border: `1px solid ${isDark ? colors.neutral[600] : colors.neutral[300]}`,
                 borderRadius: '4px',
                 cursor: localCurrentPage === totalPages ? 'not-allowed' : 'pointer',
                 opacity: localCurrentPage === totalPages ? 0.5 : 1,

@@ -126,51 +126,51 @@ export default function AIChatBox({
 
   // Theme-aware classes
   const chatWindowClasses = isDark
-    ? 'bg-primary-900'
+    ? 'bg-neutral-900'
     : 'bg-white';
 
   const emptyStateIconClasses = isDark
-    ? 'text-primary-400'
+    ? 'text-neutral-400'
     : 'text-neutral-300';
 
   const emptyStateTextClasses = isDark
-    ? 'text-primary-300'
+    ? 'text-neutral-300'
     : 'text-neutral-500';
 
   const aiAvatarClasses = isDark
-    ? 'bg-primary-700 text-primary-200'
+    ? 'bg-neutral-700 text-neutral-200'
     : 'bg-neutral-200 text-neutral-600';
 
   const aiMessageClasses = isDark
-    ? 'bg-primary-800 text-primary-100'
+    ? 'bg-neutral-800 text-neutral-100'
     : 'bg-neutral-100 text-neutral-900';
 
   const timestampClasses = isDark
-    ? 'text-primary-400'
+    ? 'text-neutral-400'
     : 'text-neutral-400';
 
   const loadingAvatarClasses = isDark
-    ? 'bg-primary-700 text-primary-200'
+    ? 'bg-neutral-700 text-neutral-200'
     : 'bg-neutral-200 text-neutral-600';
 
   const loadingMessageClasses = isDark
-    ? 'bg-primary-800'
+    ? 'bg-neutral-800'
     : 'bg-neutral-100';
 
   const loadingDotsClasses = isDark
-    ? 'bg-primary-400'
+    ? 'bg-neutral-400'
     : 'bg-neutral-400';
 
   const borderClasses = isDark
-    ? 'border-primary-700'
+    ? 'border-neutral-700'
     : 'border-neutral-200';
 
   const inputClasses = isDark
-    ? 'bg-primary-800 border-primary-600 text-primary-100 placeholder-primary-400 focus-visible:ring-primary-400'
+    ? 'bg-neutral-800 border-neutral-600 text-neutral-100 placeholder-neutral-400 focus-visible:ring-neutral-400'
     : 'bg-white border-neutral-300 text-neutral-900 placeholder-neutral-500 focus-visible:ring-primary-400';
 
   const helpTextClasses = isDark
-    ? 'text-primary-400'
+    ? 'text-neutral-400'
     : 'text-neutral-500';
 
   // Don't render if not open
