@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon, PlusIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ChevronLeftIcon, PlusIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { UserIcon } from '@heroicons/react/24/solid';
 import { useTheme } from '../../app/contexts/ThemeContext';
 import { useNotifications } from '../../app/contexts/NotificationContext';
@@ -38,7 +38,7 @@ export default function AccountDrawer() {
     if (savedNotes) {
       const parsedNotes = JSON.parse(savedNotes);
       // Convert timestamp strings back to Date objects
-      const notesWithDates = parsedNotes.map((note: any) => ({
+      const notesWithDates = parsedNotes.map((note: Note & { timestamp: string }) => ({
         ...note,
         timestamp: new Date(note.timestamp)
       }));

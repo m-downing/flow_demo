@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 import { TableViewProps, SortConfig, FilterConfig } from './types';
 import { filterData, sortData, paginateData, getVisibleColumns, getModeConstraints, openTableInNewTab } from './utils';
@@ -184,7 +184,7 @@ export const TableView = <T extends Record<string, unknown>>({
           
           // Force repaint
           table.style.display = 'none';
-          table.offsetHeight; // This line forces a reflow
+          void table.offsetHeight; // This line forces a reflow
           table.style.display = '';
           
           // Restore scroll position
