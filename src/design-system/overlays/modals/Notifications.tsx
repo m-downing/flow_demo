@@ -78,43 +78,43 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({ isOpen, onClose
   };
 
   // Theme-aware classes
-  const borderClasses = isDark ? 'border-primary-700' : 'border-neutral-200';
+  const borderClasses = isDark ? 'border-neutral-700' : 'border-neutral-200';
   
   const tabInactiveClasses = isDark 
-    ? 'border-transparent text-primary-400 hover:text-primary-200 hover:border-primary-600'
+    ? 'border-transparent text-neutral-400 hover:text-neutral-200 hover:border-neutral-600'
     : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300';
 
-  const emptyStateIconClasses = isDark ? 'text-primary-400' : 'text-neutral-400';
-  const emptyStateTitleClasses = isDark ? 'text-primary-100' : 'text-neutral-900';
-  const emptyStateTextClasses = isDark ? 'text-primary-300' : 'text-neutral-500';
+  const emptyStateIconClasses = isDark ? 'text-neutral-400' : 'text-neutral-400';
+  const emptyStateTitleClasses = isDark ? 'text-neutral-100' : 'text-neutral-900';
+  const emptyStateTextClasses = isDark ? 'text-neutral-300' : 'text-neutral-500';
 
   const clearButtonClasses = isDark
-    ? 'border-primary-600 text-primary-200 bg-primary-800 hover:bg-primary-700 focus-visible:ring-primary-400'
+    ? 'border-neutral-600 text-neutral-200 bg-neutral-800 hover:bg-neutral-700 focus-visible:ring-neutral-400'
     : 'border-neutral-300 text-neutral-700 bg-white hover:bg-neutral-50 focus-visible:ring-primary-600';
 
-  const timestampClasses = isDark ? 'text-primary-400' : 'text-neutral-500';
+  const timestampClasses = isDark ? 'text-neutral-400' : 'text-neutral-500';
 
   const getNotificationClasses = (notification: Notification) => {
     if (notification.isRead) {
       return isDark
-        ? 'bg-primary-900 border-primary-700 hover:bg-primary-800'
+        ? 'bg-neutral-900 border-neutral-700 hover:bg-neutral-800'
         : 'bg-white border-neutral-200 hover:bg-neutral-50';
     } else {
       return isDark
-        ? 'bg-primary-700 border-primary-500 hover:bg-primary-600'
+        ? 'bg-neutral-700 border-neutral-500 hover:bg-neutral-600'
         : 'bg-blue-50 border-blue-200 hover:bg-blue-100';
     }
   };
 
   const getNotificationTitleClasses = () => {
-    return isDark ? 'text-primary-100' : 'text-neutral-900';
+    return isDark ? 'text-neutral-100' : 'text-neutral-900';
   };
 
   const getNotificationMessageClasses = (notification: Notification) => {
     if (notification.isRead) {
-      return isDark ? 'text-primary-300' : 'text-neutral-600';
+      return isDark ? 'text-neutral-300' : 'text-neutral-600';
     } else {
-      return isDark ? 'text-primary-200' : 'text-neutral-700';
+      return isDark ? 'text-neutral-200' : 'text-neutral-700';
     }
   };
 
@@ -130,7 +130,11 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({ isOpen, onClose
       {notifications.some(n => !n.isRead) && (
         <button
           onClick={markAllAsRead}
-          className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-600"
+          className={`inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+            isDark
+              ? 'bg-neutral-700 hover:bg-neutral-600 focus-visible:ring-neutral-400'
+              : 'bg-primary-600 hover:bg-primary-700 focus-visible:ring-primary-600'
+          }`}
         >
           <CheckIcon className="h-4 w-4 mr-1.5" />
           Mark All Read
@@ -160,7 +164,7 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({ isOpen, onClose
                 onClick={() => setActiveTab('all')}
                 className={`whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'all'
-                    ? 'border-primary-600 text-primary-600'
+                    ? isDark ? 'border-neutral-400 text-neutral-200' : 'border-primary-600 text-primary-600'
                     : tabInactiveClasses
                 }`}
               >
@@ -170,7 +174,7 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({ isOpen, onClose
                 onClick={() => setActiveTab('unread')}
                 className={`whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'unread'
-                    ? 'border-primary-600 text-primary-600'
+                    ? isDark ? 'border-neutral-400 text-neutral-200' : 'border-primary-600 text-primary-600'
                     : tabInactiveClasses
                 }`}
               >
@@ -247,7 +251,7 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({ isOpen, onClose
                               {formatRelativeTime(notification.timestamp)}
                             </span>
                             {!notification.isRead && (
-                              <div className="mt-2 w-2 h-2 bg-primary-600 rounded-full"></div>
+                              <div className={`mt-2 w-2 h-2 ${isDark ? 'bg-neutral-400' : 'bg-primary-600'} rounded-full`}></div>
                             )}
                           </div>
                         </div>

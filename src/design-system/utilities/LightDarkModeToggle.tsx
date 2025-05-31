@@ -109,10 +109,10 @@ const LightDarkModeToggle: React.FC<LightDarkModeToggleProps> = ({
   };
 
   const toggleClasses = [
-    'relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-neutral-900',
+    'relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:focus-visible:ring-neutral-400 dark:focus-visible:ring-offset-neutral-900',
     currentMode === 'light' 
       ? 'bg-neutral-200 dark:bg-neutral-700' 
-      : 'bg-primary-600',
+      : 'bg-neutral-600',
     disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
     isTransitioning ? 'scale-105' : '',
   ].filter(Boolean).join(' ');

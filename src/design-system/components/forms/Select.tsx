@@ -115,33 +115,33 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       
       if (error) {
         return isDark
-          ? `${baseClasses} bg-primary-900 border-error-500 text-primary-100 focus:border-error-500 focus-visible:ring-error-500`
+          ? `${baseClasses} bg-neutral-900 border-error-500 text-neutral-100 focus:border-error-500 focus-visible:ring-error-500`
           : `${baseClasses} bg-white border-error-500 text-neutral-900 focus:border-error-500 focus-visible:ring-error-500`;
       }
       
       return isDark
-        ? `${baseClasses} bg-primary-900 border-primary-600 text-primary-100 focus:border-primary-400 focus-visible:ring-primary-400`
+        ? `${baseClasses} bg-neutral-900 border-neutral-600 text-neutral-100 focus:border-neutral-400 focus-visible:ring-neutral-400`
         : `${baseClasses} bg-white border-neutral-300 text-neutral-900 focus:border-primary-600 focus-visible:ring-primary-600`;
     };
     
     // Theme-aware option classes
     const optionClasses = isDark
-      ? 'bg-primary-900 text-primary-100'
+      ? 'bg-neutral-900 text-neutral-100'
       : 'bg-white text-neutral-900';
     
     // Theme-aware label classes
     const labelClasses = isDark
-      ? 'text-primary-100'
+      ? 'text-neutral-100'
       : 'text-neutral-900';
     
     // Theme-aware icon classes
     const iconClasses = isDark
-      ? 'text-primary-400'
+      ? 'text-neutral-400'
       : 'text-neutral-500';
     
     // Theme-aware helper text classes
     const helperTextClasses = isDark
-      ? 'text-primary-300'
+      ? 'text-neutral-300'
       : 'text-neutral-600';
     
     return (

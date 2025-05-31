@@ -13,7 +13,7 @@ const SignalIcon = () => (
 
 export const NetworkCriticalPaths: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-primary-800 shadow-md rounded-lg p-4">
+    <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg p-4">
       <div className="flex justify-between items-center mb-2">
         <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Critical Path Status</h6>
         <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">

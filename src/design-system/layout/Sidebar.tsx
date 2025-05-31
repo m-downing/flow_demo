@@ -10,6 +10,7 @@ import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '../components/feedback';
 import Tooltip from '../components/feedback/Tooltip';
 import AIChatBox from '../utilities/AIChatBox';
+import { useTheme } from '../../app/contexts/ThemeContext';
 
 interface SidebarProps {
   isExpanded: boolean;
@@ -17,6 +18,8 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [activeTab, setActiveTab] = useState<string>('Snapshot');
   const [isAppSwitcherOpen, setIsAppSwitcherOpen] = useState(false);
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
@@ -24,6 +27,11 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const router = useRouter();
   const pathname = usePathname();
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // Theme-aware background classes
+  const sidebarBg = isDark ? 'bg-neutral-800/90' : 'bg-primary-800/90';
+  const submenuBg = isDark ? 'bg-neutral-900' : 'bg-primary-900';
+  const loadingBg = isDark ? 'bg-neutral-800/80' : 'bg-primary-800/80';
 
   useEffect(() => {
     // Determine active tab based on current pathname
@@ -136,9 +144,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   return (
     <>
       <div className="relative" ref={sidebarRef}>
-        <aside className="sticky top-0 h-screen flex flex-col bg-primary-800/90 font-heading w-full">
+        <aside className={`sticky top-0 h-screen flex flex-col ${sidebarBg} font-heading w-full`}>
           {/* Fixed Top section - App icon and switcher */}
-          <div className="bg-primary-800/90 w-full">
+          <div className={`${sidebarBg} w-full`}>
             {/* App Home Icon - Fixed height container */}
             <Link href="/">
               <Tooltip 
@@ -148,7 +156,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 delay={200}
                 className="block w-full"
               >
-                <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-colors duration-50 bg-primary-800/90 w-full transition-all duration-200`}>
+                <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-colors duration-50 ${sidebarBg} w-full transition-all duration-200`}>
                   <div className="flex flex-col items-center gap-[5px]">
                     <div className="h-[26px] flex items-center justify-center">
                       <Image 
@@ -168,7 +176,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
             </Link>
 
             {/* App Switcher Icon - Fixed height container */}
-            <div className="bg-primary-800/90 w-full flex justify-center pb-4 h-[44px] items-center">
+            <div className={`${sidebarBg} w-full flex justify-center pb-4 h-[44px] items-center`}>
               <Tooltip 
                 content="Switch Apps" 
                 position="right" 
@@ -189,7 +197,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
 
           {/* App Switcher Submenu - Separate from fixed header */}
           {isExpanded && isAppSwitcherOpen && (
-            <div className="bg-primary-900 w-full py-4 px-4">
+            <div className={`${submenuBg} w-full py-4 px-4`}>
               <div className="flex flex-col gap-5">
                 <Link href="#">
                   <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
@@ -214,7 +222,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           )}
 
           {/* Middle section - navigation tabs */}
-          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-8 gap-8 bg-primary-800/90 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}>
+          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-8 gap-8 ${sidebarBg} overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}>
             {appTabs['flow'].map((tab) => (
               <Tooltip
                 key={tab.name}
@@ -232,7 +240,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 >
                   {/* Loading spinner overlay */}
                   {loadingTab === tab.name && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-primary-800/80 rounded-lg z-10">
+                    <div className={`absolute inset-0 flex items-center justify-center ${loadingBg} rounded-lg z-10`}>
                       <Spinner variant="light" size="md" aria-label={`Loading ${tab.name}`} />
                     </div>
                   )}
@@ -254,7 +262,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           </div>
 
           {/* Bottom section - AI Chat button and expand button */}
-          <div className="bg-primary-800/90 w-full">
+          <div className={`${sidebarBg} w-full`}>
             <div className={`h-[80px] w-full flex flex-col items-center justify-center relative mb-6`}>
               {/* AI Chat Icon */}
               <Tooltip

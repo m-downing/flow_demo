@@ -149,41 +149,43 @@ export default function AccountDrawer() {
 
   // Theme-aware classes
   const drawerClasses = isDark
-    ? 'bg-primary-900 border-primary-700'
+    ? 'bg-neutral-900 border-neutral-700'
     : 'bg-white border-neutral-200';
 
   const tabClasses = isDark
-    ? 'bg-primary-800 hover:bg-primary-700 border-primary-600'
+    ? 'bg-neutral-800 hover:bg-neutral-700 border-neutral-600'
     : 'bg-neutral-100 hover:bg-neutral-200 border-neutral-300';
 
   const textClasses = isDark
-    ? 'text-primary-100'
+    ? 'text-neutral-100'
     : 'text-neutral-900';
 
   const subtextClasses = isDark
-    ? 'text-primary-300'
+    ? 'text-neutral-300'
     : 'text-neutral-500';
 
-  const dividerClasses = 'border-primary-600';
+  const dividerClasses = isDark 
+    ? 'border-neutral-600'
+    : 'border-neutral-300';
 
   const iconClasses = isDark
     ? 'text-neutral-200'
     : 'text-neutral-700';
 
   const inputClasses = isDark
-    ? 'bg-primary-800 border-primary-600 text-primary-100 placeholder-primary-400 focus:border-primary-400 focus:ring-primary-400'
+    ? 'bg-neutral-800 border-neutral-600 text-neutral-100 placeholder-neutral-400 focus:border-neutral-400 focus:ring-neutral-400'
     : 'bg-white border-neutral-300 text-neutral-900 placeholder-neutral-500 focus:border-primary-600 focus:ring-primary-600';
 
   const buttonClasses = isDark
-    ? 'bg-primary-700 hover:bg-primary-600 text-primary-100'
+    ? 'bg-neutral-700 hover:bg-neutral-600 text-neutral-100'
     : 'bg-primary-600 hover:bg-primary-700 text-white';
 
   const noteItemClasses = isDark
-    ? 'bg-primary-800 hover:bg-primary-700 border-primary-700'
+    ? 'bg-neutral-800 hover:bg-neutral-700 border-neutral-700'
     : 'bg-neutral-50 hover:bg-neutral-100 border-neutral-200';
 
   const timestampClasses = isDark
-    ? 'text-primary-400'
+    ? 'text-neutral-400'
     : 'text-neutral-500';
 
   return (
@@ -241,7 +243,7 @@ export default function AccountDrawer() {
                 className="w-10 h-10 rounded-full bg-neutral-300 flex items-center justify-center cursor-pointer hover:bg-neutral-400 transition-all duration-50 shadow-md"
                 onClick={handleNotificationsClick}
               >
-                <UserIcon className="w-6 h-6 text-primary-800" />
+                <UserIcon className="w-6 h-6 text-neutral-700" />
               </div>
               <NotificationBadge count={unreadCount} variant="md" />
             </div>
@@ -267,7 +269,7 @@ export default function AccountDrawer() {
               {(noteTitle || noteContent) && (
                 <button
                   onClick={handleClearForm}
-                  className={`absolute right-2 top-2 p-1 rounded hover:bg-neutral-200 dark:hover:bg-primary-700 transition-colors`}
+                  className={`absolute right-2 top-2 p-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors`}
                   aria-label="Clear form"
                 >
                   <XMarkIcon className={`w-4 h-4 ${iconClasses}`} />
@@ -323,7 +325,7 @@ export default function AccountDrawer() {
                       p-3 rounded-lg border cursor-pointer
                       transition-all duration-150 relative
                       ${noteItemClasses}
-                      ${expandedNoteId === note.id ? 'ring-2 ring-primary-500' : ''}
+                      ${expandedNoteId === note.id ? 'ring-2 ring-neutral-500' : ''}
                     `}
                   >
                     {/* Delete button */}
@@ -332,7 +334,7 @@ export default function AccountDrawer() {
                         onClick={(e) => handleDeleteNote(note.id, e)}
                         className={`
                           absolute top-2 right-2 p-1 rounded
-                          hover:bg-neutral-200 dark:hover:bg-primary-600
+                          hover:bg-neutral-200 dark:hover:bg-neutral-600
                           transition-all duration-150
                         `}
                         aria-label="Delete note"

@@ -136,27 +136,27 @@ const Modal: React.FC<ModalProps> = ({
 
   // Theme-aware classes
   const modalBackgroundClasses = isDark
-    ? 'bg-primary-900'
+    ? 'bg-neutral-900'
     : 'bg-white';
 
   const borderClasses = isDark
-    ? 'border-primary-700'
+    ? 'border-neutral-700'
     : 'border-neutral-200';
 
   const titleTextClasses = isDark
-    ? 'text-primary-100'
+    ? 'text-neutral-100'
     : 'text-neutral-900';
 
   const descriptionTextClasses = isDark
-    ? 'text-primary-300'
+    ? 'text-neutral-300'
     : 'text-neutral-500';
 
   const closeButtonClasses = isDark
-    ? 'text-primary-400 hover:text-primary-200 focus-visible:ring-primary-400'
+    ? 'text-neutral-400 hover:text-neutral-200 focus-visible:ring-neutral-400'
     : 'text-neutral-400 hover:text-neutral-900 focus-visible:ring-primary-600';
 
   const footerClasses = isDark
-    ? 'bg-primary-800 border-primary-700'
+    ? 'bg-neutral-800 border-neutral-700'
     : 'bg-neutral-50 border-neutral-200';
   
   // Don't render anything if not open or if not client-side

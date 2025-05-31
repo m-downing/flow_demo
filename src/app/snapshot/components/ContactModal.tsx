@@ -57,13 +57,13 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, alert }) =
                     </div>
                     <div className="flex gap-2">
                       <button 
-                        className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                        className="text-primary-600 hover:text-primary-700 dark:text-neutral-400 dark:hover:text-neutral-300"
                         onClick={() => window.location.href = `mailto:${contact.email}`}
                       >
                         <EnvelopeIcon className="w-4 h-4" />
                       </button>
                       <button 
-                        className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                        className="text-primary-600 hover:text-primary-700 dark:text-neutral-400 dark:hover:text-neutral-300"
                         onClick={() => window.location.href = `tel:${contact.phone}`}
                       >
                         <PhoneIcon className="w-4 h-4" />

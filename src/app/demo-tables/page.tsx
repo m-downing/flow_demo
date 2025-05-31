@@ -17,7 +17,7 @@ export default function DemoTablesPage() {
       {/* Interactive TableView Demo */}
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-neutral-900 dark:text-neutral-50">TableView with Interactive Mode Toggle</h2>
-        <div className="bg-neutral-100 dark:bg-primary-800 rounded-lg p-6 mb-6">
+        <div className="bg-neutral-100 dark:bg-neutral-900 rounded-lg p-6 mb-6">
           <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4">
             Try switching between modes. Summary shows 5 key columns, Drilldown shows all columns but is layout-constrained, Deep Dive opens in a new tab with full features.
           </p>
@@ -28,7 +28,7 @@ export default function DemoTablesPage() {
       {/* Interactive ListView Demo */}
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-neutral-900 dark:text-neutral-50">ListView with Interactive Mode Toggle</h2>
-        <div className="bg-neutral-100 dark:bg-primary-800 rounded-lg p-6 mb-6">
+        <div className="bg-neutral-100 dark:bg-neutral-900 rounded-lg p-6 mb-6">
           <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4">
             The ListView displays the same data in cards. ListView only supports Summary mode (key information) and Deep Dive mode (opens in new tab). 
             Drilldown mode is not applicable since there are no columns to show/hide.

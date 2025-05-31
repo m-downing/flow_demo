@@ -78,7 +78,7 @@ export const KPITabs: React.FC = () => {
             onClick={() => handleTabChange(tab.value)}
             className={`flex-1 py-3 px-4 text-sm font-medium border-b-2 transition-colors ${
               tabValue === tab.value
-                ? 'border-primary-500 text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-800'
+                ? 'border-primary-500 text-primary-600 dark:text-neutral-400 bg-primary-50 dark:bg-neutral-900'
                 : 'border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-500'
             }`}
             role="tab"
@@ -94,14 +94,14 @@ export const KPITabs: React.FC = () => {
   };
 
   return (
-    <div className="mb-6 bg-white dark:bg-primary-800 shadow-md rounded-lg">
+    <div className="mb-6 bg-white dark:bg-neutral-900 shadow-md rounded-lg">
       {renderTabs()}
       
       {/* Overview Tab */}
       <TabPanel value={tabValue} index={0}>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           <div className="md:col-span-8">
-            <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+            <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
               <div className="flex justify-between items-center mb-2">
                 <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Regional KPI Comparison</h6>
                 <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">
@@ -123,7 +123,7 @@ export const KPITabs: React.FC = () => {
           </div>
           
           <div className="md:col-span-4">
-            <div className="p-4 mb-6 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+            <div className="p-4 mb-6 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
               <div className="flex justify-between items-center mb-2">
                 <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Top Performing Data Centers</h6>
                 <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">
@@ -165,7 +165,7 @@ export const KPITabs: React.FC = () => {
               </div>
             </div>
             
-            <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+            <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
               <div className="flex justify-between items-center mb-2">
                 <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">KPI Achievement</h6>
                 <button className="text-neutral-500 dark:text-neutral-400">
@@ -214,7 +214,7 @@ export const KPITabs: React.FC = () => {
           </div>
           
           <div className="md:col-span-6">
-            <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+            <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
               <div className="flex justify-between items-center mb-2">
                 <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Procurement Efficiency</h6>
                 <button className="text-neutral-500 dark:text-neutral-400">
@@ -236,7 +236,7 @@ export const KPITabs: React.FC = () => {
           </div>
           
           <div className="md:col-span-6">
-            <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+            <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
               <div className="flex justify-between items-center mb-2">
                 <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Average Deployment Time</h6>
                 <button className="text-neutral-500 dark:text-neutral-400">
@@ -265,7 +265,7 @@ export const KPITabs: React.FC = () => {
           <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Procurement Key Performance Indicators</h6>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Procurement Efficiency Trend</h6>
                   <button className="text-neutral-500 dark:text-neutral-400">
@@ -287,7 +287,7 @@ export const KPITabs: React.FC = () => {
             </div>
             
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Inventory Turnover Rate</h6>
                   <button className="text-neutral-500 dark:text-neutral-400">
@@ -317,7 +317,7 @@ export const KPITabs: React.FC = () => {
           <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Deployment Key Performance Indicators</h6>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Deployment Time Trend</h6>
                   <button className="text-neutral-500 dark:text-neutral-400">
@@ -339,7 +339,7 @@ export const KPITabs: React.FC = () => {
             </div>
             
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Regional Deployment Times</h6>
                   <button className="text-neutral-500 dark:text-neutral-400">
@@ -369,7 +369,7 @@ export const KPITabs: React.FC = () => {
           <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Utilization Key Performance Indicators</h6>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Capacity Utilization Trend</h6>
                   <button className="text-neutral-500 dark:text-neutral-400">
@@ -391,7 +391,7 @@ export const KPITabs: React.FC = () => {
             </div>
             
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-primary-800 shadow-sm rounded-lg">
+              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Regional Utilization Rates</h6>
                   <button className="text-neutral-500 dark:text-neutral-400">

@@ -115,7 +115,7 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
         isExpanded={isSidebarExpanded}
         onExpandedChange={setIsSidebarExpanded}
       />
-      <main className="overflow-y-auto min-h-screen bg-neutral-50 dark:bg-primary-900 relative">
+      <main className="overflow-y-auto min-h-screen bg-neutral-50 dark:bg-neutral-950 relative">
         {/* ======================================== */}
         {/* SYSTEM BANNERS - Configure above at lines 26-27 */}
         {/* ======================================== */}

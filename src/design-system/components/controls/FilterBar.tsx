@@ -27,11 +27,11 @@ const Select: React.FC<SelectProps> = ({ value, onChange, options, placeholder, 
   const selectRef = useRef<HTMLSelectElement>(null);
 
   const selectClasses = isDark
-    ? 'bg-primary-900 border-primary-600 text-primary-300'
+    ? 'bg-neutral-900 border-neutral-600 text-neutral-300'
     : 'bg-white border-neutral-300 text-neutral-900';
 
   const optionClasses = isDark
-    ? 'bg-primary-800 text-neutral-100'
+    ? 'bg-neutral-800 text-neutral-100'
     : 'bg-white text-neutral-900';
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -103,7 +103,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
 
   // Theme-aware container classes - applied only when mounted
   const activeContainerClasses = isDark
-    ? 'bg-primary-900 border-primary-900'
+    ? 'bg-neutral-950 border-transparent'
     : 'bg-white border-transparent';
   
   // Classes when not mounted (or to ensure smooth transition)
@@ -144,7 +144,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
 
   // Custom button class to match Select components in light mode
   const moreFiltersButtonClass = isDark 
-    ? '' 
+    ? '!border-neutral-600 !text-neutral-300 hover:!bg-neutral-800 hover:!text-neutral-200' 
     : '!border-neutral-300 !border';
 
   return (

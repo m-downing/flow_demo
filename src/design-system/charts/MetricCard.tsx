@@ -61,7 +61,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     <div
       className={`
         p-4 rounded-lg shadow-md flex flex-col gap-2 font-sans 
-        bg-white dark:bg-primary-800 
+        bg-white dark:bg-neutral-900 
         transition-shadow duration-300 ease-in-out
         ${onClick ? 'cursor-pointer hover:shadow-lg' : 'cursor-default'}
       `}

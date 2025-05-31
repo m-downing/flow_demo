@@ -81,7 +81,7 @@ const BacklogTabs: React.FC = () => {
             onClick={() => handleTabChange(tab.value)}
             className={`flex-1 py-3 px-4 text-sm font-medium border-b-2 transition-colors ${
               tabValue === tab.value
-                ? 'border-primary-500 text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-800'
+                ? 'border-primary-500 text-primary-600 dark:text-neutral-400 bg-primary-50 dark:bg-neutral-900'
                 : 'border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-500'
             }`}
             role="tab"
@@ -97,7 +97,7 @@ const BacklogTabs: React.FC = () => {
   };
   
   return (
-    <div className="bg-white dark:bg-primary-800 shadow-md rounded-lg mb-6">
+    <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg mb-6">
       {renderTabs()}
       
       {/* All Backlogs Tab */}

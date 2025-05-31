@@ -12,7 +12,7 @@ const regionCapacityData = [
 const RegionDistributionChart: React.FC = () => {
   return (
     <div className="md:col-span-8">
-      <div className="bg-neutral-50 dark:bg-primary-800 shadow-md rounded-lg p-4">
+      <div className="bg-neutral-50 dark:bg-neutral-900 shadow-md rounded-lg p-4">
         <div className="flex justify-between items-center mb-2">
           <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Infrastructure Distribution by Region</h6>
         </div>

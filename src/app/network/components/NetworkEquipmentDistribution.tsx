@@ -10,7 +10,7 @@ const MoreIcon = () => (
 
 export const NetworkEquipmentDistribution: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-primary-800 shadow-md rounded-lg p-4 h-full">
+    <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg p-4 h-full">
       <div className="flex justify-between items-center mb-2">
         <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Network Equipment Distribution</h6>
         <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">

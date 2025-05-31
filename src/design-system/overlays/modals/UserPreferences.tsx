@@ -17,6 +17,7 @@ const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({ isOpen, onC
   const [primaryApp, setPrimaryApp] = useState<string>('flow');
   const { theme, setTheme } = useTheme();
   const [localThemeMode, setLocalThemeMode] = useState<'light' | 'dark'>(theme);
+  const isDark = theme === 'dark';
 
   // Initialize with current theme when modal opens
   useEffect(() => {
@@ -64,14 +65,22 @@ const UserPreferencesModal: React.FC<UserPreferencesModalProps> = ({ isOpen, onC
       <button
         type="button"
         onClick={onClose}
-        className="px-4 py-2 text-sm font-medium border border-neutral-300 rounded-md text-neutral-700 bg-neutral-50 hover:bg-neutral-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-600"
+        className={`px-4 py-2 text-sm font-medium border rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+          isDark 
+            ? 'border-neutral-600 text-neutral-200 bg-neutral-800 hover:bg-neutral-700 focus-visible:ring-neutral-400'
+            : 'border-neutral-300 text-neutral-700 bg-neutral-50 hover:bg-neutral-600 focus-visible:ring-primary-600'
+        }`}
       >
         Cancel
       </button>
       <button
         type="button"
         onClick={handleSave}
-        className="px-4 py-2 text-sm font-medium border border-transparent rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-600"
+        className={`px-4 py-2 text-sm font-medium border border-transparent rounded-md text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
+          isDark
+            ? 'bg-neutral-700 hover:bg-neutral-600 focus-visible:ring-neutral-400'
+            : 'bg-primary-600 hover:bg-primary-700 focus-visible:ring-primary-600'
+        }`}
       >
         Save Changes
       </button>
