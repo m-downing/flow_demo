@@ -104,7 +104,7 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
   }, [pathname]);
 
   return (
-    <div className={`grid ${isSidebarExpanded ? 'grid-cols-[180px_1fr]' : 'grid-cols-[64px_1fr]'} min-h-screen min-w-[768px] relative transition-all duration-300 ease-in-out`}>
+    <div className={`grid ${isSidebarExpanded ? 'grid-cols-[180px_1fr]' : 'grid-cols-[64px_1fr]'} min-h-screen min-w-[768px] relative transition-all duration-300 ease-in-out bg-neutral-50 dark:bg-neutral-950`}>
       {/* Initialize demo notifications only after client-side hydration */}
       {isClient && <DemoNotificationsInitializer />}
       

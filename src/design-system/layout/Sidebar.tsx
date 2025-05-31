@@ -29,7 +29,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   // Theme-aware background classes
-  const sidebarBg = isDark ? 'bg-neutral-800/90' : 'bg-primary-800/90';
+  const sidebarBg = isDark ? 'bg-neutral-800' : 'bg-primary-800/90';
   const submenuBg = isDark ? 'bg-neutral-900' : 'bg-primary-900';
   const loadingBg = isDark ? 'bg-neutral-800/80' : 'bg-primary-800/80';
 
@@ -144,9 +144,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   return (
     <>
       <div className="relative" ref={sidebarRef}>
-        <aside className={`sticky top-0 h-screen flex flex-col ${sidebarBg} font-heading w-full`}>
+        <aside className={`sticky top-0 h-screen flex flex-col ${sidebarBg} font-heading ${isExpanded ? 'w-[180px]' : 'w-[64px]'} transition-all duration-300 ease-in-out`}>
           {/* Fixed Top section - App icon and switcher */}
-          <div className={`${sidebarBg} w-full`}>
+          <div className={`w-full transition-all duration-300 ease-in-out`}>
             {/* App Home Icon - Fixed height container */}
             <Link href="/">
               <Tooltip 
@@ -156,7 +156,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 delay={200}
                 className="block w-full"
               >
-                <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-colors duration-50 ${sidebarBg} w-full transition-all duration-200`}>
+                <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-all duration-300 ease-in-out w-full`}>
                   <div className="flex flex-col items-center gap-[5px]">
                     <div className="h-[26px] flex items-center justify-center">
                       <Image 
@@ -168,7 +168,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                       />
                     </div>
                     {isExpanded && (
-                      <h1 className="text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-colors duration-50">FLOW</h1>
+                      <h1 className="text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out">FLOW</h1>
                     )}
                   </div>
                 </div>
@@ -176,7 +176,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
             </Link>
 
             {/* App Switcher Icon - Fixed height container */}
-            <div className={`${sidebarBg} w-full flex justify-center pb-4 h-[44px] items-center`}>
+            <div className={`w-full flex justify-center pb-4 h-[44px] items-center transition-all duration-300 ease-in-out`}>
               <Tooltip 
                 content="Switch Apps" 
                 position="right" 
@@ -222,7 +222,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           )}
 
           {/* Middle section - navigation tabs */}
-          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-8 gap-8 ${sidebarBg} overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}>
+          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-8 gap-8 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out`}>
             {appTabs['flow'].map((tab) => (
               <Tooltip
                 key={tab.name}
@@ -262,7 +262,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           </div>
 
           {/* Bottom section - AI Chat button and expand button */}
-          <div className={`${sidebarBg} w-full`}>
+          <div className={`w-full transition-all duration-300 ease-in-out`}>
             <div className={`h-[80px] w-full flex flex-col items-center justify-center relative mb-6`}>
               {/* AI Chat Icon */}
               <Tooltip
