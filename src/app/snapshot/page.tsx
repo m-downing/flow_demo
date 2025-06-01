@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import { PageContainer } from '@/design-system/layout/PageContainer';
 import FilterBar from '@/design-system/components/controls/FilterBar';
 
 // Import all modular components
@@ -34,7 +35,7 @@ const SnapshotPage: React.FC = () => {
   };
 
   return (
-    <div className="pt-8 px-6 py-8 pb-16 bg-neutral-50 dark:bg-neutral-950 min-h-screen">
+    <PageContainer>
       <div className="flex justify-between items-center mb-6">
         <div>
           <h4 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-50">
@@ -72,7 +73,7 @@ const SnapshotPage: React.FC = () => {
           <DeploymentProgressSection />
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 };
 

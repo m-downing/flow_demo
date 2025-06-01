@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { PageContainer } from '@/design-system/layout/PageContainer';
 import { 
   BacklogSummaryMetrics, 
   BacklogFilters, 
@@ -32,7 +33,7 @@ const BacklogsPage: React.FC = () => {
   const avgDelay = Math.round(backlogItems.reduce((sum, item) => sum + item.delay, 0) / totalBacklogs);
   
   return (
-    <div className="pt-8 px-6 py-8 pb-16 bg-neutral-50 dark:bg-neutral-950 min-h-screen max-w-[1600px] mx-auto">
+    <PageContainer>
       <div className="flex justify-between items-center mb-6">
         <div>
           <h4 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-50">
@@ -60,7 +61,7 @@ const BacklogsPage: React.FC = () => {
       />
       
       <BacklogTabs />
-    </div>
+    </PageContainer>
   );
 };
 

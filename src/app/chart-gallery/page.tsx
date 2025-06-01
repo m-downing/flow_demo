@@ -1,5 +1,10 @@
+import { PageContainer } from '@/design-system/layout/PageContainer';
 import { ChartGallery } from './ChartGalleryDemo';
 
 export default function ChartGalleryPage() {
-  return <ChartGallery />;
+  return (
+    <PageContainer>
+      <ChartGallery />
+    </PageContainer>
+  );
 }

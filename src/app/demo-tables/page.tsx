@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
+import { PageContainer } from '@/design-system/layout/PageContainer';
 import ServerInventoryTable from './components/ServerInventoryTable';
 import ServerInventoryList from './components/ServerInventoryList';
 
 export default function DemoTablesPage() {
   return (
-    <div className="p-6">
+    <PageContainer>
       <h1 className="text-3xl font-bold mb-6 text-neutral-900 dark:text-neutral-50">Tabular Data Components Demo</h1>
       <p className="text-neutral-700 dark:text-neutral-300 mb-8 max-w-4xl">
         Interactive demonstration of the TableView and ListView components with integrated TableToggle controls. 
@@ -68,6 +69,6 @@ export default function DemoTablesPage() {
             </ul>
         </div>
       </section>
-    </div>
+    </PageContainer>
   );
 } 
