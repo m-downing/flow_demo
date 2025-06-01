@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScatterPlot } from '@/design-system/charts';
+import { Card } from '@/design-system/layout';
 import { latencyData } from './mockData';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 
@@ -10,16 +11,15 @@ const MoreIcon = () => (
 
 export const NetworkLatencyScatter: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg p-4">
-      <div className="flex justify-between items-center mb-2">
-        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Data Center Interconnect Latency</h6>
+    <Card
+      title="Data Center Interconnect Latency"
+      subtitle="WAN latency between global data centers (ms)"
+      headerAction={
         <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">
           <MoreIcon />
         </button>
-      </div>
-      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-        WAN latency between global data centers (ms)
-      </p>
+      }
+    >
       <div className="h-80">
         <ScatterPlot 
           data={latencyData} 
@@ -33,6 +33,6 @@ export const NetworkLatencyScatter: React.FC = () => {
           zAxisProps={{ name: 'Bandwidth', range: [50, 150] }}
         />
       </div>
-    </div>
+    </Card>
   );
 }; 

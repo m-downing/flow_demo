@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from '@/app/contexts/ThemeContext';
 
 /**
  * Card component props
@@ -10,95 +9,83 @@ interface CardProps {
   children: React.ReactNode;
   /** Card title (optional) */
   title?: string;
+  /** Subtitle/description text (optional) */
+  subtitle?: string;
   /** Additional class names to apply */
   className?: string;
-  /** Whether to add padding to the card */
-  padded?: boolean;
-  /** Whether to add a border to the card */
-  bordered?: boolean;
-  /** Whether to add a shadow to the card */
-  shadowed?: boolean;
-  /** Whether to make the card clickable */
-  hoverable?: boolean;
-  /** Whether to make the card span the full width of its container */
-  fullWidth?: boolean;
-  /** Footer content */
-  footer?: React.ReactNode;
-  /** Header content (alternative to title) */
-  header?: React.ReactNode;
+  /** Shadow level - 'md' for main cards, 'sm' for nested cards */
+  shadowLevel?: 'sm' | 'md' | 'none';
+  /** Whether to make the card span full height */
+  fullHeight?: boolean;
+  /** Action element to display in header (e.g., button, icon) */
+  headerAction?: React.ReactNode;
+  /** Header margin bottom - mb-2 or mb-4 */
+  headerSpacing?: '2' | '4';
+  /** Padding size */
+  padding?: '4' | '6';
+  /** Border radius */
+  rounded?: 'md' | 'lg';
 }
 
 const Card: React.FC<CardProps> = ({
   children,
   title,
+  subtitle,
   className = '',
-  padded = true,
-  bordered = true,
-  shadowed = false,
-  hoverable = false,
-  fullWidth = false,
-  footer,
-  header,
+  shadowLevel = 'md',
+  fullHeight = false,
+  headerAction,
+  headerSpacing = '2',
+  padding = '4',
+  rounded = 'lg',
 }) => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-
-  // Theme-aware base classes
-  const baseClasses = isDark 
-    ? 'bg-neutral-800 rounded-md overflow-hidden'
-    : 'bg-white rounded-md overflow-hidden';
+  // Standard card background - neutral-50 in light, neutral-900 in dark
+  const backgroundClasses = 'bg-white dark:bg-neutral-900';
   
-  // Optional classes based on props
-  const paddingClasses = padded ? 'p-4' : '';
-  const borderClasses = bordered 
-    ? (isDark ? 'border border-neutral-700' : 'border border-neutral-200')
-    : '';
-  const shadowClasses = shadowed ? 'shadow-md' : '';
-  const hoverClasses = hoverable ? 'transition-transform hover:scale-[1.01] cursor-pointer' : '';
-  const widthClasses = fullWidth ? 'w-full' : '';
+  // Shadow classes
+  const shadowClasses = {
+    sm: 'shadow-sm',
+    md: 'shadow-md',
+    none: ''
+  }[shadowLevel];
   
-  // Theme-aware text color for header/title
-  const headerTextColor = isDark ? 'text-neutral-100' : 'text-neutral-900';
-  
-  // Theme-aware footer classes
-  const footerBorderColor = isDark ? 'border-neutral-700' : 'border-neutral-200';
-  const footerBgColor = isDark ? 'bg-neutral-900' : 'bg-neutral-50';
+  // Other classes
+  const roundedClasses = `rounded-${rounded}`;
+  const paddingClasses = `p-${padding}`;
+  const heightClasses = fullHeight ? 'h-full' : '';
   
   return (
     <div 
       className={`
-        ${baseClasses}
-        ${paddingClasses}
-        ${borderClasses}
+        ${backgroundClasses}
         ${shadowClasses}
-        ${hoverClasses}
-        ${widthClasses}
+        ${roundedClasses}
+        ${paddingClasses}
+        ${heightClasses}
         ${className}
       `}
     >
-      {/* Header section (if provided) */}
-      {(title || header) && (
-        <div className={`font-medium text-lg ${headerTextColor} ${!header && padded ? '-mt-1 mb-3' : ''}`}>
-          {header || title}
+      {/* Header section with title and action */}
+      {(title || headerAction) && (
+        <div className={`flex justify-between items-center mb-${headerSpacing}`}>
+          {title && (
+            <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">
+              {title}
+            </h6>
+          )}
+          {headerAction}
         </div>
+      )}
+      
+      {/* Subtitle/description */}
+      {subtitle && (
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
+          {subtitle}
+        </p>
       )}
       
       {/* Main content */}
-      <div className={padded ? '' : 'p-4'}>
-        {children}
-      </div>
-      
-      {/* Footer (if provided) */}
-      {footer && (
-        <div className={`
-          mt-4 
-          ${padded ? '-mx-4 -mb-4 pt-3 px-4 pb-4' : 'mx-0 pb-0'}
-          border-t ${footerBorderColor}
-          ${footerBgColor}
-        `}>
-          {footer}
-        </div>
-      )}
+      {children}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { LineChart } from '@/design-system/charts';
+import { Card } from '@/design-system/layout';
 import { networkUtilizationData } from './mockData';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 
@@ -10,16 +11,16 @@ const MoreIcon = () => (
 
 export const NetworkUtilization: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg p-4 h-full">
-      <div className="flex justify-between items-center mb-2">
-        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Network Bandwidth Utilization</h6>
+    <Card
+      title="Network Bandwidth Utilization"
+      subtitle="24-hour global network traffic pattern (Gbps)"
+      fullHeight
+      headerAction={
         <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">
           <MoreIcon />
         </button>
-      </div>
-      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-        24-hour global network traffic pattern (Gbps)
-      </p>
+      }
+    >
       <div className="h-80">
         <LineChart 
           data={networkUtilizationData} 
@@ -28,6 +29,6 @@ export const NetworkUtilization: React.FC = () => {
           height={320}
         />
       </div>
-    </div>
+    </Card>
   );
 }; 

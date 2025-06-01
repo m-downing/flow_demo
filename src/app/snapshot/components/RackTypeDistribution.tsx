@@ -1,5 +1,6 @@
 import React from 'react';
 import { PieChart } from '@/design-system/charts';
+import { Card } from '@/design-system/layout';
 
 // Mock data for rack type distribution
 const rackTypeData = [
@@ -12,13 +13,12 @@ const rackTypeData = [
 const RackTypeDistribution: React.FC = () => {
   return (
     <div className="md:col-span-4">
-      <div className="bg-neutral-50 dark:bg-neutral-900 shadow-md rounded-md p-4 h-full">
-        <div className="flex justify-between items-center mb-2">
-          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Rack Type Distribution</h6>
-        </div>
-        <p className="text-sm text-neutral-500 dark:text-neutral-200 mb-4">
-          Current infrastructure by rack type
-        </p>
+      <Card
+        title="Rack Type Distribution"
+        subtitle="Current infrastructure by rack type"
+        fullHeight
+        rounded="md"
+      >
         <div className="h-80">
           <PieChart 
             data={rackTypeData} 
@@ -30,7 +30,7 @@ const RackTypeDistribution: React.FC = () => {
             showLegend={true}
           />
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

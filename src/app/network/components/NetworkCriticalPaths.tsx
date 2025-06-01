@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from '@/design-system';
+import { Badge, Card } from '@/design-system';
 import { EllipsisHorizontalIcon, SignalIcon as HeroSignalIcon } from '@heroicons/react/24/outline';
 
 // Custom SVG icons to replace Material-UI icons
@@ -13,16 +13,15 @@ const SignalIcon = () => (
 
 export const NetworkCriticalPaths: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg p-4">
-      <div className="flex justify-between items-center mb-2">
-        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Critical Path Status</h6>
+    <Card
+      title="Critical Path Status"
+      subtitle="Status of critical network paths between data centers"
+      headerAction={
         <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">
           <MoreIcon />
         </button>
-      </div>
-      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-        Status of critical network paths between data centers
-      </p>
+      }
+    >
       <div className="space-y-0">
         <div className="flex items-center py-3">
           <div className="flex-shrink-0 mr-3">
@@ -103,6 +102,6 @@ export const NetworkCriticalPaths: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }; 
