@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 
+  Font Strategy for Windows Virtual Desktop:
+  - All text uses Bahnschrift (Windows 10+ system font, most similar to Roboto)
+  - Bahnschrift is a neo-grotesque typeface with clean, geometric letterforms
+  - Fallbacks: Tahoma → Arial → sans-serif for older Windows systems
+  - Available weights: Light (300), Regular (400), SemiBold (600), Bold (700)
+  - Font families are defined in src/design-system/foundations/tokens/typography.js
+  - Accessed via Tailwind classes: font-heading, font-body (both use Bahnschrift)
+*/
 
 /* Reset margins and padding */
 html, body {

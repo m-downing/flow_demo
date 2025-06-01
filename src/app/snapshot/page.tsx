@@ -57,20 +57,27 @@ const SnapshotPage: React.FC = () => {
         />
       </div>
       
-      <div className="grid grid-cols-1 gap-4">
-        {/* Top row - Key metrics */}
-        <KeyMetricsSection />
-        
-        {/* Second row - Capacity Trends chart and Rack Type Distribution pie chart */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          <CapacityTrendChart />
-          <RackTypeDistribution />
-        </div>
-        
-        {/* Infrastructure Distribution by Region */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          <RegionDistributionChart />
-          <DeploymentProgressSection />
+      {/* Key metrics section */}
+      <KeyMetricsSection />
+      
+      {/* Main dashboard content wrapper */}
+      <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg mb-6">
+        <div className="p-4">
+          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">
+            Infrastructure Overview
+          </h6>
+          
+          {/* Charts grid with nested cards */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+            <CapacityTrendChart />
+            <RackTypeDistribution />
+          </div>
+          
+          {/* Regional distribution section */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 mt-3">
+            <RegionDistributionChart />
+            <DeploymentProgressSection />
+          </div>
         </div>
       </div>
     </PageContainer>

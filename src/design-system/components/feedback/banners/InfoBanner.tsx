@@ -86,7 +86,6 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
     padding: '12px 16px',
     backgroundColor: colors.teal[100],
     borderBottom: `2px solid ${colors.teal[500]}`,
-    fontFamily: 'var(--font-body), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
     fontSize: '14px',
     lineHeight: '1.5',
     position: 'relative',

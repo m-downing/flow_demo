@@ -17,7 +17,6 @@ A Next.js demonstration of the FLOW Design System - an enterprise-grade UI compo
 ```
 src/
 ├── app/                    # Next.js app router pages
-│   ├── backlogs/          # Backlogs demo
 │   ├── chart-gallery/     # Chart components showcase (default page)
 │   ├── colors/            # Color token reference
 │   ├── deepdive/          # Dynamic table detail views
@@ -25,7 +24,6 @@ src/
 │   │       └── [tableId]/ # Dynamic route for table details
 │   ├── demo-tables/       # Table components demo
 │   ├── kpi/               # KPI dashboard demo
-│   ├── network/           # Network visualization demo
 │   ├── snapshot/          # Snapshot dashboard demo
 │   ├── contexts/          # React contexts for global state
 │   ├── hooks/             # Custom React hooks
@@ -63,9 +61,7 @@ The design system includes comprehensive documentation in `src/design-system/_Do
 - **Color Tokens** (`/colors`) - Design system color palette reference
 - **Deep Dive** (`/deepdive/table-id/[tableId]`) - Dynamic detail views for table data
 - **Snapshot** (`/snapshot`) - Dashboard snapshot view
-- **Backlogs** (`/backlogs`) - Backlog management interface
 - **KPIs** (`/kpi`) - Key performance indicators dashboard
-- **Network** (`/network`) - Network visualization components
 
 ## ⚡ Quick Start
 

@@ -3,8 +3,8 @@ import { MetricCard } from '@/design-system/charts';
 
 const KeyMetricsSection: React.FC = () => {
   return (
-    <div className="col-span-1">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+      <div>
         <MetricCard 
           label="Total Global Rack Capacity" 
           value="1,230 Racks" 
@@ -12,6 +12,8 @@ const KeyMetricsSection: React.FC = () => {
           trend="up"
           status="success" 
         />
+      </div>
+      <div>
         <MetricCard 
           label="Infrastructure Utilization" 
           value="74.8%" 
@@ -19,6 +21,8 @@ const KeyMetricsSection: React.FC = () => {
           trend="up"
           status="neutral" 
         />
+      </div>
+      <div>
         <MetricCard 
           label="Pending Deployments" 
           value="43 Racks" 
@@ -26,6 +30,8 @@ const KeyMetricsSection: React.FC = () => {
           trend="down"
           status="success" 
         />
+      </div>
+      <div>
         <MetricCard 
           label="Supply Chain Issues" 
           value="7 Active" 

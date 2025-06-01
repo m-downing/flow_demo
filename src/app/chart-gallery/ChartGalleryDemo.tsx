@@ -8,23 +8,11 @@ import { BarChart, ChartDataObject as BarChartData } from '@/design-system/chart
 import { ScatterPlot, ScatterDataObject } from '@/design-system/charts/ScatterPlot';
 import { ProgressTracker } from '@/design-system/charts/ProgressTracker';
 
-const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
+// Simplified ChartVariant - this will be our main card
+const ChartVariant: React.FC<{ title: string; children: React.ReactNode; fullWidth?: boolean }> = ({ title, children, fullWidth = false }) => {
   return (
-    <div className="mb-10 p-5 border border-neutral-200 dark:border-neutral-700 rounded-lg">
-      <h2 className="text-xl font-semibold text-neutral-800 dark:text-neutral-50 mb-5">
-        {title}
-      </h2>
-      <div className="flex flex-wrap gap-5 items-start">
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const ChartVariant: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => {
-  return (
-    <div className="flex-1 min-w-[300px]">
-      <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2 text-center">
+    <div className={`p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg ${fullWidth ? 'md:col-span-full' : ''}`}>
+      <h3 className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-3">
         {title}
       </h3>
       {children}
@@ -79,120 +67,132 @@ export const ChartGallery: React.FC = () => {
         </div>
       </div>
 
-      <Section title="MetricCard">
-        <ChartVariant title="Success Metric">
-          <MetricCard label="Global Rack Capacity" value="6,200" delta={3.2} trend="up" status="success" onClick={() => alert('Success card clicked')} />
-        </ChartVariant>
-        <ChartVariant title="Warning Metric">
-          <MetricCard label="Power Consumption" value="2.8MW" delta={8.5} trend="up" status="warning" />
-        </ChartVariant>
-        <ChartVariant title="Error Metric">
-          <MetricCard label="Critical Incidents" value="12" delta={4} trend="up" status="error" />
-        </ChartVariant>
-        <ChartVariant title="Neutral Metric">
-          <MetricCard label="Deployment Queue" value="43" />
-        </ChartVariant>
-         <ChartVariant title="Primary Metric (default)">
-          <MetricCard label="Infrastructure Utilization" value="74.8%" delta={-2.1} trend="down" />
-        </ChartVariant>
-      </Section>
-
-      <Section title="PieChart">
-        <ChartVariant title="Summary Mode">
-          <PieChart data={mockPieData} mode="summary" height={200} />
-        </ChartVariant>
-        <ChartVariant title="Drilldown Mode">
-          <PieChart data={mockPieData} mode="drilldown" height={250} showLegend={true} />
-        </ChartVariant>
-        <ChartVariant title="Deep Dive Mode">
-          <PieChart data={mockPieData} mode="deepDive" height={300} labelFormatter={(e: { name: string; value: number }) => `${e.name} (${e.value})`} tooltipFormatter={(val: number, name: string) => [`${val} racks`, name]} onElementClick={(d, i) => console.log('Equipment type clicked:', d, i)} />
-        </ChartVariant>
-      </Section>
-
-      <Section title="LineChart">
-        <ChartVariant title="Summary Mode">
-          <LineChart data={mockLineData} dataKey="capacity" mode="summary" height={200} />
-        </ChartVariant>
-        <ChartVariant title="Drilldown Mode (Single Line)">
-          <LineChart data={mockLineData} dataKey="utilization" mode="drilldown" height={250} />
-        </ChartVariant>
-        <ChartVariant title="Deep Dive Mode (Four Lines)">
-          <LineChart data={mockLineData} dataKey={['capacity', 'utilization', 'deployed', 'incidents']} mode="deepDive" height={300} tooltipFormatter={(val, name) => {
-            const labels = { capacity: 'Total Capacity', utilization: 'Current Utilization', deployed: 'Deployed Racks', incidents: 'Monthly Incidents' };
-            const units = { capacity: ' racks', utilization: ' racks', deployed: ' racks', incidents: ' issues' };
-            return [`${val}${units[name as keyof typeof units] || ''}`, labels[name as keyof typeof labels] || name];
-          }} />
-        </ChartVariant>
-      </Section>
-
-      <Section title="BarChart">
-        <ChartVariant title="Drilldown Mode (Vertical)">
-          <BarChart data={mockBarData} dataKey="racks" mode="drilldown" height={250} />
-        </ChartVariant>
-        <ChartVariant title="Deep Dive Mode (Grouped Vertical)">
-          <BarChart data={mockBarData} dataKey={['racks', 'servers']} mode="deepDive" height={300} />
-        </ChartVariant>
-      </Section>
-
-      <Section title="ScatterPlot">
-        <ChartVariant title="Drilldown Mode">
-          <ScatterPlot data={mockScatterData} mode="drilldown" height={250} />
-        </ChartVariant>
-        <ChartVariant title="Deep Dive Mode (with Bubble Size)">
-          <ScatterPlot data={mockScatterData} mode="deepDive" zAxisKey="z" zAxisProps={{name: 'Rack Count', range: [20, 200]}} height={300} xAxisProps={{name: 'Utilization %', unit:'%'}} yAxisProps={{name: 'Incidents', unit:' issues'}}/>
-        </ChartVariant>
-      </Section>
-
-      <Section title="ProgressTracker">
-        <div className="flex-1 min-w-[300px] text-center">
-          <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
-            Summary (Success)
-          </h3>
-          <div className="mt-4">
-            <ProgressTracker value={85} status="success" mode="summary" label="Capacity Health" />
+      {/* MetricCard Section */}
+      <div className="mb-6">
+        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-3">MetricCard Components</h6>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          <div>
+            <MetricCard label="Global Rack Capacity" value="6,200" delta={3.2} trend="up" status="success" onClick={() => alert('Success card clicked')} />
+          </div>
+          <div>
+            <MetricCard label="Power Consumption" value="2.8MW" delta={8.5} trend="up" status="warning" />
+          </div>
+          <div>
+            <MetricCard label="Critical Incidents" value="12" delta={4} trend="up" status="error" />
+          </div>
+          <div>
+            <MetricCard label="Deployment Queue" value="43" />
+          </div>
+          <div>
+            <MetricCard label="Infrastructure Utilization" value="74.8%" delta={-2.1} trend="down" />
           </div>
         </div>
-        <div className="flex-1 min-w-[300px] text-center">
-          <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
-            Drilldown (Warning)
-          </h3>
-          <div className="mt-4">
-            <ProgressTracker value={68} status="warning" mode="drilldown" label="Deployment Progress" valueFormatter={(v,m) => `${v}/${m} racks`} />
-          </div>
-        </div>
-        <div className="flex-1 min-w-[300px] text-center">
-          <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
-            Deep Dive (Primary)
-          </h3>
-          <div className="mt-4">
-            <ProgressTracker value={92} status="primary" mode="deepDive" label="Power Efficiency" size={120} strokeWidth={12} />
-          </div>
-        </div>
-        <div className="flex-1 min-w-[300px] text-center">
-          <h3 className="text-lg text-neutral-800 dark:text-neutral-50 mb-2">
-            Error State
-          </h3>
-          <div className="mt-4">
-            <ProgressTracker value={15} status="error" mode="deepDive" label="System Failures" size={100} />
-          </div>
-        </div>
-      </Section>
+      </div>
 
-       <Section title="Loading & Empty States">
-         <ChartVariant title="LineChart Loading">
+      {/* Main Chart Gallery Container */}
+      <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg p-4">
+        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">
+          Chart Components
+        </h6>
+        
+        {/* PieChart Section */}
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">PieChart</h6>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+          <ChartVariant title="Summary Mode">
+            <PieChart data={mockPieData} mode="summary" height={200} />
+          </ChartVariant>
+          <ChartVariant title="Drilldown Mode">
+            <PieChart data={mockPieData} mode="drilldown" height={250} showLegend={true} />
+          </ChartVariant>
+          <ChartVariant title="Deep Dive Mode">
+            <PieChart data={mockPieData} mode="deepDive" height={300} labelFormatter={(e: { name: string; value: number }) => `${e.name} (${e.value})`} tooltipFormatter={(val: number, name: string) => [`${val} racks`, name]} onElementClick={(d, i) => console.log('Equipment type clicked:', d, i)} />
+          </ChartVariant>
+        </div>
+
+        {/* LineChart Section */}
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">LineChart</h6>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+          <ChartVariant title="Summary Mode">
+            <LineChart data={mockLineData} dataKey="capacity" mode="summary" height={200} />
+          </ChartVariant>
+          <ChartVariant title="Drilldown Mode (Single Line)">
+            <LineChart data={mockLineData} dataKey="utilization" mode="drilldown" height={250} />
+          </ChartVariant>
+          <ChartVariant title="Deep Dive Mode (Multiple Lines)">
+            <LineChart data={mockLineData} dataKey={['capacity', 'utilization', 'deployed', 'incidents']} mode="deepDive" height={300} tooltipFormatter={(val, name) => {
+              const labels = { capacity: 'Total Capacity', utilization: 'Current Utilization', deployed: 'Deployed Racks', incidents: 'Monthly Incidents' };
+              const units = { capacity: ' racks', utilization: ' racks', deployed: ' racks', incidents: ' issues' };
+              return [`${val}${units[name as keyof typeof units] || ''}`, labels[name as keyof typeof labels] || name];
+            }} />
+          </ChartVariant>
+        </div>
+
+        {/* BarChart Section */}
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">BarChart</h6>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          <ChartVariant title="Drilldown Mode (Vertical)">
+            <BarChart data={mockBarData} dataKey="racks" mode="drilldown" height={250} />
+          </ChartVariant>
+          <ChartVariant title="Deep Dive Mode (Grouped)">
+            <BarChart data={mockBarData} dataKey={['racks', 'servers']} mode="deepDive" height={300} />
+          </ChartVariant>
+        </div>
+
+        {/* ScatterPlot Section */}
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">ScatterPlot</h6>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          <ChartVariant title="Drilldown Mode">
+            <ScatterPlot data={mockScatterData} mode="drilldown" height={250} />
+          </ChartVariant>
+          <ChartVariant title="Deep Dive Mode (with Bubble Size)">
+            <ScatterPlot data={mockScatterData} mode="deepDive" zAxisKey="z" zAxisProps={{name: 'Rack Count', range: [20, 200]}} height={300} xAxisProps={{name: 'Utilization %', unit:'%'}} yAxisProps={{name: 'Incidents', unit:' issues'}}/>
+          </ChartVariant>
+        </div>
+
+        {/* ProgressTracker Section */}
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">ProgressTracker</h6>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+          <ChartVariant title="Summary (Success)">
+            <div className="flex justify-center">
+              <ProgressTracker value={85} status="success" mode="summary" label="Capacity Health" />
+            </div>
+          </ChartVariant>
+          <ChartVariant title="Drilldown (Warning)">
+            <div className="flex justify-center">
+              <ProgressTracker value={68} status="warning" mode="drilldown" label="Deployment Progress" valueFormatter={(v,m) => `${v}/${m} racks`} />
+            </div>
+          </ChartVariant>
+          <ChartVariant title="Deep Dive (Primary)">
+            <div className="flex justify-center">
+              <ProgressTracker value={92} status="primary" mode="deepDive" label="Power Efficiency" size={120} strokeWidth={12} />
+            </div>
+          </ChartVariant>
+          <ChartVariant title="Error State">
+            <div className="flex justify-center">
+              <ProgressTracker value={15} status="error" mode="deepDive" label="System Failures" size={100} />
+            </div>
+          </ChartVariant>
+        </div>
+
+        {/* Loading & Empty States Section */}
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">Loading & Empty States</h6>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          <ChartVariant title="LineChart Loading">
             <LineChart data={[]} dataKey="value" loading={true} />
-         </ChartVariant>
-         <ChartVariant title="PieChart Empty">
+          </ChartVariant>
+          <ChartVariant title="PieChart Empty">
             <PieChart data={[]} emptyState={<em>No infrastructure data available</em>} />
-         </ChartVariant>
-         <ChartVariant title="BarChart Loading">
+          </ChartVariant>
+          <ChartVariant title="BarChart Loading">
             <BarChart data={[]} dataKey="value" loading={true} height={200} />
-         </ChartVariant>
+          </ChartVariant>
           <ChartVariant title="ProgressTracker Loading">
-            <ProgressTracker value={0} loading={true} />
-         </ChartVariant>
-       </Section>
-
+            <div className="flex justify-center">
+              <ProgressTracker value={0} loading={true} />
+            </div>
+          </ChartVariant>
+        </div>
+      </div>
     </>
   );
 };

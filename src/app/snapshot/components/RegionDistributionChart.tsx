@@ -12,11 +12,11 @@ const regionCapacityData = [
 const RegionDistributionChart: React.FC = () => {
   return (
     <div className="md:col-span-8">
-      <div className="bg-neutral-50 dark:bg-neutral-900 shadow-md rounded-lg p-4">
+      <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
         <div className="flex justify-between items-center mb-2">
           <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Infrastructure Distribution by Region</h6>
         </div>
-        <p className="text-sm text-neutral-500 dark:text-neutral-200 mb-4">
+        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
           Current rack allocation across global regions
         </p>
         <div className="h-80">

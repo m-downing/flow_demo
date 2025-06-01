@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
-import { ChartBarSquareIcon, ServerStackIcon, BriefcaseIcon, CloudIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
 import Tooltip from '@/design-system/components/feedback/Tooltip';
@@ -129,12 +129,8 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     
     if (iconName === 'ChartBarSquare') {
       return <ChartBarSquareIcon className={iconClass} />;
-    } else if (iconName === 'ServerStack') {
-      return <ServerStackIcon className={iconClass} />;
     } else if (iconName === 'Briefcase') {
       return <BriefcaseIcon className={iconClass} />;
-    } else if (iconName === 'Cloud') {
-      return <CloudIcon className={iconClass} />;
     } else if (iconName === 'ChartPie') {
       return <ChartPieIcon className={iconClass} />;
     } else if (iconName === 'PresentationChartLine') {
@@ -143,6 +139,8 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       return <TableCellsIcon className={iconClass} />;
     } else if (iconName === 'Swatch') {
       return <SwatchIcon className={iconClass} />;
+    } else if (iconName === 'Squares2X2') {
+      return <Squares2X2Icon className={iconClass} />;
     } else {
       return (
         <Image 

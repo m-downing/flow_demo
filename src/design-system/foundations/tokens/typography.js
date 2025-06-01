@@ -5,8 +5,8 @@
 
 const typography = {
   fontFamily: {
-    heading: ['var(--font-heading)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-    body: ['var(--font-body)', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+    heading: ['Bahnschrift', 'Tahoma', 'Arial', 'sans-serif'],
+    body: ['Bahnschrift', 'Tahoma', 'Arial', 'sans-serif'],
   },
   fontSize: {
     xxs: ['0.625rem', { lineHeight: '1' }],      // 10px
@@ -21,11 +21,15 @@ const typography = {
     '5xl': ['3rem', { lineHeight: '1.2' }],      // 48px
   },
   fontWeight: {
-    normal: '400',
-    medium: '500',
-    semibold: '600',
-    bold: '700',
+    thin: '100',       // Will fallback to Light (300)
+    light: '300',      // Bahnschrift Light
+    normal: '400',     // Bahnschrift Regular
+    medium: '500',     // Will use Regular (400) as fallback
+    semibold: '600',   // Bahnschrift SemiBold
+    bold: '700',       // Bahnschrift Bold
+    black: '900',      // Will use Bold (700) as fallback
   },
+
   lineHeight: {
     tight: '1.25',
     normal: '1.5',

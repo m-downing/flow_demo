@@ -66,7 +66,6 @@ const CriticalBanner: React.FC<CriticalBannerProps> = ({
     padding: '11px 16px',
     backgroundColor: colors.error[50],
     borderBottom: `2px solid ${colors.error[500]}`,
-    fontFamily: 'var(--font-body), -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
     fontSize: '14px',
     lineHeight: '1.5',
     position: 'relative',
