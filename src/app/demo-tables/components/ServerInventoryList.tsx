@@ -24,7 +24,7 @@ export default function ServerInventoryList({ height = 500 }: ServerInventoryLis
           {item.id}
         </span>
       </div>
-      <div className="flex gap-3 items-center flex-wrap">
+      <div className="flex gap-sm items-center flex-wrap">
         <span className="text-sm text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
           <MapPinIcon className="w-4 h-4" />
           {item.location}

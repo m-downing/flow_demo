@@ -12,11 +12,11 @@ const DeploymentProgressSection: React.FC = () => {
         fullHeight={true}
         headerSpacing="2"
       >
-        <div className="grid grid-cols-2 gap-4 mb-2">
+        <div className="grid grid-cols-2 gap-md mb-sm">
           <ProgressTracker value={75} label="Frankfurt Expansion" status="success" mode="deepDive" />
           <ProgressTracker value={33} label="Singapore Phase 2" status="warning" mode="deepDive" />
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-md">
           <ProgressTracker value={90} label="NYC West Migration" status="warning" mode="deepDive" />
           <ProgressTracker value={15} label="London Retrofit" status="error" mode="deepDive" />
         </div>

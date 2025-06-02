@@ -9,8 +9,8 @@ import ServerInventoryList from './components/ServerInventoryList';
 export default function DemoTablesPage() {
   return (
     <PageContainer>
-      <h1 className="text-2xl font-semibold mb-6 text-neutral-800 dark:text-neutral-50">Tabular Data Components Demo</h1>
-      <p className="text-sm text-neutral-600 dark:text-neutral-200 mb-8 max-w-4xl">
+      <h1 className="text-2xl font-semibold mb-lg text-neutral-800 dark:text-neutral-50">Tabular Data Components Demo</h1>
+      <p className="text-sm text-neutral-600 dark:text-neutral-200 mb-xl max-w-4xl">
         Interactive demonstration of the TableView and ListView components with integrated TableToggle controls. 
         Use the toggle buttons to switch between Summary, Drilldown, and Deep Dive modes. The rocket icon opens 
         the full table in a new tab.
@@ -18,10 +18,10 @@ export default function DemoTablesPage() {
       
       {/* Interactive TableView Demo */}
       <section className="mb-12">
-        <h2 className="text-lg font-medium mb-4 text-neutral-800 dark:text-neutral-50">TableView with Interactive Mode Toggle</h2>
+        <h2 className="text-lg font-medium mb-md text-neutral-800 dark:text-neutral-50">TableView with Interactive Mode Toggle</h2>
         <Card
           subtitle="Try switching between modes. Summary shows 5 key columns, Drilldown shows all columns but is layout-constrained, Deep Dive opens in a new tab with full features."
-          className="mb-6"
+          className="mb-lg"
           padding="6"
         >
           <ServerInventoryTable height={600} />
@@ -30,10 +30,10 @@ export default function DemoTablesPage() {
 
       {/* Interactive ListView Demo */}
       <section className="mb-12">
-        <h2 className="text-lg font-medium mb-4 text-neutral-800 dark:text-neutral-50">ListView with Interactive Mode Toggle</h2>
+        <h2 className="text-lg font-medium mb-md text-neutral-800 dark:text-neutral-50">ListView with Interactive Mode Toggle</h2>
         <Card
           subtitle="The ListView displays the same data in cards. ListView only supports Summary mode (key information) and Deep Dive mode (opens in new tab). Drilldown mode is not applicable since there are no columns to show/hide."
-          className="mb-6"
+          className="mb-lg"
           padding="6"
         >
           <ServerInventoryList height={600} />
@@ -42,7 +42,7 @@ export default function DemoTablesPage() {
 
       {/* Features Overview */}
       <section className="mb-12">
-        <h2 className="text-lg font-medium mb-4 text-neutral-800 dark:text-neutral-50">TableToggle Component Features</h2>
+        <h2 className="text-lg font-medium mb-md text-neutral-800 dark:text-neutral-50">TableToggle Component Features</h2>
         <div className="max-w-none">
           <ul className="space-y-2 text-neutral-700 dark:text-neutral-100">
             <li><strong className="text-neutral-900 dark:text-neutral-50">Summary Mode:</strong> Shows 5 key columns (TableView) or key information (ListView) with unlimited scrolling</li>
@@ -59,8 +59,8 @@ export default function DemoTablesPage() {
 
       {/* Usage Notes */}
       <section className="mb-12">
-        <h2 className="text-lg font-medium mb-4 text-neutral-800 dark:text-neutral-50">Implementation Notes</h2>
-        <div className="bg-blue-50 dark:bg-neutral-900 border-l-4 border-blue-700 dark:border-neutral-600 p-6 rounded-lg shadow-md">
+        <h2 className="text-lg font-medium mb-md text-neutral-800 dark:text-neutral-50">Implementation Notes</h2>
+        <div className="bg-blue-50 dark:bg-neutral-900 border-l-4 border-blue-700 dark:border-neutral-600 p-lg rounded-lg shadow-md">
           <p className="font-semibold mb-2 text-neutral-900 dark:text-neutral-50">Ready for Production Integration:</p>
           <ul className="list-disc list-inside space-y-1 text-sm text-neutral-700 dark:text-neutral-100">
               <li>Replace sample data with your GraphQL/SQL data sources</li>

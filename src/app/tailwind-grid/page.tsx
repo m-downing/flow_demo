@@ -8,8 +8,8 @@ import Card from "@/design-system/layout/Card";
 const TailwindGridPage: React.FC = () => {
   return (
     <PageContainer>
-      <div className="mb-8">
-        <h4 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-50 mb-2">
+      <div className="mb-xl">
+        <h4 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-50 mb-sm">
           Tailwind CSS Grid System Demo
         </h4>
         <p className="text-sm text-neutral-600 dark:text-neutral-200">
@@ -18,25 +18,25 @@ const TailwindGridPage: React.FC = () => {
       </div>
 
       {/* Basic Grid Examples */}
-      <div className="space-y-8">
+      <div className="space-y-xl">
         {/* Example 1: Equal Columns */}
         <section>
-          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-4">
+          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-md">
             1. Equal Width Columns (col-span-4)
           </h5>
-          <div className="grid grid-cols-12 gap-4">
+          <div className="grid grid-cols-12 gap-md">
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-primary-50 dark:bg-neutral-800 border border-primary-200 dark:border-primary-600">
+              <Card className="p-lg text-center bg-primary-50 dark:bg-neutral-800 border border-primary-200 dark:border-primary-600">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-primary-50 dark:bg-neutral-800 border border-primary-200 dark:border-primary-600">
+              <Card className="p-lg text-center bg-primary-50 dark:bg-neutral-800 border border-primary-200 dark:border-primary-600">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-primary-50 dark:bg-neutral-800 border border-primary-200 dark:border-primary-600">
+              <Card className="p-lg text-center bg-primary-50 dark:bg-neutral-800 border border-primary-200 dark:border-primary-600">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
@@ -45,22 +45,22 @@ const TailwindGridPage: React.FC = () => {
 
         {/* Example 2: Asymmetric Layout */}
         <section>
-          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-4">
+          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-md">
             2. Asymmetric Layout (2-6-4 Pattern)
           </h5>
-          <div className="grid grid-cols-12 gap-4">
+          <div className="grid grid-cols-12 gap-md">
             <div className="col-span-2">
-              <Card className="p-6 text-center bg-success-50 dark:bg-neutral-800 border border-success-500 dark:border-success-700">
+              <Card className="p-lg text-center bg-success-50 dark:bg-neutral-800 border border-success-500 dark:border-success-700">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-2</p>
               </Card>
             </div>
             <div className="col-span-6">
-              <Card className="p-6 text-center bg-success-50 dark:bg-neutral-800 border border-success-500 dark:border-success-700">
+              <Card className="p-lg text-center bg-success-50 dark:bg-neutral-800 border border-success-500 dark:border-success-700">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-6</p>
               </Card>
             </div>
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-success-50 dark:bg-neutral-800 border border-success-500 dark:border-success-700">
+              <Card className="p-lg text-center bg-success-50 dark:bg-neutral-800 border border-success-500 dark:border-success-700">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
@@ -69,21 +69,21 @@ const TailwindGridPage: React.FC = () => {
 
         {/* Example 3: Nested Grids */}
         <section>
-          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-4">
+          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-md">
             3. Nested Grid Layout
           </h5>
-          <div className="grid grid-cols-12 gap-4">
+          <div className="grid grid-cols-12 gap-md">
             <div className="col-span-8">
-              <Card className="p-6 bg-warning-50 dark:bg-neutral-800 border border-warning-500 dark:border-warning-700">
+              <Card className="p-lg bg-warning-50 dark:bg-neutral-800 border border-warning-500 dark:border-warning-700">
                 <p className="font-mono text-sm mb-4 text-neutral-800 dark:text-neutral-50">col-span-8 (Parent)</p>
-                <div className="grid grid-cols-8 gap-3">
+                <div className="grid grid-cols-8 gap-sm">
                   <div className="col-span-3">
-                    <Card className="p-4 text-center bg-orange-100 dark:bg-neutral-700 border border-orange-500 dark:border-orange-700">
+                    <Card className="p-md text-center bg-orange-100 dark:bg-neutral-700 border border-orange-500 dark:border-orange-700">
                       <p className="font-mono text-xs text-neutral-800 dark:text-neutral-50">col-span-3</p>
                     </Card>
                   </div>
                   <div className="col-span-5">
-                    <Card className="p-4 text-center bg-orange-100 dark:bg-neutral-700 border border-orange-500 dark:border-orange-700">
+                    <Card className="p-md text-center bg-orange-100 dark:bg-neutral-700 border border-orange-500 dark:border-orange-700">
                       <p className="font-mono text-xs text-neutral-800 dark:text-neutral-50">col-span-5</p>
                     </Card>
                   </div>
@@ -91,7 +91,7 @@ const TailwindGridPage: React.FC = () => {
               </Card>
             </div>
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-warning-50 dark:bg-neutral-800 border border-warning-500 dark:border-warning-700">
+              <Card className="p-lg text-center bg-warning-50 dark:bg-neutral-800 border border-warning-500 dark:border-warning-700">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
@@ -100,38 +100,38 @@ const TailwindGridPage: React.FC = () => {
 
         {/* Example 4: Responsive Grid */}
         <section>
-          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-4">
+          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-md">
             4. Responsive Grid (Mobile → Desktop)
           </h5>
-          <div className="grid grid-cols-12 gap-4">
+          <div className="grid grid-cols-12 gap-md">
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <Card className="p-6 text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
+              <Card className="p-lg text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">12 → 6 → 3</p>
-                <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
+                <p className="text-xs mt-sm text-neutral-600 dark:text-neutral-400">
                   Full on mobile, half on tablet, quarter on desktop
                 </p>
               </Card>
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <Card className="p-6 text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
+              <Card className="p-lg text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">12 → 6 → 3</p>
-                <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
+                <p className="text-xs mt-sm text-neutral-600 dark:text-neutral-400">
                   Full on mobile, half on tablet, quarter on desktop
                 </p>
               </Card>
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <Card className="p-6 text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
+              <Card className="p-lg text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">12 → 6 → 3</p>
-                <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
+                <p className="text-xs mt-sm text-neutral-600 dark:text-neutral-400">
                   Full on mobile, half on tablet, quarter on desktop
                 </p>
               </Card>
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <Card className="p-6 text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
+              <Card className="p-lg text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
                 <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">12 → 6 → 3</p>
-                <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
+                <p className="text-xs mt-sm text-neutral-600 dark:text-neutral-400">
                   Full on mobile, half on tablet, quarter on desktop
                 </p>
               </Card>
@@ -141,13 +141,13 @@ const TailwindGridPage: React.FC = () => {
 
         {/* Example 5: Real-world Component Layout */}
         <section>
-          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-4">
+          <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-md">
             4. Real-world Dashboard Layout
           </h5>
-          <div className="grid grid-cols-12 gap-4">
+          <div className="grid grid-cols-12 gap-md">
             {/* Metrics Row */}
             <div className="col-span-12">
-              <div className="grid grid-cols-12 gap-4">
+              <div className="grid grid-cols-12 gap-md">
                 <div className="col-span-6 md:col-span-3">
                   <MetricCard
                     label="Total Rack Capacity"
@@ -189,7 +189,7 @@ const TailwindGridPage: React.FC = () => {
 
             {/* Main Content Area */}
             <div className="col-span-12 md:col-span-8">
-              <Card className="p-6 h-64">
+              <Card className="p-lg h-64">
                 <h6 className="font-semibold text-neutral-800 dark:text-neutral-50 mb-2">
                   Main Content Area
                 </h6>
@@ -202,7 +202,7 @@ const TailwindGridPage: React.FC = () => {
 
             {/* Sidebar */}
             <div className="col-span-12 md:col-span-4">
-              <Card className="p-6 h-64">
+              <Card className="p-lg h-64">
                 <h6 className="font-semibold text-neutral-800 dark:text-neutral-50 mb-2">
                   Sidebar Content
                 </h6>
@@ -216,12 +216,12 @@ const TailwindGridPage: React.FC = () => {
         </section>
 
         {/* Grid Guidelines */}
-        <section className="mt-12">
-          <Card className="p-6 bg-neutral-100 dark:bg-neutral-800">
-            <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-4">
+        <section className="mt-2xl">
+          <Card className="p-lg bg-neutral-100 dark:bg-neutral-800">
+            <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-md">
               Grid System Guidelines
             </h5>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-lg text-sm">
               <div>
                 <h6 className="font-semibold mb-2 text-neutral-800 dark:text-neutral-50">Column Spans</h6>
                 <ul className="space-y-1 text-neutral-600 dark:text-neutral-400">

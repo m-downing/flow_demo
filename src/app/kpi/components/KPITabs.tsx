@@ -4,6 +4,7 @@ import {
 } from '@/design-system/charts';
 import { ProgressTracker } from '@/design-system/charts/ProgressTracker';
 import Card from '@/design-system/layout/Card';
+import Button from '@/design-system/components/primitives/Button';
 import {
   procurementEfficiencyData,
   deploymentTimeData,
@@ -34,7 +35,7 @@ function TabPanel(props: { children: React.ReactNode; value: number; index: numb
       aria-labelledby={`kpi-tab-${index}`}
       {...other}
     >
-      <div className="py-3">
+      <div className="py-sm">
         {children}
       </div>
     </div>
@@ -78,7 +79,7 @@ export const KPITabs: React.FC = () => {
           <button
             key={tab.value}
             onClick={() => handleTabChange(tab.value)}
-            className={`flex-1 py-3 px-4 text-sm font-medium border-b-2 transition-colors ${
+            className={`flex-1 py-sm px-md text-sm font-medium border-b-2 transition-colors ${
               tabValue === tab.value
                 ? 'border-primary-500 text-primary-600 dark:text-neutral-400 bg-primary-50 dark:bg-neutral-900'
                 : 'border-transparent text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-500'
@@ -96,20 +97,20 @@ export const KPITabs: React.FC = () => {
   };
 
   return (
-    <Card shadowLevel="md" className="mb-6">
+    <Card shadowLevel="md" className="mb-lg">
       {renderTabs()}
       
       {/* Overview Tab */}
       <TabPanel value={tabValue} index={0}>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-sm">
           <div className="md:col-span-8">
             <Card
               title="Regional KPI Comparison"
               subtitle="Performance metrics by geographical region"
               headerAction={
-                <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">
+                <Button variant="ghost" size="sm" className="!p-1">
                   <MoreIcon />
-                </button>
+                </Button>
               }
               shadowLevel="sm"
               headerSpacing="2"
@@ -129,15 +130,15 @@ export const KPITabs: React.FC = () => {
             <Card
               title="Top Performing Data Centers"
               headerAction={
-                <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">
+                <Button variant="ghost" size="sm" className="!p-1">
                   <MoreIcon />
-                </button>
+                </Button>
               }
               shadowLevel="sm"
-              className="mb-6"
+              className="mb-lg"
               headerSpacing="2"
             >
-              <div className="space-y-4 mt-4">
+              <div className="space-y-md mt-md">
                 <div className="flex justify-between items-center">
                   <div>
                     <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">NYC-WEST-08</p>
@@ -175,14 +176,14 @@ export const KPITabs: React.FC = () => {
             <Card
               title="KPI Achievement"
               headerAction={
-                <button className="text-neutral-500 dark:text-neutral-40">
+                <Button variant="ghost" size="sm" className="!p-1">
                   <MoreIcon />
-                </button>
+                </Button>
               }
               shadowLevel="sm"
               headerSpacing="2"
             >
-              <div className="space-y-4 mt-4">
+              <div className="space-y-md mt-md">
                 <ProgressTracker 
                   value={91} 
                   max={100} 
@@ -228,9 +229,9 @@ export const KPITabs: React.FC = () => {
               title="Procurement Efficiency"
               subtitle="% of orders processed within SLA timeframe"
               headerAction={
-                <button className="text-neutral-500 dark:text-neutral-400">
+                <Button variant="ghost" size="sm" className="!p-1">
                   <MoreIcon />
-                </button>
+                </Button>
               }
               shadowLevel="sm"
               headerSpacing="2"
@@ -251,9 +252,9 @@ export const KPITabs: React.FC = () => {
               title="Average Deployment Time"
               subtitle="Days from order to operational deployment"
               headerAction={
-                <button className="text-neutral-500 dark:text-neutral-400">
+                <Button variant="ghost" size="sm" className="!p-1">
                   <MoreIcon />
-                </button>
+                </Button>
               }
               shadowLevel="sm"
               headerSpacing="2"
@@ -273,17 +274,17 @@ export const KPITabs: React.FC = () => {
       
       {/* Procurement Tab */}
       <TabPanel value={tabValue} index={1}>
-        <div className="p-4">
-          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Procurement Key Performance Indicators</h6>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <div className="p-md">
+          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-md">Procurement Key Performance Indicators</h6>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-sm">
             <div className="md:col-span-6">
               <Card
                 title="Procurement Efficiency Trend"
                 subtitle="Percentage of orders processed within SLA timeframe"
                 headerAction={
-                  <button className="text-neutral-500 dark:text-neutral-400">
+                  <Button variant="ghost" size="sm" className="!p-1">
                     <MoreIcon />
-                  </button>
+                  </Button>
                 }
                 shadowLevel="sm"
                 headerSpacing="2"
@@ -304,9 +305,9 @@ export const KPITabs: React.FC = () => {
                 title="Inventory Turnover Rate"
                 subtitle="Rate at which inventory is used and replaced"
                 headerAction={
-                  <button className="text-neutral-500 dark:text-neutral-400">
+                  <Button variant="ghost" size="sm" className="!p-1">
                     <MoreIcon />
-                  </button>
+                  </Button>
                 }
                 shadowLevel="sm"
                 headerSpacing="2"
@@ -327,17 +328,17 @@ export const KPITabs: React.FC = () => {
       
       {/* Deployment Tab */}
       <TabPanel value={tabValue} index={2}>
-        <div className="p-4">
-          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Deployment Key Performance Indicators</h6>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <div className="p-md">
+          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-md">Deployment Key Performance Indicators</h6>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-sm">
             <div className="md:col-span-6">
               <Card
                 title="Deployment Time Trend"
                 subtitle="Average days from order to operational deployment"
                 headerAction={
-                  <button className="text-neutral-500 dark:text-neutral-400">
+                  <Button variant="ghost" size="sm" className="!p-1">
                     <MoreIcon />
-                  </button>
+                  </Button>
                 }
                 shadowLevel="sm"
                 headerSpacing="2"
@@ -358,9 +359,9 @@ export const KPITabs: React.FC = () => {
                 title="Regional Deployment Times"
                 subtitle="Average deployment time by region (days)"
                 headerAction={
-                  <button className="text-neutral-500 dark:text-neutral-400">
+                  <Button variant="ghost" size="sm" className="!p-1">
                     <MoreIcon />
-                  </button>
+                  </Button>
                 }
                 shadowLevel="sm"
                 headerSpacing="2"
@@ -381,17 +382,17 @@ export const KPITabs: React.FC = () => {
       
       {/* Utilization Tab */}
       <TabPanel value={tabValue} index={3}>
-        <div className="p-4">
-          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Utilization Key Performance Indicators</h6>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <div className="p-md">
+          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-md">Utilization Key Performance Indicators</h6>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-sm">
             <div className="md:col-span-6">
               <Card
                 title="Capacity Utilization Trend"
                 subtitle="Percentage of data center capacity being utilized"
                 headerAction={
-                  <button className="text-neutral-500 dark:text-neutral-400">
+                  <Button variant="ghost" size="sm" className="!p-1">
                     <MoreIcon />
-                  </button>
+                  </Button>
                 }
                 shadowLevel="sm"
                 headerSpacing="2"
@@ -412,9 +413,9 @@ export const KPITabs: React.FC = () => {
                 title="Regional Utilization Rates"
                 subtitle="Capacity utilization percentage by region"
                 headerAction={
-                  <button className="text-neutral-500 dark:text-neutral-400">
+                  <Button variant="ghost" size="sm" className="!p-1">
                     <MoreIcon />
-                  </button>
+                  </Button>
                 }
                 shadowLevel="sm"
                 headerSpacing="2"
@@ -435,8 +436,8 @@ export const KPITabs: React.FC = () => {
       
       {/* Cost Management Tab */}
       <TabPanel value={tabValue} index={4}>
-        <div className="p-4">
-          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Cost Management Key Performance Indicators</h6>
+        <div className="p-md">
+          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-md">Cost Management Key Performance Indicators</h6>
           <div className="flex justify-center items-center h-64">
             <p className="text-neutral-500 dark:text-neutral-400">
               Cost KPI data will be available in the next update

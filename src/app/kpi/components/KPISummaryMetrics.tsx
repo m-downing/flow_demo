@@ -3,7 +3,7 @@ import { MetricCard } from '@/design-system/charts';
 
 export const KPISummaryMetrics: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-sm mb-lg">
       <div>
         <MetricCard 
           label="Procurement Efficiency" 

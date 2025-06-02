@@ -6,7 +6,9 @@ import { TableView, ListView, ColumnDef, FilterConfig, SortConfig } from '@/desi
 import { useTheme } from '@/app/contexts/ThemeContext';
 import { colors } from '@/design-system/foundations/tokens/colors';
 import { getTypography } from '@/design-system/foundations/tokens/typography';
+import { shadows } from '@/design-system/foundations/tokens/shadows';
 import Badge, { BadgeVariant } from '@/design-system/components/feedback/Badge';
+import Button from '@/design-system/components/primitives/Button';
 
 interface DeepDivePageProps {
   params: Promise<{
@@ -322,7 +324,7 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
     borderRadius: '8px',
     overflow: 'hidden',
     margin: '24px 32px', // Add top margin and horizontal margins
-    boxShadow: isDark ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '0 4px 6px rgba(0, 0, 0, 0.1)',
+    boxShadow: isDark ? shadows.xl : shadows.md,
   };
 
   const headerStyle: React.CSSProperties = {
@@ -399,20 +401,13 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
         <h1 style={titleStyle}>{tableData.title || `Table ${tableId}`}</h1>
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
           {/* Advanced filtering controls would go here */}
-          <button
-            style={{
-              backgroundColor: isDark ? colors.primary[600] : colors.primary[500],
-              color: colors.neutral[50],
-              border: 'none',
-              padding: '8px 16px',
-              borderRadius: '6px',
-              fontSize: '14px',
-              cursor: 'pointer',
-            }}
+          <Button
+            variant="primary"
+            size="sm"
             onClick={() => window.close()}
           >
             Close
-          </button>
+          </Button>
         </div>
       </div>
 

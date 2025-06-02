@@ -111,16 +111,10 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
       {/* Account Drawer */}
       <AccountDrawer />
       
-      {/* Sidebar column with matching background */}
-      <div 
-        className="sidebar-container bg-primary-800/90 dark:bg-neutral-800"
-        style={{ backgroundColor: 'var(--sidebar-bg)' }}
-      >
-        <Sidebar 
-          isExpanded={isSidebarExpanded}
-          onExpandedChange={setIsSidebarExpanded}
-        />
-      </div>
+      <Sidebar 
+        isExpanded={isSidebarExpanded}
+        onExpandedChange={setIsSidebarExpanded}
+      />
       <main className="overflow-y-auto min-h-screen relative bg-neutral-50 dark:bg-neutral-950">
         {/* ======================================== */}
         {/* SYSTEM BANNERS - Configure above at lines 86-87 */}

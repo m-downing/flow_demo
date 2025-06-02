@@ -33,7 +33,7 @@ const KPIPage: React.FC = () => {
   
   return (
     <PageContainer>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-lg">
         <div>
           <h4 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-50">
             Key Performance Indicators

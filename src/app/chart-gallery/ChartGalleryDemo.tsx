@@ -11,8 +11,8 @@ import { ProgressTracker } from '@/design-system/charts/ProgressTracker';
 // Simplified ChartVariant - this will be our main card
 const ChartVariant: React.FC<{ title: string; children: React.ReactNode; fullWidth?: boolean }> = ({ title, children, fullWidth = false }) => {
   return (
-    <div className={`p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg ${fullWidth ? 'md:col-span-full' : ''}`}>
-      <h3 className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-3">
+    <div className={`p-md bg-white dark:bg-neutral-900 shadow-sm rounded-lg ${fullWidth ? 'md:col-span-full' : ''}`}>
+      <h3 className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-sm">
         {title}
       </h3>
       {children}
@@ -56,7 +56,7 @@ const mockScatterData: ScatterDataObject[] = [
 export const ChartGallery: React.FC = () => {
   return (
     <>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-lg">
         <div>
           <h4 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-50">
             Chart & Metric Component Gallery
@@ -68,9 +68,9 @@ export const ChartGallery: React.FC = () => {
       </div>
 
       {/* MetricCard Section */}
-      <div className="mb-6">
-        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-3">MetricCard Components</h6>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+      <div className="mb-lg">
+        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-sm">MetricCard Components</h6>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-sm">
           <div>
             <MetricCard label="Global Rack Capacity" value="6,200" delta={3.2} trend="up" status="success" onClick={() => alert('Success card clicked')} />
           </div>
@@ -90,14 +90,14 @@ export const ChartGallery: React.FC = () => {
       </div>
 
       {/* Main Chart Gallery Container */}
-      <div className="mt-6">
-        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">
+      <div className="mt-lg">
+        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-md">
           Chart Components
         </h6>
         
         {/* PieChart Section */}
-        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">PieChart</h6>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-sm">PieChart</h6>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-sm mb-lg">
           <ChartVariant title="Summary Mode">
             <PieChart data={mockPieData} mode="summary" height={200} />
           </ChartVariant>
@@ -110,8 +110,8 @@ export const ChartGallery: React.FC = () => {
         </div>
 
         {/* LineChart Section */}
-        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">LineChart</h6>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-sm">LineChart</h6>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-sm mb-lg">
           <ChartVariant title="Summary Mode">
             <LineChart data={mockLineData} dataKey="capacity" mode="summary" height={200} />
           </ChartVariant>
@@ -128,8 +128,8 @@ export const ChartGallery: React.FC = () => {
         </div>
 
         {/* BarChart Section */}
-        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">BarChart</h6>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-sm">BarChart</h6>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-sm mb-lg">
           <ChartVariant title="Drilldown Mode (Vertical)">
             <BarChart data={mockBarData} dataKey="racks" mode="drilldown" height={250} />
           </ChartVariant>
@@ -139,8 +139,8 @@ export const ChartGallery: React.FC = () => {
         </div>
 
         {/* ScatterPlot Section */}
-        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">ScatterPlot</h6>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-sm">ScatterPlot</h6>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-sm mb-lg">
           <ChartVariant title="Drilldown Mode">
             <ScatterPlot data={mockScatterData} mode="drilldown" height={250} />
           </ChartVariant>
@@ -150,8 +150,8 @@ export const ChartGallery: React.FC = () => {
         </div>
 
         {/* ProgressTracker Section */}
-        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">ProgressTracker</h6>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-sm">ProgressTracker</h6>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-sm mb-lg">
           <ChartVariant title="Summary (Success)">
             <div className="flex justify-center">
               <ProgressTracker value={85} status="success" mode="summary" label="Capacity Health" />
@@ -175,8 +175,8 @@ export const ChartGallery: React.FC = () => {
         </div>
 
         {/* Loading & Empty States Section */}
-        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-3">Loading & Empty States</h6>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-sm">Loading & Empty States</h6>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-sm">
           <ChartVariant title="LineChart Loading">
             <LineChart data={[]} dataKey="value" loading={true} />
           </ChartVariant>

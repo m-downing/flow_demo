@@ -36,7 +36,7 @@ const SnapshotPage: React.FC = () => {
 
   return (
     <PageContainer>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-lg">
         <div>
           <h4 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-50">
             Global Infrastructure Dashboard
@@ -57,26 +57,24 @@ const SnapshotPage: React.FC = () => {
         />
       </div>
       
-      {/* Key metrics section */}
-      <KeyMetricsSection />
-      
-      {/* Main dashboard content wrapper */}
-      <div className="mb-6">
-        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">
-          Infrastructure Overview
+      {/* Key Metrics */}
+      <div className="mb-lg">
+        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-md">
+          Key Metrics
         </h6>
-        
-        {/* Charts grid with nested cards */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-          <CapacityTrendChart />
-          <RackTypeDistribution />
-        </div>
-        
-        {/* Regional distribution section */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 mt-3">
-          <RegionDistributionChart />
-          <DeploymentProgressSection />
-        </div>
+        <KeyMetricsSection />
+      </div>
+      
+      {/* Main Dashboard Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-sm">
+        <CapacityTrendChart />
+        <RackTypeDistribution />
+      </div>
+      
+      {/* Regional distribution section */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-sm mt-sm">
+        <RegionDistributionChart />
+        <DeploymentProgressSection />
       </div>
     </PageContainer>
   );
