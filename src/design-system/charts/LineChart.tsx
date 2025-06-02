@@ -10,15 +10,15 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { chartTokens, getChartColors } from '@/design-system/foundations/tokens';
+import { getChartColors } from '@/design-system/foundations/tokens';
 import { getTypography } from '@/design-system/foundations/tokens/typography';
 import { useTheme } from '@/app/contexts/ThemeContext';
 
 /**
- * @typedef {'summary' | 'drilldown' | 'deepDive'} DetailLevel
+ * @typedef {'drilldown' | 'deepDive'} DetailLevel
  * Controls the level of detail and features shown on the chart.
  */
-type DetailLevel = 'summary' | 'drilldown' | 'deepDive';
+type DetailLevel = 'drilldown' | 'deepDive';
 
 /**
  * @typedef ChartDataObject
@@ -135,12 +135,6 @@ export const LineChart: React.FC<LineChartProps> = ({
   let gridDashArray = themeColors.grid.dashArray;
 
   switch (mode) {
-    case 'summary':
-      chartColors = Object.values(chartTokens.status);
-      currentShowLegend = false;
-      currentShowAxes = false;
-      showGrid = false;
-      break;
     case 'drilldown':
       chartColors = themeColors.series;
       currentShowLegend = propShowLegend !== undefined ? propShowLegend : true;
@@ -187,28 +181,26 @@ export const LineChart: React.FC<LineChartProps> = ({
               tickLine={{ stroke: themeColors.axis.stroke }}
             />
           )}
-          {mode !== 'summary' && (
-            <Tooltip
-              formatter={tooltipFormatter}
-              contentStyle={{
-                backgroundColor: themeColors.tooltip.bg,
-                color: themeColors.tooltip.color,
-                borderRadius: themeColors.tooltip.borderRadius,
-                padding: themeColors.tooltip.padding,
-                fontSize: themeColors.tooltip.fontSize,
-                fontFamily: getTypography.fontFamily('body'),
-                border: 'none'
-              }}
-              itemStyle={{
-                color: themeColors.tooltip.color
-              }}
-              labelStyle={{
-                color: themeColors.tooltip.color
-              }}
-              cursor={{ stroke: 'rgba(128,128,128,0.3)', strokeWidth: 1, strokeDasharray: '3 3' }}
-            />
-          )}
-          {currentShowLegend && mode !== 'summary' && (
+          <Tooltip
+            formatter={tooltipFormatter}
+            contentStyle={{
+              backgroundColor: themeColors.tooltip.bg,
+              color: themeColors.tooltip.color,
+              borderRadius: themeColors.tooltip.borderRadius,
+              padding: themeColors.tooltip.padding,
+              fontSize: themeColors.tooltip.fontSize,
+              fontFamily: getTypography.fontFamily('body'),
+              border: 'none'
+            }}
+            itemStyle={{
+              color: themeColors.tooltip.color
+            }}
+            labelStyle={{
+              color: themeColors.tooltip.color
+            }}
+            cursor={{ stroke: 'rgba(128,128,128,0.3)', strokeWidth: 1, strokeDasharray: '3 3' }}
+          />
+          {currentShowLegend && (
             <Legend wrapperStyle={{ fontSize: themeColors.axis.fontSize, fontFamily: themeColors.axis.fontFamily, color: themeColors.axis.color }} />
           )}
           {dataKeys.map((key, index) => (

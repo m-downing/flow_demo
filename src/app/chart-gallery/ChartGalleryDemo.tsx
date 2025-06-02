@@ -111,10 +111,7 @@ export const ChartGallery: React.FC = () => {
 
         {/* LineChart Section */}
         <h6 className="text-base font-medium text-neutral-700 dark:text-neutral-300 mb-sm">LineChart</h6>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-sm mb-lg">
-          <ChartVariant title="Summary Mode">
-            <LineChart data={mockLineData} dataKey="capacity" mode="summary" height={200} />
-          </ChartVariant>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-sm mb-lg">
           <ChartVariant title="Drilldown Mode (Single Line)">
             <LineChart data={mockLineData} dataKey="utilization" mode="drilldown" height={250} />
           </ChartVariant>
