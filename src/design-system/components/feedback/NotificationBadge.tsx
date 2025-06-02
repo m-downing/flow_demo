@@ -16,22 +16,28 @@ const NotificationBadge: React.FC<NotificationBadgeProps> = ({
   if (count === 0) return null;
 
   const sizeClasses = {
-    sm: 'h-3 w-3 text-xxs',
-    md: 'h-3 w-3 text-xxs'
+    sm: 'min-h-[18px] min-w-[18px] px-1 text-[10px]',
+    md: 'min-h-[20px] min-w-[20px] px-1.5 text-xs'
   };
 
   const displayCount = count > 99 ? '99+' : count.toString();
 
+  // Default positioning if no custom className with positioning is provided
+  const defaultPositioning = className.includes('absolute') || className.includes('fixed') || className.includes('relative') 
+    ? '' 
+    : 'absolute -top-1 -right-1';
+
   return (
     <span 
       className={`
-        absolute -top-1 -right-1
+        ${defaultPositioning}
         ${sizeClasses[variant]}
         bg-error-500
         text-white
         rounded-full
         flex items-center justify-center
-        font-medium
+        font-semibold
+        leading-none
         ${className}
       `}
       aria-label={`${count} unread notifications`}

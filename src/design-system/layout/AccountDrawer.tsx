@@ -214,12 +214,13 @@ export default function AccountDrawer() {
               w-8 h-14 rounded-l-xl border border-r-0
               transition-all duration-300
               hover:w-9
+              overflow-visible
               ${tabClasses}
             `}
             aria-label="Open drawer"
           >
             <ChevronLeftIcon className={`w-5 h-5 ${iconClasses} transition-all duration-300`} />
-            <NotificationBadge count={unreadCount} variant="sm" className="-top-1 -left-1" />
+            <NotificationBadge count={unreadCount} variant="sm" className="absolute -top-1.5 -left-1.5 z-10" />
           </button>
         </div>
       )}

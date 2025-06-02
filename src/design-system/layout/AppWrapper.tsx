@@ -120,7 +120,7 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
       </div>
       <main className="overflow-y-auto min-h-screen relative bg-neutral-50 dark:bg-neutral-950">
         {/* ======================================== */}
-        {/* SYSTEM BANNERS - Configure above at lines 26-27 */}
+        {/* SYSTEM BANNERS - Configure above at lines 86-87 */}
         {/* ======================================== */}
         
         {/* CriticalBanner - For urgent alerts, maintenance, security issues */}
@@ -128,7 +128,7 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
           title="This banner cannot be dismissed by the user and will persist on all pages until removed by dev team."
           message={
             <div className="space-y-1">
-              <p><em>More information on variants and features of system alert banners can be found at src/design-system/README/banner-alerts.md</em></p>
+              <p><em>Banner visibility is controlled by a const boolean value in the src/design-system/layout/AppWrapper.tsx file</em></p>
             </div>
           }
           icon={<ExclamationTriangleIcon className="w-5 h-5 flex-shrink-0 text-error-500" />}
