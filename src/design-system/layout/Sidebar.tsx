@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
@@ -28,6 +28,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const router = useRouter();
   const pathname = usePathname();
   const sidebarRef = useRef<HTMLDivElement>(null);
+  
+  // Add a ref to track if we're animating
+  const isAnimatingRef = useRef(false);
 
   // Theme-aware background classes
   const sidebarBg = isDark ? 'bg-neutral-800' : 'bg-primary-800/90';
@@ -37,10 +40,10 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   // Handle text visibility based on expansion state
   useEffect(() => {
     if (isExpanded) {
-      // Delay showing text until expansion is nearly complete (80% done)
+      // Delay showing text until expansion is nearly complete (90% done)
       const timer = setTimeout(() => {
         setShowText(true);
-      }, 160); // Start showing text at 80% of the transition
+      }, 270); // Show text at 90% of the 300ms transition
       return () => clearTimeout(timer);
     } else {
       // Hide text immediately when collapsing
@@ -67,6 +70,29 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     setLoadingTab(null);
   }, [pathname]);
 
+  // Handle expansion state changes
+  const handleExpandChange = useCallback((expanded: boolean) => {
+    // Mark that we're animating
+    isAnimatingRef.current = true;
+    
+    // Add class to disable transitions on main content
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      mainElement.classList.add('no-transitions');
+    }
+    
+    // Call the expansion handler
+    onExpandedChange(expanded);
+    
+    // Remove the no-transitions class after sidebar animation completes
+    setTimeout(() => {
+      if (mainElement) {
+        mainElement.classList.remove('no-transitions');
+      }
+      isAnimatingRef.current = false;
+    }, 350); // Slightly longer than the 300ms sidebar transition
+  }, [onExpandedChange]);
+
   // Handle click outside to close menus and collapse sidebar
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -75,7 +101,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
         setIsAppSwitcherOpen(false);
         // Collapse sidebar if it's expanded (regardless of submenu state)
         if (isExpanded) {
-          onExpandedChange(false);
+          handleExpandChange(false);
         }
       }
     };
@@ -84,7 +110,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [onExpandedChange, isExpanded]);
+  }, [isExpanded, handleExpandChange]);
 
   const handleTabClick = (tabName: string, tabPath?: string) => {
     setActiveTab(tabName);
@@ -96,7 +122,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     }
     
     // Collapse sidebar when a tab is clicked
-    onExpandedChange(false);
+    handleExpandChange(false);
     
     // Navigate to the specified path
     if (tabPath) {
@@ -108,13 +134,13 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   };
 
   const handleAppSwitcherClick = () => {
-    onExpandedChange(true);
+    handleExpandChange(true);
     setIsAppSwitcherOpen(!isAppSwitcherOpen);
   };
 
   const handleExpandClick = (event: React.MouseEvent) => {
     event.stopPropagation();
-    onExpandedChange(!isExpanded);
+    handleExpandChange(!isExpanded);
     setIsAppSwitcherOpen(false);
   };
 
@@ -157,9 +183,12 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   return (
     <>
       <div className="relative" ref={sidebarRef}>
-        <aside className={`sticky top-0 h-screen flex flex-col ${sidebarBg} font-heading ${isExpanded ? 'w-[180px]' : 'w-[64px]'} transition-all duration-300 ease-in-out`}>
+        <aside className={`sticky top-0 h-screen flex flex-col ${sidebarBg} font-heading ${isExpanded ? 'w-[180px]' : 'w-[64px]'} transition-all duration-300 ease-in-out overflow-hidden`}>
+          {/* Background layer to prevent flashes */}
+          <div className={`absolute inset-0 ${sidebarBg} z-0`}></div>
+          
           {/* Fixed Top section - App icon and switcher */}
-          <div className={`w-full transition-all duration-150 ease-in-out`}>
+          <div className={`w-full transition-all duration-150 ease-in-out relative z-10`}>
             {/* App Home Icon - Fixed height container */}
             <Link href="/">
               <Tooltip 
@@ -181,7 +210,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                       />
                     </div>
                     {isExpanded && (
-                      <h1 className={`text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out ${showText ? 'opacity-100' : 'opacity-0'}`}>FLOW</h1>
+                      <h1 className={`text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>FLOW</h1>
                     )}
                   </div>
                 </div>
@@ -210,7 +239,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
 
           {/* App Switcher Submenu - Separate from fixed header */}
           {isExpanded && isAppSwitcherOpen && (
-            <div className={`${submenuBg} w-full py-4 px-4 transition-all duration-300 ease-in-out ${showText ? 'opacity-100' : 'opacity-0'}`}>
+            <div className={`${submenuBg} w-full py-4 px-4 transition-all duration-300 ease-in-out relative z-10 ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
               <div className="flex flex-col gap-5">
                 <Link href="#">
                   <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
@@ -235,7 +264,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           )}
 
           {/* Middle section - navigation tabs */}
-          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-8 gap-8 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out`}>
+          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-8 gap-8 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out relative z-10`}>
             {appTabs['flow'].map((tab) => (
               <Tooltip
                 key={tab.name}
@@ -264,7 +293,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                       {renderIcon(tab.icon, isExpanded)}
                     </div>
                     {isExpanded && (
-                      <span className={`text-neutral-50 tracking-wider text-[15px] transition-all duration-300 ease-in-out ${showText ? 'opacity-100' : 'opacity-0'}`}>
+                      <span className={`text-neutral-50 tracking-wider text-[15px] transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                         {tab.name}
                       </span>
                     )}
@@ -275,7 +304,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           </div>
 
           {/* Bottom section - AI Chat button and expand button */}
-          <div className={`w-full transition-all duration-300 ease-in-out`}>
+          <div className={`w-full transition-all duration-300 ease-in-out relative z-10`}>
             <div className={`h-[80px] w-full flex flex-col items-center justify-center relative mb-6`}>
               {/* AI Chat Icon */}
               <Tooltip

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeftIcon, PlusIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ChevronLeftIcon, PlusIcon, ClockIcon, XMarkIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { UserIcon } from '@heroicons/react/24/solid';
 import { useTheme } from '@/app/contexts/ThemeContext';
 import { useNotifications } from '@/app/contexts/NotificationContext';
@@ -237,19 +237,12 @@ export default function AccountDrawer() {
       >
         {/* Header */}
         <div className={`p-6 border-b ${dividerClasses} flex-shrink-0 relative overflow-hidden`}>
-          {/* Background pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 25px,
-                currentColor 50px,
-                transparent 75px,
-                transparent 100px
-              )`,
-            }} />
-          </div>
+          {/* Background gradient overlay for subtle shine effect */}
+          <div className={`absolute inset-0 ${
+            isDark 
+              ? 'bg-gradient-to-br from-white/[0.02] via-transparent to-white/[0.01]' 
+              : 'bg-gradient-to-br from-white/40 via-transparent to-white/20'
+          }`} />
           
           <div className="flex items-center justify-between relative z-10">
             {/* Preferences text */}
@@ -258,7 +251,10 @@ export default function AccountDrawer() {
               onClick={handlePreferencesClick}
             >
               <h2 className={`text-xl font-semibold ${textClasses} ${isDark ? 'group-hover:text-neutral-400' : 'group-hover:text-primary-600'} transition-colors duration-200`}>Preferences</h2>
-              <p className={`text-sm ${subtextClasses} mt-0.5`}>Manage your account settings</p>
+              <p className={`text-sm ${subtextClasses} mt-0.5 flex items-center gap-1.5`}>
+                <Cog6ToothIcon className="w-4 h-4" />
+                Manage your account settings
+              </p>
             </div>
             
             {/* User Profile Icon */}

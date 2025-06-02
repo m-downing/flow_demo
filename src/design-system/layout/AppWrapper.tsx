@@ -104,18 +104,21 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
   }, [pathname]);
 
   return (
-    <div className={`grid ${isSidebarExpanded ? 'grid-cols-[180px_1fr]' : 'grid-cols-[64px_1fr]'} min-h-screen min-w-[768px] relative transition-all duration-300 ease-in-out`}>
+    <div className={`grid ${isSidebarExpanded ? 'grid-cols-[180px_1fr]' : 'grid-cols-[64px_1fr]'} min-h-screen min-w-[768px] relative bg-white dark:bg-neutral-950`}>
       {/* Initialize demo notifications only after client-side hydration */}
       {isClient && <DemoNotificationsInitializer />}
       
       {/* Account Drawer */}
       <AccountDrawer />
       
-      <Sidebar 
-        isExpanded={isSidebarExpanded}
-        onExpandedChange={setIsSidebarExpanded}
-      />
-      <main className="overflow-y-auto min-h-screen relative">
+      {/* Sidebar column with matching background */}
+      <div className="bg-primary-800/90 dark:bg-neutral-800">
+        <Sidebar 
+          isExpanded={isSidebarExpanded}
+          onExpandedChange={setIsSidebarExpanded}
+        />
+      </div>
+      <main className="overflow-y-auto min-h-screen relative bg-neutral-50 dark:bg-neutral-950">
         {/* ======================================== */}
         {/* SYSTEM BANNERS - Configure above at lines 26-27 */}
         {/* ======================================== */}

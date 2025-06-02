@@ -116,7 +116,7 @@ body::-webkit-scrollbar-corner {
 :root {
   --theme-transition-duration: 0.3s;
   --theme-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
-  --theme-transition-properties: background-color, color, border-color, fill, stroke, opacity, box-shadow, text-decoration-color, outline-color;
+  --theme-transition-properties: background-color, color, border-color, fill, stroke;
 }
 
 /* Respect user's motion preferences */
