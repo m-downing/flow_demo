@@ -54,6 +54,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   // Theme-aware background classes
   const submenuBg = isDark ? 'bg-neutral-900' : 'bg-primary-900';
   const loadingBg = isDark ? 'bg-neutral-800/80' : 'bg-primary-800/80';
+  const sidebarBg = isDark ? '#262626' : '#17314ae6'; // neutral.800 for dark, primary.600 with 90% opacity for light
 
   // Handle text visibility based on expansion state
   useEffect(() => {
@@ -202,10 +203,10 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     <>
       <div className="relative" ref={sidebarRef}>
         <aside className={`sticky top-0 h-screen flex flex-col font-heading ${isExpanded ? 'w-[180px]' : 'w-[64px]'} transition-all duration-300 ease-in-out overflow-hidden`}
-          style={{ backgroundColor: 'var(--sidebar-bg, rgb(38 38 38))' }}
+          style={{ backgroundColor: sidebarBg }}
         >
           {/* Background layer to prevent flashes */}
-          <div className={`absolute inset-0 z-0`} style={{ backgroundColor: 'var(--sidebar-bg, rgb(38 38 38))' }}></div>
+          <div className={`absolute inset-0 z-0`} style={{ backgroundColor: sidebarBg }}></div>
           
           {/* Fixed Top section - App icon and switcher */}
           <div className={`w-full transition-all duration-150 ease-in-out relative z-10`}>
