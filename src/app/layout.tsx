@@ -19,6 +19,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const savedTheme = localStorage.getItem('theme');
+                  if (savedTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.style.setProperty('--sidebar-bg', 'rgb(38 38 38)');
+                  } else if (savedTheme === 'light') {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.style.setProperty('--sidebar-bg', 'rgba(30, 58, 138, 0.9)');
+                  } else {
+                    // No saved preference, check system preference
+                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                      document.documentElement.classList.add('dark');
+                      document.documentElement.style.setProperty('--sidebar-bg', 'rgb(38 38 38)');
+                    } else {
+                      document.documentElement.style.setProperty('--sidebar-bg', 'rgba(30, 58, 138, 0.9)');
+                    }
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased">
         <AppWrapper>
           {children}

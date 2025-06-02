@@ -20,20 +20,38 @@ interface SidebarProps {
 export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
-  const [activeTab, setActiveTab] = useState<string>('Snapshot');
+  const pathname = usePathname();
+  
+  // Initialize activeTab based on current pathname or localStorage
+  const getInitialTab = () => {
+    // First check if current pathname matches any tab
+    const currentTab = appTabs['flow'].find(tab => tab.path === pathname);
+    if (currentTab) {
+      return currentTab.name;
+    }
+    // Then check localStorage (only in browser)
+    if (typeof window !== 'undefined') {
+      const savedTab = localStorage.getItem('activeTab_flux');
+      if (savedTab) {
+        return savedTab;
+      }
+    }
+    // Only use Snapshot as last resort
+    return 'Snapshot';
+  };
+  
+  const [activeTab, setActiveTab] = useState<string>(getInitialTab());
   const [isAppSwitcherOpen, setIsAppSwitcherOpen] = useState(false);
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [loadingTab, setLoadingTab] = useState<string | null>(null);
   const [showText, setShowText] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
   const sidebarRef = useRef<HTMLDivElement>(null);
   
   // Add a ref to track if we're animating
   const isAnimatingRef = useRef(false);
 
   // Theme-aware background classes
-  const sidebarBg = isDark ? 'bg-neutral-800' : 'bg-primary-800/90';
   const submenuBg = isDark ? 'bg-neutral-900' : 'bg-primary-900';
   const loadingBg = isDark ? 'bg-neutral-800/80' : 'bg-primary-800/80';
 
@@ -183,9 +201,11 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   return (
     <>
       <div className="relative" ref={sidebarRef}>
-        <aside className={`sticky top-0 h-screen flex flex-col ${sidebarBg} font-heading ${isExpanded ? 'w-[180px]' : 'w-[64px]'} transition-all duration-300 ease-in-out overflow-hidden`}>
+        <aside className={`sticky top-0 h-screen flex flex-col font-heading ${isExpanded ? 'w-[180px]' : 'w-[64px]'} transition-all duration-300 ease-in-out overflow-hidden`}
+          style={{ backgroundColor: 'var(--sidebar-bg, rgb(38 38 38))' }}
+        >
           {/* Background layer to prevent flashes */}
-          <div className={`absolute inset-0 ${sidebarBg} z-0`}></div>
+          <div className={`absolute inset-0 z-0`} style={{ backgroundColor: 'var(--sidebar-bg, rgb(38 38 38))' }}></div>
           
           {/* Fixed Top section - App icon and switcher */}
           <div className={`w-full transition-all duration-150 ease-in-out relative z-10`}>

@@ -112,7 +112,10 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
       <AccountDrawer />
       
       {/* Sidebar column with matching background */}
-      <div className="bg-primary-800/90 dark:bg-neutral-800">
+      <div 
+        className="sidebar-container bg-primary-800/90 dark:bg-neutral-800"
+        style={{ backgroundColor: 'var(--sidebar-bg)' }}
+      >
         <Sidebar 
           isExpanded={isSidebarExpanded}
           onExpandedChange={setIsSidebarExpanded}

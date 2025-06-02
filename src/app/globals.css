@@ -180,3 +180,15 @@ svg * {
   transition: none !important;
 }
 
+/* Prevent sidebar color flash on dark mode refresh */
+.dark .sidebar-container {
+  background-color: rgb(38 38 38) !important; /* neutral-800 */
+}
+
+/* System preference fallback */
+@media (prefers-color-scheme: dark) {
+  .sidebar-container {
+    background-color: rgb(38 38 38) !important; /* neutral-800 */
+  }
+}
+

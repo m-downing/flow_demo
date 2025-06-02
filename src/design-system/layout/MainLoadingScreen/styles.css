@@ -23,7 +23,14 @@
   background-color: rgba(250, 250, 250, 0.8); /* neutral-50 with opacity */
 }
 
-/* Dark mode background */
+/* System dark mode preference (before JS loads) */
+@media (prefers-color-scheme: dark) {
+  .loading-container {
+    background-color: rgba(10, 10, 10, 0.8); /* neutral-950 with opacity */
+  }
+}
+
+/* Dark mode background when dark class is present */
 :global(.dark) .loading-container {
   background-color: rgba(10, 10, 10, 0.8); /* neutral-950 with opacity */
 }
