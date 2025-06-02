@@ -2,7 +2,6 @@
 
 // src/app/components-design-system/charts/MetricCard.tsx
 import React from 'react';
-import { chartTokens } from '@/design-system/foundations/tokens';
 
 /**
  * @typedef MetricCardProps
@@ -38,8 +37,16 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   status = 'neutral', // Default status
   onClick,
 }) => {
-  // Get status color from chart tokens
-  const statusColor = chartTokens.status[status];
+  // Get status-specific border classes
+  const statusBorderClasses = {
+    success: 'border-l-4 border-l-chart-status-success',
+    warning: 'border-l-4 border-l-chart-status-warning',
+    error: 'border-l-4 border-l-chart-status-error',
+    neutral: 'border-l-4 border-l-chart-status-neutral',
+    primary: 'border-l-4 border-l-chart-status-primary',
+  };
+  
+  const borderClass = statusBorderClasses[status] || statusBorderClasses.neutral;
   
   // Determine delta color classes based on trend and status
   let deltaColorClass = 'text-neutral-500 dark:text-neutral-400'; // Default neutral
@@ -64,8 +71,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         bg-white dark:bg-neutral-900 
         transition-shadow duration-300 ease-in-out
         ${onClick ? 'cursor-pointer hover:shadow-lg' : 'cursor-default'}
+        ${borderClass}
       `}
-      style={{ borderLeft: `4px solid ${statusColor}` }}
       onClick={onClick}
     >
       <div className="text-sm text-neutral-600 dark:text-neutral-300 font-medium">

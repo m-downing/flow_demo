@@ -1,7 +1,6 @@
 // src/app/components/design-system/Badge.tsx
 
 import React from 'react';
-import { badgeColors } from '@/design-system/foundations/tokens/colors';
 
 /**
  * Badge variants for all possible status indicators in the application
@@ -49,26 +48,8 @@ const Badge: React.FC<BadgeProps> = ({
   className = '',
   size = 'regular',
 }) => {
-  // Get colors from our badge color system
-  const colorConfig = badgeColors[variant];
-  
-  if (!colorConfig) {
-    console.error(`Badge variant "${variant}" is not defined in badgeColors`);
-    return null;
-  }
-  
   // Check if it's a priority/risk badge
   const isPriorityBadge = ['critical', 'highPriority', 'standard', 'atRisk'].includes(variant);
-  
-  // Build style for the badge
-  const style = {
-    backgroundColor: colorConfig.bg,
-    color: colorConfig.text,
-    opacity: 0.85,
-  };
-  
-  // Cursor class if onClick provided
-  const cursorClass = onClick ? 'cursor-pointer hover:opacity-90' : '';
   
   // Transform text to uppercase for priority/risk badges
   const content = isPriorityBadge ? children?.toString().toUpperCase() : children;
@@ -77,17 +58,49 @@ const Badge: React.FC<BadgeProps> = ({
   const sizeClasses = size === 'small' 
     ? 'px-1.5 py-1.5 text-xxs' 
     : 'px-2 py-1 text-xs';
-    
+  
+  // Build variant-specific Tailwind classes
+  const variantClasses = {
+    // Supply Chain Status Badges
+    planned: 'bg-badge-planned-bg text-badge-planned-text',
+    ordered: 'bg-badge-ordered-bg text-badge-ordered-text',
+    manufacturing: 'bg-badge-manufacturing-bg text-badge-manufacturing-text',
+    qualityTesting: 'bg-badge-qualityTesting-bg text-badge-qualityTesting-text',
+    readyToShip: 'bg-badge-readyToShip-bg text-badge-readyToShip-text',
+    inTransit: 'bg-badge-inTransit-bg text-badge-inTransit-text',
+    delivered: 'bg-badge-delivered-bg text-badge-delivered-text',
+    installing: 'bg-badge-installing-bg text-badge-installing-text',
+    active: 'bg-badge-active-bg text-badge-active-text',
+    maintenance: 'bg-badge-maintenance-bg text-badge-maintenance-text',
+    delayed: 'bg-badge-delayed-bg text-badge-delayed-text',
+    // Priority/Risk Badges
+    critical: 'bg-badge-critical-bg text-badge-critical-text',
+    highPriority: 'bg-badge-highPriority-bg text-badge-highPriority-text',
+    standard: 'bg-badge-standard-bg text-badge-standard-text',
+    atRisk: 'bg-badge-atRisk-bg text-badge-atRisk-text',
+  };
+  
+  const variantClass = variantClasses[variant];
+  
+  if (!variantClass) {
+    console.error(`Badge variant "${variant}" is not defined`);
+    return null;
+  }
+  
+  // Cursor class if onClick provided
+  const cursorClass = onClick ? 'cursor-pointer hover:opacity-90' : '';
+  
   return (
     <span
-      style={style}
       className={`
         inline-flex
         items-center
         justify-center
-        ${sizeClasses}
         font-semibold
         rounded-xs
+        opacity-85
+        ${sizeClasses}
+        ${variantClass}
         ${cursorClass}
         ${className}
       `}
