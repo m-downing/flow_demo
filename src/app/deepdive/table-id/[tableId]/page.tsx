@@ -248,22 +248,16 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log('DeepDivePage useEffect - tableId:', tableId);
-    
     try {
       // First, try to get data from sessionStorage
       const storedData = sessionStorage.getItem(`table-${tableId}`);
-      console.log('Stored data found:', !!storedData);
       
       if (storedData) {
-        console.log('Raw stored data:', storedData);
         const parsedData = JSON.parse(storedData) as TableDataState;
-        console.log('Parsed data:', parsedData);
         
         // For server inventory data, recreate columns with Badge components
         if (tableId === 'server-inventory-interactive' || tableId === 'server-list-interactive') {
           parsedData.columns = createServerColumns();
-          console.log('Recreated columns for server inventory');
         }
         
         setTableData(parsedData);
@@ -272,14 +266,10 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
         // Clean up the session data after a delay to avoid issues with React StrictMode
         setTimeout(() => {
           sessionStorage.removeItem(`table-${tableId}`);
-          console.log(`Cleaned up sessionStorage for table-${tableId}`);
         }, 5000); // 5 second delay
       } else {
-        console.log('No data found in sessionStorage for key:', `table-${tableId}`);
-        
         // Fallback: check for sessionKey in URL params (backward compatibility)
         const sessionKey = searchParams.get('sessionKey');
-        console.log('Session key from URL:', sessionKey);
         
         if (sessionKey) {
           const sessionData = sessionStorage.getItem(sessionKey);
@@ -308,8 +298,7 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
           setLoading(false);
         }
       }
-    } catch (error) {
-      console.error('Error in DeepDivePage:', error);
+    } catch {
       setError('Failed to load table data');
       setLoading(false);
     }

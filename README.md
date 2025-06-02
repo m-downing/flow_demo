@@ -1,235 +1,140 @@
-# FLOW Design System Demo
+# FLOW Design System
 
-A Next.js demonstration of the FLOW Design System - an enterprise-grade UI component library and design framework built for supply chain management applications.
+An enterprise-grade UI component library and design framework built for global supply chain management applications.
 
-## 🚀 Tech Stack
+## Overview
 
-- **Framework**: Next.js 15.3.2 (App Router)
-- **UI Library**: React 18.2.0
-- **TypeScript**: 5.x
-- **Styling**: Tailwind CSS 3.4.0
-- **Icons**: Heroicons 2.2.0
-- **Charts**: Recharts 2.15.3
-- **Theme**: Full dark mode support
+The FLOW Design System provides a comprehensive set of React components, design tokens, and layout patterns that ensure consistency across all supply chain management applications. Built on Next.js 15 with TypeScript and Tailwind CSS, it offers a modern development experience with enterprise-ready features.
 
-## 📁 Project Structure
+## Key Features
 
-```
-src/
-├── app/                    # Next.js app router pages
-│   ├── chart-gallery/     # Chart components showcase (default page)
-│   ├── colors/            # Color token reference
-│   ├── deepdive/          # Dynamic table detail views
-│   │   └── table-id/      
-│   │       └── [tableId]/ # Dynamic route for table details
-│   ├── demo-tables/       # Table components demo
-│   ├── kpi/               # KPI dashboard demo
-│   ├── snapshot/          # Snapshot dashboard demo
-│   ├── contexts/          # React contexts for global state
-│   ├── hooks/             # Custom React hooks
-│   ├── services/          # Service layer (includes mock data)
-│   └── types/             # TypeScript type definitions
-└── design-system/         # Core design system
-    ├── _Documentation/    # Comprehensive guides and standards
-    ├── charts/            # Chart components
-    ├── components/        # UI components
-    │   ├── controls/      # Interactive controls
-    │   ├── feedback/      # Feedback components
-    │   ├── forms/         # Form elements
-    │   └── primitives/    # Base components
-    ├── foundations/       # Design tokens
-    ├── layout/            # Layout components
-    ├── overlays/          # Modals and overlays
-    ├── tabularData/       # Table components
-    └── utilities/         # Utility components
-```
+- **Unified App Shell**: Consistent navigation, user preferences, and layout across all applications
+- **Dark Mode Support**: System-aware theme switching with smooth transitions
+- **Component Library**: Production-ready components for charts, tables, forms, and more
+- **Design Tokens**: Centralized colors, typography, spacing, and shadows
+- **Multi-App Architecture**: Supports app switching between FLOW, Helius, Hyperion, and Oculus
+- **AI Integration**: Built-in IRIS assistant for supply chain insights
+- **Responsive Design**: Mobile-first approach with tablet and desktop optimizations
 
-## 📖 Documentation
-
-The design system includes comprehensive documentation in `src/design-system/_Documentation/`:
-
-- **[CopilotDesignPrompt.md](src/design-system/_Documentation/CopilotDesignPrompt.md)** - AI assistant implementation guide for consistent code generation
-- **[IntegrationGuide.md](src/design-system/_Documentation/IntegrationGuide.md)** - Step-by-step integration instructions for existing projects
-- **[TailwindGridSystem.md](src/design-system/_Documentation/TailwindGridSystem.md)** - Grid system patterns and responsive layouts
-- **[ThemeColorStandards.md](src/design-system/_Documentation/ThemeColorStandards.md)** - Color usage guidelines with dark mode patterns
-- **[DesignTokens.md](src/design-system/_Documentation/DesignTokens.md)** - Complete design token reference
-
-## 🎨 Demo Pages
-
-- **Chart Gallery** (`/`) - Comprehensive showcase of chart components
-- **Tables Demo** (`/demo-tables`) - Table and list view demonstrations
-- **Color Tokens** (`/colors`) - Design system color palette reference
-- **Deep Dive** (`/deepdive/table-id/[tableId]`) - Dynamic detail views for table data
-- **Snapshot** (`/snapshot`) - Dashboard snapshot view
-- **KPIs** (`/kpi`) - Key performance indicators dashboard
-
-## ⚡ Quick Start
-
-### Prerequisites
-- Node.js 18.2.0 or higher
-- npm, yarn, pnpm, or bun
+## Quick Start
 
 ### Installation
 
 ```bash
 npm install
-```
-
-### Development
-
-```bash
 npm run dev
 ```
 
-Access the application at [http://localhost:3000](http://localhost:3000)
+Navigate to `http://localhost:3000` to view the component gallery and documentation.
 
-### Build
+### Using the Design System
 
-```bash
-npm run build
-npm run start
+1. **Import Components**
+   ```tsx
+   import { Button, Card, Badge } from '@/design-system';
+   import { TableView, MetricCard } from '@/design-system';
+   ```
+
+2. **Use Design Tokens**
+   ```tsx
+   import { colors, spacing } from '@/design-system/foundations/tokens';
+   ```
+
+3. **Apply Consistent Layout**
+   ```tsx
+   import { PageContainer } from '@/design-system/layout/PageContainer';
+   
+   export default function MyPage() {
+     return (
+       <PageContainer>
+         {/* Your content */}
+       </PageContainer>
+     );
+   }
+   ```
+
+## Project Structure
+
+```
+src/
+├── app/                    # Demo and documentation pages
+│   ├── chart-gallery/      # Chart component showcase
+│   ├── demo-tables/        # Table component demos
+│   ├── colors/             # Color token reference
+│   ├── tailwind-grid/      # Grid system documentation
+│   ├── snapshot/           # Dashboard demo
+│   └── kpi/                # KPI dashboard demo
+│
+└── design-system/          # Core design system
+    ├── components/         # UI components
+    ├── charts/             # Chart components
+    ├── layout/             # Layout components
+    ├── overlays/           # Modals and overlays
+    ├── tabularData/        # Table components
+    ├── utilities/          # Utility components
+    └── foundations/        # Design tokens
+        └── tokens/
+            ├── colors.js
+            ├── typography.js
+            ├── spacing.js
+            └── shadows.js
 ```
 
-### Scripts
+## Core Components
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+### Layout Components
+- `AppWrapper` - Main application wrapper with sidebar and theme support
+- `PageContainer` - Consistent page-level container with proper spacing
+- `Card` - Flexible content container with multiple variants
 
-## 🎯 Key Features
+### Data Display
+- `TableView` - Advanced data table with sorting, filtering, and mode toggling
+- `ListView` - Card-based data display alternative
+- `MetricCard` - KPI display with trends and status indicators
 
-### Design System Components
-- **Charts**: Line, Bar, Area, Scatter, Pie, and specialized supply chain visualizations
-- **Tables**: Advanced data tables with sorting, filtering, and pagination
-- **Forms**: Comprehensive form components with validation
-- **Feedback**: Alerts, notifications, banners, and loading states
-- **Controls**: Buttons, toggles, filters, and interactive elements
-- **Layout**: Responsive grid system, cards, and containers
+### Feedback
+- `Badge` - Status indicators with semantic variants
+- `Spinner` - Loading states
+- `InfoBanner` / `CriticalBanner` - System-wide notifications
 
-### Dark Mode Support
-- Automatic theme detection
-- Manual theme toggle
-- Consistent color tokens for both themes
-- Smooth transitions between themes
+### Charts
+- `AreaChart`, `BarChart`, `LineChart` - Time series visualizations
+- `PieChart`, `DonutChart` - Distribution visualizations
+- `ProgressChart` - Goal tracking
 
-### Enterprise Features
-- Multi-application architecture support
-- Global notification system
-- Loading state management
-- Responsive design (mobile-first approach)
-- Accessibility compliance
-- Performance optimized for large datasets
+## Design Tokens
 
-## 💻 Design System Usage
+### Spacing
+Use consistent spacing tokens instead of arbitrary values:
+- `gap-sm`, `gap-md`, `gap-lg` (not `gap-4`, `gap-6`)
+- `mb-sm`, `mb-md`, `mb-lg` (not `mb-4`, `mb-6`)
 
-Import components from the design system:
+### Colors
+Semantic color system with light/dark mode support:
+- Primary, Neutral, Success, Warning, Error
+- Extended palette for data visualization
+- Badge-specific color mappings
 
-```typescript
-import { 
-  Button, 
-  Card, 
-  TableView, 
-  MetricCard,
-  LineChart,
-  FilterBar 
-} from '@/design-system';
-```
+### Typography
+Bahnschrift font family optimized for Windows environments with proper fallbacks.
 
-### Example: Creating a Dashboard
+## Best Practices
 
-```typescript
-import { MetricCard, LineChart, TableView } from '@/design-system';
+1. **Always use PageContainer** for consistent page layout
+2. **Import from design-system paths**, not relative imports
+3. **Use semantic color tokens** rather than Tailwind defaults
+4. **Leverage existing components** before creating new ones
+5. **Follow the established patterns** in demo pages for implementation guidance
 
-export default function Dashboard() {
-  return (
-    <div className="pt-8 px-6 pb-16 bg-neutral-50 dark:bg-neutral-950 min-h-screen">
-      <div className="max-w-[1600px] mx-auto">
-        {/* Metrics Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <MetricCard 
-            label="Total Orders" 
-            value="1,234" 
-            delta={12.5} 
-            trend="up"
-            status="success" 
-          />
-        </div>
-        
-        {/* Charts and Tables */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-8">
-            <LineChart data={chartData} />
-          </div>
-          <div className="lg:col-span-4">
-            <TableView data={tableData} columns={columns} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-```
+## Documentation Pages
 
-## 🏗️ Architecture
+- `/` - Interactive chart component gallery
+- `/demo-tables` - Table and list view demonstrations
+- `/colors` - Complete color token reference
+- `/tailwind-grid` - Grid system guide with examples
+- `/snapshot` - Full dashboard implementation example
+- `/kpi` - KPI dashboard with tabs and insights
 
-The FLOW Design System is built with a multi-application architecture in mind:
+## Support
 
-### Core Layout Components
-
-**`AppWrapper.tsx`** - The foundation component that provides:
-- Application-level context providers (Theme, Notifications)
-- Global layout structure with responsive grid
-- System-wide banner notifications (Info and Critical)
-- Loading state management
-- Account drawer integration
-- Dynamic favicon and title management per application
-
-**`Sidebar.tsx`** - The primary navigation component featuring:
-- Collapsible/expandable navigation
-- Multi-app switcher functionality
-- Tab-based navigation with loading states
-- AI assistant integration (IRIS)
-- Responsive design with tooltips
-
-### Configuration
-
-**`constants.ts`** - Central navigation configuration that must be customized for each application:
-```typescript
-export const appTabs = {
-  'flow': [...],      // Navigation items for FLOW app
-  'helius': [...],    // Navigation items for Helius app
-  'mimir': [...],     // Navigation items for Mimir app
-  'oculus': [...]     // Navigation items for Oculus app
-};
-```
-
-## 🔧 Integration Guide
-
-When implementing this design system in a new application:
-
-1. **Wrap your application** with `AppWrapper`
-2. **Configure navigation** in `constants.ts`
-3. **Update app metadata** in `AppWrapper.tsx` (`APP_TITLES` and `APP_FAVICONS`)
-4. **Customize theme tokens** as needed (without modifying core tokens)
-5. **Connect data layer** - Replace mock services with your GraphQL/REST APIs
-
-This architecture enables consistent user experience across multiple applications while maintaining flexibility for app-specific requirements.
-
-## 🎨 Design Principles
-
-1. **Consistency First** - Use existing components and patterns
-2. **Dark Mode Always** - Every component supports both themes
-3. **Semantic Tokens** - Use meaningful color and spacing tokens
-4. **Responsive by Default** - Mobile-first approach
-5. **Accessibility Built-in** - WCAG compliance and keyboard navigation
-
-## 📚 Additional Resources
-
-- Review the demo pages for implementation examples
-- Check the documentation directory for detailed guides
-- Use the AI assistant prompt guide for consistent code generation
-- Follow the integration guide for step-by-step setup
-
-Designed by Michael Downing.
-
+For questions or issues, please contact Michael Downing or refer to the demo implementations for guidance.

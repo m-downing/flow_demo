@@ -239,7 +239,7 @@ const TailwindGridPage: React.FC = () => {
                   <li>• Always use <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded text-neutral-800 dark:text-neutral-50">grid-cols-12</code> as the parent grid</li>
                   <li>• Ensure column spans add up to 12 per row</li>
                   <li>• Use responsive prefixes (sm:, md:, lg:, xl:)</li>
-                  <li>• Apply consistent gap values (gap-4, gap-6)</li>
+                  <li>• Apply consistent gap values (gap-sm, gap-md, gap-lg)</li>
                   <li>• Nest grids when needed for complex layouts</li>
                   <li>• Start mobile-first with responsive modifiers</li>
                 </ul>
