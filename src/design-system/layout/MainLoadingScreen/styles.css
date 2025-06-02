@@ -19,6 +19,13 @@
   z-index: 1000;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  /* Light mode background */
+  background-color: rgba(250, 250, 250, 0.8); /* neutral-50 with opacity */
+}
+
+/* Dark mode background */
+:global(.dark) .loading-container {
+  background-color: rgba(10, 10, 10, 0.8); /* neutral-950 with opacity */
 }
 
 .loading-content {

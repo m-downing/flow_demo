@@ -44,17 +44,17 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   // Determine delta color classes based on trend and status
   let deltaColorClass = 'text-neutral-500 dark:text-neutral-400'; // Default neutral
   if (trend === 'up' && status === 'success') {
-    deltaColorClass = 'text-green-600 dark:text-green-400';
+    deltaColorClass = 'text-success-500 dark:text-success-700';
   } else if (trend === 'up' && status === 'error') {
-    deltaColorClass = 'text-red-600 dark:text-red-400'; // Up is bad for errors
+    deltaColorClass = 'text-error-500 dark:text-error-300'; // Up is bad for errors
   } else if (trend === 'down' && status === 'success') {
-    deltaColorClass = 'text-green-600 dark:text-green-400'; // Down is good for success
+    deltaColorClass = 'text-success-500 dark:text-success-700'; // Down is good for success
   } else if (trend === 'down' && status === 'error') {
-    deltaColorClass = 'text-red-600 dark:text-red-400';
+    deltaColorClass = 'text-error-500 dark:text-error-300';
   } else if (trend === 'up') {
-    deltaColorClass = 'text-green-600 dark:text-green-400'; // Default up is good
+    deltaColorClass = 'text-success-500 dark:text-success-700'; // Default up is good
   } else if (trend === 'down') {
-    deltaColorClass = 'text-red-600 dark:text-red-400'; // Default down is bad
+    deltaColorClass = 'text-error-500 dark:text-error-300'; // Default down is bad
   }
 
   return (

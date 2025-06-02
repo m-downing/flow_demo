@@ -66,7 +66,7 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({ isOpen, onClose
         return <ExclamationTriangleIcon className={`${iconClass} text-warning-500`} />;
       case 'info':
       default:
-        return <InformationCircleIcon className={`${iconClass} text-blue-500`} />;
+        return <InformationCircleIcon className={`${iconClass} text-blue-700`} />;
     }
   };
 
@@ -102,7 +102,7 @@ const NotificationsModal: React.FC<NotificationsModalProps> = ({ isOpen, onClose
     } else {
       return isDark
         ? 'bg-neutral-700 border-neutral-500 hover:bg-neutral-600'
-        : 'bg-blue-50 border-blue-200 hover:bg-blue-100';
+        : 'bg-blue-50 border-blue-100 hover:bg-blue-100';
     }
   };
 

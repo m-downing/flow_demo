@@ -378,12 +378,12 @@ export default function AccountDrawer() {
                       className={`
                         absolute top-3 right-3 p-1.5 rounded-lg
                         ${hoveredNoteId === note.id ? 'opacity-100' : 'opacity-0'}
-                        hover:bg-red-100 dark:hover:bg-red-900/20
+                        hover:bg-error-50 dark:hover:bg-error-500/20
                         transition-all duration-200
                       `}
                       aria-label="Delete note"
                     >
-                      <XMarkIcon className={`w-4 h-4 hover:text-red-600 dark:hover:text-red-400 ${iconClasses}`} />
+                      <XMarkIcon className={`w-4 h-4 hover:text-error-500 dark:hover:text-error-300 ${iconClasses}`} />
                     </button>
                     
                     <h4 className={`text-sm font-semibold ${textClasses} mb-2 pr-8`}>

@@ -285,7 +285,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 delay={100}
               >
                 <div 
-                  className="w-[32px] h-[32px] rounded-full bg-gradient-to-br from-success-400 to-success-600 flex items-center justify-center cursor-pointer hover:from-success-500 hover:to-success-700 transition-all duration-200 shadow-md"
+                  className="w-[32px] h-[32px] rounded-full bg-gradient-to-br from-success-500 to-success-700 flex items-center justify-center cursor-pointer hover:from-success-700 hover:to-success-500 transition-all duration-200 shadow-md"
                   role="button"
                   aria-label="Open AI Chat"
                   tabIndex={0}

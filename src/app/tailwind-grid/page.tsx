@@ -26,18 +26,18 @@ const TailwindGridPage: React.FC = () => {
           </h5>
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800">
-                <p className="font-mono text-sm">col-span-4</p>
+              <Card className="p-6 text-center bg-primary-50 dark:bg-neutral-800 border border-primary-200 dark:border-primary-600">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800">
-                <p className="font-mono text-sm">col-span-4</p>
+              <Card className="p-6 text-center bg-primary-50 dark:bg-neutral-800 border border-primary-200 dark:border-primary-600">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800">
-                <p className="font-mono text-sm">col-span-4</p>
+              <Card className="p-6 text-center bg-primary-50 dark:bg-neutral-800 border border-primary-200 dark:border-primary-600">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
           </div>
@@ -50,18 +50,18 @@ const TailwindGridPage: React.FC = () => {
           </h5>
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-2">
-              <Card className="p-6 text-center bg-success-50 dark:bg-success-900/20 border-success-200 dark:border-success-800">
-                <p className="font-mono text-sm">col-span-2</p>
+              <Card className="p-6 text-center bg-success-50 dark:bg-neutral-800 border border-success-500 dark:border-success-700">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-2</p>
               </Card>
             </div>
             <div className="col-span-6">
-              <Card className="p-6 text-center bg-success-50 dark:bg-success-900/20 border-success-200 dark:border-success-800">
-                <p className="font-mono text-sm">col-span-6</p>
+              <Card className="p-6 text-center bg-success-50 dark:bg-neutral-800 border border-success-500 dark:border-success-700">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-6</p>
               </Card>
             </div>
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-success-50 dark:bg-success-900/20 border-success-200 dark:border-success-800">
-                <p className="font-mono text-sm">col-span-4</p>
+              <Card className="p-6 text-center bg-success-50 dark:bg-neutral-800 border border-success-500 dark:border-success-700">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
           </div>
@@ -74,25 +74,25 @@ const TailwindGridPage: React.FC = () => {
           </h5>
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-8">
-              <Card className="p-6 bg-warning-50 dark:bg-warning-900/20 border-warning-200 dark:border-warning-800">
-                <p className="font-mono text-sm mb-4">col-span-8 (Parent)</p>
+              <Card className="p-6 bg-warning-50 dark:bg-neutral-800 border border-warning-500 dark:border-warning-700">
+                <p className="font-mono text-sm mb-4 text-neutral-800 dark:text-neutral-50">col-span-8 (Parent)</p>
                 <div className="grid grid-cols-8 gap-3">
                   <div className="col-span-3">
-                    <Card className="p-4 text-center bg-warning-100 dark:bg-warning-800/30">
-                      <p className="font-mono text-xs">col-span-3</p>
+                    <Card className="p-4 text-center bg-orange-100 dark:bg-neutral-700 border border-orange-500 dark:border-orange-700">
+                      <p className="font-mono text-xs text-neutral-800 dark:text-neutral-50">col-span-3</p>
                     </Card>
                   </div>
                   <div className="col-span-5">
-                    <Card className="p-4 text-center bg-warning-100 dark:bg-warning-800/30">
-                      <p className="font-mono text-xs">col-span-5</p>
+                    <Card className="p-4 text-center bg-orange-100 dark:bg-neutral-700 border border-orange-500 dark:border-orange-700">
+                      <p className="font-mono text-xs text-neutral-800 dark:text-neutral-50">col-span-5</p>
                     </Card>
                   </div>
                 </div>
               </Card>
             </div>
             <div className="col-span-4">
-              <Card className="p-6 text-center bg-warning-50 dark:bg-warning-900/20 border-warning-200 dark:border-warning-800">
-                <p className="font-mono text-sm">col-span-4</p>
+              <Card className="p-6 text-center bg-warning-50 dark:bg-neutral-800 border border-warning-500 dark:border-warning-700">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">col-span-4</p>
               </Card>
             </div>
           </div>
@@ -105,32 +105,32 @@ const TailwindGridPage: React.FC = () => {
           </h5>
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <Card className="p-6 text-center bg-error-50 dark:bg-error-900/20 border-error-200 dark:border-error-800">
-                <p className="font-mono text-sm">12 → 6 → 3</p>
+              <Card className="p-6 text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">12 → 6 → 3</p>
                 <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
                   Full on mobile, half on tablet, quarter on desktop
                 </p>
               </Card>
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <Card className="p-6 text-center bg-error-50 dark:bg-error-900/20 border-error-200 dark:border-error-800">
-                <p className="font-mono text-sm">12 → 6 → 3</p>
+              <Card className="p-6 text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">12 → 6 → 3</p>
                 <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
                   Full on mobile, half on tablet, quarter on desktop
                 </p>
               </Card>
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <Card className="p-6 text-center bg-error-50 dark:bg-error-900/20 border-error-200 dark:border-error-800">
-                <p className="font-mono text-sm">12 → 6 → 3</p>
+              <Card className="p-6 text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">12 → 6 → 3</p>
                 <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
                   Full on mobile, half on tablet, quarter on desktop
                 </p>
               </Card>
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <Card className="p-6 text-center bg-error-50 dark:bg-error-900/20 border-error-200 dark:border-error-800">
-                <p className="font-mono text-sm">12 → 6 → 3</p>
+              <Card className="p-6 text-center bg-error-50 dark:bg-neutral-800 border border-error-300 dark:border-error-500">
+                <p className="font-mono text-sm text-neutral-800 dark:text-neutral-50">12 → 6 → 3</p>
                 <p className="text-xs mt-2 text-neutral-600 dark:text-neutral-400">
                   Full on mobile, half on tablet, quarter on desktop
                 </p>
@@ -217,26 +217,26 @@ const TailwindGridPage: React.FC = () => {
 
         {/* Grid Guidelines */}
         <section className="mt-12">
-          <Card className="p-6 bg-neutral-100 dark:bg-neutral-900">
+          <Card className="p-6 bg-neutral-100 dark:bg-neutral-800">
             <h5 className="text-lg font-semibold text-neutral-800 dark:text-neutral-50 mb-4">
               Grid System Guidelines
             </h5>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
               <div>
-                <h6 className="font-semibold mb-2">Column Spans</h6>
+                <h6 className="font-semibold mb-2 text-neutral-800 dark:text-neutral-50">Column Spans</h6>
                 <ul className="space-y-1 text-neutral-600 dark:text-neutral-400">
-                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded">col-span-1</code> = 1/12 width (8.33%)</li>
-                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded">col-span-2</code> = 2/12 width (16.67%)</li>
-                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded">col-span-3</code> = 3/12 width (25%)</li>
-                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded">col-span-4</code> = 4/12 width (33.33%)</li>
-                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded">col-span-6</code> = 6/12 width (50%)</li>
-                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded">col-span-12</code> = Full width (100%)</li>
+                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded text-neutral-800 dark:text-neutral-50">col-span-1</code> = 1/12 width (8.33%)</li>
+                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded text-neutral-800 dark:text-neutral-50">col-span-2</code> = 2/12 width (16.67%)</li>
+                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded text-neutral-800 dark:text-neutral-50">col-span-3</code> = 3/12 width (25%)</li>
+                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded text-neutral-800 dark:text-neutral-50">col-span-4</code> = 4/12 width (33.33%)</li>
+                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded text-neutral-800 dark:text-neutral-50">col-span-6</code> = 6/12 width (50%)</li>
+                  <li>• <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded text-neutral-800 dark:text-neutral-50">col-span-12</code> = Full width (100%)</li>
                 </ul>
               </div>
               <div>
-                <h6 className="font-semibold mb-2">Best Practices</h6>
+                <h6 className="font-semibold mb-2 text-neutral-800 dark:text-neutral-50">Best Practices</h6>
                 <ul className="space-y-1 text-neutral-600 dark:text-neutral-400">
-                  <li>• Always use <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded">grid-cols-12</code> as the parent grid</li>
+                  <li>• Always use <code className="text-xs bg-neutral-200 dark:bg-neutral-800 px-1 py-0.5 rounded text-neutral-800 dark:text-neutral-50">grid-cols-12</code> as the parent grid</li>
                   <li>• Ensure column spans add up to 12 per row</li>
                   <li>• Use responsive prefixes (sm:, md:, lg:, xl:)</li>
                   <li>• Apply consistent gap values (gap-4, gap-6)</li>

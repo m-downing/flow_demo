@@ -90,9 +90,9 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, alert }) =
             <div>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">Status</p>
               <p className={`text-sm font-medium ${
-                alert.severity === 'critical' ? 'text-red-600 dark:text-red-400' : 
-                alert.severity === 'warning' ? 'text-yellow-600 dark:text-yellow-400' : 
-                'text-blue-600 dark:text-blue-400'
+                alert.severity === 'critical' ? 'text-error-500 dark:text-error-300' : 
+                alert.severity === 'warning' ? 'text-yellow-700 dark:text-yellow-500' : 
+                'text-blue-700 dark:text-blue-100'
               }`}>
                 {alert.severity.toUpperCase()}
               </p>
@@ -115,7 +115,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, alert }) =
             <div className="mb-3">
               <div className="flex items-start gap-2">
                 <div className="rounded-full bg-blue-100 dark:bg-blue-900 w-8 h-8 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
+                  <span className="text-xs font-medium text-blue-700 dark:text-blue-100">
                     {alert.contacts[0]?.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
@@ -150,8 +150,8 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, alert }) =
             
             <div className="mb-3">
               <div className="flex items-start gap-2">
-                <div className="rounded-full bg-green-100 dark:bg-green-900 w-8 h-8 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xs font-medium text-green-700 dark:text-green-300">
+                <div className="rounded-full bg-green-50 dark:bg-green-700 w-8 h-8 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xs font-medium text-green-700 dark:text-green-50">
                     {alert.contacts[1]?.name.split(' ').map(n => n[0]).join('') || 'BB'}
                   </span>
                 </div>

@@ -2,7 +2,7 @@ import './styles.css';
 
 export default function MainLoadingSpinner() {
   return (
-    <div className="loading-container">
+    <div className="loading-container bg-neutral-50/80 dark:bg-neutral-950/80">
       <div 
         className="text-center"
         style={{ 

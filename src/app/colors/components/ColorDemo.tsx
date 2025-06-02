@@ -138,8 +138,8 @@ const ColorDemo: React.FC = () => {
           <div className="bg-neutral-50 dark:bg-neutral-800 rounded-md p-4 border border-neutral-200 dark:border-neutral-700">
             <code className="text-sm">
               <span className="text-purple-700 dark:text-purple-400">&lt;div</span>{' '}
-              <span className="text-blue-700 dark:text-blue-400">className</span>=
-              <span className="text-green-700 dark:text-green-400">&quot;bg-primary-600 text-neutral-50&quot;</span>
+              <span className="text-blue-700 dark:text-blue-100">className</span>=
+              <span className="text-green-700 dark:text-green-500">&quot;bg-primary-600 text-neutral-50&quot;</span>
               <span className="text-purple-700 dark:text-purple-400">&gt;</span>
               <span className="text-neutral-700 dark:text-neutral-300">Primary background with light text</span>
               <span className="text-purple-700 dark:text-purple-400">&lt;/div&gt;</span>
@@ -148,8 +148,8 @@ const ColorDemo: React.FC = () => {
           <div className="bg-neutral-50 dark:bg-neutral-800 rounded-md p-4 border border-neutral-200 dark:border-neutral-700">
             <code className="text-sm">
               <span className="text-purple-700 dark:text-purple-400">&lt;p</span>{' '}
-              <span className="text-blue-700 dark:text-blue-400">className</span>=
-              <span className="text-green-700 dark:text-green-400">&quot;text-success-500 font-semibold&quot;</span>
+              <span className="text-blue-700 dark:text-blue-100">className</span>=
+              <span className="text-green-700 dark:text-green-500">&quot;text-success-500 font-semibold&quot;</span>
               <span className="text-purple-700 dark:text-purple-400">&gt;</span>
               <span className="text-neutral-700 dark:text-neutral-300">Success message</span>
               <span className="text-purple-700 dark:text-purple-400">&lt;/p&gt;</span>
@@ -158,8 +158,8 @@ const ColorDemo: React.FC = () => {
           <div className="bg-neutral-50 dark:bg-neutral-800 rounded-md p-4 border border-neutral-200 dark:border-neutral-700">
             <code className="text-sm">
               <span className="text-purple-700 dark:text-purple-400">&lt;div</span>{' '}
-              <span className="text-blue-700 dark:text-blue-400">className</span>=
-              <span className="text-green-700 dark:text-green-400">&quot;border-2 border-error-300 bg-error-50&quot;</span>
+              <span className="text-blue-700 dark:text-blue-100">className</span>=
+              <span className="text-green-700 dark:text-green-500">&quot;border-2 border-error-300 bg-error-50&quot;</span>
               <span className="text-purple-700 dark:text-purple-400">&gt;</span>
               <span className="text-neutral-700 dark:text-neutral-300">Error state container</span>
               <span className="text-purple-700 dark:text-purple-400">&lt;/div&gt;</span>
@@ -168,8 +168,8 @@ const ColorDemo: React.FC = () => {
           <div className="bg-neutral-50 dark:bg-neutral-800 rounded-md p-4 border border-neutral-200 dark:border-neutral-700">
             <code className="text-sm">
               <span className="text-purple-700 dark:text-purple-400">&lt;span</span>{' '}
-              <span className="text-blue-700 dark:text-blue-400">className</span>=
-              <span className="text-green-700 dark:text-green-400">&quot;bg-dataViz-primary text-white px-3 py-1 rounded&quot;</span>
+              <span className="text-blue-700 dark:text-blue-100">className</span>=
+              <span className="text-green-700 dark:text-green-500">&quot;bg-dataViz-primary text-white px-3 py-1 rounded&quot;</span>
               <span className="text-purple-700 dark:text-purple-400">&gt;</span>
               <span className="text-neutral-700 dark:text-neutral-300">Data viz badge</span>
               <span className="text-purple-700 dark:text-purple-400">&lt;/span&gt;</span>
@@ -177,10 +177,10 @@ const ColorDemo: React.FC = () => {
           </div>
           <div className="bg-neutral-50 dark:bg-neutral-800 rounded-md p-4 border border-neutral-200 dark:border-neutral-700">
             <code className="text-sm">
-              <span className="text-gray-600 dark:text-gray-400">{'// Dark mode example'}</span><br/>
+              <span className="text-neutral-600 dark:text-neutral-400">{'// Dark mode example'}</span><br/>
               <span className="text-purple-700 dark:text-purple-400">&lt;div</span>{' '}
-              <span className="text-blue-700 dark:text-blue-400">className</span>=
-              <span className="text-green-700 dark:text-green-400">&quot;bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100&quot;</span>
+              <span className="text-blue-700 dark:text-blue-100">className</span>=
+              <span className="text-green-700 dark:text-green-500">&quot;bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100&quot;</span>
               <span className="text-purple-700 dark:text-purple-400">&gt;</span>
               <span className="text-neutral-700 dark:text-neutral-300">Theme-aware container</span>
               <span className="text-purple-700 dark:text-purple-400">&lt;/div&gt;</span>

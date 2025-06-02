@@ -99,7 +99,7 @@ const Button: React.FC<ButtonProps> = ({
         case 'ghost':
           return 'text-primary-600 hover:bg-primary-50 hover:text-primary-700';
         case 'danger':
-          return 'bg-error-500 hover:bg-error-700 text-neutral-50 shadow-sm';
+          return 'bg-error-500 hover:bg-error-300 text-neutral-50 shadow-sm';
         default:
           return 'bg-primary-600 hover:bg-primary-700 text-neutral-50 shadow-sm';
       }

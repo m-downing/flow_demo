@@ -143,7 +143,7 @@ export const KPITabs: React.FC = () => {
                     <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">NYC-WEST-08</p>
                     <p className="text-sm text-neutral-500 dark:text-neutral-400">North America</p>
                   </div>
-                  <p className="text-lg font-medium text-green-600 dark:text-green-400">94%</p>
+                  <p className="text-lg font-medium text-success-500 dark:text-success-700">94%</p>
                 </div>
                 <hr className="border-neutral-200 dark:border-neutral-600" />
                 <div className="flex justify-between items-center">
@@ -151,7 +151,7 @@ export const KPITabs: React.FC = () => {
                     <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">LONDON-EAST-04</p>
                     <p className="text-sm text-neutral-500 dark:text-neutral-400">EMEA</p>
                   </div>
-                  <p className="text-lg font-medium text-green-600 dark:text-green-400">92%</p>
+                  <p className="text-lg font-medium text-success-500 dark:text-success-700">92%</p>
                 </div>
                 <hr className="border-neutral-200 dark:border-neutral-600" />
                 <div className="flex justify-between items-center">
@@ -159,7 +159,7 @@ export const KPITabs: React.FC = () => {
                     <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">SINGAPORE-03</p>
                     <p className="text-sm text-neutral-500 dark:text-neutral-400">APAC</p>
                   </div>
-                  <p className="text-lg font-medium text-green-600 dark:text-green-400">89%</p>
+                  <p className="text-lg font-medium text-success-500 dark:text-success-700">89%</p>
                 </div>
                 <hr className="border-neutral-200 dark:border-neutral-600" />
                 <div className="flex justify-between items-center">
@@ -167,7 +167,7 @@ export const KPITabs: React.FC = () => {
                     <p className="text-sm font-medium text-neutral-900 dark:text-neutral-50">FRANKFURT-02</p>
                     <p className="text-sm text-neutral-500 dark:text-neutral-400">EMEA</p>
                   </div>
-                  <p className="text-lg font-medium text-green-600 dark:text-green-400">87%</p>
+                  <p className="text-lg font-medium text-success-500 dark:text-success-700">87%</p>
                 </div>
               </div>
             </Card>
