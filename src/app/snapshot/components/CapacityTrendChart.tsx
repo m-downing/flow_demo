@@ -1,5 +1,6 @@
 import React from 'react';
 import { LineChart } from '@/design-system/charts';
+import Card from '@/design-system/layout/Card';
 
 // Mock data for capacity trend chart
 const capacityTrendData = [
@@ -14,13 +15,12 @@ const capacityTrendData = [
 const CapacityTrendChart: React.FC = () => {
   return (
     <div className="md:col-span-8">
-      <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-        <div className="flex justify-between items-center mb-2">
-          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Global Capacity Trend</h6>
-        </div>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-          Actual vs forecasted rack capacity (last 6 months)
-        </p>
+      <Card
+        title="Global Capacity Trend"
+        subtitle="Actual vs forecasted rack capacity (last 6 months)"
+        shadowLevel="sm"
+        headerSpacing="2"
+      >
         <div className="h-80">
           <LineChart 
             data={capacityTrendData} 
@@ -34,7 +34,7 @@ const CapacityTrendChart: React.FC = () => {
             }}
           />
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

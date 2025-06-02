@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { 
   BarChart, LineChart 
 } from '@/design-system/charts';
+import { ProgressTracker } from '@/design-system/charts/ProgressTracker';
+import Card from '@/design-system/layout/Card';
 import {
   procurementEfficiencyData,
   deploymentTimeData,
@@ -94,23 +96,24 @@ export const KPITabs: React.FC = () => {
   };
 
   return (
-    <div className="mb-6 bg-white dark:bg-neutral-900 shadow-md rounded-lg">
+    <Card shadowLevel="md" className="mb-6">
       {renderTabs()}
       
       {/* Overview Tab */}
       <TabPanel value={tabValue} index={0}>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           <div className="md:col-span-8">
-            <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-              <div className="flex justify-between items-center mb-2">
-                <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Regional KPI Comparison</h6>
+            <Card
+              title="Regional KPI Comparison"
+              subtitle="Performance metrics by geographical region"
+              headerAction={
                 <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">
                   <MoreIcon />
                 </button>
-              </div>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-                Performance metrics by geographical region
-              </p>
+              }
+              shadowLevel="sm"
+              headerSpacing="2"
+            >
               <div className="h-96">
                 <BarChart 
                   data={regionalKpiData} 
@@ -119,17 +122,21 @@ export const KPITabs: React.FC = () => {
                   height={400}
                 />
               </div>
-            </div>
+            </Card>
           </div>
           
           <div className="md:col-span-4">
-            <div className="p-4 mb-6 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-              <div className="flex justify-between items-center mb-2">
-                <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Top Performing Data Centers</h6>
+            <Card
+              title="Top Performing Data Centers"
+              headerAction={
                 <button className="text-neutral-500 dark:text-neutral-400 p-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-700">
                   <MoreIcon />
                 </button>
-              </div>
+              }
+              shadowLevel="sm"
+              className="mb-6"
+              headerSpacing="2"
+            >
               <div className="space-y-4 mt-4">
                 <div className="flex justify-between items-center">
                   <div>
@@ -163,67 +170,71 @@ export const KPITabs: React.FC = () => {
                   <p className="text-lg font-medium text-green-600 dark:text-green-400">87%</p>
                 </div>
               </div>
-            </div>
+            </Card>
             
-            <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-              <div className="flex justify-between items-center mb-2">
-                <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">KPI Achievement</h6>
-                <button className="text-neutral-500 dark:text-neutral-400">
+            <Card
+              title="KPI Achievement"
+              headerAction={
+                <button className="text-neutral-500 dark:text-neutral-40">
                   <MoreIcon />
                 </button>
-              </div>
+              }
+              shadowLevel="sm"
+              headerSpacing="2"
+            >
               <div className="space-y-4 mt-4">
-                <div className="flex items-center">
-                  <div className="w-32">
-                    <p className="text-sm text-neutral-600 dark:text-neutral-300">Procurement</p>
-                  </div>
-                  <div className="flex-grow bg-neutral-200 dark:bg-neutral-600 h-2 rounded-full">
-                    <div className="bg-green-500 dark:bg-green-400 h-2 rounded-full" style={{ width: '91%' }}></div>
-                  </div>
-                  <p className="ml-2 text-green-600 dark:text-green-400">91%</p>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-32">
-                    <p className="text-sm text-neutral-600 dark:text-neutral-300">Deployment</p>
-                  </div>
-                  <div className="flex-grow bg-neutral-200 dark:bg-neutral-600 h-2 rounded-full">
-                    <div className="bg-green-500 dark:bg-green-400 h-2 rounded-full" style={{ width: '87%' }}></div>
-                  </div>
-                  <p className="ml-2 text-green-600 dark:text-green-400">87%</p>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-32">
-                    <p className="text-sm text-neutral-600 dark:text-neutral-300">Utilization</p>
-                  </div>
-                  <div className="flex-grow bg-neutral-200 dark:bg-neutral-600 h-2 rounded-full">
-                    <div className="bg-neutral-500 dark:bg-neutral-400 h-2 rounded-full" style={{ width: '78%' }}></div>
-                  </div>
-                  <p className="ml-2 text-neutral-500 dark:text-neutral-400">78%</p>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-32">
-                    <p className="text-sm text-neutral-600 dark:text-neutral-300">Cost</p>
-                  </div>
-                  <div className="flex-grow bg-neutral-200 dark:bg-neutral-600 h-2 rounded-full">
-                    <div className="bg-amber-700 dark:bg-amber-700 h-2 rounded-full" style={{ width: '65%' }}></div>
-                  </div>
-                  <p className="ml-2 text-amber-700 dark:text-amber-500">65%</p>
-                </div>
+                <ProgressTracker 
+                  value={91} 
+                  max={100} 
+                  label="Procurement" 
+                  status="success" 
+                  variant="horizontal"
+                  mode="summary"
+                  height={8}
+                />
+                <ProgressTracker 
+                  value={87} 
+                  max={100} 
+                  label="Deployment" 
+                  status="success" 
+                  variant="horizontal"
+                  mode="summary"
+                  height={8}
+                />
+                <ProgressTracker 
+                  value={78} 
+                  max={100} 
+                  label="Utilization" 
+                  status="neutral" 
+                  variant="horizontal"
+                  mode="summary"
+                  height={8}
+                />
+                <ProgressTracker 
+                  value={65} 
+                  max={100} 
+                  label="Cost" 
+                  status="warning" 
+                  variant="horizontal"
+                  mode="summary"
+                  height={8}
+                />
               </div>
-            </div>
+            </Card>
           </div>
           
           <div className="md:col-span-6">
-            <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-              <div className="flex justify-between items-center mb-2">
-                <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Procurement Efficiency</h6>
+            <Card
+              title="Procurement Efficiency"
+              subtitle="% of orders processed within SLA timeframe"
+              headerAction={
                 <button className="text-neutral-500 dark:text-neutral-400">
                   <MoreIcon />
                 </button>
-              </div>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-                % of orders processed within SLA timeframe
-              </p>
+              }
+              shadowLevel="sm"
+              headerSpacing="2"
+            >
               <div className="h-72">
                 <LineChart 
                   data={procurementEfficiencyData} 
@@ -232,20 +243,21 @@ export const KPITabs: React.FC = () => {
                   height={300}
                 />
               </div>
-            </div>
+            </Card>
           </div>
           
           <div className="md:col-span-6">
-            <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-              <div className="flex justify-between items-center mb-2">
-                <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Average Deployment Time</h6>
+            <Card
+              title="Average Deployment Time"
+              subtitle="Days from order to operational deployment"
+              headerAction={
                 <button className="text-neutral-500 dark:text-neutral-400">
                   <MoreIcon />
                 </button>
-              </div>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-                Days from order to operational deployment
-              </p>
+              }
+              shadowLevel="sm"
+              headerSpacing="2"
+            >
               <div className="h-72">
                 <LineChart 
                   data={deploymentTimeData} 
@@ -254,7 +266,7 @@ export const KPITabs: React.FC = () => {
                   height={300}
                 />
               </div>
-            </div>
+            </Card>
           </div>
         </div>
       </TabPanel>
@@ -265,16 +277,17 @@ export const KPITabs: React.FC = () => {
           <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Procurement Key Performance Indicators</h6>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Procurement Efficiency Trend</h6>
+              <Card
+                title="Procurement Efficiency Trend"
+                subtitle="Percentage of orders processed within SLA timeframe"
+                headerAction={
                   <button className="text-neutral-500 dark:text-neutral-400">
                     <MoreIcon />
                   </button>
-                </div>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-                  Percentage of orders processed within SLA timeframe
-                </p>
+                }
+                shadowLevel="sm"
+                headerSpacing="2"
+              >
                 <div className="h-72">
                   <LineChart 
                     data={procurementEfficiencyData} 
@@ -283,20 +296,21 @@ export const KPITabs: React.FC = () => {
                     height={300}
                   />
                 </div>
-              </div>
+              </Card>
             </div>
             
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Inventory Turnover Rate</h6>
+              <Card
+                title="Inventory Turnover Rate"
+                subtitle="Rate at which inventory is used and replaced"
+                headerAction={
                   <button className="text-neutral-500 dark:text-neutral-400">
                     <MoreIcon />
                   </button>
-                </div>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-                  Rate at which inventory is used and replaced
-                </p>
+                }
+                shadowLevel="sm"
+                headerSpacing="2"
+              >
                 <div className="h-72">
                   <LineChart 
                     data={inventoryTurnoverData} 
@@ -305,7 +319,7 @@ export const KPITabs: React.FC = () => {
                     height={300}
                   />
                 </div>
-              </div>
+              </Card>
             </div>
           </div>
         </div>
@@ -317,16 +331,17 @@ export const KPITabs: React.FC = () => {
           <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Deployment Key Performance Indicators</h6>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Deployment Time Trend</h6>
+              <Card
+                title="Deployment Time Trend"
+                subtitle="Average days from order to operational deployment"
+                headerAction={
                   <button className="text-neutral-500 dark:text-neutral-400">
                     <MoreIcon />
                   </button>
-                </div>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-                  Average days from order to operational deployment
-                </p>
+                }
+                shadowLevel="sm"
+                headerSpacing="2"
+              >
                 <div className="h-72">
                   <LineChart 
                     data={deploymentTimeData} 
@@ -335,20 +350,21 @@ export const KPITabs: React.FC = () => {
                     height={300}
                   />
                 </div>
-              </div>
+              </Card>
             </div>
             
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Regional Deployment Times</h6>
+              <Card
+                title="Regional Deployment Times"
+                subtitle="Average deployment time by region (days)"
+                headerAction={
                   <button className="text-neutral-500 dark:text-neutral-400">
                     <MoreIcon />
                   </button>
-                </div>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-                  Average deployment time by region (days)
-                </p>
+                }
+                shadowLevel="sm"
+                headerSpacing="2"
+              >
                 <div className="h-72">
                   <BarChart 
                     data={regionalKpiData} 
@@ -357,7 +373,7 @@ export const KPITabs: React.FC = () => {
                     height={300}
                   />
                 </div>
-              </div>
+              </Card>
             </div>
           </div>
         </div>
@@ -369,16 +385,17 @@ export const KPITabs: React.FC = () => {
           <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">Utilization Key Performance Indicators</h6>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Capacity Utilization Trend</h6>
+              <Card
+                title="Capacity Utilization Trend"
+                subtitle="Percentage of data center capacity being utilized"
+                headerAction={
                   <button className="text-neutral-500 dark:text-neutral-400">
                     <MoreIcon />
                   </button>
-                </div>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-                  Percentage of data center capacity being utilized
-                </p>
+                }
+                shadowLevel="sm"
+                headerSpacing="2"
+              >
                 <div className="h-72">
                   <LineChart 
                     data={capacityUtilizationData} 
@@ -387,20 +404,21 @@ export const KPITabs: React.FC = () => {
                     height={300}
                   />
                 </div>
-              </div>
+              </Card>
             </div>
             
             <div className="md:col-span-6">
-              <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Regional Utilization Rates</h6>
+              <Card
+                title="Regional Utilization Rates"
+                subtitle="Capacity utilization percentage by region"
+                headerAction={
                   <button className="text-neutral-500 dark:text-neutral-400">
                     <MoreIcon />
                   </button>
-                </div>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-                  Capacity utilization percentage by region
-                </p>
+                }
+                shadowLevel="sm"
+                headerSpacing="2"
+              >
                 <div className="h-72">
                   <BarChart 
                     data={regionalKpiData} 
@@ -409,7 +427,7 @@ export const KPITabs: React.FC = () => {
                     height={300}
                   />
                 </div>
-              </div>
+              </Card>
             </div>
           </div>
         </div>
@@ -426,6 +444,6 @@ export const KPITabs: React.FC = () => {
           </div>
         </div>
       </TabPanel>
-    </div>
+    </Card>
   );
 }; 

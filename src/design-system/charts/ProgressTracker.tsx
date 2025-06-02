@@ -23,6 +23,9 @@ type DetailLevel = 'summary' | 'drilldown' | 'deepDive';
  * @property {boolean} [loading=false] - Loading state (shows a generic loader).
  * @property {ReactNode} [emptyState] - Not typically used for progress, but included for consistency.
  * @property {boolean} [showValueAsTooltip=false] - Whether to show the value as a tooltip.
+ * @property {'circular' | 'horizontal'} [variant='circular'] - The variant of the progress tracker.
+ * @property {number} [height=8] - Height of the horizontal progress bar (only for horizontal variant).
+ * @property {boolean} [showValue=true] - Whether to show the value text (for horizontal variant).
  */
 interface ProgressTrackerProps {
   value: number;
@@ -36,10 +39,13 @@ interface ProgressTrackerProps {
   loading?: boolean;
   emptyState?: ReactNode; // Less relevant here, but for consistency
   showValueAsTooltip?: boolean; // New prop
+  variant?: 'circular' | 'horizontal'; // New prop
+  height?: number; // New prop for horizontal variant
+  showValue?: boolean; // New prop for horizontal variant
 }
 
 /**
- * ProgressTracker component displays a circular progress indicator.
+ * ProgressTracker component displays a circular or horizontal progress indicator.
  *
  * @param {ProgressTrackerProps} props - The properties for the ProgressTracker.
  * @returns {JSX.Element} The rendered ProgressTracker component.
@@ -57,6 +63,9 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   emptyState: _emptyState, // Included for prop consistency, less typical for a progress bar
   showValueAsTooltip = false, // Default to false
+  variant = 'circular', // Default to circular
+  height = 8, // Default height for horizontal
+  showValue = true, // Default to showing value
 }) => {
   const { theme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
@@ -69,7 +78,7 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
   const themeColors = getChartColors(isDark);
 
   if (loading) {
-    return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: propSize || (mode === 'summary' ? 50 : 100), fontFamily: getTypography.fontFamily('body'), color: themeColors.axis.color }}>Loading...</div>;
+    return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: variant === 'horizontal' ? height : (propSize || (mode === 'summary' ? 50 : 100)), fontFamily: getTypography.fontFamily('body'), color: themeColors.axis.color }}>Loading...</div>;
   }
 
   // Handle cases where progress isn't meaningful (optional, based on use case)
@@ -93,6 +102,71 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
   const defaultFormatter = (val: number, mx: number) => `${Math.round((val / mx) * 100)}%`;
   const displayValue = valueFormatter ? valueFormatter(value, max) : defaultFormatter(value, max);
 
+  // Horizontal variant implementation
+  if (variant === 'horizontal') {
+    const percentage = Math.max(0, Math.min(value, max)) / max * 100;
+    
+    return (
+      <div 
+        style={{ 
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          fontFamily: getTypography.fontFamily('body'),
+          opacity: isMounted ? 1 : 0,
+          transition: 'opacity 0.15s ease-in-out',
+          width: '100%'
+        }}
+        key={`progress-${theme}-${isMounted}`}
+        title={showValueAsTooltip ? displayValue : undefined}
+      >
+        {isMounted && (
+          <>
+            {label && (
+              <div style={{
+                minWidth: mode === 'summary' ? '80px' : '128px',
+                fontSize: getTypography.fontSize(mode === 'summary' ? 'xs' : 'sm'),
+                color: themeColors.axis.color,
+              }}>
+                {label}
+              </div>
+            )}
+            <div style={{
+              flexGrow: 1,
+              backgroundColor: trackColor,
+              height: `${height}px`,
+              borderRadius: `${height / 2}px`,
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <div
+                style={{
+                  backgroundColor: progressColor,
+                  height: '100%',
+                  width: `${percentage}%`,
+                  borderRadius: `${height / 2}px`,
+                  transition: 'width 0.3s ease-out'
+                }}
+              />
+            </div>
+            {showValue && !showValueAsTooltip && (
+              <div style={{
+                minWidth: '40px',
+                textAlign: 'right',
+                fontSize: getTypography.fontSize(mode === 'summary' ? 'xs' : 'sm'),
+                color: status === 'primary' ? themeColors.axis.color : progressColor,
+                fontWeight: getTypography.fontWeight('semibold')
+              }}>
+                {displayValue}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    );
+  }
+
+  // Circular variant (existing implementation)
   return (
     <div 
       style={{ 

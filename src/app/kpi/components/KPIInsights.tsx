@@ -1,14 +1,17 @@
 import React from 'react';
+import Card from '@/design-system/layout/Card';
 
 export const KPIInsights: React.FC = () => {
   return (
-    <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">KPI Insights</h6>
+    <Card
+      title="KPI Insights"
+      headerAction={
         <button className="text-primary-600 dark:text-neutral-400 hover:text-primary-700 dark:hover:text-neutral-300">
           View All Insights
         </button>
-      </div>
+      }
+      shadowLevel="md"
+    >
       <div className="space-y-4">
         <div className="p-3 bg-neutral-50 dark:bg-neutral-950 rounded-lg border border-neutral-200 dark:border-neutral-700">
           <p className="text-sm font-medium text-green-700 dark:text-green-400">Procurement Efficiency Improvement</p>
@@ -34,6 +37,6 @@ export const KPIInsights: React.FC = () => {
           </p>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }; 

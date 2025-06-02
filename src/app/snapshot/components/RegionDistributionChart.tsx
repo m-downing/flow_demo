@@ -1,5 +1,6 @@
 import React from 'react';
 import { BarChart } from '@/design-system/charts';
+import Card from '@/design-system/layout/Card';
 
 // Mock data for region capacity
 const regionCapacityData = [
@@ -12,13 +13,12 @@ const regionCapacityData = [
 const RegionDistributionChart: React.FC = () => {
   return (
     <div className="md:col-span-8">
-      <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg">
-        <div className="flex justify-between items-center mb-2">
-          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Infrastructure Distribution by Region</h6>
-        </div>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-          Current rack allocation across global regions
-        </p>
+      <Card
+        title="Infrastructure Distribution by Region"
+        subtitle="Current rack allocation across global regions"
+        shadowLevel="sm"
+        headerSpacing="2"
+      >
         <div className="h-80">
           <BarChart 
             data={regionCapacityData} 
@@ -27,7 +27,7 @@ const RegionDistributionChart: React.FC = () => {
             height={320}
           />
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

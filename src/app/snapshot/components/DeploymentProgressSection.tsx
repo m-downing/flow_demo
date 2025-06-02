@@ -1,16 +1,17 @@
 import React from 'react';
 import { ProgressTracker } from '@/design-system/charts';
+import Card from '@/design-system/layout/Card';
 
 const DeploymentProgressSection: React.FC = () => {
   return (
     <div className="md:col-span-4">
-      <div className="p-4 bg-white dark:bg-neutral-900 shadow-sm rounded-lg h-full">
-        <div className="flex justify-between items-center mb-2">
-          <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50">Key Deployment Progress</h6>
-        </div>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-          Major data center expansion initiatives
-        </p>
+      <Card
+        title="Key Deployment Progress"
+        subtitle="Major data center expansion initiatives"
+        shadowLevel="sm"
+        fullHeight={true}
+        headerSpacing="2"
+      >
         <div className="grid grid-cols-2 gap-4 mb-2">
           <ProgressTracker value={75} label="Frankfurt Expansion" status="success" mode="deepDive" />
           <ProgressTracker value={33} label="Singapore Phase 2" status="warning" mode="deepDive" />
@@ -19,7 +20,7 @@ const DeploymentProgressSection: React.FC = () => {
           <ProgressTracker value={90} label="NYC West Migration" status="warning" mode="deepDive" />
           <ProgressTracker value={15} label="London Retrofit" status="error" mode="deepDive" />
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

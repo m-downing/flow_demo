@@ -90,7 +90,7 @@ export const ChartGallery: React.FC = () => {
       </div>
 
       {/* Main Chart Gallery Container */}
-      <div className="bg-white dark:bg-neutral-900 shadow-md rounded-lg p-4">
+      <div className="mt-6">
         <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">
           Chart Components
         </h6>
