@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { PageContainer } from '@/design-system/layout/PageContainer';
-import FilterBar from '@/design-system/components/controls/FilterBar';
 import { 
   KPISummaryMetrics, 
   KPITabs, 
@@ -10,27 +9,6 @@ import {
 } from './components';
 
 const KPIPage: React.FC = () => {
-  const [timeRange, setTimeRange] = useState('6months');
-  const [region, setRegion] = useState('all');
-  const [priority, setPriority] = useState('all');
-  
-  const handleTimeRangeChange = (value: string) => {
-    setTimeRange(value);
-  };
-  
-  const handleRegionChange = (value: string) => {
-    setRegion(value);
-  };
-
-  const handlePriorityChange = (value: string) => {
-    setPriority(value);
-  };
-  
-  const handleMoreFiltersClick = () => {
-    // Implementation for more filters can be added here
-    console.log('More filters clicked');
-  };
-  
   return (
     <PageContainer>
       <div className="flex justify-between items-center mb-lg">
@@ -42,15 +20,7 @@ const KPIPage: React.FC = () => {
             Monitor and analyze data center supply chain performance metrics
           </p>
         </div>
-        <FilterBar
-          timeRange={timeRange}
-          region={region}
-          priority={priority}
-          onTimeRangeChange={handleTimeRangeChange}
-          onRegionChange={handleRegionChange}
-          onPriorityChange={handlePriorityChange}
-          onMoreFiltersClick={handleMoreFiltersClick}
-        />
+        {/* TODO: Replace with new filter components when needed */}
       </div>
       
       <KPISummaryMetrics />

@@ -204,14 +204,15 @@ const columns: ColumnDef<ServerRecord>[] = [
 
 interface ServerInventoryTableProps {
   height?: number;
+  data?: ServerRecord[];
 }
 
-export default function ServerInventoryTable({ height = 500 }: ServerInventoryTableProps) {
+export default function ServerInventoryTable({ height = 500, data = sampleData }: ServerInventoryTableProps) {
   const [mode, setMode] = useState<DetailLevel>('summary');
 
   return (
     <TableView
-      data={sampleData}
+      data={data}
       columns={columns}
       mode={mode}
       onModeChange={setMode}

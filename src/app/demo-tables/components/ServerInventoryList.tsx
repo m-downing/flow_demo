@@ -4,88 +4,130 @@ import React, { useState } from 'react';
 import { ListView, DetailLevel } from '@/design-system/tabularData';
 import Badge, { BadgeVariant } from '@/design-system/components/feedback/Badge';
 import { ServerRecord, sampleData } from './mockData';
-import { MapPinIcon, CalendarIcon, CurrencyDollarIcon, CubeIcon } from '@heroicons/react/24/outline';
 
-interface ServerInventoryListProps {
-  height?: number;
-}
+// Custom render function for server items
+const renderServerItem = (item: Record<string, unknown>, index: number): React.ReactNode => {
+  const server = item as ServerRecord;
+  
+  // Map status values to badge variants
+  const statusMapping: Record<string, { variant: BadgeVariant; display: string }> = {
+    planned: { variant: 'forecast', display: 'Forecast' },
+    ordered: { variant: 'purchaseReq', display: 'Purchase Req.' },
+    manufacturing: { variant: 'integrator', display: 'Integrator' },
+    qualityTesting: { variant: 'sop', display: 'S&OP' },
+    readyToShip: { variant: 'purchaseOrder', display: 'Purchase Order' },
+    inTransit: { variant: 'networkBuild', display: 'Network Build' },
+    delivered: { variant: 'logicalBuild', display: 'Logical Build' },
+    installing: { variant: 'completed', display: 'Completed' },
+    active: { variant: 'completed', display: 'Completed' },
+    delayed: { variant: 'unassigned2', display: 'Unassigned 2' },
+  };
 
-export default function ServerInventoryList({ height = 500 }: ServerInventoryListProps) {
-  const [mode, setMode] = useState<DetailLevel>('summary');
+  const priorityMapping: Record<string, BadgeVariant> = {
+    critical: 'critical',
+    high: 'highPriority',
+    standard: 'standard',
+  };
 
-  // Custom item renderer for ListView - let ListView handle container styling
-  const renderListItem = (item: ServerRecord) => (
-    <div className="flex flex-col gap-2">
-      <div className="flex justify-between items-center">
-        <h4 className="m-0 text-neutral-800 dark:text-neutral-50 font-medium">
-          {item.serverModel}
-        </h4>
-        <span className="text-xs text-neutral-600 dark:text-neutral-300">
-          {item.id}
-        </span>
+  const serviceLevelMapping: Record<string, BadgeVariant> = {
+    Basic: 'standard',
+    Standard: 'purchaseReq',
+    Premium: 'highPriority',
+    Enterprise: 'critical',
+  };
+
+  const statusInfo = statusMapping[server.status] || { variant: 'unassigned1', display: server.status };
+  const priorityVariant = priorityMapping[server.priority] || 'standard';
+  const serviceLevelVariant = serviceLevelMapping[server.serviceLevel] || 'standard';
+
+  return (
+    <div key={`server-${server.id}-${index}`} className="p-6 space-y-4">
+      {/* Header with server model and status */}
+      <div className="flex justify-between items-start">
+        <div>
+          <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-50">
+            {server.serverModel}
+          </h3>
+          <p className="text-sm text-neutral-600 dark:text-neutral-300">
+            Server ID: {server.id}
+          </p>
+        </div>
+        <Badge variant={statusInfo.variant}>
+          {statusInfo.display}
+        </Badge>
       </div>
-      <div className="flex gap-sm items-center flex-wrap">
-        <span className="text-sm text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
-          <MapPinIcon className="w-4 h-4" />
-          {item.location}
-        </span>
-        <span className="text-sm text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
-          <CalendarIcon className="w-4 h-4" />
-          {item.expectedDelivery}
-        </span>
-        <span className="text-sm text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
-          <CurrencyDollarIcon className="w-4 h-4" />
-          ${item.cost.toLocaleString()}
-        </span>
-        <span className="text-sm text-neutral-700 dark:text-neutral-300 flex items-center gap-1">
-          <CubeIcon className="w-4 h-4" />
-          {item.quantity} units
-        </span>
+
+      {/* Key metrics grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="space-y-1">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">Location</p>
+          <p className="text-sm text-neutral-900 dark:text-neutral-100">{server.location}</p>
+        </div>
+        <div className="space-y-1">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">Priority</p>
+          <Badge variant={priorityVariant} size="small">
+            {server.priority}
+          </Badge>
+        </div>
+        <div className="space-y-1">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">Cost</p>
+          <p className="text-sm text-neutral-900 dark:text-neutral-100">${server.cost.toLocaleString()}</p>
+        </div>
+        <div className="space-y-1">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">Quantity</p>
+          <p className="text-sm text-neutral-900 dark:text-neutral-100">{server.quantity}</p>
+        </div>
       </div>
-      <div className="flex gap-2 flex-wrap">
-        <Badge variant={
-          item.status === 'planned' ? 'forecast' :
-          item.status === 'ordered' ? 'purchaseReq' :
-          item.status === 'manufacturing' ? 'integrator' :
-          item.status === 'qualityTesting' ? 'sop' :
-          item.status === 'readyToShip' ? 'purchaseOrder' :
-          item.status === 'inTransit' ? 'networkBuild' :
-          item.status === 'delivered' ? 'logicalBuild' :
-          item.status === 'installing' ? 'completed' :
-          item.status === 'active' ? 'completed' :
-          item.status === 'delayed' ? 'unassigned2' :
-          'unassigned1' as BadgeVariant
-        }>
-          {item.status === 'planned' ? 'Forecast' :
-           item.status === 'ordered' ? 'Purchase Req.' :
-           item.status === 'manufacturing' ? 'Integrator' :
-           item.status === 'qualityTesting' ? 'S&OP' :
-           item.status === 'readyToShip' ? 'Purchase Order' :
-           item.status === 'inTransit' ? 'Network Build' :
-           item.status === 'delivered' ? 'Logical Build' :
-           item.status === 'installing' ? 'Completed' :
-           item.status === 'active' ? 'Completed' :
-           item.status === 'delayed' ? 'Unassigned 2' :
-           item.status}
-        </Badge>
-        <Badge variant={item.priority === 'critical' ? 'critical' : item.priority === 'high' ? 'highPriority' : 'standard'}>
-          {item.priority}
-        </Badge>
-        <Badge variant={item.serviceLevel === 'Enterprise' ? 'critical' : item.serviceLevel === 'Premium' ? 'highPriority' : item.serviceLevel === 'Standard' ? 'purchaseReq' : 'standard'}>
-          {item.serviceLevel}
-        </Badge>
+
+      {/* Additional details */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-neutral-200 dark:border-neutral-700">
+        <div className="space-y-2">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">Specifications</p>
+          <div className="space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
+            <p>{server.cpuCores} cores</p>
+            <p>{server.ramSize} RAM</p>
+            <p>{server.storageSize}</p>
+            <p>{server.powerConsumption}W</p>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">Dates</p>
+          <div className="space-y-1 text-sm text-neutral-700 dark:text-neutral-300">
+            <p>Ordered: {server.orderDate}</p>
+            <p>Expected: {server.expectedDelivery}</p>
+            <p>Warranty: {server.warrantyExpiry}</p>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400">Service</p>
+          <div className="space-y-1">
+            <Badge variant={serviceLevelVariant} size="small">
+              {server.serviceLevel}
+            </Badge>
+            <p className="text-sm text-neutral-700 dark:text-neutral-300">{server.supplier}</p>
+            <p className="text-sm text-neutral-700 dark:text-neutral-300">Rack: {server.rackUnit}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
+};
+
+interface ServerInventoryListProps {
+  height?: number;
+  data?: ServerRecord[];
+}
+
+export default function ServerInventoryList({ height = 500, data = sampleData }: ServerInventoryListProps) {
+  const [mode, setMode] = useState<DetailLevel>('summary');
 
   return (
     <ListView
-      data={sampleData}
+      data={data}
       mode={mode}
       onModeChange={setMode}
-      title="Server List View"
-      tableId="server-list-interactive"
-      renderItem={renderListItem}
+      renderItem={renderServerItem}
+      title="Server Inventory List"
       height={height}
     />
   );

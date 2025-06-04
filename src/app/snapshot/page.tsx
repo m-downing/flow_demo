@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 import { PageContainer } from '@/design-system/layout/PageContainer';
-import FilterBar from '@/design-system/components/controls/FilterBar';
 
 // Import all modular components
 import KeyMetricsSection from './components/KeyMetricsSection';
@@ -11,29 +10,6 @@ import RegionDistributionChart from './components/RegionDistributionChart';
 import DeploymentProgressSection from './components/DeploymentProgressSection';
 
 const SnapshotPage: React.FC = () => {
-  // Filter state
-  const [timeRange, setTimeRange] = useState('30days');
-  const [region, setRegion] = useState('all');
-  const [priority, setPriority] = useState('all');
-
-  // Filter handlers
-  const handleTimeRangeChange = (value: string) => {
-    setTimeRange(value);
-  };
-
-  const handleRegionChange = (value: string) => {
-    setRegion(value);
-  };
-
-  const handlePriorityChange = (value: string) => {
-    setPriority(value);
-  };
-
-  const handleMoreFiltersClick = () => {
-    // Handle more filters modal/drawer
-    console.log('More filters clicked');
-  };
-
   return (
     <PageContainer>
       <div className="flex justify-between items-center mb-lg">
@@ -45,16 +21,7 @@ const SnapshotPage: React.FC = () => {
             Real-time overview of data center capacity, deployments, and critical alerts
           </p>
         </div>
-        <FilterBar
-          timeRange={timeRange}
-          region={region}
-          priority={priority}
-          onTimeRangeChange={handleTimeRangeChange}
-          onRegionChange={handleRegionChange}
-          onPriorityChange={handlePriorityChange}
-          onMoreFiltersClick={handleMoreFiltersClick}
-          showMoreFilters={true}
-        />
+        {/* TODO: Replace with new filter components when needed */}
       </div>
       
       {/* Key Metrics */}
