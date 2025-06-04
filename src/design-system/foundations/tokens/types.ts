@@ -49,6 +49,7 @@ export interface Colors {
 export interface BadgeColor {
   bg: string;
   text: string;
+  border?: string;
 }
 
 export interface BadgeColors {

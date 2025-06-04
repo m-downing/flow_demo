@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { colors } from '@/design-system/foundations/tokens/colors.js';
+import Badge, { BadgeVariant } from '@/design-system/components/feedback/Badge';
 
 // Define the color groups we want to display
 const colorGroups = [
@@ -200,6 +201,76 @@ const ColorDemo: React.FC = () => {
 
       <div className="mt-xl text-center text-sm text-neutral-500 dark:text-neutral-400">
         Click any color swatch to copy its hex value to clipboard
+      </div>
+
+      {/* Badge showcase */}
+      <div className="mt-2xl bg-white dark:bg-neutral-900 rounded-lg shadow-sm dark:shadow-none dark:border dark:border-neutral-700 p-xl">
+        <h2 className="text-2xl font-heading font-semibold text-neutral-800 dark:text-neutral-50 mb-md">
+          Badge Variants
+        </h2>
+        <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-lg">
+          Supply chain status badges with their inverted (outlined) variants for flexible design hierarchy:
+        </p>
+        
+        {/* Supply Chain Status Badges */}
+        <div className="space-y-lg">
+          <div>
+            <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-200 mb-md">Supply Chain Status</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
+              {[
+                { name: 'Planned', variant: 'planned' as BadgeVariant },
+                { name: 'Ordered', variant: 'ordered' as BadgeVariant },
+                { name: 'Manufacturing', variant: 'manufacturing' as BadgeVariant },
+                { name: 'Quality Testing', variant: 'qualityTesting' as BadgeVariant },
+                { name: 'Ready to Ship', variant: 'readyToShip' as BadgeVariant },
+                { name: 'In Transit', variant: 'inTransit' as BadgeVariant },
+                { name: 'Delivered', variant: 'delivered' as BadgeVariant },
+                { name: 'Installing', variant: 'installing' as BadgeVariant },
+                { name: 'Active', variant: 'active' as BadgeVariant },
+                { name: 'Maintenance', variant: 'maintenance' as BadgeVariant },
+                { name: 'Delayed', variant: 'delayed' as BadgeVariant },
+              ].map(({ name, variant }) => (
+                <div key={variant} className="flex items-center gap-md p-md bg-neutral-50 dark:bg-neutral-800 rounded-md">
+                  <div className="flex items-center gap-sm min-w-0 flex-1">
+                    <Badge variant={variant}>{name}</Badge>
+                    <Badge variant={`${variant}Inverted` as BadgeVariant}>{name}</Badge>
+                  </div>
+                  <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
+                    {variant} / {variant}Inverted
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Priority/Risk Badges */}
+          <div>
+            <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-200 mb-md">Priority & Risk</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
+              {[
+                { name: 'Critical', variant: 'critical' as BadgeVariant },
+                { name: 'High Priority', variant: 'highPriority' as BadgeVariant },
+                { name: 'Standard', variant: 'standard' as BadgeVariant },
+                { name: 'At Risk', variant: 'atRisk' as BadgeVariant },
+              ].map(({ name, variant }) => (
+                <div key={variant} className="flex items-center gap-md p-md bg-neutral-50 dark:bg-neutral-800 rounded-md">
+                  <div className="flex items-center gap-sm min-w-0 flex-1">
+                    <Badge variant={variant}>{name}</Badge>
+                  </div>
+                  <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
+                    {variant}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-lg p-md bg-primary-50 dark:bg-primary-900/20 rounded-md border border-primary-200 dark:border-primary-700">
+          <p className="text-sm text-primary-700 dark:text-primary-300">
+            <strong className="text-primary-800 dark:text-primary-200">Usage:</strong> Use inverted variants for secondary content or when you need outlined/ghost button styling with transparent backgrounds and colored borders.
+          </p>
+        </div>
       </div>
     </>
   );
