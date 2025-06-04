@@ -128,45 +128,89 @@ const badgeColors = {
     bg: colors.primary[500],
     text: colors.primary[50],
   },
+  plannedInverted: {
+    bg: colors.primary[50],
+    text: colors.primary[500],
+  },
   ordered: {
     bg: colors.green[700],
     text: colors.neutral[50],
+  },
+  orderedInverted: {
+    bg: colors.neutral[50],
+    text: colors.green[700],
   },
   manufacturing: {
     bg: colors.primary[400],
     text: colors.blue[50],
   },
+  manufacturingInverted: {
+    bg: colors.blue[50],
+    text: colors.primary[400],
+  },
   qualityTesting: {
     bg: colors.blue[700],
     text: colors.blue[50],
+  },
+  qualityTestingInverted: {
+    bg: colors.blue[50],
+    text: colors.blue[700],
   },
   readyToShip: {
     bg: colors.blue[900],
     text: colors.blue[50],
   },
+  readyToShipInverted: {
+    bg: colors.blue[50],
+    text: colors.blue[900],
+  },
   inTransit: {
     bg: colors.brown[700],
     text: colors.brown[50],
+  },
+  inTransitInverted: {
+    bg: colors.brown[50],
+    text: colors.brown[700],
   },
   delivered: {
     bg: colors.teal[700],
     text: colors.teal[50],
   },
+  deliveredInverted: {
+    bg: colors.teal[50],
+    text: colors.teal[700],
+  },
   installing: {
     bg: colors.purple[700],
     text: colors.purple[50],
+  },
+  installingInverted: {
+    bg: colors.purple[50],
+    text: colors.purple[700],
   },
   active: {
     bg: colors.green[500],
     text: colors.success[50],
   },
+  activeInverted: {
+    bg: colors.success[50],
+    text: colors.green[500],
+  },
   maintenance: {
     bg: colors.magenta[700],
     text: colors.magenta[100],
   },
+  maintenanceInverted: {
+    bg: colors.magenta[100],
+    text: colors.magenta[700],
+  },
   delayed: {
     bg: colors.error[500],
     text: colors.neutral[50],
+  },
+  delayedInverted: {
+    bg: colors.neutral[50],
+    text: colors.error[500],
   },
   
   // Priority/Risk Badges (Sophisticated dark bg / Light text)

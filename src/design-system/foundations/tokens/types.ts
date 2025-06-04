@@ -53,16 +53,27 @@ export interface BadgeColor {
 
 export interface BadgeColors {
   planned: BadgeColor;
+  plannedInverted: BadgeColor;
   ordered: BadgeColor;
+  orderedInverted: BadgeColor;
   manufacturing: BadgeColor;
+  manufacturingInverted: BadgeColor;
   qualityTesting: BadgeColor;
-  readyToShip: BadgeColor;
+  qualityTestingInverted: BadgeColor;
   inTransit: BadgeColor;
+  inTransitInverted: BadgeColor;
   delivered: BadgeColor;
+  deliveredInverted: BadgeColor;
   installing: BadgeColor;
+  installingInverted: BadgeColor;
   active: BadgeColor;
+  activeInverted: BadgeColor;
   maintenance: BadgeColor;
+  maintenanceInverted: BadgeColor;
   delayed: BadgeColor;
+  delayedInverted: BadgeColor;
+  readyToShip: BadgeColor;
+  readyToShipInverted: BadgeColor;
   critical: BadgeColor;
   highPriority: BadgeColor;
   standard: BadgeColor;

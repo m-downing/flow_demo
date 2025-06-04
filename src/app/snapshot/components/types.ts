@@ -1,22 +1,6 @@
-// Define BadgeVariant type to match what's in the Badge component
-export type BadgeVariant = 
-  // Supply Chain Status Badges
-  | 'planned'
-  | 'ordered'
-  | 'manufacturing'
-  | 'qualityTesting'
-  | 'readyToShip'
-  | 'inTransit'
-  | 'delivered'
-  | 'installing'
-  | 'active'
-  | 'maintenance'
-  | 'delayed'
-  // Priority/Risk Badges
-  | 'critical'
-  | 'highPriority'
-  | 'standard'
-  | 'atRisk';
+// Import and re-export BadgeVariant from the design system
+import { BadgeVariant } from '@/design-system/components/feedback/Badge';
+export type { BadgeVariant };
 
 // Contact interface
 export interface Contact {
