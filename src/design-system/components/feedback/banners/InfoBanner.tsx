@@ -84,7 +84,7 @@ const InfoBanner: React.FC<InfoBannerProps> = ({
         relative top-0 left-0 right-0 z-40 w-full
         transform transition-all duration-300 ease-in-out
         ${isAnimating ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
-        flex items-start gap-3 p-3 px-4
+        flex items-start gap-3 p-3 pl-4 pr-20
         bg-teal-100 border-b-2 border-teal-500
         text-sm leading-6
         ${className}

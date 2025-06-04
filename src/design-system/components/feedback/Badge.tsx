@@ -6,29 +6,29 @@ import React from 'react';
  * Badge variants for all possible status indicators in the application
  */
 export type BadgeVariant = 
-  // Supply Chain Status Badges
-  | 'planned'
-  | 'plannedInverted'
-  | 'ordered'
-  | 'orderedInverted'
-  | 'manufacturing'
-  | 'manufacturingInverted'
-  | 'qualityTesting'
-  | 'qualityTestingInverted'
-  | 'readyToShip'
-  | 'readyToShipInverted'
-  | 'inTransit'
-  | 'inTransitInverted'
-  | 'delivered'
-  | 'deliveredInverted'
-  | 'installing'
-  | 'installingInverted'
-  | 'active'
-  | 'activeInverted'
-  | 'maintenance'
-  | 'maintenanceInverted'
-  | 'delayed'
-  | 'delayedInverted'
+  // Supply Chain Status Badges - ordered by workflow progression
+  | 'forecast'
+  | 'forecastInverted'
+  | 'sop'
+  | 'sopInverted'
+  | 'businessCase'
+  | 'businessCaseInverted'
+  | 'purchaseReq'
+  | 'purchaseReqInverted'
+  | 'purchaseOrder'
+  | 'purchaseOrderInverted'
+  | 'integrator'
+  | 'integratorInverted'
+  | 'networkBuild'
+  | 'networkBuildInverted'
+  | 'logicalBuild'
+  | 'logicalBuildInverted'
+  | 'completed'
+  | 'completedInverted'
+  | 'unassigned1'
+  | 'unassigned1Inverted'
+  | 'unassigned2'
+  | 'unassigned2Inverted'
   // Priority/Risk Badges
   | 'critical'
   | 'highPriority'
@@ -72,29 +72,29 @@ const Badge: React.FC<BadgeProps> = ({
   
   // Build variant-specific Tailwind classes
   const variantClasses = {
-    // Supply Chain Status Badges
-    planned: 'bg-badge-planned-bg text-badge-planned-text',
-    plannedInverted: 'bg-badge-plannedInverted-bg text-badge-plannedInverted-text border-2 border-badge-plannedInverted-border',
-    ordered: 'bg-badge-ordered-bg text-badge-ordered-text',
-    orderedInverted: 'bg-badge-orderedInverted-bg text-badge-orderedInverted-text border-2 border-badge-orderedInverted-border',
-    manufacturing: 'bg-badge-manufacturing-bg text-badge-manufacturing-text',
-    manufacturingInverted: 'bg-badge-manufacturingInverted-bg text-badge-manufacturingInverted-text border-2 border-badge-manufacturingInverted-border',
-    qualityTesting: 'bg-badge-qualityTesting-bg text-badge-qualityTesting-text',
-    qualityTestingInverted: 'bg-badge-qualityTestingInverted-bg text-badge-qualityTestingInverted-text border-2 border-badge-qualityTestingInverted-border',
-    readyToShip: 'bg-badge-readyToShip-bg text-badge-readyToShip-text',
-    readyToShipInverted: 'bg-badge-readyToShipInverted-bg text-badge-readyToShipInverted-text border-2 border-badge-readyToShipInverted-border',
-    inTransit: 'bg-badge-inTransit-bg text-badge-inTransit-text',
-    inTransitInverted: 'bg-badge-inTransitInverted-bg text-badge-inTransitInverted-text border-2 border-badge-inTransitInverted-border',
-    delivered: 'bg-badge-delivered-bg text-badge-delivered-text',
-    deliveredInverted: 'bg-badge-deliveredInverted-bg text-badge-deliveredInverted-text border-2 border-badge-deliveredInverted-border',
-    installing: 'bg-badge-installing-bg text-badge-installing-text',
-    installingInverted: 'bg-badge-installingInverted-bg text-badge-installingInverted-text border-2 border-badge-installingInverted-border',
-    active: 'bg-badge-active-bg text-badge-active-text',
-    activeInverted: 'bg-badge-activeInverted-bg text-badge-activeInverted-text border-2 border-badge-activeInverted-border',
-    maintenance: 'bg-badge-maintenance-bg text-badge-maintenance-text',
-    maintenanceInverted: 'bg-badge-maintenanceInverted-bg text-badge-maintenanceInverted-text border-2 border-badge-maintenanceInverted-border',
-    delayed: 'bg-badge-delayed-bg text-badge-delayed-text',
-    delayedInverted: 'bg-badge-delayedInverted-bg text-badge-delayedInverted-text border-2 border-badge-delayedInverted-border',
+    // Supply Chain Status Badges - ordered by workflow progression
+    forecast: 'bg-badge-forecast-bg text-badge-forecast-text',
+    forecastInverted: 'bg-badge-forecastInverted-bg text-badge-forecastInverted-text border-2 border-badge-forecastInverted-border',
+    sop: 'bg-badge-sop-bg text-badge-sop-text',
+    sopInverted: 'bg-badge-sopInverted-bg text-badge-sopInverted-text border-2 border-badge-sopInverted-border',
+    businessCase: 'bg-badge-businessCase-bg text-badge-businessCase-text',
+    businessCaseInverted: 'bg-badge-businessCaseInverted-bg text-badge-businessCaseInverted-text border-2 border-badge-businessCaseInverted-border',
+    purchaseReq: 'bg-badge-purchaseReq-bg text-badge-purchaseReq-text',
+    purchaseReqInverted: 'bg-badge-purchaseReqInverted-bg text-badge-purchaseReqInverted-text border-2 border-badge-purchaseReqInverted-border',
+    purchaseOrder: 'bg-badge-purchaseOrder-bg text-badge-purchaseOrder-text',
+    purchaseOrderInverted: 'bg-badge-purchaseOrderInverted-bg text-badge-purchaseOrderInverted-text border-2 border-badge-purchaseOrderInverted-border',
+    integrator: 'bg-badge-integrator-bg text-badge-integrator-text',
+    integratorInverted: 'bg-badge-integratorInverted-bg text-badge-integratorInverted-text border-2 border-badge-integratorInverted-border',
+    networkBuild: 'bg-badge-networkBuild-bg text-badge-networkBuild-text',
+    networkBuildInverted: 'bg-badge-networkBuildInverted-bg text-badge-networkBuildInverted-text border-2 border-badge-networkBuildInverted-border',
+    logicalBuild: 'bg-badge-logicalBuild-bg text-badge-logicalBuild-text',
+    logicalBuildInverted: 'bg-badge-logicalBuildInverted-bg text-badge-logicalBuildInverted-text border-2 border-badge-logicalBuildInverted-border',
+    completed: 'bg-badge-completed-bg text-badge-completed-text',
+    completedInverted: 'bg-badge-completedInverted-bg text-badge-completedInverted-text border-2 border-badge-completedInverted-border',
+    unassigned1: 'bg-badge-unassigned1-bg text-badge-unassigned1-text',
+    unassigned1Inverted: 'bg-badge-unassigned1Inverted-bg text-badge-unassigned1Inverted-text border-2 border-badge-unassigned1Inverted-border',
+    unassigned2: 'bg-badge-unassigned2-bg text-badge-unassigned2-text',
+    unassigned2Inverted: 'bg-badge-unassigned2Inverted-bg text-badge-unassigned2Inverted-text border-2 border-badge-unassigned2Inverted-border',
     // Priority/Risk Badges
     critical: 'bg-badge-critical-bg text-badge-critical-text',
     highPriority: 'bg-badge-highPriority-bg text-badge-highPriority-text',

@@ -123,102 +123,102 @@ const colors = {
 
 // Badge color system - no inline styling required by developers
 const badgeColors = {
-  // Supply Chain Status Badges (Light bg / Dark text)
-  planned: {
-    bg: colors.primary[500],
-    text: colors.primary[50],
-  },
-  plannedInverted: {
-    bg: 'transparent',
-    text: colors.primary[500],
-    border: colors.primary[500],
-  },
-  ordered: {
-    bg: colors.green[700],
-    text: colors.neutral[50],
-  },
-  orderedInverted: {
-    bg: 'transparent',
-    text: colors.green[700],
-    border: colors.green[700],
-  },
-  manufacturing: {
-    bg: colors.primary[400],
-    text: colors.blue[50],
-  },
-  manufacturingInverted: {
-    bg: 'transparent',
-    text: colors.primary[400],
-    border: colors.primary[400],
-  },
-  qualityTesting: {
-    bg: colors.blue[700],
-    text: colors.blue[50],
-  },
-  qualityTestingInverted: {
-    bg: 'transparent',
-    text: colors.blue[700],
-    border: colors.blue[700],
-  },
-  readyToShip: {
-    bg: colors.blue[900],
-    text: colors.blue[50],
-  },
-  readyToShipInverted: {
-    bg: 'transparent',
-    text: colors.blue[900],
-    border: colors.blue[900],
-  },
-  inTransit: {
-    bg: colors.brown[700],
-    text: colors.brown[50],
-  },
-  inTransitInverted: {
-    bg: 'transparent',
-    text: colors.brown[700],
-    border: colors.brown[700],
-  },
-  delivered: {
+  // Supply Chain Status Badges - ordered by workflow progression
+  forecast: {
     bg: colors.teal[700],
     text: colors.teal[50],
   },
-  deliveredInverted: {
+  forecastInverted: {
     bg: 'transparent',
     text: colors.teal[700],
     border: colors.teal[700],
   },
-  installing: {
-    bg: colors.purple[700],
-    text: colors.purple[50],
+  sop: {
+    bg: colors.blue[700],
+    text: colors.blue[50],
   },
-  installingInverted: {
+  sopInverted: {
     bg: 'transparent',
-    text: colors.purple[700],
-    border: colors.purple[700],
+    text: colors.blue[700],
+    border: colors.blue[700],
   },
-  active: {
-    bg: colors.green[500],
-    text: colors.success[50],
+  businessCase: {
+    bg: colors.primary[500],
+    text: colors.primary[50],
   },
-  activeInverted: {
+  businessCaseInverted: {
     bg: 'transparent',
-    text: colors.green[500],
-    border: colors.green[500],
+    text: colors.primary[500],
+    border: colors.primary[500],
   },
-  maintenance: {
+  purchaseReq: {
+    bg: colors.green[700],
+    text: colors.neutral[50],
+  },
+  purchaseReqInverted: {
+    bg: 'transparent',
+    text: colors.green[700],
+    border: colors.green[700],
+  },
+  purchaseOrder: {
+    bg: colors.blue[900],
+    text: colors.blue[50],
+  },
+  purchaseOrderInverted: {
+    bg: 'transparent',
+    text: colors.blue[900],
+    border: colors.blue[900],
+  },
+  integrator: {
+    bg: colors.brown[700],
+    text: colors.brown[50],
+  },
+  integratorInverted: {
+    bg: 'transparent',
+    text: colors.brown[700],
+    border: colors.brown[700],
+  },
+  networkBuild: {
     bg: colors.magenta[700],
     text: colors.magenta[100],
   },
-  maintenanceInverted: {
+  networkBuildInverted: {
     bg: 'transparent',
     text: colors.magenta[700],
     border: colors.magenta[700],
   },
-  delayed: {
+  logicalBuild: {
+    bg: colors.purple[700],
+    text: colors.purple[50],
+  },
+  logicalBuildInverted: {
+    bg: 'transparent',
+    text: colors.purple[700],
+    border: colors.purple[700],
+  },
+  completed: {
+    bg: colors.green[500],
+    text: colors.success[50],
+  },
+  completedInverted: {
+    bg: 'transparent',
+    text: colors.green[500],
+    border: colors.green[500],
+  },
+  unassigned1: {
+    bg: colors.neutral[500],
+    text: colors.neutral[50],
+  },
+  unassigned1Inverted: {
+    bg: 'transparent',
+    text: colors.neutral[500],
+    border: colors.neutral[500],
+  },
+  unassigned2: {
     bg: colors.error[500],
     text: colors.neutral[50],
   },
-  delayedInverted: {
+  unassigned2Inverted: {
     bg: 'transparent',
     text: colors.error[500],
     border: colors.error[500],

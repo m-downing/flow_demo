@@ -218,25 +218,25 @@ const ColorDemo: React.FC = () => {
             <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-200 mb-md">Supply Chain Status</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
               {[
-                { name: 'Planned', variant: 'planned' as BadgeVariant },
-                { name: 'Ordered', variant: 'ordered' as BadgeVariant },
-                { name: 'Manufacturing', variant: 'manufacturing' as BadgeVariant },
-                { name: 'Quality Testing', variant: 'qualityTesting' as BadgeVariant },
-                { name: 'Ready to Ship', variant: 'readyToShip' as BadgeVariant },
-                { name: 'In Transit', variant: 'inTransit' as BadgeVariant },
-                { name: 'Delivered', variant: 'delivered' as BadgeVariant },
-                { name: 'Installing', variant: 'installing' as BadgeVariant },
-                { name: 'Active', variant: 'active' as BadgeVariant },
-                { name: 'Maintenance', variant: 'maintenance' as BadgeVariant },
-                { name: 'Delayed', variant: 'delayed' as BadgeVariant },
+                { name: 'Forecast', variant: 'forecast' as BadgeVariant },
+                { name: 'S&OP', variant: 'sop' as BadgeVariant },
+                { name: 'Business Case', variant: 'businessCase' as BadgeVariant },
+                { name: 'Purchase Req.', variant: 'purchaseReq' as BadgeVariant },
+                { name: 'Purchase Order', variant: 'purchaseOrder' as BadgeVariant },
+                { name: 'Integrator', variant: 'integrator' as BadgeVariant },
+                { name: 'Network Build', variant: 'networkBuild' as BadgeVariant },
+                { name: 'Logical Build', variant: 'logicalBuild' as BadgeVariant },
+                { name: 'Completed', variant: 'completed' as BadgeVariant },
+                { name: 'Unassigned 1', variant: 'unassigned1' as BadgeVariant },
+                { name: 'Unassigned 2', variant: 'unassigned2' as BadgeVariant },
               ].map(({ name, variant }) => (
                 <div key={variant} className="flex items-center gap-md p-md bg-neutral-50 dark:bg-neutral-800 rounded-md">
-                  <div className="flex items-center gap-sm min-w-0 flex-1">
+                  <div className="flex items-center gap-sm">
                     <Badge variant={variant}>{name}</Badge>
                     <Badge variant={`${variant}Inverted` as BadgeVariant}>{name}</Badge>
-                  </div>
-                  <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
-                    {variant} / {variant}Inverted
+                    <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono ml-sm">
+                      {variant} / {variant}Inverted
+                    </div>
                   </div>
                 </div>
               ))}
@@ -254,11 +254,11 @@ const ColorDemo: React.FC = () => {
                 { name: 'At Risk', variant: 'atRisk' as BadgeVariant },
               ].map(({ name, variant }) => (
                 <div key={variant} className="flex items-center gap-md p-md bg-neutral-50 dark:bg-neutral-800 rounded-md">
-                  <div className="flex items-center gap-sm min-w-0 flex-1">
+                  <div className="flex items-center gap-sm">
                     <Badge variant={variant}>{name}</Badge>
-                  </div>
-                  <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
-                    {variant}
+                    <div className="text-xs text-neutral-500 dark:text-neutral-400 font-mono ml-sm">
+                      {variant}
+                    </div>
                   </div>
                 </div>
               ))}

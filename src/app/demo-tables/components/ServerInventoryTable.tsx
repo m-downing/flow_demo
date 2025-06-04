@@ -28,25 +28,28 @@ const columns: ColumnDef<ServerRecord>[] = [
     width: 150,
     sortable: true,
     cell: (value) => {
-      // Map status values to proper display text
-      const statusDisplayMap: Record<string, string> = {
-        planned: 'Planned',
-        ordered: 'Ordered',
-        manufacturing: 'Manufacturing',
-        qualityTesting: 'QA Testing',
-        readyToShip: 'Ready to Ship',
-        inTransit: 'In Transit',
-        delivered: 'Delivered',
-        installing: 'Installing',
-        active: 'Active',
-        delayed: 'Delayed',
+      // Map status values to new badge variants and display text
+      const statusMapping: Record<string, { variant: BadgeVariant; display: string }> = {
+        planned: { variant: 'forecast', display: 'Forecast' },
+        ordered: { variant: 'purchaseReq', display: 'Purchase Req.' },
+        manufacturing: { variant: 'integrator', display: 'Integrator' },
+        qualityTesting: { variant: 'sop', display: 'S&OP' },
+        readyToShip: { variant: 'purchaseOrder', display: 'Purchase Order' },
+        inTransit: { variant: 'networkBuild', display: 'Network Build' },
+        delivered: { variant: 'logicalBuild', display: 'Logical Build' },
+        installing: { variant: 'completed', display: 'Completed' },
+        active: { variant: 'completed', display: 'Completed' },
+        delayed: { variant: 'unassigned2', display: 'Unassigned 2' },
       };
       
-      const displayText = statusDisplayMap[value as string] || value;
+      const mapping = statusMapping[value as string];
+      if (!mapping) {
+        return <Badge variant="unassigned1">{String(value)}</Badge>;
+      }
       
       return (
-        <Badge variant={value as BadgeVariant}>
-          {String(displayText)}
+        <Badge variant={mapping.variant}>
+          {mapping.display}
         </Badge>
       );
     },
@@ -169,7 +172,7 @@ const columns: ColumnDef<ServerRecord>[] = [
     cell: (value) => {
       const serviceLevelMap: Record<string, BadgeVariant> = {
         Basic: 'standard',
-        Standard: 'ordered',
+        Standard: 'purchaseReq',
         Premium: 'highPriority',
         Enterprise: 'critical',
       };

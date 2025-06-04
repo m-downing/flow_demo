@@ -1,3 +1,5 @@
+//src/design-system/foundations/tokens/types.ts
+
 /**
  * TypeScript type definitions for design tokens
  */
@@ -53,28 +55,28 @@ export interface BadgeColor {
 }
 
 export interface BadgeColors {
-  planned: BadgeColor;
-  plannedInverted: BadgeColor;
-  ordered: BadgeColor;
-  orderedInverted: BadgeColor;
-  manufacturing: BadgeColor;
-  manufacturingInverted: BadgeColor;
-  qualityTesting: BadgeColor;
-  qualityTestingInverted: BadgeColor;
-  inTransit: BadgeColor;
-  inTransitInverted: BadgeColor;
-  delivered: BadgeColor;
-  deliveredInverted: BadgeColor;
-  installing: BadgeColor;
-  installingInverted: BadgeColor;
-  active: BadgeColor;
-  activeInverted: BadgeColor;
-  maintenance: BadgeColor;
-  maintenanceInverted: BadgeColor;
-  delayed: BadgeColor;
-  delayedInverted: BadgeColor;
-  readyToShip: BadgeColor;
-  readyToShipInverted: BadgeColor;
+  forecast: BadgeColor;
+  forecastInverted: BadgeColor;
+  sop: BadgeColor;
+  sopInverted: BadgeColor;
+  businessCase: BadgeColor;
+  businessCaseInverted: BadgeColor;
+  purchaseReq: BadgeColor;
+  purchaseReqInverted: BadgeColor;
+  purchaseOrder: BadgeColor;
+  purchaseOrderInverted: BadgeColor;
+  integrator: BadgeColor;
+  integratorInverted: BadgeColor;
+  networkBuild: BadgeColor;
+  networkBuildInverted: BadgeColor;
+  logicalBuild: BadgeColor;
+  logicalBuildInverted: BadgeColor;
+  completed: BadgeColor;
+  completedInverted: BadgeColor;
+  unassigned1: BadgeColor;
+  unassigned1Inverted: BadgeColor;
+  unassigned2: BadgeColor;
+  unassigned2Inverted: BadgeColor;
   critical: BadgeColor;
   highPriority: BadgeColor;
   standard: BadgeColor;

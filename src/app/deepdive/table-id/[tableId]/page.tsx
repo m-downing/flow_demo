@@ -48,40 +48,28 @@ const createServerColumns = (): ColumnDef<Record<string, unknown>>[] => [
     width: 150,
     sortable: true,
     cell: (value) => {
-      // Map status values to badge variants
-      const statusMap: Record<string, BadgeVariant> = {
-        planned: 'planned',
-        ordered: 'ordered',
-        manufacturing: 'manufacturing',
-        qualityTesting: 'qualityTesting',
-        readyToShip: 'readyToShip',
-        inTransit: 'inTransit',
-        delivered: 'delivered',
-        installing: 'installing',
-        active: 'active',
-        delayed: 'delayed',
+      // Map status values to new badge variants and display text
+      const statusMapping: Record<string, { variant: BadgeVariant; display: string }> = {
+        planned: { variant: 'forecast', display: 'Forecast' },
+        ordered: { variant: 'purchaseReq', display: 'Purchase Req.' },
+        manufacturing: { variant: 'integrator', display: 'Integrator' },
+        qualityTesting: { variant: 'sop', display: 'S&OP' },
+        readyToShip: { variant: 'purchaseOrder', display: 'Purchase Order' },
+        inTransit: { variant: 'networkBuild', display: 'Network Build' },
+        delivered: { variant: 'logicalBuild', display: 'Logical Build' },
+        installing: { variant: 'completed', display: 'Completed' },
+        active: { variant: 'completed', display: 'Completed' },
+        delayed: { variant: 'unassigned2', display: 'Unassigned 2' },
       };
       
-      // Map status values to proper display text
-      const statusDisplayMap: Record<string, string> = {
-        planned: 'Planned',
-        ordered: 'Ordered',
-        manufacturing: 'Manufacturing',
-        qualityTesting: 'QA Testing',
-        readyToShip: 'Ready to Ship',
-        inTransit: 'In Transit',
-        delivered: 'Delivered',
-        installing: 'Installing',
-        active: 'Active',
-        delayed: 'Delayed',
-      };
-      
-      const variant = statusMap[value as string] || 'standard';
-      const displayText = statusDisplayMap[value as string] || String(value);
+      const mapping = statusMapping[value as string];
+      if (!mapping) {
+        return <Badge variant="unassigned1">{String(value)}</Badge>;
+      }
       
       return (
-        <Badge variant={variant}>
-          {displayText}
+        <Badge variant={mapping.variant}>
+          {mapping.display}
         </Badge>
       );
     },
@@ -206,7 +194,7 @@ const createServerColumns = (): ColumnDef<Record<string, unknown>>[] => [
       // Map service level to badge variants
       const serviceLevelMap: Record<string, BadgeVariant> = {
         Basic: 'standard',
-        Standard: 'ordered',
+        Standard: 'purchaseReq',
         Premium: 'highPriority',
         Enterprise: 'critical',
       };

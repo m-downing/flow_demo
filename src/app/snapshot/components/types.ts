@@ -1,3 +1,5 @@
+//src/app/snapshot/components/types.ts
+
 // Import and re-export BadgeVariant from the design system
 import { BadgeVariant } from '@/design-system/components/feedback/Badge';
 export type { BadgeVariant };

@@ -43,13 +43,35 @@ export default function ServerInventoryList({ height = 500 }: ServerInventoryLis
         </span>
       </div>
       <div className="flex gap-2 flex-wrap">
-        <Badge variant={item.status as BadgeVariant}>
-          {item.status}
+        <Badge variant={
+          item.status === 'planned' ? 'forecast' :
+          item.status === 'ordered' ? 'purchaseReq' :
+          item.status === 'manufacturing' ? 'integrator' :
+          item.status === 'qualityTesting' ? 'sop' :
+          item.status === 'readyToShip' ? 'purchaseOrder' :
+          item.status === 'inTransit' ? 'networkBuild' :
+          item.status === 'delivered' ? 'logicalBuild' :
+          item.status === 'installing' ? 'completed' :
+          item.status === 'active' ? 'completed' :
+          item.status === 'delayed' ? 'unassigned2' :
+          'unassigned1' as BadgeVariant
+        }>
+          {item.status === 'planned' ? 'Forecast' :
+           item.status === 'ordered' ? 'Purchase Req.' :
+           item.status === 'manufacturing' ? 'Integrator' :
+           item.status === 'qualityTesting' ? 'S&OP' :
+           item.status === 'readyToShip' ? 'Purchase Order' :
+           item.status === 'inTransit' ? 'Network Build' :
+           item.status === 'delivered' ? 'Logical Build' :
+           item.status === 'installing' ? 'Completed' :
+           item.status === 'active' ? 'Completed' :
+           item.status === 'delayed' ? 'Unassigned 2' :
+           item.status}
         </Badge>
         <Badge variant={item.priority === 'critical' ? 'critical' : item.priority === 'high' ? 'highPriority' : 'standard'}>
           {item.priority}
         </Badge>
-        <Badge variant={item.serviceLevel === 'Enterprise' ? 'critical' : item.serviceLevel === 'Premium' ? 'highPriority' : item.serviceLevel === 'Standard' ? 'ordered' : 'standard'}>
+        <Badge variant={item.serviceLevel === 'Enterprise' ? 'critical' : item.serviceLevel === 'Premium' ? 'highPriority' : item.serviceLevel === 'Standard' ? 'purchaseReq' : 'standard'}>
           {item.serviceLevel}
         </Badge>
       </div>

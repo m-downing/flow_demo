@@ -22,21 +22,14 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const isDark = theme === 'dark';
   const pathname = usePathname();
   
-  // Initialize activeTab based on current pathname or localStorage
+  // Initialize activeTab based on current pathname only (no localStorage during SSR)
   const getInitialTab = () => {
-    // First check if current pathname matches any tab
+    // Only check if current pathname matches any tab
     const currentTab = appTabs['flow'].find(tab => tab.path === pathname);
     if (currentTab) {
       return currentTab.name;
     }
-    // Then check localStorage (only in browser)
-    if (typeof window !== 'undefined') {
-      const savedTab = localStorage.getItem('activeTab_flux');
-      if (savedTab) {
-        return savedTab;
-      }
-    }
-    // Only use Snapshot as last resort
+    // Always default to Snapshot for consistent SSR/client hydration
     return 'Snapshot';
   };
   
@@ -45,6 +38,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [loadingTab, setLoadingTab] = useState<string | null>(null);
   const [showText, setShowText] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const router = useRouter();
   const sidebarRef = useRef<HTMLDivElement>(null);
   
@@ -55,6 +49,18 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const submenuBg = isDark ? 'bg-neutral-900' : 'bg-primary-900';
   const loadingBg = isDark ? 'bg-neutral-800/80' : 'bg-primary-800/80';
   const sidebarBg = isDark ? '#262626' : '#17314ae6'; // neutral.800 for dark, primary.600 with 90% opacity for light
+
+  // Handle hydration and localStorage after client-side mount
+  useEffect(() => {
+    setIsHydrated(true);
+    
+    // Now that we're hydrated, check localStorage and update activeTab if needed
+    const savedTab = localStorage.getItem('activeTab_flux');
+    if (savedTab && !appTabs['flow'].find(tab => tab.path === pathname)) {
+      // Only use saved tab if current pathname doesn't match any tab
+      setActiveTab(savedTab);
+    }
+  }, [pathname]);
 
   // Handle text visibility based on expansion state
   useEffect(() => {
@@ -76,9 +82,11 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     const currentTab = appTabs['flow'].find(tab => tab.path === pathname);
     if (currentTab) {
       setActiveTab(currentTab.name);
-      localStorage.setItem('activeTab_flux', currentTab.name);
-    } else {
-      // Fallback to localStorage if no path match
+      if (isHydrated) {
+        localStorage.setItem('activeTab_flux', currentTab.name);
+      }
+    } else if (isHydrated) {
+      // Fallback to localStorage if no path match (only after hydration)
       const savedTab = localStorage.getItem('activeTab_flux');
       if (savedTab) {
         setActiveTab(savedTab);
@@ -87,7 +95,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     
     // Clear loading state when pathname changes (navigation completed)
     setLoadingTab(null);
-  }, [pathname]);
+  }, [pathname, isHydrated]);
 
   // Handle expansion state changes
   const handleExpandChange = useCallback((expanded: boolean) => {
@@ -133,7 +141,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
 
   const handleTabClick = (tabName: string, tabPath?: string) => {
     setActiveTab(tabName);
-    localStorage.setItem('activeTab_flux', tabName);
+    if (isHydrated) {
+      localStorage.setItem('activeTab_flux', tabName);
+    }
     
     // Set loading state for the clicked tab
     if (tabPath) {

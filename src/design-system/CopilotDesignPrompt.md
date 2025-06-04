@@ -149,6 +149,74 @@ import Badge from '@/design-system/components/feedback/Badge';
 <Badge variant="active">Active</Badge>
 ```
 
+### Badge Components
+Use Badge for supply chain status indicators and timeline elements:
+
+```tsx
+// WRONG
+<div className="bg-blue-500 text-white px-3 py-1 rounded text-xs">
+  Forecast
+</div>
+
+// RIGHT
+import Badge from '@/design-system/components/feedback/Badge';
+
+// General usage
+<Badge variant="forecast" size="regular">Forecast</Badge>
+<Badge variant="logicalBuild" size="small">Logical Build</Badge>
+<Badge variant="completed">Completed</Badge>
+
+// Supply chain status variants available:
+// forecast, sop, businessCase, purchaseReq, purchaseOrder, 
+// integrator, networkBuild, logicalBuild, completed,
+// unassigned1, unassigned2
+// Each has an "Inverted" variant for outline style
+
+// Priority badges:
+<Badge variant="critical">CRITICAL</Badge>
+<Badge variant="highPriority">HIGH</Badge>
+<Badge variant="standard">STANDARD</Badge>
+```
+
+#### Gantt Chart Timeline Usage
+For horizontal timeline visualizations with API-driven dynamic widths:
+
+```tsx
+// API data determines badge width based on time duration
+const timelineData = useQuery(GET_PROJECT_TIMELINE);
+const totalDuration = calculateTotalDuration(timelineData);
+
+{timelineData.stages.map(stage => (
+  <Badge
+    key={stage.id}
+    variant={stage.name as BadgeVariant} // "forecast", "logicalBuild", etc.
+    style={{ 
+      width: `${(stage.duration / totalDuration) * containerWidth}px`,
+      minWidth: '80px' // Ensure text readability
+    }}
+    className="!justify-start !pl-md" // Override centering for timeline layout
+  >
+    {stage.displayName}
+  </Badge>
+))}
+
+// For percentage-based widths
+<Badge 
+  variant="networkBuild"
+  style={{ width: `${(phaseDuration / totalProjectTime) * 100}%` }}
+  className="!justify-start !pl-md !py-sm"
+>
+  Network Build
+</Badge>
+```
+
+**Gantt Chart Considerations:**
+- Use `style` prop for dynamic widths from API data
+- Override default centering with `!justify-start !pl-md` 
+- Set `minWidth` to ensure badge text remains readable
+- Map API stage names directly to BadgeVariant types
+- Consider using `size="small"` for compact timelines
+
 ### Loading States
 Replace custom spinners with Spinner:
 ```tsx
