@@ -1,6 +1,7 @@
 // src/app/components/design-system/Badge.tsx
 
 import React from 'react';
+import { ExclamationTriangleIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
 
 /**
  * Badge variants for all possible status indicators in the application
@@ -36,6 +37,11 @@ export type BadgeVariant =
   | 'atRisk';
 
 /**
+ * Badge icon types
+ */
+export type BadgeIcon = 'exclamation-triangle' | 'information-circle';
+
+/**
  * Badge component props
  * @interface BadgeProps
  */
@@ -44,6 +50,8 @@ interface BadgeProps {
   children: React.ReactNode;
   /** Badge variant/color */
   variant: BadgeVariant;
+  /** Optional icon to display to the left of the text */
+  icon?: BadgeIcon;
   /** Optional click handler */
   onClick?: (event: React.MouseEvent<HTMLSpanElement>) => void;
   /** Additional class names to apply */
@@ -55,6 +63,7 @@ interface BadgeProps {
 const Badge: React.FC<BadgeProps> = ({
   children,
   variant,
+  icon,
   onClick,
   className = '',
   size = 'regular',
@@ -70,6 +79,31 @@ const Badge: React.FC<BadgeProps> = ({
     ? 'px-1.5 py-1.5 text-xxs' 
     : 'px-2 py-1 text-xs';
   
+  // Icon size classes
+  const iconSizeClass = size === 'small' ? 'h-3 w-3' : 'h-4 w-4';
+  
+  // Spacing between icon and text
+  const iconSpacing = icon ? (size === 'small' ? 'gap-1' : 'gap-1.5') : '';
+  
+  // Render the appropriate icon
+  const renderIcon = () => {
+    if (!icon) return null;
+    
+    const iconProps = {
+      className: iconSizeClass,
+      'aria-hidden': true
+    };
+    
+    switch (icon) {
+      case 'exclamation-triangle':
+        return <ExclamationTriangleIcon {...iconProps} />;
+      case 'information-circle':
+        return <InformationCircleIcon {...iconProps} />;
+      default:
+        return null;
+    }
+  };
+
   // Build variant-specific Tailwind classes
   const variantClasses = {
     // Supply Chain Status Badges - ordered by workflow progression
@@ -122,6 +156,7 @@ const Badge: React.FC<BadgeProps> = ({
         rounded-xs
         opacity-85
         ${sizeClasses}
+        ${iconSpacing}
         ${variantClass}
         ${cursorClass}
         ${className}
@@ -130,6 +165,7 @@ const Badge: React.FC<BadgeProps> = ({
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
     >
+      {renderIcon()}
       {content}
     </span>
   );

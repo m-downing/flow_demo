@@ -79,7 +79,7 @@ className="bg-primary-600 text-neutral-50"
 - **Input**: Text input with validation states
 
 #### Feedback
-- **Badge**: Status and priority indicators
+- **Badge**: Status and priority indicators with optional icons
 - **Spinner**: Loading indicators
 - **Tooltip**: Contextual help
 - **NotificationBadge**: Notification counters
@@ -121,6 +121,51 @@ className="bg-primary-600 text-neutral-50"
 - **LightDarkModeToggle**: Theme switcher
 - **AIChatBox**: AI assistant interface
 - **ThemeTransition**: Smooth theme transitions
+
+### Badge Component Details
+
+The Badge component supports 28 predefined variants for supply chain status and priority indicators, with optional icon support:
+
+#### Basic Usage
+```typescript
+import Badge from '@/design-system/components/feedback/Badge';
+import type { BadgeVariant, BadgeIcon } from '@/design-system';
+
+// Basic badge
+<Badge variant="forecast">Forecast</Badge>
+
+// Badge with icon
+<Badge variant="critical" icon="exclamation-triangle">Critical Alert</Badge>
+<Badge variant="standard" icon="information-circle">Information</Badge>
+
+// Different sizes
+<Badge variant="forecast" size="small">Small</Badge>
+<Badge variant="forecast" size="regular">Regular</Badge>
+```
+
+#### Available Icons
+- `exclamation-triangle` - Use for alerts, warnings, and high-priority items
+- `information-circle` - Use for informational content, status updates, and notifications
+
+#### Supply Chain Variants
+Normal and inverted variants for each status:
+- `forecast` / `forecastInverted`
+- `sop` / `sopInverted`
+- `businessCase` / `businessCaseInverted`
+- `purchaseReq` / `purchaseReqInverted`
+- `purchaseOrder` / `purchaseOrderInverted`
+- `integrator` / `integratorInverted`
+- `networkBuild` / `networkBuildInverted`
+- `logicalBuild` / `logicalBuildInverted`
+- `completed` / `completedInverted`
+- `unassigned1` / `unassigned1Inverted`
+- `unassigned2` / `unassigned2Inverted`
+
+#### Priority Variants
+- `critical` - Highest priority items
+- `highPriority` - Important items requiring attention
+- `standard` - Normal priority items
+- `atRisk` - Items with potential issues
 
 ## TypeScript Support
 

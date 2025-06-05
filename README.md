@@ -97,7 +97,7 @@ src/
 - `MetricCard` - KPI display with trends and status indicators
 
 ### Feedback
-- `Badge` - Status indicators with semantic variants (28 predefined variants)
+- `Badge` - Status indicators with semantic variants (28 predefined variants) and optional icons
 - `Spinner` - Loading states with size variants
 - `InfoBanner` / `CriticalBanner` - System-wide notifications
 - `Tooltip` - Contextual help and information

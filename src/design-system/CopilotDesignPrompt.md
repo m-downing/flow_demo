@@ -50,13 +50,232 @@ Color categories:
 
 ### Dark Mode Pattern
 Always include dark mode classes:
-```
+```tsx
 WRONG: bg-white text-black
 RIGHT: bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-50
 
 WRONG: bg-gray-50
 RIGHT: bg-neutral-50 dark:bg-neutral-950
 ```
+
+## COMPREHENSIVE DARK MODE IMPLEMENTATION GUIDE
+
+### Essential Dark Mode Patterns (MUST USE)
+
+#### 1. Primary Text Colors
+```tsx
+// Main headings and important text
+className="text-neutral-800 dark:text-neutral-50"
+
+// Secondary text (descriptions, labels)  
+className="text-neutral-600 dark:text-neutral-200"
+className="text-neutral-600 dark:text-neutral-300"
+
+// Tertiary text (captions, timestamps)
+className="text-neutral-500 dark:text-neutral-400"
+```
+
+#### 2. Background Colors
+```tsx
+// Main container backgrounds
+className="bg-white dark:bg-neutral-800"
+className="bg-white dark:bg-neutral-900"
+
+// Section/card backgrounds  
+className="bg-neutral-50 dark:bg-neutral-700"
+className="bg-neutral-50 dark:bg-neutral-800"
+
+// Highlighted/accent backgrounds
+className="bg-neutral-100 dark:bg-neutral-700"
+className="bg-blue-50 dark:bg-neutral-900"
+className="bg-green-50 dark:bg-neutral-900"
+```
+
+#### 3. Border Colors
+```tsx
+// Standard borders
+className="border-neutral-200 dark:border-neutral-600"
+className="border-neutral-300 dark:border-neutral-600"
+
+// Subtle borders
+className="border-neutral-100 dark:border-neutral-700"
+```
+
+#### 4. Form Elements (CRITICAL - Often Missed)
+```tsx
+// Input fields - COMPLETE PATTERN
+className="bg-white dark:bg-neutral-700 
+           text-neutral-900 dark:text-neutral-50
+           border-neutral-300 dark:border-neutral-600
+           placeholder-neutral-500 dark:placeholder-neutral-400
+           focus:border-primary-500 dark:focus:border-primary-400
+           focus:ring-primary-500 dark:focus:ring-primary-400"
+
+// Select dropdowns
+className="bg-white dark:bg-neutral-700 
+           text-neutral-900 dark:text-neutral-50
+           border-neutral-300 dark:border-neutral-600"
+
+// Button hover states  
+className="bg-neutral-50 dark:bg-neutral-800 
+           hover:bg-neutral-100 dark:hover:bg-neutral-700
+           text-neutral-700 dark:text-neutral-200"
+```
+
+#### 5. Interactive Elements
+```tsx
+// Clickable items with hover
+className="bg-neutral-50 dark:bg-neutral-800 
+           hover:bg-neutral-100 dark:hover:bg-neutral-700
+           text-neutral-700 dark:text-neutral-200
+           border-neutral-200 dark:border-neutral-600"
+
+// Focus states for accessibility
+className="focus:outline-none focus-visible:ring-2 
+           focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400
+           focus:border-transparent"
+```
+
+#### 6. Status and Semantic Colors
+```tsx
+// Error states
+className="text-error-500 dark:text-error-300"
+className="bg-error-50 dark:bg-error-900/20"
+className="border-error-300 dark:border-error-700"
+
+// Success states  
+className="text-success-500 dark:text-success-300"
+className="bg-success-50 dark:bg-success-900/20"
+
+// Warning states
+className="text-warning-700 dark:text-warning-300"
+className="bg-warning-50 dark:bg-warning-900/20"
+
+// Info states
+className="text-blue-700 dark:text-blue-300"
+className="bg-blue-50 dark:bg-blue-900/20"
+```
+
+#### 7. Information Boxes and Callouts
+```tsx
+// Info box pattern
+className="bg-blue-50 dark:bg-neutral-900 
+           border-l-4 border-blue-700 dark:border-neutral-600 
+           p-lg rounded-lg"
+
+// Content within info boxes
+className="text-neutral-900 dark:text-neutral-50"  // Headers
+className="text-neutral-700 dark:text-neutral-100" // Body text
+
+// Success callouts
+className="bg-green-50 dark:bg-neutral-900 
+           border-l-4 border-green-700 dark:border-neutral-600"
+```
+
+#### 8. Avatar and Profile Elements
+```tsx
+// Avatar backgrounds
+className="bg-blue-100 dark:bg-blue-900"
+className="bg-neutral-100 dark:bg-neutral-700"
+
+// Avatar text
+className="text-blue-700 dark:text-blue-100"
+className="text-neutral-700 dark:text-neutral-300"
+```
+
+#### 9. Complex Layout Patterns
+```tsx
+// Chat/message containers
+className="bg-neutral-100 dark:bg-neutral-700 rounded-lg p-sm"
+
+// Modal/overlay backgrounds
+className="bg-white dark:bg-neutral-800"
+
+// Sidebar or navigation
+className="bg-neutral-50 dark:bg-neutral-800 
+           border-r border-neutral-200 dark:border-neutral-700"
+```
+
+#### 10. Conditional Status Colors (Advanced Pattern)
+```tsx
+// Dynamic color assignment based on status
+className={`text-sm font-medium ${
+  alert.severity === 'critical' ? 'text-error-500 dark:text-error-300' : 
+  alert.severity === 'warning' ? 'text-warning-700 dark:text-warning-300' : 
+  'text-blue-700 dark:text-blue-100'
+}`}
+
+// Dynamic backgrounds
+className={`px-2 py-1 rounded ${
+  status === 'active' ? 'bg-success-50 dark:bg-success-900/20 text-success-700 dark:text-success-300' :
+  status === 'error' ? 'bg-error-50 dark:bg-error-900/20 text-error-700 dark:text-error-300' :
+  'bg-neutral-50 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300'
+}`}
+```
+
+### Critical Dark Mode Rules (NEVER BREAK)
+
+1. **NEVER use single colors without dark variants**
+   ```tsx
+   WRONG: className="text-gray-800"
+   RIGHT: className="text-neutral-800 dark:text-neutral-50"
+   ```
+
+2. **ALWAYS pair background and text colors**
+   ```tsx
+   WRONG: className="bg-white"
+   RIGHT: className="bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-50"
+   ```
+
+3. **ALWAYS include focus states for interactive elements**
+   ```tsx
+   WRONG: className="border rounded"
+   RIGHT: className="border border-neutral-300 dark:border-neutral-600 
+                    focus:border-primary-500 dark:focus:border-primary-400
+                    focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400"
+   ```
+
+4. **ALWAYS use neutral colors, not gray**
+   ```tsx
+   WRONG: "text-gray-600" "bg-gray-100" "border-gray-300"
+   RIGHT: "text-neutral-600 dark:text-neutral-300" "bg-neutral-100 dark:bg-neutral-700" "border-neutral-300 dark:border-neutral-600"
+   ```
+
+5. **ALWAYS test placeholder text colors**
+   ```tsx
+   WRONG: placeholder="Enter text"
+   RIGHT: placeholder="Enter text" 
+          className="placeholder-neutral-500 dark:placeholder-neutral-400"
+   ```
+
+6. **ALWAYS consider scrollbar areas**
+   ```tsx
+   // For scrollable containers
+   className="overflow-y-auto bg-white dark:bg-neutral-800"
+   ```
+
+### Common Dark Mode Mistakes to Avoid
+
+1. **Missing form element dark styles** - Input fields without proper dark mode
+2. **Inconsistent border colors** - Using different neutral shades for borders  
+3. **Missing placeholder colors** - Forgetting dark mode placeholder text
+4. **Single background color** - Not pairing background with text color
+5. **Missing hover states** - Interactive elements without dark hover states
+6. **Conditional colors without dark variants** - Status colors missing dark mode
+7. **Missing focus states** - Accessibility issues in dark mode
+
+### Quick Dark Mode Checklist
+
+Before submitting any component, verify:
+- ✓ All text has `dark:text-` variants
+- ✓ All backgrounds have `dark:bg-` variants  
+- ✓ All borders have `dark:border-` variants
+- ✓ All form elements have complete dark styling
+- ✓ All interactive elements have `dark:hover:` states
+- ✓ All focus states work in dark mode
+- ✓ Conditional/dynamic colors include dark variants
+- ✓ Status colors use appropriate dark variants
+- ✓ No standalone `gray-` colors (use `neutral-` instead)
 
 ## TypeScript Support
 
@@ -66,6 +285,7 @@ The design system provides comprehensive TypeScript support. Always use types fo
 // Import types for components and tokens
 import type { 
   BadgeVariant,
+  BadgeIcon,
   ButtonVariant,
   FontSizeKey,
   Colors,
@@ -81,6 +301,7 @@ import type {
 
 // Type-safe component usage
 const badgeVariant: BadgeVariant = 'forecast';
+const badgeIcon: BadgeIcon = 'exclamation-triangle';
 const buttonSize: ButtonSize = 'md';
 ```
 
@@ -279,11 +500,27 @@ Use Badge for supply chain status indicators and timeline elements:
 
 ```tsx
 import Badge from '@/design-system/components/feedback/Badge';
-import type { BadgeVariant } from '@/design-system';
+import type { BadgeVariant, BadgeIcon } from '@/design-system';
+
+// Basic usage without icons
+<Badge variant="forecast">Forecast</Badge>
+
+// Badge with icons - NEW FUNCTIONALITY
+<Badge variant="critical" icon="exclamation-triangle">Critical Alert</Badge>
+<Badge variant="standard" icon="information-circle">Information</Badge>
+
+// Available icon types:
+// - 'exclamation-triangle': Use for alerts, warnings, high-priority items
+// - 'information-circle': Use for informational content, status updates, notifications
+
+// Size options with icons
+<Badge variant="critical" icon="exclamation-triangle" size="small">Critical</Badge>
+<Badge variant="standard" icon="information-circle" size="regular">Information</Badge>
 
 // Supply chain status variants (28 total):
 // Normal variants:
 <Badge variant="forecast">Forecast</Badge>
+<Badge variant="forecast" icon="information-circle">Forecast</Badge>
 <Badge variant="sop">SOP</Badge>
 <Badge variant="businessCase">Business Case</Badge>
 <Badge variant="purchaseReq">Purchase Req</Badge>
@@ -292,11 +529,13 @@ import type { BadgeVariant } from '@/design-system';
 <Badge variant="networkBuild">Network Build</Badge>
 <Badge variant="logicalBuild">Logical Build</Badge>
 <Badge variant="completed">Completed</Badge>
+<Badge variant="completed" icon="information-circle">Completed</Badge>
 <Badge variant="unassigned1">Unassigned 1</Badge>
 <Badge variant="unassigned2">Unassigned 2</Badge>
 
 // Inverted variants (outline style):
 <Badge variant="forecastInverted">Forecast</Badge>
+<Badge variant="forecastInverted" icon="information-circle">Forecast</Badge>
 <Badge variant="sopInverted">SOP</Badge>
 <Badge variant="businessCaseInverted">Business Case</Badge>
 <Badge variant="purchaseReqInverted">Purchase Req</Badge>
@@ -305,18 +544,39 @@ import type { BadgeVariant } from '@/design-system';
 <Badge variant="networkBuildInverted">Network Build</Badge>
 <Badge variant="logicalBuildInverted">Logical Build</Badge>
 <Badge variant="completedInverted">Completed</Badge>
+<Badge variant="completedInverted" icon="information-circle">Completed</Badge>
 <Badge variant="unassigned1Inverted">Unassigned 1</Badge>
 <Badge variant="unassigned2Inverted">Unassigned 2</Badge>
 
 // Priority badges (text auto-uppercase):
 <Badge variant="critical">Critical</Badge>
+<Badge variant="critical" icon="exclamation-triangle">Critical</Badge>
 <Badge variant="highPriority">High Priority</Badge>
+<Badge variant="highPriority" icon="exclamation-triangle">High Priority</Badge>
 <Badge variant="standard">Standard</Badge>
+<Badge variant="standard" icon="information-circle">Standard</Badge>
 <Badge variant="atRisk">At Risk</Badge>
+<Badge variant="atRisk" icon="exclamation-triangle">At Risk</Badge>
+
+// Icon semantic guidelines:
+// Use exclamation-triangle for:
+// - Critical alerts and errors
+// - High priority items
+// - Risk indicators  
+// - Warning states
+
+// Use information-circle for:
+// - Status updates
+// - Informational content
+// - Completed states
+// - General notifications
+// - Process status indicators
 
 // Size options
 <Badge variant="forecast" size="small">Small</Badge>
+<Badge variant="forecast" size="small" icon="information-circle">Small with Icon</Badge>
 <Badge variant="forecast" size="regular">Regular</Badge>
+<Badge variant="forecast" size="regular" icon="information-circle">Regular with Icon</Badge>
 ```
 
 #### Gantt Chart Timeline Usage
@@ -550,6 +810,7 @@ import { chartTokens, getChartColors } from '@/design-system/foundations/tokens/
 // Type imports
 import type {
   BadgeVariant,
+  BadgeIcon,
   ButtonVariant,
   SpinnerSize,
   Colors,
@@ -571,16 +832,23 @@ When migrating a component/page:
 1. ✓ Wrap content in PageContainer
 2. ✓ Replace arbitrary spacing (p-4) with tokens (p-md)
 3. ✓ Replace color classes with semantic tokens
-4. ✓ Add dark mode variants to all color classes
+4. ✓ Add dark mode variants to ALL color classes (critical)
 5. ✓ Replace native HTML elements with design system components
 6. ✓ Use 12-column grid for layouts
 7. ✓ Import from @/design-system paths
 8. ✓ Remove inline styles and custom CSS
 9. ✓ Apply consistent typography classes
-10. ✓ Test in both light and dark modes
+10. ✓ Test in both light and dark modes extensively
 11. ✓ Add TypeScript types for better development experience
 12. ✓ Use proper component variants and sizes
 13. ✓ Ensure responsive behavior works correctly
+14. ✓ Verify all form elements have complete dark mode styling
+15. ✓ Check all interactive elements have dark hover states
+16. ✓ Confirm focus states work properly in both themes
+17. ✓ Test placeholder text visibility in dark mode
+18. ✓ Validate conditional/status colors include dark variants
+19. ✓ Ensure scrollable areas have proper dark backgrounds
+20. ✓ Verify avatar/profile elements work in both themes
 
 ## Example Full Migration
 
@@ -641,7 +909,7 @@ export default function Dashboard() {
 1. NEVER use `px-4`, `py-4`, etc. Use `px-md`, `py-md`
 2. NEVER use `gap-4`, `gap-6`. Use `gap-md`, `gap-lg`
 3. NEVER use `text-gray-`. Use `text-neutral-`
-4. NEVER forget dark mode classes
+4. NEVER forget dark mode classes - EVERY color class needs a dark variant
 5. NEVER import components with relative paths
 6. ALWAYS use PageContainer for page-level components
 7. ALWAYS use semantic color tokens
@@ -651,7 +919,10 @@ export default function Dashboard() {
 11. ALWAYS use TypeScript types when available
 12. ALWAYS prefer design system components over custom implementations
 13. ALWAYS use proper badge variants for supply chain status indicators
-14. ALWAYS test both light and dark modes
+14. ALWAYS test both light and dark modes thoroughly
+15. ALWAYS include focus states for accessibility in both themes
+16. ALWAYS pair background colors with appropriate text colors
+17. NEVER use conditional colors without dark variants
 
 ## Component Availability Reference
 

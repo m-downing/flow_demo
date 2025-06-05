@@ -271,6 +271,71 @@ const ColorDemo: React.FC = () => {
             <strong className="text-primary-800 dark:text-primary-200">Usage:</strong> Use inverted variants for secondary content or when you need outlined/ghost button styling with transparent backgrounds and colored borders.
           </p>
         </div>
+
+        {/* Badge Icons Section */}
+        <div className="mt-lg">
+          <h3 className="text-lg font-semibold text-neutral-700 dark:text-neutral-200 mb-md">Badges with Icons</h3>
+          <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-md">
+            Badges can optionally include icons to provide additional visual context. Available icons: exclamation-triangle and information-circle.
+          </p>
+          
+          <div className="space-y-md">
+            {/* Regular size badges with icons */}
+            <div>
+              <h4 className="text-md font-medium text-neutral-600 dark:text-neutral-300 mb-sm">Regular Size</h4>
+              <div className="flex flex-wrap items-center gap-md p-md bg-neutral-50 dark:bg-neutral-800 rounded-md">
+                <Badge variant="critical" icon="exclamation-triangle">Critical Alert</Badge>
+                <Badge variant="atRisk" icon="exclamation-triangle">At Risk</Badge>
+                <Badge variant="standard" icon="information-circle">Information</Badge>
+                <Badge variant="forecast" icon="information-circle">Forecast</Badge>
+                <Badge variant="completedInverted" icon="information-circle">Completed</Badge>
+                <Badge variant="highPriority" icon="exclamation-triangle">High Priority</Badge>
+              </div>
+            </div>
+
+            {/* Small size badges with icons */}
+            <div>
+              <h4 className="text-md font-medium text-neutral-600 dark:text-neutral-300 mb-sm">Small Size</h4>
+              <div className="flex flex-wrap items-center gap-md p-md bg-neutral-50 dark:bg-neutral-800 rounded-md">
+                <Badge variant="critical" icon="exclamation-triangle" size="small">Critical</Badge>
+                <Badge variant="atRisk" icon="exclamation-triangle" size="small">Risk</Badge>
+                <Badge variant="standard" icon="information-circle" size="small">Info</Badge>
+                <Badge variant="forecast" icon="information-circle" size="small">Forecast</Badge>
+                <Badge variant="sopInverted" icon="information-circle" size="small">S&OP</Badge>
+                <Badge variant="highPriority" icon="exclamation-triangle" size="small">High</Badge>
+              </div>
+            </div>
+
+            {/* Mixed examples showing both icons */}
+            <div>
+              <h4 className="text-md font-medium text-neutral-600 dark:text-neutral-300 mb-sm">Icon Comparison</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-md">
+                <div className="p-md bg-neutral-50 dark:bg-neutral-800 rounded-md">
+                  <p className="text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-sm">Exclamation Triangle (Alerts & Warnings)</p>
+                  <div className="flex flex-wrap gap-sm">
+                    <Badge variant="critical" icon="exclamation-triangle">Critical</Badge>
+                    <Badge variant="atRisk" icon="exclamation-triangle">At Risk</Badge>
+                    <Badge variant="highPriority" icon="exclamation-triangle">High Priority</Badge>
+                  </div>
+                </div>
+                <div className="p-md bg-neutral-50 dark:bg-neutral-800 rounded-md">
+                  <p className="text-sm font-medium text-neutral-700 dark:text-neutral-200 mb-sm">Information Circle (Info & Status)</p>
+                  <div className="flex flex-wrap gap-sm">
+                    <Badge variant="standard" icon="information-circle">Standard</Badge>
+                    <Badge variant="forecast" icon="information-circle">Forecast</Badge>
+                    <Badge variant="completed" icon="information-circle">Completed</Badge>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-md p-md bg-blue-50 dark:bg-blue-900/20 rounded-md border border-blue-200 dark:border-blue-700">
+            <p className="text-sm text-blue-700 dark:text-blue-300">
+              <strong className="text-blue-800 dark:text-blue-200">Icon Usage:</strong> Use exclamation-triangle for alerts, warnings, and high-priority items. Use information-circle for informational content, status updates, and general notifications.
+            </p>
+          </div>
+        </div>
       </div>
     </>
   );
