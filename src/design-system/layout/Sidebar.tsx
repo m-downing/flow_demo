@@ -223,7 +223,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
             {/* App Home Icon - Fixed height container */}
             <Link href="/">
               <Tooltip 
-                content="Flow UI" 
+                content="Helius UI" 
                 position="right" 
                 disabled={isExpanded}
                 delay={100}
@@ -232,16 +232,12 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-all duration-300 ease-in-out w-full`}>
                   <div className="flex flex-col items-center gap-[5px]">
                     <div className="h-[26px] flex items-center justify-center">
-                      <Image 
-                        src="/icons/vertical-nav/flow.svg"
-                        alt="FLOW Logo"
-                        width={26}
-                        height={26}
-                        className="group-hover:opacity-60 transition-opacity duration-50"
+                      <FireIcon 
+                        className="w-[26px] h-[26px] text-neutral-50 group-hover:opacity-60 transition-opacity duration-50"
                       />
                     </div>
                     {isExpanded && (
-                      <h1 className={`text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>FLOW</h1>
+                      <h1 className={`text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>HELIUS</h1>
                     )}
                   </div>
                 </div>

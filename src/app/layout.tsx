@@ -5,8 +5,8 @@ import AppWrapper from "@/design-system/layout/AppWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FLOW | Demo",
-  description: "FLOW | UI App wrAPPer Demo",
+  title: "HELIUS | Demo",
+  description: "HELIUS | UI App wrAPPer Demo",
   icons: {
     icon: '/favicon.ico',
   },

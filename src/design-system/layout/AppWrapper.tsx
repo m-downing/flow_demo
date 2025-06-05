@@ -17,12 +17,12 @@ interface AppWrapperProps {
 
 // Map of app names to their corresponding browser tab titles
 const APP_TITLES: Record<string, string> = {
-  'FLOW': 'FLOW',
+  'HELIUS': 'HELIUS',
 };
 
 // Map of app names to their corresponding favicon paths
 const APP_FAVICONS: Record<string, string> = {
-  'FLOW': '/icons/favicons/favicon.ico',
+  'HELIUS': '/icons/favicons/favicon.ico',
 };
 
 const DEFAULT_FAVICON = '/icons/favicons/favicon.ico';
@@ -89,8 +89,8 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
   const showCriticalBanner = false;  // Set to 'true' to enable CriticalBanner
 
   useEffect(() => {
-    document.title = APP_TITLES['FLOW'] || 'FLOW | UI Demo';
-    updateFavicon(APP_FAVICONS['FLOW'] || DEFAULT_FAVICON);
+    document.title = APP_TITLES['HELIUS'] || 'HELIUS | UI Demo';
+    updateFavicon(APP_FAVICONS['HELIUS'] || DEFAULT_FAVICON);
   }, []);
 
   useEffect(() => {
