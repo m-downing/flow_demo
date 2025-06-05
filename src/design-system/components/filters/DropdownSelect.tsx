@@ -138,12 +138,12 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
     
     return isDark
       ? `${baseClasses} bg-neutral-800 border-neutral-600 focus-within:border-neutral-400 focus-within:ring-neutral-400`
-      : `${baseClasses} bg-white border-neutral-300 focus-within:border-primary-600 focus-within:ring-primary-600`;
+      : `${baseClasses} bg-white border-neutral-300 focus-within:border-neutral-600 focus-within:ring-neutral-600`;
   };
 
   const getDropdownClasses = () => {
     const baseClasses = `
-      absolute z-50 w-full mt-1 rounded-sm border shadow-lg overflow-auto
+      absolute z-[99999] w-full mt-1 rounded-sm border shadow-lg overflow-auto
     `;
     
     return isDark
@@ -165,7 +165,7 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
     if (isSelected) {
       return isDark
         ? `${baseClasses} bg-neutral-700 text-neutral-100`
-        : `${baseClasses} bg-primary-100 text-primary-900`;
+        : `${baseClasses} bg-neutral-200 text-neutral-900`;
     }
     
     return isDark
@@ -177,6 +177,12 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
     return isDark
       ? 'px-3 py-2 text-xs font-medium text-neutral-400 bg-neutral-900'
       : 'px-3 py-2 text-xs font-medium text-neutral-600 bg-neutral-50';
+  };
+
+  const getSelectedTextClasses = () => {
+    return isDark
+      ? 'text-neutral-100'
+      : 'text-neutral-900';
   };
 
   const getPlaceholderClasses = () => {
@@ -223,9 +229,9 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
                 <div className="flex-1 min-w-0">
                   {selectedOption ? (
                     <div className="flex flex-col">
-                      <span className="truncate">{selectedOption.label}</span>
+                      <span className={`truncate ${getSelectedTextClasses()}`}>{selectedOption.label}</span>
                       {selectedOption.description && (
-                        <span className={`text-xs ${isDark ? 'text-primary-400' : 'text-neutral-500'}`}>
+                        <span className={`text-xs ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>
                           {selectedOption.description}
                         </span>
                       )}
@@ -242,7 +248,7 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
                     <button
                       type="button"
                       onClick={handleClear}
-                      className={`hover:scale-110 ${isDark ? 'text-primary-400 hover:text-primary-200' : 'text-neutral-500 hover:text-neutral-700'}`}
+                      className={`hover:scale-110 ${isDark ? 'text-neutral-400 hover:text-neutral-200' : 'text-neutral-500 hover:text-neutral-700'}`}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -251,7 +257,7 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
                   )}
                   
                   <svg 
-                    className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''} ${isDark ? 'text-primary-400' : 'text-neutral-500'}`} 
+                    className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''} ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`} 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -299,7 +305,7 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
                               <div className="flex flex-col min-w-0">
                                 <span className="truncate">{option.label}</span>
                                 {option.description && (
-                                  <span className={`text-xs ${isDark ? 'text-primary-400' : 'text-neutral-500'}`}>
+                                  <span className={`text-xs ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>
                                     {option.description}
                                   </span>
                                 )}
@@ -315,7 +321,7 @@ const DropdownSelect: React.FC<DropdownSelectProps> = ({
                       </div>
                     ))
                   ) : (
-                    <div className={`px-3 py-2 text-sm ${isDark ? 'text-primary-300' : 'text-neutral-600'}`}>
+                    <div className={`px-3 py-2 text-sm ${isDark ? 'text-neutral-300' : 'text-neutral-600'}`}>
                       No options found
                     </div>
                   )}

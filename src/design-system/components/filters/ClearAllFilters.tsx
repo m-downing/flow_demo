@@ -67,58 +67,79 @@ const ClearAllFilters: React.FC<ClearAllFiltersProps> = ({
     }
   };
 
-  const getVariantClasses = () => {
+  const getButtonClasses = () => {
     const baseClasses = `
+      inline-flex items-center justify-center px-3 py-2 text-sm font-medium
       transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-30
-      inline-flex items-center gap-2
     `;
-
-    if (disabled || !hasActiveFilters) {
-      return variant === 'button'
-        ? isDark
-          ? `${baseClasses} bg-neutral-800 text-neutral-500 cursor-not-allowed border border-neutral-700 rounded-sm`
-          : `${baseClasses} bg-neutral-100 text-neutral-400 cursor-not-allowed border border-neutral-300 rounded-sm`
-        : isDark
-          ? `${baseClasses} text-neutral-500 cursor-not-allowed`
-          : `${baseClasses} text-neutral-400 cursor-not-allowed`;
+    
+    if (disabled) {
+      return isDark
+        ? `${baseClasses} bg-neutral-800 text-neutral-500 border border-neutral-700 rounded-sm cursor-not-allowed`
+        : `${baseClasses} bg-neutral-100 text-neutral-400 border border-neutral-300 rounded-sm cursor-not-allowed`;
     }
+    
+    return isDark
+      ? `${baseClasses} bg-neutral-900 hover:bg-neutral-800 text-neutral-100 border border-neutral-600 hover:border-neutral-500 rounded-sm focus-visible:ring-neutral-400 cursor-pointer`
+      : `${baseClasses} bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 hover:border-neutral-400 rounded-sm focus-visible:ring-neutral-600 cursor-pointer`;
+  };
 
-    switch (variant) {
-      case 'button':
-        return isDark
-          ? `${baseClasses} bg-primary-900 hover:bg-primary-800 text-primary-100 border border-primary-600 hover:border-primary-500 rounded-sm focus-visible:ring-primary-400 cursor-pointer`
-          : `${baseClasses} bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-300 hover:border-neutral-400 rounded-sm focus-visible:ring-primary-600 cursor-pointer`;
-      
-      case 'link':
-        return isDark
-          ? `${baseClasses} text-primary-400 hover:text-primary-300 underline decoration-1 underline-offset-2 focus-visible:ring-primary-400 cursor-pointer`
-          : `${baseClasses} text-primary-600 hover:text-primary-700 underline decoration-1 underline-offset-2 focus-visible:ring-primary-600 cursor-pointer`;
-      
-      case 'icon':
-        return isDark
-          ? `${baseClasses} text-primary-400 hover:text-primary-300 hover:bg-primary-800 p-1.5 rounded-sm focus-visible:ring-primary-400 cursor-pointer`
-          : `${baseClasses} text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 p-1.5 rounded-sm focus-visible:ring-primary-600 cursor-pointer`;
-      
-      default:
-        return baseClasses;
-    }
+  const getLinkClasses = () => {
+    const baseClasses = `
+      text-sm font-medium transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-30
+    `;
+    
+    return isDark
+      ? `${baseClasses} text-neutral-400 hover:text-neutral-300 underline decoration-1 underline-offset-2 focus-visible:ring-neutral-400 cursor-pointer`
+      : `${baseClasses} text-neutral-600 hover:text-neutral-700 underline decoration-1 underline-offset-2 focus-visible:ring-neutral-600 cursor-pointer`;
   };
 
   const getIconClasses = () => {
-    switch (size) {
-      case 'sm':
-        return 'w-3 h-3';
-      case 'lg':
-        return 'w-5 h-5';
-      default:
-        return 'w-4 h-4';
+    const baseClasses = `
+      transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-30
+    `;
+    
+    return isDark
+      ? `${baseClasses} text-neutral-400 hover:text-neutral-300 hover:bg-neutral-800 p-1.5 rounded-sm focus-visible:ring-neutral-400 cursor-pointer`
+      : `${baseClasses} text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 p-1.5 rounded-sm focus-visible:ring-neutral-600 cursor-pointer`;
+  };
+
+  const getVariantClasses = () => {
+    const isInactive = disabled || !hasActiveFilters;
+    
+    switch (variant) {
+      case 'link':
+        if (isInactive) {
+          return isDark
+            ? 'text-neutral-500 cursor-not-allowed'
+            : 'text-neutral-400 cursor-not-allowed';
+        }
+        return getLinkClasses();
+        
+      case 'icon':
+        if (isInactive) {
+          return isDark
+            ? 'text-neutral-500 cursor-not-allowed p-1.5'
+            : 'text-neutral-400 cursor-not-allowed p-1.5';
+        }
+        return getIconClasses();
+        
+      default: // button
+        if (isInactive) {
+          return isDark
+            ? 'bg-neutral-800 text-neutral-500 border border-neutral-700 rounded-sm cursor-not-allowed'
+            : 'bg-neutral-100 text-neutral-400 border border-neutral-300 rounded-sm cursor-not-allowed';
+        }
+        return getButtonClasses();
     }
   };
 
   const getClearIcon = () => {
+    const iconSizeClass = size === 'sm' ? 'w-3 h-3' : size === 'lg' ? 'w-5 h-5' : 'w-4 h-4';
+    
     return (
       <svg 
-        className={getIconClasses()} 
+        className={iconSizeClass} 
         fill="none" 
         stroke="currentColor" 
         viewBox="0 0 24 24"
@@ -173,7 +194,7 @@ const ClearAllFilters: React.FC<ClearAllFiltersProps> = ({
         type="button"
         onClick={handleClear}
         disabled={disabled || !hasActiveFilters}
-        className={`${getVariantClasses()} ${getSizeClasses()}`}
+        className={`${getVariantClasses()} ${getSizeClasses()} inline-flex items-center gap-2 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-30`}
         title={
           disabled || !hasActiveFilters
             ? 'No active filters to clear'

@@ -62,55 +62,52 @@ const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
 
   const getCheckboxClasses = () => {
     const baseClasses = `
-      rounded border-2 transition-all duration-200
-      focus:outline-none focus:ring-2 focus:ring-opacity-30
-      ${getSizeClasses().checkbox}
+      w-4 h-4 rounded-sm border-2 transition-colors duration-200 
+      focus:outline-none focus:ring-2 focus:ring-opacity-30 cursor-pointer
     `;
     
     if (disabled) {
       return isDark
-        ? `${baseClasses} bg-neutral-800 border-neutral-600 cursor-not-allowed opacity-50`
-        : `${baseClasses} bg-neutral-100 border-neutral-300 cursor-not-allowed opacity-50`;
+        ? `${baseClasses} bg-neutral-900 border-neutral-700 cursor-not-allowed`
+        : `${baseClasses} bg-neutral-100 border-neutral-300 cursor-not-allowed`;
     }
     
     if (error) {
       return isDark
-        ? `${baseClasses} border-error-500 focus:ring-error-500 ${value ? 'bg-error-600' : 'bg-primary-900'}`
-        : `${baseClasses} border-error-500 focus:ring-error-500 ${value ? 'bg-error-500' : 'bg-white'}`;
+        ? `${baseClasses} border-error-500 focus:ring-error-500 ${value ? 'bg-error-600' : 'bg-neutral-900'}`
+        : `${baseClasses} border-error-500 focus:ring-error-500 ${value ? 'bg-error-600' : 'bg-white'}`;
     }
     
     if (value) {
       return isDark
-        ? `${baseClasses} bg-primary-600 border-primary-600 focus:ring-primary-400`
-        : `${baseClasses} bg-primary-600 border-primary-600 focus:ring-primary-600`;
+        ? `${baseClasses} bg-neutral-600 border-neutral-600 focus:ring-neutral-400`
+        : `${baseClasses} bg-neutral-600 border-neutral-600 focus:ring-neutral-600`;
     }
     
     return isDark
-      ? `${baseClasses} bg-primary-900 border-primary-600 hover:border-primary-500 focus:ring-primary-400`
-      : `${baseClasses} bg-white border-neutral-300 hover:border-primary-500 focus:ring-primary-600`;
+      ? `${baseClasses} bg-neutral-900 border-neutral-600 hover:border-neutral-500 focus:ring-neutral-400`
+      : `${baseClasses} bg-white border-neutral-300 hover:border-neutral-500 focus:ring-neutral-600`;
   };
 
   const getLabelClasses = () => {
     const baseClasses = `
-      font-medium cursor-pointer select-none transition-colors duration-200
-      ${getSizeClasses().label}
+      text-sm transition-colors duration-200 cursor-pointer select-none
     `;
     
     if (disabled) {
       return isDark
-        ? `${baseClasses} text-neutral-500 cursor-not-allowed`
-        : `${baseClasses} text-neutral-400 cursor-not-allowed`;
+        ? `${baseClasses} text-neutral-500`
+        : `${baseClasses} text-neutral-400`;
     }
     
     return isDark
-      ? `${baseClasses} text-primary-100 hover:text-primary-50`
+      ? `${baseClasses} text-neutral-100 hover:text-neutral-50`
       : `${baseClasses} text-neutral-900 hover:text-neutral-700`;
   };
 
   const getDescriptionClasses = () => {
     const baseClasses = `
-      mt-1 transition-colors duration-200
-      ${getSizeClasses().description}
+      text-xs transition-colors duration-200
     `;
     
     if (disabled) {
@@ -120,22 +117,21 @@ const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
     }
     
     return isDark
-      ? `${baseClasses} text-primary-300`
+      ? `${baseClasses} text-neutral-300`
       : `${baseClasses} text-neutral-600`;
   };
 
   const getContainerClasses = () => {
     const baseClasses = `
-      relative flex items-start space-x-3 transition-all duration-200
-      ${disabled ? '' : 'hover:bg-opacity-50 rounded-sm p-1 -m-1'}
+      flex items-start space-x-3 p-2 rounded-sm transition-colors duration-200
     `;
     
     if (disabled) {
-      return baseClasses;
+      return `${baseClasses} cursor-not-allowed`;
     }
     
     return isDark
-      ? `${baseClasses} hover:bg-primary-800`
+      ? `${baseClasses} hover:bg-neutral-800`
       : `${baseClasses} hover:bg-neutral-50`;
   };
 

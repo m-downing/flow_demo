@@ -72,6 +72,20 @@ const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
     setSelectedPreset(matchingPreset?.value || null);
   }, [value, presets]);
 
+  // Handle clicks outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isOpen]);
+
   const isDark = theme === 'dark';
 
   const formatDateForInput = (date: Date): string => {
@@ -147,15 +161,6 @@ const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
     setSelectedPreset(null);
   }, [onChange]);
 
-  const handleBlur = useCallback(() => {
-    // Delay hiding to allow for clicks inside dropdown
-    setTimeout(() => {
-      if (!containerRef.current?.contains(document.activeElement)) {
-        setIsOpen(false);
-      }
-    }, 150);
-  }, []);
-
   const getLabelClasses = () => {
     return isDark
       ? 'text-neutral-100'
@@ -183,12 +188,12 @@ const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
     
     return isDark
       ? `${baseClasses} bg-neutral-800 border-neutral-600 focus-within:border-neutral-400 focus-within:ring-neutral-400`
-      : `${baseClasses} bg-white border-neutral-300 focus-within:border-primary-600 focus-within:ring-primary-600`;
+      : `${baseClasses} bg-white border-neutral-300 focus-within:border-neutral-600 focus-within:ring-neutral-600`;
   };
 
   const getDropdownClasses = () => {
     const baseClasses = `
-      absolute z-50 w-full mt-1 rounded-sm border shadow-lg overflow-hidden
+      absolute z-[99999] w-full mt-1 rounded-sm border shadow-lg overflow-hidden
     `;
     
     return isDark
@@ -196,22 +201,27 @@ const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
       : `${baseClasses} bg-white border-neutral-300`;
   };
 
-  const getPresetClasses = (presetValue: string) => {
+  const getPresetButtonClasses = (isActive: boolean) => {
     const baseClasses = `
-      px-3 py-2 cursor-pointer transition-colors duration-150 text-left w-full
+      px-3 py-2 text-sm rounded-sm transition-colors duration-200 cursor-pointer
+      hover:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-30
     `;
     
-    const isSelected = selectedPreset === presetValue;
-    
-    if (isSelected) {
+    if (isActive) {
       return isDark
-        ? `${baseClasses} bg-neutral-700 text-neutral-100`
-        : `${baseClasses} bg-primary-100 text-primary-900`;
+        ? `${baseClasses} bg-neutral-700 text-neutral-100 focus-visible:ring-neutral-400`
+        : `${baseClasses} bg-neutral-200 text-neutral-900 focus-visible:ring-neutral-600`;
     }
     
     return isDark
-      ? `${baseClasses} text-neutral-100 hover:bg-neutral-700`
-      : `${baseClasses} text-neutral-900 hover:bg-neutral-100`;
+      ? `${baseClasses} text-neutral-300 hover:bg-neutral-700 hover:text-neutral-100 focus-visible:ring-neutral-400`
+      : `${baseClasses} text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 focus-visible:ring-neutral-600`;
+  };
+
+  const getSelectedTextClasses = () => {
+    return isDark
+      ? 'text-neutral-100'
+      : 'text-neutral-900';
   };
 
   const getPlaceholderClasses = () => {
@@ -261,7 +271,7 @@ const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
               <div className="flex items-center justify-between">
                 <div className="flex-1 min-w-0">
                   {hasValue ? (
-                    <span className="truncate">{getDisplayText()}</span>
+                    <span className={`truncate ${getSelectedTextClasses()}`}>{getDisplayText()}</span>
                   ) : (
                     <span className={getPlaceholderClasses()}>
                       Select date range...
@@ -338,8 +348,7 @@ const DateRangeFilter: React.FC<DateRangeFilterProps> = ({
                         key={preset.value}
                         type="button"
                         onClick={() => handlePresetSelect(preset)}
-                        onBlur={handleBlur}
-                        className={getPresetClasses(preset.value)}
+                        className={getPresetButtonClasses(selectedPreset === preset.value)}
                       >
                         {preset.label}
                       </button>

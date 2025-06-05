@@ -103,19 +103,21 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       
       if (error) {
         return isDark
-          ? `${baseClasses} bg-primary-900 border-error-500 text-primary-100 placeholder-primary-400 focus:border-error-500 focus-visible:ring-error-500`
+          ? `${baseClasses} bg-neutral-900 border-error-500 text-neutral-100 placeholder-neutral-400 focus:border-error-500 focus-visible:ring-error-500`
           : `${baseClasses} bg-white border-error-500 text-neutral-900 placeholder-neutral-500 focus:border-error-500 focus-visible:ring-error-500`;
       }
       
       return isDark
-        ? `${baseClasses} bg-primary-900 border-primary-600 text-primary-100 placeholder-primary-400 focus:border-primary-400 focus-visible:ring-primary-400`
-        : `${baseClasses} bg-white border-neutral-300 text-neutral-900 placeholder-neutral-500 focus:border-primary-600 focus-visible:ring-primary-600`;
+        ? `${baseClasses} bg-neutral-900 border-neutral-600 text-neutral-100 placeholder-neutral-400 focus:border-neutral-400 focus-visible:ring-neutral-400`
+        : `${baseClasses} bg-white border-neutral-300 text-neutral-900 placeholder-neutral-500 focus:border-neutral-600 focus-visible:ring-neutral-600`;
     };
     
     // Theme-aware label classes
-    const labelClasses = isDark
-      ? 'text-primary-100'
-      : 'text-neutral-900';
+    const getLabelClasses = () => {
+      return isDark
+        ? 'text-neutral-100'
+        : 'text-neutral-900';
+    };
     
     // Theme-aware icon classes
     const iconClasses = isDark
@@ -123,9 +125,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       : 'text-neutral-500';
     
     // Theme-aware helper text classes
-    const helperTextClasses = isDark
-      ? 'text-primary-300'
-      : 'text-neutral-600';
+    const getHintClasses = () => {
+      return isDark
+        ? 'text-neutral-400'
+        : 'text-neutral-600';
+    };
     
     // Left/right element padding adjustment
     const leftPadding = leftElement ? 'pl-9' : '';
@@ -143,7 +147,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {label && (
               <label
                 htmlFor={inputId}
-                className={`mb-1.5 block text-sm font-medium ${labelClasses}`}
+                className={`mb-1.5 block text-sm font-medium ${getLabelClasses()}`}
               >
                 {label}
                 {required && <span className="ml-1 text-error-500">*</span>}
@@ -186,10 +190,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             </div>
             
             {/* Helper text or error message */}
-            {(helperText || error) && (
+            {(error || helperText) && (
               <div
                 id={error ? `${inputId}-error` : `${inputId}-helper`}
-                className={`mt-1 text-sm ${error ? 'text-error-500' : helperTextClasses}`}
+                className={`mt-1 text-sm ${error ? 'text-error-500' : getHintClasses()}`}
               >
                 {error || helperText}
               </div>

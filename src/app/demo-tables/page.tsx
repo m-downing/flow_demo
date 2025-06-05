@@ -10,9 +10,6 @@ import {
   DropdownSelect, 
   DropdownMultiSelect,
   DateRangeFilter,
-  NumberRangeSlider,
-  SearchAutocomplete,
-  PriorityFilter,
   CheckboxFilter,
   ClearAllFilters,
   SelectOption,
@@ -20,6 +17,7 @@ import {
   DateRange,
   DEFAULT_PRESETS
 } from '@/design-system/components/filters';
+import Input from '@/design-system/components/forms/Input';
 
 interface Filters {
   search: string;
@@ -29,9 +27,6 @@ interface Filters {
   supplier: string | null;
   serviceLevel: string[];
   dateRange: DateRange;
-  costRange: [number, number];
-  coreRange: [number, number];
-  powerRange: [number, number];
   activeOnly: boolean;
   hasWarranty: boolean;
 }
@@ -46,9 +41,6 @@ export default function DemoTablesPage() {
     supplier: null,
     serviceLevel: [],
     dateRange: { startDate: null, endDate: null },
-    costRange: [0, 500000],
-    coreRange: [0, 100],
-    powerRange: [0, 2500],
     activeOnly: false,
     hasWarranty: false,
   });
@@ -86,14 +78,9 @@ export default function DemoTablesPage() {
     return levels.map(level => ({ value: level, label: level }));
   }, []);
 
-  const searchOptions = useMemo(() => {
-    const models = [...new Set(sampleData.map(item => item.serverModel))];
-    const suppliers = [...new Set(sampleData.map(item => item.supplier))];
-    
-    return [
-      ...models.map(model => ({ value: model, label: model, category: 'Server Models' })),
-      ...suppliers.map(supplier => ({ value: supplier, label: supplier, category: 'Suppliers' }))
-    ];
+  const priorityOptions: MultiSelectOption[] = useMemo(() => {
+    const priorities = [...new Set(sampleData.map(item => item.priority))];
+    return priorities.map(priority => ({ value: priority, label: priority }));
   }, []);
 
   // Filter the data based on current filters
@@ -137,21 +124,6 @@ export default function DemoTablesPage() {
         if (filters.dateRange.endDate && orderDate > filters.dateRange.endDate) return false;
       }
 
-      // Cost range filter
-      if (item.cost < filters.costRange[0] || item.cost > filters.costRange[1]) {
-        return false;
-      }
-
-      // CPU cores range filter
-      if (item.cpuCores < filters.coreRange[0] || item.cpuCores > filters.coreRange[1]) {
-        return false;
-      }
-
-      // Power consumption range filter
-      if (item.powerConsumption < filters.powerRange[0] || item.powerConsumption > filters.powerRange[1]) {
-        return false;
-      }
-
       // Active only filter
       if (filters.activeOnly && item.status !== 'active') {
         return false;
@@ -175,9 +147,6 @@ export default function DemoTablesPage() {
       supplier: null,
       serviceLevel: [],
       dateRange: { startDate: null, endDate: null },
-      costRange: [0, 500000],
-      coreRange: [0, 100],
-      powerRange: [0, 2500],
       activeOnly: false,
       hasWarranty: false,
     });
@@ -185,10 +154,7 @@ export default function DemoTablesPage() {
 
   const hasActiveFilters = filters.search || filters.status.length > 0 || filters.priority.length > 0 || 
     filters.location.length > 0 || filters.supplier || filters.serviceLevel.length > 0 ||
-    filters.dateRange.startDate || filters.dateRange.endDate || 
-    filters.costRange[0] > 0 || filters.costRange[1] < 500000 ||
-    filters.coreRange[0] > 0 || filters.coreRange[1] < 100 ||
-    filters.powerRange[0] > 0 || filters.powerRange[1] < 2500 ||
+    filters.dateRange.startDate || filters.dateRange.endDate ||
     filters.activeOnly || filters.hasWarranty;
 
   return (
@@ -228,11 +194,10 @@ export default function DemoTablesPage() {
           {/* Filter Controls Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {/* Search */}
-            <SearchAutocomplete
+            <Input
               label="Search Servers"
               value={filters.search}
-              onChange={(value) => setFilters(prev => ({ ...prev, search: value }))}
-              options={searchOptions}
+              onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
               placeholder="Search by model or supplier..."
               className="col-span-full md:col-span-2"
             />
@@ -249,15 +214,12 @@ export default function DemoTablesPage() {
             />
 
             {/* Priority Filter */}
-            <PriorityFilter
+            <DropdownMultiSelect
               label="Priority"
               value={filters.priority}
               onChange={(value) => setFilters(prev => ({ ...prev, priority: value }))}
-              priorities={[
-                { value: 'critical', label: 'Critical', badgeVariant: 'critical', urgencyLevel: 5 },
-                { value: 'high', label: 'High', badgeVariant: 'highPriority', urgencyLevel: 4 },
-                { value: 'standard', label: 'Standard', badgeVariant: 'standard', urgencyLevel: 3 }
-              ]}
+              options={priorityOptions}
+              showChips={false}
             />
 
             {/* Location Multi-Select */}
@@ -295,40 +257,6 @@ export default function DemoTablesPage() {
               onChange={(value) => setFilters(prev => ({ ...prev, dateRange: value }))}
               presets={DEFAULT_PRESETS}
               className="col-span-full md:col-span-2"
-            />
-
-            {/* Cost Range Slider */}
-            <NumberRangeSlider
-              label="Cost Range"
-              value={filters.costRange}
-              onChange={(value) => setFilters(prev => ({ ...prev, costRange: value }))}
-              min={0}
-              max={500000}
-              step={5000}
-              formatValue={(value) => `$${(value / 1000).toFixed(0)}K`}
-              className="col-span-full md:col-span-2"
-            />
-
-            {/* CPU Cores Range */}
-            <NumberRangeSlider
-              label="CPU Cores"
-              value={filters.coreRange}
-              onChange={(value) => setFilters(prev => ({ ...prev, coreRange: value }))}
-              min={0}
-              max={100}
-              step={2}
-              formatValue={(value) => `${value} cores`}
-            />
-
-            {/* Power Consumption Range */}
-            <NumberRangeSlider
-              label="Power Consumption"
-              value={filters.powerRange}
-              onChange={(value) => setFilters(prev => ({ ...prev, powerRange: value }))}
-              min={0}
-              max={2500}
-              step={50}
-              formatValue={(value) => `${value}W`}
             />
 
             {/* Boolean Filters */}
@@ -396,12 +324,9 @@ export default function DemoTablesPage() {
           <div className="bg-blue-50 dark:bg-neutral-900 border-l-4 border-blue-700 dark:border-neutral-600 p-lg rounded-lg">
             <p className="font-semibold mb-2 text-neutral-900 dark:text-neutral-50">Filter Components Used:</p>
             <ul className="list-disc list-inside space-y-1 text-sm text-neutral-700 dark:text-neutral-100">
-              <li><strong>SearchAutocomplete:</strong> Server models and suppliers with fuzzy search</li>
               <li><strong>DropdownMultiSelect:</strong> Status, locations, and service levels with grouping</li>
               <li><strong>DropdownSelect:</strong> Single supplier selection with search</li>
-              <li><strong>PriorityFilter:</strong> Custom priority badges with visual indicators</li>
               <li><strong>DateRangeFilter:</strong> Order date ranges with preset options</li>
-              <li><strong>NumberRangeSlider:</strong> Cost, CPU cores, and power consumption ranges</li>
               <li><strong>CheckboxFilter:</strong> Boolean filters for active status and warranty</li>
               <li><strong>ClearAllFilters:</strong> One-click filter reset functionality</li>
             </ul>
@@ -412,11 +337,10 @@ export default function DemoTablesPage() {
             <ul className="list-disc list-inside space-y-1 text-sm text-neutral-700 dark:text-neutral-100">
               <li>Live data filtering with instant results</li>
               <li>Grouped options for better organization</li>
-              <li>Range sliders with formatted value display</li>
               <li>Date presets for common time ranges</li>
               <li>Multi-select with chip visualization</li>
               <li>Boolean filters for quick toggles</li>
-              <li>Search with categorized suggestions</li>
+              <li>Basic text search functionality</li>
               <li>Responsive grid layout for all screen sizes</li>
             </ul>
           </div>

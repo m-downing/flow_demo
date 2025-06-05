@@ -67,6 +67,21 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
     }
   }, [options, searchTerm, searchable]);
 
+  // Handle clicks outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+        setSearchTerm('');
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [isOpen]);
+
   const isDark = theme === 'dark';
 
   const selectedOptions = options.filter(opt => value.includes(opt.value));
@@ -80,7 +95,9 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
     }
   }, [disabled, isOpen, searchable]);
 
-  const handleOptionToggle = useCallback((optionValue: string) => {
+  const handleOptionToggle = useCallback((optionValue: string, event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent dropdown from closing
+    
     if (value.includes(optionValue)) {
       onChange(value.filter(v => v !== optionValue));
     } else {
@@ -128,16 +145,6 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
     }
   }, []);
 
-  const handleBlur = useCallback(() => {
-    // Delay hiding to allow for option clicks
-    setTimeout(() => {
-      if (!containerRef.current?.contains(document.activeElement)) {
-        setIsOpen(false);
-        setSearchTerm('');
-      }
-    }, 150);
-  }, []);
-
   const getLabelClasses = () => {
     return isDark
       ? 'text-neutral-100'
@@ -165,24 +172,24 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
     
     return isDark
       ? `${baseClasses} bg-neutral-800 border-neutral-600 focus-within:border-neutral-400 focus-within:ring-neutral-400`
-      : `${baseClasses} bg-white border-neutral-300 focus-within:border-primary-600 focus-within:ring-primary-600`;
+      : `${baseClasses} bg-white border-neutral-300 focus-within:border-neutral-600 focus-within:ring-neutral-600`;
   };
 
   const getChipClasses = () => {
     return isDark
       ? 'inline-flex items-center px-2 py-1 text-xs rounded-md bg-neutral-700 text-neutral-100'
-      : 'inline-flex items-center px-2 py-1 text-xs rounded-md bg-primary-100 text-primary-900';
+      : 'inline-flex items-center px-2 py-1 text-xs rounded-md bg-neutral-200 text-neutral-900';
   };
 
   const getRemoveChipClasses = () => {
     return isDark
-      ? 'text-primary-300 hover:text-primary-100'
-      : 'text-primary-600 hover:text-primary-900';
+      ? 'text-neutral-400 hover:text-neutral-200'
+      : 'text-neutral-600 hover:text-neutral-900';
   };
 
   const getDropdownClasses = () => {
     const baseClasses = `
-      absolute z-50 w-full mt-1 rounded-sm border shadow-lg overflow-auto
+      absolute z-[99999] w-full mt-1 rounded-sm border shadow-lg overflow-auto
     `;
     
     return isDark
@@ -190,9 +197,9 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
       : `${baseClasses} bg-white border-neutral-300`;
   };
 
-  const getOptionClasses = (option: MultiSelectOption, isSelected: boolean) => {
+  const getOptionClasses = (option: MultiSelectOption) => {
     const baseClasses = `
-      px-3 py-2 cursor-pointer transition-colors duration-150 flex items-center justify-between
+      px-3 py-2 cursor-pointer transition-colors duration-150 flex items-center gap-3
     `;
     
     if (option.disabled) {
@@ -201,15 +208,32 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
         : `${baseClasses} text-neutral-400 cursor-not-allowed`;
     }
     
-    if (isSelected) {
-      return isDark
-        ? `${baseClasses} bg-neutral-700 text-neutral-100`
-        : `${baseClasses} bg-primary-100 text-primary-900`;
-    }
-    
     return isDark
       ? `${baseClasses} text-neutral-100 hover:bg-neutral-700`
       : `${baseClasses} text-neutral-900 hover:bg-neutral-100`;
+  };
+
+  const getCheckboxClasses = (isSelected: boolean, isDisabled: boolean) => {
+    const baseClasses = `
+      w-4 h-4 border-2 rounded-sm flex items-center justify-center flex-shrink-0
+      transition-colors duration-150
+    `;
+    
+    if (isDisabled) {
+      return isDark
+        ? `${baseClasses} border-neutral-600 bg-neutral-800`
+        : `${baseClasses} border-neutral-300 bg-neutral-100`;
+    }
+    
+    if (isSelected) {
+      return isDark
+        ? `${baseClasses} border-neutral-400 bg-neutral-600`
+        : `${baseClasses} border-neutral-600 bg-neutral-600`;
+    }
+    
+    return isDark
+      ? `${baseClasses} border-neutral-500 bg-transparent hover:border-neutral-400`
+      : `${baseClasses} border-neutral-400 bg-transparent hover:border-neutral-600`;
   };
 
   const getGroupHeaderClasses = () => {
@@ -234,19 +258,25 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
 
   const getControlsClasses = () => {
     return isDark
-      ? 'px-3 py-2 text-xs border-b border-primary-700 bg-primary-800'
+      ? 'px-3 py-2 text-xs border-b border-neutral-700 bg-neutral-800'
       : 'px-3 py-2 text-xs border-b border-neutral-300 bg-neutral-50';
   };
 
   const getControlButtonClasses = () => {
     return isDark
-      ? 'text-primary-400 hover:text-primary-200 cursor-pointer'
-      : 'text-primary-600 hover:text-primary-700 cursor-pointer';
+      ? 'text-neutral-400 hover:text-neutral-200 cursor-pointer'
+      : 'text-neutral-600 hover:text-neutral-900 cursor-pointer';
+  };
+
+  const getControlTextClasses = () => {
+    return isDark
+      ? 'text-neutral-300'
+      : 'text-neutral-700';
   };
 
   const getCountClasses = () => {
     return isDark
-      ? 'text-xs text-primary-300'
+      ? 'text-xs text-neutral-300'
       : 'text-xs text-neutral-600';
   };
 
@@ -321,7 +351,7 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
                     <button
                       type="button"
                       onClick={handleClearAll}
-                      className={`hover:scale-110 ${isDark ? 'text-primary-400 hover:text-primary-200' : 'text-neutral-500 hover:text-neutral-700'}`}
+                      className={`hover:scale-110 ${isDark ? 'text-neutral-400 hover:text-neutral-200' : 'text-neutral-500 hover:text-neutral-700'}`}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -330,7 +360,7 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
                   )}
                   
                   <svg 
-                    className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''} ${isDark ? 'text-primary-400' : 'text-neutral-500'}`} 
+                    className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''} ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`} 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -354,7 +384,6 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
                     value={searchTerm}
                     onChange={handleSearchChange}
                     onKeyDown={handleKeyDown}
-                    onBlur={handleBlur}
                     className={getSearchClasses()}
                   />
                 )}
@@ -362,7 +391,7 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
                 {showSelectAll && filteredOptions.length > 1 && (
                   <div className={getControlsClasses()}>
                     <div className="flex justify-between items-center">
-                      <span>Select:</span>
+                      <span className={getControlTextClasses()}>Select:</span>
                       <div className="flex space-x-3">
                         <button
                           type="button"
@@ -387,34 +416,37 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
                         )}
                         {groupOptions.map((option) => {
                           const isSelected = value.includes(option.value);
-                          const isDisabled = option.disabled || (maxSelections && !isSelected && value.length >= maxSelections);
+                          const isDisabled = Boolean(option.disabled || (maxSelections && !isSelected && value.length >= maxSelections));
                           
                           return (
                             <div
                               key={option.value}
-                              className={getOptionClasses(option, isSelected)}
-                              onClick={() => !isDisabled && handleOptionToggle(option.value)}
+                              className={getOptionClasses(option)}
+                              onClick={(e) => !isDisabled && handleOptionToggle(option.value, e)}
                             >
-                              <div className="flex flex-col min-w-0">
+                              <div className={getCheckboxClasses(isSelected, isDisabled)}>
+                                {isSelected && (
+                                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                  </svg>
+                                )}
+                              </div>
+                              
+                              <div className="flex flex-col min-w-0 flex-1">
                                 <span className="truncate">{option.label}</span>
                                 {option.description && (
-                                  <span className={`text-xs ${isDark ? 'text-primary-400' : 'text-neutral-500'}`}>
+                                  <span className={`text-xs ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>
                                     {option.description}
                                   </span>
                                 )}
                               </div>
-                              {isSelected && (
-                                <svg className="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              )}
                             </div>
                           );
                         })}
                       </div>
                     ))
                   ) : (
-                    <div className={`px-3 py-2 text-sm ${isDark ? 'text-primary-300' : 'text-neutral-600'}`}>
+                    <div className={`px-3 py-2 text-sm ${isDark ? 'text-neutral-300' : 'text-neutral-600'}`}>
                       No options found
                     </div>
                   )}
@@ -426,13 +458,6 @@ const DropdownMultiSelect: React.FC<DropdownMultiSelectProps> = ({
           {error && (
             <div className="text-sm text-error-500">
               {error}
-            </div>
-          )}
-          
-          {value.length > 0 && (
-            <div className={getCountClasses()}>
-              {value.length} option{value.length !== 1 ? 's' : ''} selected
-              {maxSelections && ` (max: ${maxSelections})`}
             </div>
           )}
         </>

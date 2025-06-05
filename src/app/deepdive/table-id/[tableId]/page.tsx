@@ -8,15 +8,12 @@ import { getTypography } from '@/design-system/foundations/tokens/typography';
 import { shadows } from '@/design-system/foundations/tokens/shadows';
 import Badge, { BadgeVariant } from '@/design-system/components/feedback/Badge';
 import Button from '@/design-system/components/primitives/Button';
+import Input from '@/design-system/components/forms/Input';
 import { 
   DropdownSelect, 
   DropdownMultiSelect,
-  NumberRangeSlider,
-  SearchAutocomplete,
-  PriorityFilter,
   CheckboxFilter,
   ClearAllFilters,
-  ActiveFilterSummary,
   SelectOption,
   MultiSelectOption,
   DateRange
@@ -45,9 +42,6 @@ interface DeepDiveFilters {
   supplier: string | null;
   serviceLevel: string[];
   dateRange: DateRange;
-  costRange: [number, number];
-  coreRange: [number, number];
-  powerRange: [number, number];
   activeOnly: boolean;
   hasWarranty: boolean;
 }
@@ -270,9 +264,6 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
     supplier: null,
     serviceLevel: [],
     dateRange: { startDate: null, endDate: null },
-    costRange: [0, 500000],
-    coreRange: [0, 100],
-    powerRange: [0, 2500],
     activeOnly: false,
     hasWarranty: false,
   });
@@ -354,15 +345,10 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
     return levels.map(level => ({ value: level, label: level }));
   }, [tableData?.data]);
 
-  const searchOptions = useMemo(() => {
+  const priorityOptions: MultiSelectOption[] = useMemo(() => {
     if (!tableData?.data) return [];
-    const models = [...new Set(tableData.data.map(item => item.serverModel as string).filter(Boolean))];
-    const suppliers = [...new Set(tableData.data.map(item => item.supplier as string).filter(Boolean))];
-    
-    return [
-      ...models.map(model => ({ value: model, label: model, category: 'Server Models' })),
-      ...suppliers.map(supplier => ({ value: supplier, label: supplier, category: 'Suppliers' }))
-    ];
+    const priorities = [...new Set(tableData.data.map(item => item.priority as string).filter(Boolean))];
+    return priorities.map(priority => ({ value: priority, label: priority }));
   }, [tableData?.data]);
 
   // Filter the data based on current filters
@@ -409,24 +395,6 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
         if (filters.dateRange.endDate && orderDate > filters.dateRange.endDate) return false;
       }
 
-      // Cost range filter
-      const cost = item.cost as number;
-      if (cost < filters.costRange[0] || cost > filters.costRange[1]) {
-        return false;
-      }
-
-      // CPU cores range filter
-      const cpuCores = item.cpuCores as number;
-      if (cpuCores < filters.coreRange[0] || cpuCores > filters.coreRange[1]) {
-        return false;
-      }
-
-      // Power consumption range filter
-      const powerConsumption = item.powerConsumption as number;
-      if (powerConsumption < filters.powerRange[0] || powerConsumption > filters.powerRange[1]) {
-        return false;
-      }
-
       // Active only filter
       if (filters.activeOnly && item.status !== 'active') {
         return false;
@@ -450,9 +418,6 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
       supplier: null,
       serviceLevel: [],
       dateRange: { startDate: null, endDate: null },
-      costRange: [0, 500000],
-      coreRange: [0, 100],
-      powerRange: [0, 2500],
       activeOnly: false,
       hasWarranty: false,
     });
@@ -460,75 +425,8 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
 
   const hasActiveFilters = filters.search || filters.status.length > 0 || filters.priority.length > 0 || 
     filters.location.length > 0 || filters.supplier || filters.serviceLevel.length > 0 ||
-    filters.dateRange.startDate || filters.dateRange.endDate || 
-    filters.costRange[0] > 0 || filters.costRange[1] < 500000 ||
-    filters.coreRange[0] > 0 || filters.coreRange[1] < 100 ||
-    filters.powerRange[0] > 0 || filters.powerRange[1] < 2500 ||
+    filters.dateRange.startDate || filters.dateRange.endDate ||
     filters.activeOnly || filters.hasWarranty;
-
-  // Generate filter summaries for ActiveFilterSummary
-  const activeFilters = [
-    ...(filters.search ? [{ id: 'search', label: 'Search', value: filters.search }] : []),
-    ...filters.status.map((status, index) => ({ id: `status-${index}`, label: 'Status', value: status })),
-    ...filters.priority.map((priority, index) => ({ id: `priority-${index}`, label: 'Priority', value: priority })),
-    ...filters.location.map((location, index) => ({ id: `location-${index}`, label: 'Location', value: location })),
-    ...(filters.supplier ? [{ id: 'supplier', label: 'Supplier', value: filters.supplier }] : []),
-    ...filters.serviceLevel.map((level, index) => ({ id: `serviceLevel-${index}`, label: 'Service Level', value: level })),
-    ...(filters.dateRange.startDate || filters.dateRange.endDate ? [{ 
-      id: 'dateRange', 
-      label: 'Order Date', 
-      value: `${filters.dateRange.startDate?.toLocaleDateString() || 'Any'} - ${filters.dateRange.endDate?.toLocaleDateString() || 'Any'}` 
-    }] : []),
-    ...((filters.costRange[0] > 0 || filters.costRange[1] < 500000) ? [{ 
-      id: 'costRange', 
-      label: 'Cost Range', 
-      value: `$${filters.costRange[0].toLocaleString()} - $${filters.costRange[1].toLocaleString()}` 
-    }] : []),
-    ...((filters.coreRange[0] > 0 || filters.coreRange[1] < 100) ? [{ 
-      id: 'coreRange', 
-      label: 'CPU Cores', 
-      value: `${filters.coreRange[0]} - ${filters.coreRange[1]}` 
-    }] : []),
-    ...((filters.powerRange[0] > 0 || filters.powerRange[1] < 2500) ? [{ 
-      id: 'powerRange', 
-      label: 'Power (W)', 
-      value: `${filters.powerRange[0]}W - ${filters.powerRange[1]}W` 
-    }] : []),
-    ...(filters.activeOnly ? [{ id: 'activeOnly', label: 'Active Only', value: 'Yes' }] : []),
-    ...(filters.hasWarranty ? [{ id: 'hasWarranty', label: 'Has Warranty', value: 'Yes' }] : []),
-  ];
-
-  const handleRemoveFilter = (filterId: string) => {
-    if (filterId === 'search') {
-      setFilters(prev => ({ ...prev, search: '' }));
-    } else if (filterId.startsWith('status-')) {
-      const index = parseInt(filterId.split('-')[1]);
-      setFilters(prev => ({ ...prev, status: prev.status.filter((_, i) => i !== index) }));
-    } else if (filterId.startsWith('priority-')) {
-      const index = parseInt(filterId.split('-')[1]);
-      setFilters(prev => ({ ...prev, priority: prev.priority.filter((_, i) => i !== index) }));
-    } else if (filterId.startsWith('location-')) {
-      const index = parseInt(filterId.split('-')[1]);
-      setFilters(prev => ({ ...prev, location: prev.location.filter((_, i) => i !== index) }));
-    } else if (filterId === 'supplier') {
-      setFilters(prev => ({ ...prev, supplier: null }));
-    } else if (filterId.startsWith('serviceLevel-')) {
-      const index = parseInt(filterId.split('-')[1]);
-      setFilters(prev => ({ ...prev, serviceLevel: prev.serviceLevel.filter((_, i) => i !== index) }));
-    } else if (filterId === 'dateRange') {
-      setFilters(prev => ({ ...prev, dateRange: { startDate: null, endDate: null } }));
-    } else if (filterId === 'costRange') {
-      setFilters(prev => ({ ...prev, costRange: [0, 500000] }));
-    } else if (filterId === 'coreRange') {
-      setFilters(prev => ({ ...prev, coreRange: [0, 100] }));
-    } else if (filterId === 'powerRange') {
-      setFilters(prev => ({ ...prev, powerRange: [0, 2500] }));
-    } else if (filterId === 'activeOnly') {
-      setFilters(prev => ({ ...prev, activeOnly: false }));
-    } else if (filterId === 'hasWarranty') {
-      setFilters(prev => ({ ...prev, hasWarranty: false }));
-    }
-  };
 
   const containerStyle: React.CSSProperties = {
     height: 'calc(100vh - 80px)', // Use more of the viewport height
@@ -561,7 +459,7 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
   const tableContainerStyle: React.CSSProperties = {
     flex: 1,
     overflow: 'hidden',
-    padding: '0',
+    padding: '0'
   };
 
   const isServerData = tableId === 'server-inventory-interactive' || tableId === 'server-list-interactive';
@@ -649,8 +547,8 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
           padding: '16px 24px', 
           borderBottom: `1px solid ${isDark ? colors.primary[600] : colors.neutral[200]}`,
           backgroundColor: isDark ? colors.primary[900] : colors.neutral[50],
-          maxHeight: '40vh',
-          overflowY: 'auto'
+          position: 'relative',
+          zIndex: 1000
         }}>
           <div style={{ marginBottom: '16px' }}>
             <h3 style={{ 
@@ -661,17 +559,6 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
             }}>
               Advanced Filters
             </h3>
-            
-            {/* Active Filters Summary */}
-            {hasActiveFilters && (
-              <div style={{ marginBottom: '16px' }}>
-                <ActiveFilterSummary
-                  filters={activeFilters}
-                  onRemoveFilter={handleRemoveFilter}
-                  onClearAll={clearAllFilters}
-                />
-              </div>
-            )}
           </div>
 
           {/* Filter Controls Grid */}
@@ -681,11 +568,10 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
             gap: '16px' 
           }}>
             {/* Search */}
-            <SearchAutocomplete
+            <Input
               label="Search Servers"
               value={filters.search}
-              onChange={(value) => setFilters(prev => ({ ...prev, search: value }))}
-              options={searchOptions}
+              onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
               placeholder="Search by model or supplier..."
             />
 
@@ -701,16 +587,12 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
             />
 
             {/* Priority Filter */}
-            <PriorityFilter
+            <DropdownMultiSelect
               label="Priority"
               value={filters.priority}
               onChange={(value) => setFilters(prev => ({ ...prev, priority: value }))}
-              priorities={[
-                { value: 'critical', label: 'Critical', badgeVariant: 'critical', urgencyLevel: 5 },
-                { value: 'high', label: 'High', badgeVariant: 'highPriority', urgencyLevel: 4 },
-                { value: 'standard', label: 'Standard', badgeVariant: 'standard', urgencyLevel: 3 }
-              ]}
-              layout="horizontal"
+              options={priorityOptions}
+              showChips={false}
             />
 
             {/* Location Multi-Select */}
@@ -739,47 +621,6 @@ export default function DeepDivePage({ params }: DeepDivePageProps) {
               onChange={(value) => setFilters(prev => ({ ...prev, serviceLevel: value }))}
               options={serviceLevelOptions}
               showChips={false}
-            />
-          </div>
-
-          {/* Range Filters */}
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-            gap: '16px',
-            marginTop: '16px'
-          }}>
-            {/* Cost Range Slider */}
-            <NumberRangeSlider
-              label="Cost Range"
-              value={filters.costRange}
-              onChange={(value) => setFilters(prev => ({ ...prev, costRange: value }))}
-              min={0}
-              max={500000}
-              step={5000}
-              formatValue={(value) => `$${(value / 1000).toFixed(0)}K`}
-            />
-
-            {/* CPU Cores Range */}
-            <NumberRangeSlider
-              label="CPU Cores"
-              value={filters.coreRange}
-              onChange={(value) => setFilters(prev => ({ ...prev, coreRange: value }))}
-              min={0}
-              max={100}
-              step={2}
-              formatValue={(value) => `${value} cores`}
-            />
-
-            {/* Power Consumption Range */}
-            <NumberRangeSlider
-              label="Power Consumption"
-              value={filters.powerRange}
-              onChange={(value) => setFilters(prev => ({ ...prev, powerRange: value }))}
-              min={0}
-              max={2500}
-              step={50}
-              formatValue={(value) => `${value}W`}
             />
           </div>
 

@@ -15,12 +15,14 @@ export default {
   ],
   theme: {
     extend: {
-      // Use design tokens directly
+      // Typography system from design tokens
       fontFamily: typography.fontFamily,
       fontSize: typography.fontSize,
       fontWeight: typography.fontWeight,
       lineHeight: typography.lineHeight,
       letterSpacing: typography.letterSpacing,
+      
+      // Color system from design tokens
       colors: {
         ...colors,
         // Add badge colors as a nested object for easy access
@@ -44,14 +46,25 @@ export default {
           }
         }
       },
+      
+      // Layout system from design tokens
       borderRadius,
       boxShadow: shadows,
       spacing,
-      // Add chart-specific utilities
+      
+      // Chart-specific utilities
       strokeWidth: {
         'chart': chartTokens.axis.light.strokeWidth,
+        'chart-bold': '2',
+        'chart-thick': '3',
       },
-      // Add custom chart utilities
+      
+      // Typography utilities
+      textShadow: {
+        'chart': '0 1px 2px rgba(0, 0, 0, 0.1)',
+      },
+      
+      // Custom utilities
       backgroundImage: {
         'grid-pattern': `repeating-linear-gradient(
           0deg,
@@ -60,6 +73,12 @@ export default {
           var(--grid-color) 10px,
           var(--grid-color) 11px
         )`,
+      },
+      
+      // Animation utilities
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },
