@@ -223,7 +223,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
             {/* App Home Icon - Fixed height container */}
             <Link href="/">
               <Tooltip 
-                content="Helius UI" 
+                content="Hyperion UI" 
                 position="right" 
                 disabled={isExpanded}
                 delay={100}
@@ -232,12 +232,12 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-all duration-300 ease-in-out w-full`}>
                   <div className="flex flex-col items-center gap-[5px]">
                     <div className="h-[26px] flex items-center justify-center">
-                      <FireIcon 
+                      <GlobeAltIcon 
                         className="w-[26px] h-[26px] text-neutral-50 group-hover:opacity-60 transition-opacity duration-50"
                       />
                     </div>
                     {isExpanded && (
-                      <h1 className={`text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>HELIUS</h1>
+                      <h1 className={`text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>HYPERION</h1>
                     )}
                   </div>
                 </div>
@@ -270,12 +270,6 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
               <div className="flex flex-col gap-5">
                 <Link href="#">
                   <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <GlobeAltIcon className="w-5 h-5" />
-                    <span>Hyperion</span>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
                     <EyeIcon className="w-5 h-5" />
                     <span>Oculus</span>
                   </div>
@@ -295,6 +289,12 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                       height={20}
                     />
                     <span>Flow</span>
+                  </div>
+                </Link>
+                <Link href="#">
+                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <FireIcon className="w-5 h-5" />
+                    <span>Helius</span>
                   </div>
                 </Link>
               </div>
