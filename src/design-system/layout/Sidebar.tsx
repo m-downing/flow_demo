@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
-import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon, AcademicCapIcon } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
 import Tooltip from '@/design-system/components/feedback/Tooltip';
@@ -270,12 +270,6 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
               <div className="flex flex-col gap-5">
                 <Link href="#">
                   <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <FireIcon className="w-5 h-5" />
-                    <span>Helius</span>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
                     <GlobeAltIcon className="w-5 h-5" />
                     <span>Hyperion</span>
                   </div>
@@ -284,6 +278,23 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                   <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
                     <EyeIcon className="w-5 h-5" />
                     <span>Oculus</span>
+                  </div>
+                </Link>
+                <Link href="#">
+                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <AcademicCapIcon className="w-5 h-5" />
+                    <span>Mimir</span>
+                  </div>
+                </Link>
+                <Link href="#">
+                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <Image 
+                      src="/icons/vertical-nav/flow.svg"
+                      alt="Flow"
+                      width={20}
+                      height={20}
+                    />
+                    <span>Flow</span>
                   </div>
                 </Link>
               </div>
