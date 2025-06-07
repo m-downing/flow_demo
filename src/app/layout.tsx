@@ -5,8 +5,8 @@ import AppWrapper from "@/design-system/layout/AppWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MIMIR | IP Supply Chain",
-  description: "MIMIR | UI App wrAPPer Demo",
+  title: "Mimir | IP Supply Chain",
+  description: "Mimir | IP Supply Chain",
   icons: {
     icon: '/icons/favicons/mimir.ico',
   },
