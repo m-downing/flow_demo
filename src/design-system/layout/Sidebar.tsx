@@ -233,8 +233,8 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                   <div className="flex flex-col items-center gap-[5px]">
                     <div className="h-[26px] flex items-center justify-center">
                       <Image 
-                        src="/icons/vertical-nav/flow.svg"
-                        alt="FLOW Logo"
+                        src="/icons/ui/flow.svg"
+                        alt="Flow"
                         width={26}
                         height={26}
                         className="group-hover:opacity-60 transition-opacity duration-50"
@@ -273,21 +273,47 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
             <div className={`${submenuBg} w-full py-4 px-4 transition-all duration-300 ease-in-out relative z-10 ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
               <div className="flex flex-col gap-5">
                 <Link href="#">
-                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <FireIcon className="w-5 h-5" />
-                    <span>Helius</span>
+                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <Image 
+                      src="/icons/ui/helius.svg"
+                      alt="Helius"
+                      width={20}
+                      height={20}
+                    />
+                    <span className="uppercase">HELIUS</span>
                   </div>
                 </Link>
                 <Link href="#">
-                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <GlobeAltIcon className="w-5 h-5" />
-                    <span>Hyperion</span>
+                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <Image 
+                      src="/icons/ui/hyperion.svg"
+                      alt="Hyperion"
+                      width={20}
+                      height={20}
+                    />
+                    <span className="uppercase">HYPERION</span>
                   </div>
                 </Link>
                 <Link href="#">
-                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <EyeIcon className="w-5 h-5" />
-                    <span>Oculus</span>
+                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <Image 
+                      src="/icons/ui/oculus.svg"
+                      alt="Oculus"
+                      width={20}
+                      height={20}
+                    />
+                    <span className="uppercase">OCULUS</span>
+                  </div>
+                </Link>
+                <Link href="#">
+                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <Image 
+                      src="/icons/ui/mimir.svg"
+                      alt="Mimir"
+                      width={20}
+                      height={20}
+                    />
+                    <span className="uppercase">MIMIR</span>
                   </div>
                 </Link>
               </div>
