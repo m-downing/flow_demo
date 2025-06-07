@@ -5,10 +5,10 @@ import AppWrapper from "@/design-system/layout/AppWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "HELIUS | IP Supply Chain",
-  description: "HELIUS | UI App wrAPPer Demo",
+  title: "OCULUS | IP Supply Chain",
+  description: "OCULUS | UI App wrAPPer Demo",
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icons/favicons/oculus.ico',
   },
 };
 

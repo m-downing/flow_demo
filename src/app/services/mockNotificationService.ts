@@ -5,7 +5,7 @@ export const generateMockNotifications = (): Notification[] => {
     {
       id: 'helius-1',
       title: 'System Status Update',
-      message: 'HELIUS monitoring systems are operating normally',
+      message: 'OCULUS monitoring systems are operating normally',
       type: 'info',
       timestamp: new Date(Date.now() - 1000 * 60 * 30), // 30 minutes ago
       isRead: false,
@@ -29,7 +29,7 @@ export const generateMockNotifications = (): Notification[] => {
     {
       id: 'helius-3',
       title: 'Maintenance Scheduled',
-      message: 'Scheduled maintenance for HELIUS will begin at 2:00 AM EST',
+      message: 'Scheduled maintenance for OCULUS will begin at 2:00 AM EST',
       type: 'warning',
       timestamp: new Date(Date.now() - 1000 * 60 * 60 * 6), // 6 hours ago
       isRead: false,
@@ -44,7 +44,7 @@ export const generateMockNotifications = (): Notification[] => {
 export const getDemoNotifications = () => {
   return {
     notification15s: {
-      title: 'HELIUS Infrastructure Alert',
+      title: 'OCULUS Infrastructure Alert',
       message: 'Network latency detected in DC-East region',
       type: 'warning' as const,
       metadata: {
@@ -52,7 +52,7 @@ export const getDemoNotifications = () => {
       }
     },
     notification30s: {
-      title: 'HELIUS Performance Update',
+      title: 'OCULUS Performance Update',
       message: 'System optimization completed successfully',
       type: 'success' as const,
       metadata: {
@@ -60,7 +60,7 @@ export const getDemoNotifications = () => {
       }
     },
     notification45s: {
-      title: 'HELIUS Maintenance Notice',
+      title: 'OCULUS Maintenance Notice',
       message: 'Routine maintenance completed ahead of schedule',
       type: 'info' as const,
       metadata: {
