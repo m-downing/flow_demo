@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "HELIUS | IP Supply Chain",
   description: "HELIUS | UI App wrAPPer Demo",
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icons/favicons/helius.ico',
   },
 };
 

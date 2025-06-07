@@ -17,15 +17,17 @@ interface AppWrapperProps {
 
 // Map of app names to their corresponding browser tab titles
 const APP_TITLES: Record<string, string> = {
-  'HELIUS': 'HELIUS',
+  'HELIUS': 'HELIUS | IP Supply Chain',
+  'HYPERION': 'HYPERION | Financials',
 };
 
 // Map of app names to their corresponding favicon paths
 const APP_FAVICONS: Record<string, string> = {
-  'HELIUS': '/icons/favicons/favicon.ico',
+  'HELIUS': '/icons/favicons/helius.ico',
+  'HYPERION': '/icons/favicons/hyperion.ico',
 };
 
-const DEFAULT_FAVICON = '/icons/favicons/favicon.ico';
+const DEFAULT_FAVICON = '/icons/favicons/helius.ico';
 
 const updateFavicon = (iconPath: string) => {
   const linkElements = document.querySelectorAll("link[rel*='icon']");
