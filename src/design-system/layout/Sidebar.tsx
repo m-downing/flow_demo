@@ -232,8 +232,12 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                 <div className={`group ${isExpanded ? 'h-[100px]' : 'h-[80px]'} flex flex-col items-center justify-center pt-2 cursor-pointer transition-all duration-300 ease-in-out w-full`}>
                   <div className="flex flex-col items-center gap-[5px]">
                     <div className="h-[26px] flex items-center justify-center">
-                      <AcademicCapIcon 
-                        className="w-[26px] h-[26px] text-neutral-50 group-hover:opacity-60 transition-opacity duration-50"
+                      <Image 
+                        src="/icons/ui/mimir.svg"
+                        alt="Mimir"
+                        width={26}
+                        height={26}
+                        className="group-hover:opacity-60 transition-opacity duration-50"
                       />
                     </div>
                     {isExpanded && (
@@ -269,32 +273,47 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
             <div className={`${submenuBg} w-full py-4 px-4 transition-all duration-300 ease-in-out relative z-10 ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
               <div className="flex flex-col gap-5">
                 <Link href="#">
-                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <GlobeAltIcon className="w-5 h-5" />
-                    <span>Hyperion</span>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <EyeIcon className="w-5 h-5" />
-                    <span>Oculus</span>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
                     <Image 
-                      src="/icons/vertical-nav/flow.svg"
+                      src="/icons/ui/hyperion.svg"
+                      alt="Hyperion"
+                      width={20}
+                      height={20}
+                    />
+                    <span className="uppercase">HYPERION</span>
+                  </div>
+                </Link>
+                <Link href="#">
+                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <Image 
+                      src="/icons/ui/oculus.svg"
+                      alt="Oculus"
+                      width={20}
+                      height={20}
+                    />
+                    <span className="uppercase">OCULUS</span>
+                  </div>
+                </Link>
+                <Link href="#">
+                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <Image 
+                      src="/icons/ui/flow.svg"
                       alt="Flow"
                       width={20}
                       height={20}
                     />
-                    <span>Flow</span>
+                    <span className="uppercase">FLOW</span>
                   </div>
                 </Link>
                 <Link href="#">
-                  <div className="flex items-center gap-3 font-semibold text-neutral-50 text-[16px] tracking-wider hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <FireIcon className="w-5 h-5" />
-                    <span>Helius</span>
+                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                    <Image 
+                      src="/icons/ui/helius.svg"
+                      alt="Helius"
+                      width={20}
+                      height={20}
+                    />
+                    <span className="uppercase">HELIUS</span>
                   </div>
                 </Link>
               </div>
