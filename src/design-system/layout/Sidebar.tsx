@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
-import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon, AcademicCapIcon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon, AcademicCapIcon, BellAlertIcon, ArrowTrendingDownIcon, ListBulletIcon, DocumentCurrencyDollarIcon, DocumentTextIcon, MagnifyingGlassPlusIcon, CloudIcon, ServerStackIcon, ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
 import Tooltip from '@/design-system/components/feedback/Tooltip';
@@ -29,8 +29,8 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     if (currentTab) {
       return currentTab.name;
     }
-    // Always default to Snapshot for consistent SSR/client hydration
-    return 'Snapshot';
+    // Always default to Navigator for consistent SSR/client hydration
+    return 'Navigator';
   };
   
   const [activeTab, setActiveTab] = useState<string>(getInitialTab());
@@ -182,7 +182,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     const iconClass = isLarge ? "w-7 h-7 text-neutral-50" : "w-6 h-6 text-neutral-50";
     const imageSize = isLarge ? 28 : 24;
     
-    if (iconName === 'ChartBarSquare') {
+    if (iconName === 'ArrowPathRoundedSquare') {
+      return <ArrowPathRoundedSquareIcon className={iconClass} />;
+    } else if (iconName === 'ChartBarSquare') {
       return <ChartBarSquareIcon className={iconClass} />;
     } else if (iconName === 'Briefcase') {
       return <BriefcaseIcon className={iconClass} />;
@@ -196,6 +198,22 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       return <SwatchIcon className={iconClass} />;
     } else if (iconName === 'Squares2X2') {
       return <Squares2X2Icon className={iconClass} />;
+    } else if (iconName === 'BellAlert') {
+      return <BellAlertIcon className={iconClass} />;
+    } else if (iconName === 'ArrowTrendingDown') {
+      return <ArrowTrendingDownIcon className={iconClass} />;
+    } else if (iconName === 'ListBullet') {
+      return <ListBulletIcon className={iconClass} />;
+    } else if (iconName === 'DocumentCurrencyDollar') {
+      return <DocumentCurrencyDollarIcon className={iconClass} />;
+    } else if (iconName === 'DocumentText') {
+      return <DocumentTextIcon className={iconClass} />;
+    } else if (iconName === 'MagnifyingGlassPlus') {
+      return <MagnifyingGlassPlusIcon className={iconClass} />;
+    } else if (iconName === 'Cloud') {
+      return <CloudIcon className={iconClass} />;
+    } else if (iconName === 'ServerStack') {
+      return <ServerStackIcon className={iconClass} />;
     } else {
       return (
         <Image 

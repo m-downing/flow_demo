@@ -8,12 +8,17 @@ export const dashboardTab = {
 // Define app-specific navigation tabs
 export const appTabs = {
   'flow': [
-    { name: "Chart Gallery", icon: "PresentationChartLine", path: "/" },
-    { name: "Tables Demo", icon: "TableCells", path: "/demo-tables" },
-    { name: "Color Tokens", icon: "Swatch", path: "/colors" },
-    { name: "Tailwind Grid", icon: "Squares2X2", path: "/tailwind-grid" },
-    dashboardTab,
-    { name: "KPI's", icon: "Briefcase", path: "/kpi" },
+    { name: "Navigator", icon: "ArrowPathRoundedSquare", path: "/" },
+    { name: "Balance Views", icon: "ChartBarSquare", path: "#" },
+    { name: "Negative Balance", icon: "ArrowTrendingDown", path: "#" },
+    { name: "Proposed Orders", icon: "ListBullet", path: "#" },
+    { name: "Forecasted Orders", icon: "DocumentCurrencyDollar", path: "#" },
+    { name: "Planned View", icon: "DocumentText", path: "#" },
+    { name: "Disabled Clusters", icon: "BellAlert", path: "#" },
+    { name: "Duplicate Rack", icon: "MagnifyingGlassPlus", path: "#" },
+    { name: "Cluster Inventory", icon: "Cloud", path: "#" },
+    { name: "Data Center Layout", icon: "ServerStack", path: "#" },
+    { name: "Reporting View", icon: "ChartBarSquare", path: "#" },
   ],
   helius: [dashboardTab],
   mimir: [dashboardTab],
