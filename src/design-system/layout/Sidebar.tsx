@@ -313,7 +313,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                       width={20}
                       height={20}
                     />
-                    <span className="uppercase">HYPERION</span>
+                    <span className="uppercase">HELIUS</span>
                   </div>
                 </Link>
               </div>
