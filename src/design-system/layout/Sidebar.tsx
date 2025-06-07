@@ -5,7 +5,31 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
-import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
+import { 
+  ChartBarSquareIcon, 
+  BriefcaseIcon, 
+  ChartPieIcon, 
+  PresentationChartLineIcon, 
+  ArrowRightStartOnRectangleIcon, 
+  ArrowLeftStartOnRectangleIcon, 
+  GlobeAltIcon, 
+  FireIcon, 
+  EyeIcon, 
+  TableCellsIcon, 
+  SwatchIcon, 
+  Squares2X2Icon,
+  ServerStackIcon,
+  SignalIcon,
+  TvIcon,
+  ComputerDesktopIcon,
+  TagIcon,
+  ClockIcon,
+  ArchiveBoxIcon,
+  WrenchScrewdriverIcon,
+  CloudIcon,
+  InboxIcon,
+  ChevronDownIcon
+} from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
 import Tooltip from '@/design-system/components/feedback/Tooltip';
@@ -196,6 +220,26 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       return <SwatchIcon className={iconClass} />;
     } else if (iconName === 'Squares2X2') {
       return <Squares2X2Icon className={iconClass} />;
+    } else if (iconName === 'ServerStack') {
+      return <ServerStackIcon className={iconClass} />;
+    } else if (iconName === 'Signal') {
+      return <SignalIcon className={iconClass} />;
+    } else if (iconName === 'Tv') {
+      return <TvIcon className={iconClass} />;
+    } else if (iconName === 'ComputerDesktop') {
+      return <ComputerDesktopIcon className={iconClass} />;
+    } else if (iconName === 'Tag') {
+      return <TagIcon className={iconClass} />;
+    } else if (iconName === 'Clock') {
+      return <ClockIcon className={iconClass} />;
+    } else if (iconName === 'ArchiveBox') {
+      return <ArchiveBoxIcon className={iconClass} />;
+    } else if (iconName === 'WrenchScrewdriver') {
+      return <WrenchScrewdriverIcon className={iconClass} />;
+    } else if (iconName === 'Cloud') {
+      return <CloudIcon className={iconClass} />;
+    } else if (iconName === 'Inbox') {
+      return <InboxIcon className={iconClass} />;
     } else {
       return (
         <Image 
@@ -219,7 +263,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           <div className={`absolute inset-0 z-0`} style={{ backgroundColor: sidebarBg }}></div>
           
           {/* Fixed Top section - App icon and switcher */}
-          <div className={`w-full transition-all duration-150 ease-in-out relative z-10`}>
+          <div className={`w-full transition-all duration-150 ease-in-out relative z-10 mb-4`}>
             {/* App Home Icon - Fixed height container */}
             <Link href="/">
               <Tooltip 
@@ -321,7 +365,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           )}
 
           {/* Middle section - navigation tabs */}
-          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-8 gap-8 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out relative z-10`}>
+          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-6 gap-6 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out relative z-10`}>
             {appTabs['flow'].map((tab) => (
               <Tooltip
                 key={tab.name}
@@ -345,14 +389,19 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                   )}
                   
                   {/* Tab content */}
-                  <div className={`flex ${isExpanded ? 'flex-row gap-3' : 'flex-col'} items-center ${loadingTab === tab.name ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}>
-                    <div className={isExpanded ? '' : 'mb-2'}>
-                      {renderIcon(tab.icon, isExpanded)}
+                  <div className={`flex ${isExpanded ? 'flex-row gap-3 w-full' : 'flex-col'} items-center ${loadingTab === tab.name ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}>
+                    <div className={isExpanded ? 'flex-shrink-0' : 'mb-1'}>
+                      {renderIcon(tab.icon, false)}
                     </div>
                     {isExpanded && (
-                      <span className={`text-neutral-50 tracking-wider text-[15px] transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-                        {tab.name}
-                      </span>
+                      <div className={`flex items-center gap-2 transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                        <span className={`text-neutral-50 tracking-wider text-[14px]`}>
+                          {tab.name}
+                        </span>
+                        {tab.hasDropdown && (
+                          <ChevronDownIcon className="w-3 h-3 text-neutral-50" />
+                        )}
+                      </div>
                     )}
                   </div>
                 </div>
@@ -361,7 +410,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           </div>
 
           {/* Bottom section - AI Chat button and expand button */}
-          <div className={`w-full transition-all duration-300 ease-in-out relative z-10`}>
+          <div className={`w-full transition-all duration-300 ease-in-out relative z-10 mt-4`}>
             <div className={`h-[80px] w-full flex flex-col items-center justify-center relative mb-6`}>
               {/* AI Chat Icon */}
               <Tooltip
