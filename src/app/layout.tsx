@@ -5,8 +5,8 @@ import AppWrapper from "@/design-system/layout/AppWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "OCULUS | IP Supply Chain",
-  description: "OCULUS | UI App wrAPPer Demo",
+  title: "Oculus | IP Supply Chain",
+  description: "Oculus | IP Supply Chain",
   icons: {
     icon: '/icons/favicons/oculus.ico',
   },
