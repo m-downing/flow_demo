@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
-import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon, AcademicCapIcon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
 import Tooltip from '@/design-system/components/feedback/Tooltip';
@@ -313,7 +313,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                       width={20}
                       height={20}
                     />
-                    <span className="uppercase">HELIUS</span>
+                    <span className="uppercase">HYPERION</span>
                   </div>
                 </Link>
               </div>

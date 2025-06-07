@@ -17,15 +17,15 @@ interface AppWrapperProps {
 
 // Map of app names to their corresponding browser tab titles
 const APP_TITLES: Record<string, string> = {
-  'HELIUS': 'HELIUS',
+  'HYPERION': 'HYPERION',
 };
 
 // Map of app names to their corresponding favicon paths
 const APP_FAVICONS: Record<string, string> = {
-  'HELIUS': '/icons/favicons/favicon.ico',
+  'HYPERION': '/icons/favicons/hyperion.ico',
 };
 
-const DEFAULT_FAVICON = '/icons/favicons/favicon.ico';
+const DEFAULT_FAVICON = '/icons/favicons/hyperion.ico';
 
 const updateFavicon = (iconPath: string) => {
   const linkElements = document.querySelectorAll("link[rel*='icon']");
@@ -89,8 +89,8 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
   const showCriticalBanner = false;  // Set to 'true' to enable CriticalBanner
 
   useEffect(() => {
-    document.title = APP_TITLES['HELIUS'] || 'HELIUS | UI Demo';
-    updateFavicon(APP_FAVICONS['HELIUS'] || DEFAULT_FAVICON);
+    document.title = APP_TITLES['HYPERION'] || 'HYPERION | UI Demo';
+    updateFavicon(APP_FAVICONS['HYPERION'] || DEFAULT_FAVICON);
   }, []);
 
   useEffect(() => {

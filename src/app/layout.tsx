@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Hyperion | Financials",
   description: "Hyperion | Financials",
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icons/favicons/hyperion.ico',
   },
 };
 
