@@ -22,11 +22,10 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer
 } from 'recharts';
 import { colors } from '@/design-system/foundations/tokens/colors';
-import { getChartColors } from '@/design-system/foundations/tokens/charts';
+import { PieChart } from '@/design-system/charts/PieChart';
 
 interface Filters {
   search: string;
@@ -42,6 +41,7 @@ interface Filters {
 
 export default function HomePage() {
   const [showFilters, setShowFilters] = useState(true); // Changed to true for expanded by default
+  
   const [filters, setFilters] = useState<Filters>({
     search: '',
     status: [],
@@ -246,7 +246,7 @@ export default function HomePage() {
             <h3 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">
               Substation Quantity Summary
             </h3>
-            <ResponsiveContainer width="100%" height={360}>
+            <ResponsiveContainer width="100%" height={380}>
               <BarChart
                 data={[
                   { name: 'Q1 2024', late: 4, atRisk: 0, onTrack: 12 },
@@ -277,26 +277,153 @@ export default function HomePage() {
                     fontSize: '14px'
                   }}
                 />
-                <Legend 
-                  formatter={(value: string) => {
-                    const legendMap: Record<string, string> = {
-                      late: 'Late',
-                      atRisk: 'At Risk',
-                      onTrack: 'On Track'
-                    };
-                    return legendMap[value] || value;
-                  }}
-                  wrapperStyle={{
-                    paddingTop: '20px',
-                    fontSize: '14px',
-                    color: colors.neutral[900]
-                  }}
-                />
-                <Bar dataKey="late" stackId="a" fill={colors.error[300]} fillOpacity={0.4} />
-                <Bar dataKey="atRisk" stackId="a" fill={colors.orange[500]} />
-                <Bar dataKey="onTrack" stackId="a" fill={colors.teal[500]} fillOpacity={0.4} />
+                <Bar dataKey="late" stackId="a" fill={colors.dataViz.negative} />
+                <Bar dataKey="atRisk" stackId="a" fill={colors.dataViz.highlight} />
+                <Bar dataKey="onTrack" stackId="a" fill={colors.dataViz.positive} />
               </BarChart>
             </ResponsiveContainer>
+            
+            {/* Custom Legend */}
+            <div className="flex justify-center items-center gap-6 mt-4 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.negative }}></div>
+                <span className="text-neutral-900 dark:text-neutral-100">Late</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.highlight }}></div>
+                <span className="text-neutral-900 dark:text-neutral-100">At Risk</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.positive }}></div>
+                <span className="text-neutral-900 dark:text-neutral-100">On Track</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Pie Charts Grid */}
+        <div className="col-span-6">
+          <Card padding="6">
+            <h3 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 mb-4">
+              Substation Event Commitment Risk Summary
+            </h3>
+            <div className="grid grid-cols-6 gap-4">
+              {/* Row 1 */}
+              <div className="col-span-2">
+                <PieChart
+                  data={[
+                    { name: 'Late', value: 3 },
+                    { name: 'At Risk', value: 5 },
+                    { name: 'On Track', value: 12 }
+                  ]}
+                  height={150}
+                  mode="summary"
+                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  innerRadius={30}
+                  outerRadius={60}
+                  showLegend={false}
+                />
+                <p className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-2">Site A</p>
+              </div>
+              <div className="col-span-2">
+                <PieChart
+                  data={[
+                    { name: 'Late', value: 5 },
+                    { name: 'At Risk', value: 8 },
+                    { name: 'On Track', value: 7 }
+                  ]}
+                  height={150}
+                  mode="summary"
+                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  innerRadius={30}
+                  outerRadius={60}
+                  showLegend={false}
+                />
+                <p className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-2">Site B</p>
+              </div>
+              <div className="col-span-2">
+                <PieChart
+                  data={[
+                    { name: 'Late', value: 1 },
+                    { name: 'At Risk', value: 3 },
+                    { name: 'On Track', value: 16 }
+                  ]}
+                  height={150}
+                  mode="summary"
+                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  innerRadius={30}
+                  outerRadius={60}
+                  showLegend={false}
+                />
+                <p className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-2">Site C</p>
+              </div>
+
+              {/* Row 2 */}
+              <div className="col-span-2">
+                <PieChart
+                  data={[
+                    { name: 'Late', value: 2 },
+                    { name: 'At Risk', value: 4 },
+                    { name: 'On Track', value: 14 }
+                  ]}
+                  height={150}
+                  mode="summary"
+                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  innerRadius={30}
+                  outerRadius={60}
+                  showLegend={false}
+                />
+                <p className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-2">Site D</p>
+              </div>
+              <div className="col-span-2">
+                <PieChart
+                  data={[
+                    { name: 'Late', value: 4 },
+                    { name: 'At Risk', value: 2 },
+                    { name: 'On Track', value: 10 }
+                  ]}
+                  height={150}
+                  mode="summary"
+                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  innerRadius={30}
+                  outerRadius={60}
+                  showLegend={false}
+                />
+                <p className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-2">Site E</p>
+              </div>
+              <div className="col-span-2">
+                <PieChart
+                  data={[
+                    { name: 'Late', value: 0 },
+                    { name: 'At Risk', value: 6 },
+                    { name: 'On Track', value: 18 }
+                  ]}
+                  height={150}
+                  mode="summary"
+                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  innerRadius={30}
+                  outerRadius={60}
+                  showLegend={false}
+                />
+                <p className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-2">Site F</p>
+              </div>
+            </div>
+
+            {/* Legend for all pie charts */}
+            <div className="flex justify-center items-center gap-6 mt-6 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.negative }}></div>
+                <span className="text-neutral-900 dark:text-neutral-100">Late</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.highlight }}></div>
+                <span className="text-neutral-900 dark:text-neutral-100">At Risk</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.positive }}></div>
+                <span className="text-neutral-900 dark:text-neutral-100">On Track</span>
+              </div>
+            </div>
           </Card>
         </div>
       </div>
