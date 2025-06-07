@@ -237,7 +237,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           <div className={`absolute inset-0 z-0`} style={{ backgroundColor: sidebarBg }}></div>
           
           {/* Fixed Top section - App icon and switcher */}
-          <div className={`w-full transition-all duration-150 ease-in-out relative z-10`}>
+          <div className={`w-full transition-all duration-150 ease-in-out relative z-10 mb-4`}>
             {/* App Home Icon - Fixed height container */}
             <Link href="/">
               <Tooltip 
@@ -339,7 +339,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           )}
 
           {/* Middle section - navigation tabs */}
-          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-8 gap-8 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out relative z-10`}>
+          <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-6 gap-6 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out relative z-10`}>
             {appTabs['flow'].map((tab) => (
               <Tooltip
                 key={tab.name}
@@ -379,7 +379,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           </div>
 
           {/* Bottom section - AI Chat button and expand button */}
-          <div className={`w-full transition-all duration-300 ease-in-out relative z-10`}>
+          <div className={`w-full transition-all duration-300 ease-in-out relative z-10 mt-4`}>
             <div className={`h-[80px] w-full flex flex-col items-center justify-center relative mb-6`}>
               {/* AI Chat Icon */}
               <Tooltip
