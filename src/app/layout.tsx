@@ -5,8 +5,8 @@ import AppWrapper from "@/design-system/layout/AppWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "HELIUS | IP Supply Chain",
-  description: "HELIUS | UI App wrAPPer Demo",
+  title: "Hyperion | Financials",
+  description: "Hyperion | Financials",
   icons: {
     icon: '/favicon.ico',
   },
