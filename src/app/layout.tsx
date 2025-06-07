@@ -5,10 +5,10 @@ import AppWrapper from "@/design-system/layout/AppWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FLOW | Demo",
+  title: "Flow | IP Supply Chain",
   description: "FLOW | UI App wrAPPer Demo",
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icons/favicons/flow.ico',
   },
 };
 

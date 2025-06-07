@@ -22,10 +22,10 @@ const APP_TITLES: Record<string, string> = {
 
 // Map of app names to their corresponding favicon paths
 const APP_FAVICONS: Record<string, string> = {
-  'FLOW': '/icons/favicons/favicon.ico',
+  'FLOW': '/icons/favicons/flow.ico',
 };
 
-const DEFAULT_FAVICON = '/icons/favicons/favicon.ico';
+const DEFAULT_FAVICON = '/icons/favicons/flow.ico';
 
 const updateFavicon = (iconPath: string) => {
   const linkElements = document.querySelectorAll("link[rel*='icon']");
