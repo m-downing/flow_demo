@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { PageContainer } from '@/design-system/layout';
 import { Card } from '@/design-system/layout';
 import { BarChart } from '@/design-system/charts';
+import { ChartBarSquareIcon, TableCellsIcon } from '@heroicons/react/24/outline';
 import { 
   ComposedChart, 
   Bar, 
@@ -56,10 +57,43 @@ export default function HomePage() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const themeColors = getChartColors(isDark);
+  const [viewMode, setViewMode] = useState<'chart' | 'grid'>('chart');
 
   return (
     <PageContainer>
       <div className="p-6 space-y-6">
+        {/* Toggle Switch */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex rounded-lg border border-neutral-300 dark:border-neutral-700 p-0.5">
+            <button
+              onClick={() => setViewMode('chart')}
+              className={`
+                flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all
+                ${viewMode === 'chart' 
+                  ? 'bg-primary-700 text-neutral-50' 
+                  : 'text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100'
+                }
+              `}
+            >
+              <ChartBarSquareIcon className="h-4 w-4" />
+              Chart View
+            </button>
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`
+                flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all
+                ${viewMode === 'grid' 
+                  ? 'bg-primary-700 text-neutral-50' 
+                  : 'text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100'
+                }
+              `}
+            >
+              <TableCellsIcon className="h-4 w-4" />
+              Grid View
+            </button>
+          </div>
+        </div>
+
         {/* First row with two bar charts */}
         <div className="grid grid-cols-12 gap-6">
           {/* First Bar Chart */}
