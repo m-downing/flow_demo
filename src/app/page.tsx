@@ -277,9 +277,9 @@ export default function HomePage() {
                     fontSize: '14px'
                   }}
                 />
-                <Bar dataKey="late" stackId="a" fill={colors.dataViz.negative} />
-                <Bar dataKey="atRisk" stackId="a" fill={colors.dataViz.highlight} />
-                <Bar dataKey="onTrack" stackId="a" fill={colors.dataViz.positive} />
+                <Bar dataKey="late" stackId="a" fill={colors.dataViz.negative} fillOpacity={0.7} />
+                <Bar dataKey="atRisk" stackId="a" fill={colors.dataViz.highlight} fillOpacity={0.7} />
+                <Bar dataKey="onTrack" stackId="a" fill={colors.dataViz.positive} fillOpacity={0.7} />
               </BarChart>
             </ResponsiveContainer>
             
@@ -318,7 +318,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -334,7 +334,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -350,7 +350,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -368,7 +368,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -384,7 +384,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -400,7 +400,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[colors.dataViz.negative, colors.dataViz.highlight, colors.dataViz.positive]}
+                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
