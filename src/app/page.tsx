@@ -4,13 +4,25 @@ import React from 'react';
 import { PageContainer, Card } from '@/design-system/layout';
 import Button from '@/design-system/components/primitives/Button';
 import Badge from '@/design-system/components/feedback/Badge';
+import Image from 'next/image';
 
 export default function HomePage() {
   return (
     <PageContainer>
       <div className="mx-10 py-10">
         {/* Logo and Welcome Text - Centered */}
-
+        <div className="flex flex-col items-center mb-8">
+          <Image 
+            src="/icons/ui/helius-dark.svg" 
+            alt="Helius Logo" 
+            width={48} 
+            height={48}
+            className="mb-4"
+          />
+          <p className="text-center text-3xl text-neutral-700 dark:text-neutral-300">
+            Welcome to <span className="font-bold">Helius</span> - Supply Planning Tool.
+          </p>
+        </div>
 
         {/* Main Card with Balance Views */}
         <div className="col-span-12">
