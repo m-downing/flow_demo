@@ -23,29 +23,33 @@ import { colors } from '@/design-system/foundations/tokens';
 
 // Sample data for bar charts
 const barChartData1 = [
-  { name: 'Jan', revenue: 4000, profit: 2400 },
-  { name: 'Feb', revenue: 3000, profit: 1398 },
-  { name: 'Mar', revenue: 5000, profit: 3200 },
-  { name: 'Apr', revenue: 4500, profit: 2900 },
-  { name: 'May', revenue: 6000, profit: 3800 },
-  { name: 'Jun', revenue: 5500, profit: 3400 },
+  { name: '2018', spend: 249 },
+  { name: '2019', spend: 409 },
+  { name: '2020', spend: 537 },
+  { name: '2021', spend: 345 },
+  { name: '2022', spend: 433 },
+  { name: '2023', spend: 585 },
+  { name: '2024', spend: 504 },
+  { name: '2025', spend: 174 },
 ];
 
 const barChartData2 = [
-  { name: 'Q1', actual: 12000, target: 10000 },
-  { name: 'Q2', actual: 15000, target: 14000 },
-  { name: 'Q3', actual: 13500, target: 15000 },
-  { name: 'Q4', actual: 17000, target: 16000 },
+  { name: 'Jan', volume: 43 },
+  { name: 'Feb', volume: 48 },
+  { name: 'Mar', volume: 138 },
+  { name: 'Apr', volume: 88 },
+  { name: 'May', volume: 52 },
+  { name: 'Jun', volume: 26 },
 ];
 
 // Sample data for composed chart
 const composedChartData = [
-  { name: 'Page A', uv: 590, pv: 800, amt: 1400 },
-  { name: 'Page B', uv: 868, pv: 967, amt: 1506 },
-  { name: 'Page C', uv: 1397, pv: 1098, amt: 989 },
-  { name: 'Page D', uv: 1480, pv: 1200, amt: 1228 },
-  { name: 'Page E', uv: 1520, pv: 1108, amt: 1100 },
-  { name: 'Page F', uv: 1400, pv: 680, amt: 1700 },
+  { name: 'Jan', uv: 11.2, pv: 5.1, amt: 8.3 },
+  { name: 'Feb', uv: 9.8, pv: 4.2, amt: 7.0 },
+  { name: 'Mar', uv: 5.6, pv: 8.9, amt: 7.2 },
+  { name: 'Apr', uv: 10.5, pv: 4.8, amt: 7.7 },
+  { name: 'May', uv: 12.1, pv: 5.3, amt: 8.6 },
+  { name: 'Jun', uv: 6.2, pv: 9.4, amt: 7.8 },
 ];
 
 export default function HomePage() {
@@ -60,14 +64,17 @@ export default function HomePage() {
         <div className="grid grid-cols-12 gap-6">
           {/* First Bar Chart */}
           <div className="col-span-6">
-            <Card title="Monthly Revenue vs Profit">
+            <Card>
+              <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 text-center mb-4">
+                Supply Chain PO Spend by Year ($MM)
+              </h6>
               <BarChart
                 data={barChartData1}
-                dataKey={['revenue', 'profit']}
+                dataKey={['spend']}
                 xAxisKey="name"
                 height={300}
-                colors={[colors.dataViz.primary, colors.dataViz.secondary]}
-                showLegend={true}
+                colors={[colors.dataViz.primary]}
+                showLegend={false}
                 mode="deepDive"
               />
             </Card>
@@ -75,14 +82,17 @@ export default function HomePage() {
 
           {/* Second Bar Chart */}
           <div className="col-span-6">
-            <Card title="Quarterly Performance">
+            <Card>
+              <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 text-center mb-4">
+                Purchase Requisition Volumes by Month
+              </h6>
               <BarChart
                 data={barChartData2}
-                dataKey={['actual', 'target']}
+                dataKey={['volume']}
                 xAxisKey="name"
                 height={300}
-                colors={[colors.dataViz.positive, colors.dataViz.highlight]}
-                showLegend={true}
+                colors={[colors.dataViz.positive]}
+                showLegend={false}
                 mode="deepDive"
               />
             </Card>
@@ -92,7 +102,10 @@ export default function HomePage() {
         {/* Second row with composed chart */}
         <div className="grid grid-cols-12">
           <div className="col-span-12">
-            <Card title="Combined Metrics Analysis">
+            <Card>
+              <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 text-center mb-4">
+                Average PR to PO Turn Around Time
+              </h6>
               <ResponsiveContainer width="100%" height={400}>
                 <ComposedChart data={composedChartData}>
                   <CartesianGrid 
@@ -142,13 +155,13 @@ export default function HomePage() {
                     fill={colors.dataViz.alt} 
                     stroke={colors.dataViz.alt}
                     fillOpacity={0.3}
-                    name="Amount Trend"
+                    name="All Regions"
                   />
                   <Bar 
                     dataKey="pv" 
                     barSize={20} 
                     fill={colors.dataViz.primary}
-                    name="Page Views"
+                    name="N.A."
                   />
                   <Line 
                     type="monotone" 
@@ -157,7 +170,7 @@ export default function HomePage() {
                     strokeWidth={3}
                     dot={{ fill: colors.dataViz.highlight, r: 4 }}
                     activeDot={{ r: 6 }}
-                    name="Unique Views"
+                    name="Non N.A."
                   />
                 </ComposedChart>
               </ResponsiveContainer>
