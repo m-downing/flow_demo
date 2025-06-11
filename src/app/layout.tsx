@@ -5,11 +5,7 @@ import AppWrapper from "@/design-system/layout/AppWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Oculus | IP Supply Chain",
-  description: "Oculus | IP Supply Chain",
-  icons: {
-    icon: '/icons/favicons/oculus.ico',
-  },
+  description: "IP Supply Chain Platform",
 };
 
 export default function RootLayout({
