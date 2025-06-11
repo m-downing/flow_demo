@@ -23,10 +23,12 @@ export const appTabs: Record<string, NavTab[]> = {
   ],
   'helius': [
     { name: "Dashboard", icon: "ChartBarSquare", path: "/helius" },
-    { name: "Analytics", icon: "ChartPie", path: "#" },
-    { name: "Reports", icon: "TableCells", path: "#" },
-    { name: "Monitoring", icon: "EyeIcon", path: "#" },
-    { name: "Alerts", icon: "FireIcon", path: "#" },
+    { name: "Data Centers", icon: "Squares2X2", path: "#" },
+    { name: "App Tools", icon: "WrenchScrewdriver", path: "#" },
+    { name: "Infrastructure", icon: "Cloud", path: "#" },
+    { name: "Compute / Network", icon: "CpuChipIcon", path: "#" },
+    { name: "ICP & Block Storage", icon: "ServerStack", path: "#" },
+    { name: "Scheduling", icon: "Clock", path: "#" },
   ],
   'mimir': [
     { name: "Overview", icon: "ChartBarSquare", path: "/mimir" },
