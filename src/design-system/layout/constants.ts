@@ -17,17 +17,9 @@ export const dashboardTab: NavTab = {
 export const appTabs: Record<string, NavTab[]> = {
   'flow': [
     { name: "Dashboard", icon: "Briefcase", path: "/flow" },
-    { name: "Infrastructure", icon: "ServerStack", path: "#" },
-    { name: "Network", icon: "Signal", path: "#" },
-    { name: "VIE", icon: "Tv", path: "#" },
-    { name: "Build Tracker", icon: "ComputerDesktop", path: "#" },
-    { name: "Safety Stock", icon: "PresentationChartLine", path: "#" },
-    { name: "Tags", icon: "Tag", path: "#", hasDropdown: true },
-    { name: "Lead Times", icon: "Clock", path: "#", hasDropdown: true },
-    { name: "Inventory", icon: "ArchiveBox", path: "#", hasDropdown: true },
-    { name: "Utilities", icon: "WrenchScrewdriver", path: "#", hasDropdown: true },
-    { name: "VCF", icon: "Cloud", path: "#", hasDropdown: true },
-    { name: "Backlogs", icon: "Inbox", path: "#", hasDropdown: true },
+    { name: "Data Centers", icon: "Squares2X2", path: "#" },
+    { name: "Project View", icon: "ClipboardDocumentList", path: "#" },
+    { name: "Integrator", icon: "WrenchScrewdriver", path: "#" },
   ],
   'helius': [
     { name: "Dashboard", icon: "ChartBarSquare", path: "/helius" },

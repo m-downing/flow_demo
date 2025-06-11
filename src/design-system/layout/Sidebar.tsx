@@ -35,7 +35,8 @@ import {
   WrenchScrewdriverIcon,
   CloudIcon,
   InboxIcon,
-  CreditCardIcon
+  CreditCardIcon,
+  ClipboardDocumentListIcon
 } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
@@ -282,6 +283,8 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       return <InboxIcon className={iconClass} />;
     } else if (iconName === 'CreditCard') {
       return <CreditCardIcon className={iconClass} />;
+    } else if (iconName === 'ClipboardDocumentList') {
+      return <ClipboardDocumentListIcon className={iconClass} />;
     } else {
       return (
         <Image 
