@@ -40,11 +40,12 @@ export const appTabs: Record<string, NavTab[]> = {
     { name: "Overview", icon: "ChartBarSquare", path: "/mimir" },
   ],
   'hyperion': [
-    { name: "Supply Chain", icon: "GlobeAlt", path: "/hyperion" },
-    { name: "Inventory", icon: "BuildingOffice", path: "#" },
-    { name: "Orders", icon: "ShoppingCart", path: "#" },
-    { name: "Logistics", icon: "TruckIcon", path: "#" },
-    { name: "Analytics", icon: "ChartPie", path: "#" },
+    { name: "Dashboard", icon: "ChartBarSquare", path: "/hyperion" },
+    { name: "Grid View", icon: "TableCells", path: "#" },
+    { name: "Compute", icon: "ComputerDesktop", path: "#" },
+    { name: "Data Center", icon: "Squares2X2", path: "#" },
+    { name: "P.O. / P.R.", icon: "CreditCard", path: "#" },
+    { name: "Business Case", icon: "Briefcase", path: "#" },
   ],
   'oculus': [
     { name: "Fungible", icon: "ArrowsRightLeft", path: "/" },
