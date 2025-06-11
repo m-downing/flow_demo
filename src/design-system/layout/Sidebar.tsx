@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { appTabs } from './constants';
-import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon, AcademicCapIcon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon, AcademicCapIcon, ArrowsRightLeftIcon, ScaleIcon, TagIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
 import Tooltip from '@/design-system/components/feedback/Tooltip';
@@ -25,7 +25,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   // Initialize activeTab based on current pathname only (no localStorage during SSR)
   const getInitialTab = () => {
     // Only check if current pathname matches any tab
-    const currentTab = appTabs['flow'].find(tab => tab.path === pathname);
+    const currentTab = appTabs['oculus'].find(tab => tab.path === pathname);
     if (currentTab) {
       return currentTab.name;
     }
@@ -56,7 +56,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     
     // Now that we're hydrated, check localStorage and update activeTab if needed
     const savedTab = localStorage.getItem('activeTab_flux');
-    if (savedTab && !appTabs['flow'].find(tab => tab.path === pathname)) {
+    if (savedTab && !appTabs['oculus'].find(tab => tab.path === pathname)) {
       // Only use saved tab if current pathname doesn't match any tab
       setActiveTab(savedTab);
     }
@@ -79,7 +79,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   useEffect(() => {
     // Determine active tab based on current pathname
     // Check all flow tabs for matching paths
-    const currentTab = appTabs['flow'].find(tab => tab.path === pathname);
+    const currentTab = appTabs['oculus'].find(tab => tab.path === pathname);
     if (currentTab) {
       setActiveTab(currentTab.name);
       if (isHydrated) {
@@ -196,6 +196,14 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       return <SwatchIcon className={iconClass} />;
     } else if (iconName === 'Squares2X2') {
       return <Squares2X2Icon className={iconClass} />;
+    } else if (iconName === 'ArrowsRightLeft') {
+      return <ArrowsRightLeftIcon className={iconClass} />;
+    } else if (iconName === 'Scale') {
+      return <ScaleIcon className={iconClass} />;
+    } else if (iconName === 'Tag') {
+      return <TagIcon className={iconClass} />;
+    } else if (iconName === 'BuildingOffice') {
+      return <BuildingOfficeIcon className={iconClass} />;
     } else {
       return (
         <Image 
@@ -322,7 +330,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
 
           {/* Middle section - navigation tabs */}
           <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-6 gap-6 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out relative z-10`}>
-            {appTabs['flow'].map((tab) => (
+            {appTabs['oculus'].map((tab) => (
               <Tooltip
                 key={tab.name}
                 content={tab.name}

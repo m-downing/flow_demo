@@ -17,7 +17,12 @@ export const appTabs = {
   ],
   helius: [dashboardTab],
   mimir: [dashboardTab],
-  oculus: [dashboardTab]
+  oculus: [
+    { name: "Fungible", icon: "ArrowsRightLeft", path: "/fungible" },
+    { name: "Brokerage", icon: "Scale", path: "/brokerage" },
+    { name: "Retail", icon: "Tag", path: "/retail" },
+    { name: "Wholesale", icon: "BuildingOffice", path: "/wholesale" },
+  ]
 };
 
 // Legacy export for backward compatibility
