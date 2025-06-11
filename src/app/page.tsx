@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { PageContainer } from '@/design-system/layout';
 import { Card } from '@/design-system/layout';
 import { colors } from '@/design-system/foundations/tokens';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 // Type definitions
 type Region = 'EMEA' | 'APAC' | 'NA' | 'LATAM';
@@ -19,6 +20,7 @@ interface Bubble {
 export default function HomePage() {
   const [retailSelectedTab, setRetailSelectedTab] = useState(0);
   const [wholesaleSelectedTab, setWholesaleSelectedTab] = useState(0);
+  const { theme } = useTheme();
 
   // Define region colors
   const regionColors: Record<Region, string> = {
@@ -64,7 +66,7 @@ export default function HomePage() {
         <div className="flex items-center justify-between mb-12">
           <div className="flex items-center gap-3">
             <img 
-              src="/icons/ui/oculus-dark.svg" 
+              src={theme === 'dark' ? "/icons/ui/oculus.svg" : "/icons/ui/oculus-dark.svg"} 
               alt="Oculus Logo" 
               className="w-12 h-12"
             />
