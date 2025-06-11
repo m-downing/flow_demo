@@ -75,9 +75,6 @@ export default function HomePage() {
               <p className="text-sm text-neutral-600 dark:text-neutral-400">Intelligent Automation Reordering System</p>
             </div>
           </div>
-          <button className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors text-sm font-medium">
-            Learn more
-          </button>
         </div>
 
         <div className="grid grid-cols-12 gap-6">
