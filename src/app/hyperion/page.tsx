@@ -3,306 +3,211 @@
 import React, { useState } from 'react';
 import { PageContainer } from '@/design-system/layout';
 import { Card } from '@/design-system/layout';
+import { BarChart } from '@/design-system/charts';
+import { ChartBarSquareIcon, TableCellsIcon } from '@heroicons/react/24/outline';
+import { 
+  ComposedChart, 
+  Bar, 
+  Line, 
+  Area, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  Legend, 
+  ResponsiveContainer 
+} from 'recharts';
+import { getChartColors } from '@/design-system/foundations/tokens';
+import { getTypography } from '@/design-system/foundations/tokens/typography';
+import { useTheme } from '@/app/contexts/ThemeContext';
 import { colors } from '@/design-system/foundations/tokens';
 
-// Type definitions
-type Region = 'EMEA' | 'APAC' | 'NA' | 'LATAM';
+// Sample data for bar charts
+const barChartData1 = [
+  { name: '2018', spend: 249 },
+  { name: '2019', spend: 409 },
+  { name: '2020', spend: 537 },
+  { name: '2021', spend: 345 },
+  { name: '2022', spend: 433 },
+  { name: '2023', spend: 585 },
+  { name: '2024', spend: 504 },
+  { name: '2025', spend: 174 },
+];
 
-interface Bubble {
-  id: string;
-  region: Region;
-  x: number;
-  y: number;
-  size: number;
-}
+const barChartData2 = [
+  { name: 'Jan', volume: 43 },
+  { name: 'Feb', volume: 48 },
+  { name: 'Mar', volume: 138 },
+  { name: 'Apr', volume: 88 },
+  { name: 'May', volume: 52 },
+  { name: 'Jun', volume: 26 },
+];
+
+// Sample data for composed chart
+const composedChartData = [
+  { name: 'Jan', uv: 11.2, pv: 5.1, amt: 8.3 },
+  { name: 'Feb', uv: 9.8, pv: 4.2, amt: 7.0 },
+  { name: 'Mar', uv: 5.6, pv: 8.9, amt: 7.2 },
+  { name: 'Apr', uv: 10.5, pv: 4.8, amt: 7.7 },
+  { name: 'May', uv: 12.1, pv: 5.3, amt: 8.6 },
+  { name: 'Jun', uv: 6.2, pv: 9.4, amt: 7.8 },
+];
 
 export default function HomePage() {
-  const [retailSelectedTab, setRetailSelectedTab] = useState(0);
-  const [wholesaleSelectedTab, setWholesaleSelectedTab] = useState(0);
-
-  // Define region colors
-  const regionColors: Record<Region, string> = {
-    EMEA: colors.dataViz.positive,  // Pink/Red
-    APAC: colors.dataViz.secondary, // Blue
-    NA: colors.dataViz.highlight,   // Orange
-    LATAM: colors.dataViz.positive, // Pink/Red (same as EMEA)
-  };
-
-  // Retail bubbles data
-  const retailBubbles: Bubble[] = [
-    { id: 'NA-INK-C01', region: 'NA', x: 15, y: 20, size: 70 },
-    { id: 'AF-JP-C01', region: 'APAC', x: 35, y: 15, size: 85 },
-    { id: 'AF-SC-C01', region: 'APAC', x: 60, y: 18, size: 80 },
-    { id: 'EM-UK-C01', region: 'EMEA', x: 80, y: 25, size: 65 },
-    { id: 'NA-NE-C01', region: 'NA', x: 25, y: 45, size: 90 },
-    { id: 'NA-INK-C01-2', region: 'NA', x: 50, y: 40, size: 95 },
-    { id: 'NA-NE-CDC4', region: 'NA', x: 75, y: 42, size: 85 },
-    { id: 'AF-CN-C01', region: 'APAC', x: 10, y: 65, size: 80 },
-    { id: 'NA-INK-C02', region: 'NA', x: 30, y: 70, size: 75 },
-    { id: 'NA-NE-C01-3', region: 'NA', x: 55, y: 68, size: 82 },
-    { id: 'EM-NE-C01', region: 'EMEA', x: 75, y: 65, size: 70 },
-    { id: 'NA-NE-CDC2', region: 'NA', x: 85, y: 70, size: 65 },
-    { id: 'AF-CN-C02', region: 'APAC', x: 20, y: 85, size: 75 },
-    { id: 'EM-UK-C01-2', region: 'EMEA', x: 40, y: 88, size: 68 },
-    { id: 'NA-NE-C02', region: 'NA', x: 60, y: 85, size: 78 },
-    { id: 'AF-SC-C01 (DM 13)', region: 'APAC', x: 80, y: 88, size: 85 },
-    { id: 'AF-NE-C01', region: 'APAC', x: 50, y: 58, size: 70 },
-  ];
-
-  // Wholesale bubbles data - fewer, larger bubbles
-  const wholesaleBubbles: Bubble[] = [
-    { id: 'NA-NE-C01', region: 'NA', x: 30, y: 50, size: 180 },
-    { id: 'AF-SC-C01 (DM1)', region: 'APAC', x: 70, y: 35, size: 120 },
-    { id: 'LA-BR-Cann', region: 'LATAM', x: 65, y: 75, size: 70 },
-    { id: 'EM-CH-Lausanne', region: 'EMEA', x: 85, y: 80, size: 80 },
-  ];
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  const themeColors = getChartColors(isDark);
+  const [viewMode, setViewMode] = useState<'chart' | 'grid'>('chart');
 
   return (
     <PageContainer>
-      <div className="p-6">
-        {/* Logo and Title */}
-        <div className="flex items-center justify-between mb-12">
-          <div className="flex items-center gap-3">
-            <img 
-              src="/icons/ui/oculus-dark.svg" 
-              alt="Oculus Logo" 
-              className="w-12 h-12"
-            />
-            <div>
-              <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">OCULUS</h1>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">Intelligent Automation Reordering System</p>
-            </div>
+      <div className="p-6 space-y-6">
+        {/* Toggle Switch */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex rounded-lg border border-neutral-300 dark:border-neutral-700 p-0.5">
+            <button
+              onClick={() => setViewMode('chart')}
+              className={`
+                flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all
+                ${viewMode === 'chart' 
+                  ? 'bg-primary-700 text-neutral-50' 
+                  : 'text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100'
+                }
+              `}
+            >
+              <ChartBarSquareIcon className="h-4 w-4" />
+              Chart View
+            </button>
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`
+                flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all
+                ${viewMode === 'grid' 
+                  ? 'bg-primary-700 text-neutral-50' 
+                  : 'text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-100'
+                }
+              `}
+            >
+              <TableCellsIcon className="h-4 w-4" />
+              Grid View
+            </button>
           </div>
-          <button className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors text-sm font-medium">
-            Learn more
-          </button>
         </div>
 
+        {/* First row with two bar charts */}
         <div className="grid grid-cols-12 gap-6">
-          {/* ICP Retail Card */}
+          {/* First Bar Chart */}
           <div className="col-span-6">
-            <Card className="h-[770px] !p-0 overflow-hidden">
-              <div className="bg-primary-700 px-4 py-3">
-                <h6 className="text-lg font-medium text-neutral-50 text-center">
-                  ICP Retail
-                </h6>
-              </div>
-              
-              <div className="p-4 h-full flex flex-col">
-                {/* Tabs */}
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                  <button
-                    onClick={() => setRetailSelectedTab(0)}
-                    className={`py-3 px-3 rounded-md text-center transition-all
-                      ${retailSelectedTab === 0 
-                        ? 'bg-primary-600 text-neutral-50' 
-                        : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                      }
-                    `}
-                  >
-                    <div className="text-xs uppercase font-medium mb-1">Fungible</div>
-                    <div className="text-2xl font-bold">39</div>
-                    <div className="text-xs">TOTAL TRIGGERS</div>
-                  </button>
-                  <button
-                    onClick={() => setRetailSelectedTab(1)}
-                    className={`py-3 px-3 rounded-md text-center transition-all
-                      ${retailSelectedTab === 1 
-                        ? 'bg-primary-600 text-neutral-50' 
-                        : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                      }
-                    `}
-                  >
-                    <div className="text-xs uppercase font-medium mb-1">&#160;</div>
-                    <div className="text-2xl font-bold">39</div>
-                    <div className="text-xs">OPEN TRIGGERS</div>
-                  </button>
-                  <button
-                    onClick={() => setRetailSelectedTab(2)}
-                    className={`py-3 px-3 rounded-md text-center transition-all
-                      ${retailSelectedTab === 2 
-                        ? 'bg-primary-600 text-neutral-50' 
-                        : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                      }
-                    `}
-                  >
-                    <div className="text-xs uppercase font-medium mb-1">Brokerage</div>
-                    <div className="text-2xl font-bold">0</div>
-                    <div className="text-xs">CLOSED TRIGGERS</div>
-                  </button>
-                </div>
-
-                {/* Bubble Chart Container */}
-                <div className="flex-1 relative bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4">
-                  <div className="text-center text-xs text-neutral-500 dark:text-neutral-400 uppercase mb-2">
-                    Total Triggers
-                  </div>
-                  
-                  {/* Bubble Chart */}
-                  <div className="relative h-[500px]">
-                    {retailBubbles.map((bubble) => (
-                      <div
-                        key={bubble.id}
-                        className="absolute transform -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center text-xs font-medium text-neutral-900 transition-all hover:scale-110 cursor-pointer"
-                        style={{
-                          left: `${bubble.x}%`,
-                          top: `${bubble.y}%`,
-                          width: `${bubble.size}px`,
-                          height: `${bubble.size}px`,
-                          backgroundColor: regionColors[bubble.region],
-                          opacity: 0.8,
-                        }}
-                      >
-                        <span className="text-center px-1" style={{ fontSize: '10px' }}>
-                          {bubble.id}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Legend */}
-                  <div className="flex justify-center gap-6 mt-4">
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-3 h-3 rounded-full" 
-                        style={{ backgroundColor: regionColors.EMEA }}
-                      />
-                      <span className="text-xs text-neutral-600 dark:text-neutral-400">EMEA</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-3 h-3 rounded-full" 
-                        style={{ backgroundColor: regionColors.APAC }}
-                      />
-                      <span className="text-xs text-neutral-600 dark:text-neutral-400">APAC</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-3 h-3 rounded-full" 
-                        style={{ backgroundColor: regionColors.NA }}
-                      />
-                      <span className="text-xs text-neutral-600 dark:text-neutral-400">NA</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <Card>
+              <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 text-center mb-4">
+                Supply Chain PO Spend by Year ($MM)
+              </h6>
+              <BarChart
+                data={barChartData1}
+                dataKey={['spend']}
+                xAxisKey="name"
+                height={300}
+                colors={[colors.dataViz.primary]}
+                showLegend={false}
+                mode="deepDive"
+              />
             </Card>
           </div>
 
-          {/* ICP Wholesale Card */}
+          {/* Second Bar Chart */}
           <div className="col-span-6">
-            <Card className="h-[770px] !p-0 overflow-hidden">
-              <div className="bg-primary-700 px-4 py-3">
-                <h6 className="text-lg font-medium text-neutral-50 text-center">
-                  ICP Wholesale
-                </h6>
-              </div>
-              
-              <div className="p-4 h-full flex flex-col">
-                {/* Tabs */}
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                  <button
-                    onClick={() => setWholesaleSelectedTab(0)}
-                    className={`py-3 px-3 rounded-md text-center transition-all
-                      ${wholesaleSelectedTab === 0 
-                        ? 'bg-primary-600 text-neutral-50' 
-                        : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                      }
-                    `}
-                  >
-                    <div className="text-xs uppercase font-medium mb-1">Fungible</div>
-                    <div className="text-2xl font-bold">1996</div>
-                    <div className="text-xs">TOTAL TRIGGERS</div>
-                  </button>
-                  <button
-                    onClick={() => setWholesaleSelectedTab(1)}
-                    className={`py-3 px-3 rounded-md text-center transition-all
-                      ${wholesaleSelectedTab === 1 
-                        ? 'bg-primary-600 text-neutral-50' 
-                        : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                      }
-                    `}
-                  >
-                    <div className="text-xs uppercase font-medium mb-1">&#160;</div>
-                    <div className="text-2xl font-bold">205</div>
-                    <div className="text-xs">OPEN TRIGGERS</div>
-                  </button>
-                  <button
-                    onClick={() => setWholesaleSelectedTab(2)}
-                    className={`py-3 px-3 rounded-md text-center transition-all
-                      ${wholesaleSelectedTab === 2 
-                        ? 'bg-primary-600 text-neutral-50' 
-                        : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                      }
-                    `}
-                  >
-                    <div className="text-xs uppercase font-medium mb-1">Tenants</div>
-                    <div className="text-2xl font-bold">1791</div>
-                    <div className="text-xs">CLOSED TRIGGERS</div>
-                  </button>
-                </div>
+            <Card>
+              <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 text-center mb-4">
+                Purchase Requisition Volumes by Month
+              </h6>
+              <BarChart
+                data={barChartData2}
+                dataKey={['volume']}
+                xAxisKey="name"
+                height={300}
+                colors={[colors.dataViz.positive]}
+                showLegend={false}
+                mode="deepDive"
+              />
+            </Card>
+          </div>
+        </div>
 
-                {/* Bubble Chart Container */}
-                <div className="flex-1 relative bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4">
-                  <div className="text-center text-xs text-neutral-500 dark:text-neutral-400 uppercase mb-2">
-                    Total Triggers
-                  </div>
-                  
-                  {/* Bubble Chart */}
-                  <div className="relative h-[500px]">
-                    {wholesaleBubbles.map((bubble) => (
-                      <div
-                        key={bubble.id}
-                        className="absolute transform -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center text-xs font-medium text-neutral-900 transition-all hover:scale-110 cursor-pointer"
-                        style={{
-                          left: `${bubble.x}%`,
-                          top: `${bubble.y}%`,
-                          width: `${bubble.size}px`,
-                          height: `${bubble.size}px`,
-                          backgroundColor: regionColors[bubble.region],
-                          opacity: 0.8,
-                        }}
-                      >
-                        <span className="text-center px-2" style={{ fontSize: bubble.size > 100 ? '14px' : '11px' }}>
-                          {bubble.id}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Legend */}
-                  <div className="flex justify-center gap-6 mt-4">
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-3 h-3 rounded-full" 
-                        style={{ backgroundColor: regionColors.EMEA }}
-                      />
-                      <span className="text-xs text-neutral-600 dark:text-neutral-400">EMEA</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-3 h-3 rounded-full" 
-                        style={{ backgroundColor: regionColors.LATAM }}
-                      />
-                      <span className="text-xs text-neutral-600 dark:text-neutral-400">LATAM</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-3 h-3 rounded-full" 
-                        style={{ backgroundColor: regionColors.NA }}
-                      />
-                      <span className="text-xs text-neutral-600 dark:text-neutral-400">NA</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div 
-                        className="w-3 h-3 rounded-full" 
-                        style={{ backgroundColor: regionColors.APAC }}
-                      />
-                      <span className="text-xs text-neutral-600 dark:text-neutral-400">APAC</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {/* Second row with composed chart */}
+        <div className="grid grid-cols-12">
+          <div className="col-span-12">
+            <Card>
+              <h6 className="text-lg font-medium text-neutral-800 dark:text-neutral-50 text-center mb-4">
+                Average PR to PO Turn Around Time
+              </h6>
+              <ResponsiveContainer width="100%" height={400}>
+                <ComposedChart data={composedChartData}>
+                  <CartesianGrid 
+                    stroke={themeColors.grid.stroke} 
+                    strokeDasharray={themeColors.grid.dashArray} 
+                  />
+                  <XAxis 
+                    dataKey="name"
+                    tick={{ 
+                      fontSize: themeColors.axis.fontSize, 
+                      fill: themeColors.axis.color, 
+                      fontFamily: themeColors.axis.fontFamily 
+                    }}
+                    stroke={themeColors.axis.stroke}
+                  />
+                  <YAxis 
+                    tick={{ 
+                      fontSize: themeColors.axis.fontSize, 
+                      fill: themeColors.axis.color, 
+                      fontFamily: themeColors.axis.fontFamily 
+                    }}
+                    stroke={themeColors.axis.stroke}
+                  />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: themeColors.tooltip.bg,
+                      color: themeColors.tooltip.color,
+                      borderRadius: themeColors.tooltip.borderRadius,
+                      padding: themeColors.tooltip.padding,
+                      fontSize: themeColors.tooltip.fontSize,
+                      fontFamily: getTypography.fontFamily('body'),
+                      border: 'none'
+                    }}
+                    labelStyle={{ color: themeColors.tooltip.color, fontWeight: 'bold' }}
+                    itemStyle={{ color: themeColors.tooltip.color }}
+                  />
+                  <Legend 
+                    wrapperStyle={{ 
+                      fontSize: themeColors.axis.fontSize, 
+                      fontFamily: themeColors.axis.fontFamily, 
+                      color: themeColors.axis.color 
+                    }} 
+                  />
+                  <Area 
+                    type="monotone" 
+                    dataKey="amt" 
+                    fill={colors.dataViz.alt} 
+                    stroke={colors.dataViz.alt}
+                    fillOpacity={0.3}
+                    name="All Regions"
+                  />
+                  <Bar 
+                    dataKey="pv" 
+                    barSize={20} 
+                    fill={colors.dataViz.primary}
+                    name="N.A."
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="uv" 
+                    stroke={colors.dataViz.highlight}
+                    strokeWidth={3}
+                    dot={{ fill: colors.dataViz.highlight, r: 4 }}
+                    activeDot={{ r: 6 }}
+                    name="Non N.A."
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
             </Card>
           </div>
         </div>
