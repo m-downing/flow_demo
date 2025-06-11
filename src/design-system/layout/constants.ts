@@ -48,10 +48,11 @@ export const appTabs: Record<string, NavTab[]> = {
     { name: "Business Case", icon: "Briefcase", path: "#" },
   ],
   'oculus': [
-    { name: "Fungible", icon: "ArrowsRightLeft", path: "/" },
-    { name: "Brokerage", icon: "Scale", path: "#" },
-    { name: "Retail", icon: "Tag", path: "#" },
-    { name: "Wholesale", icon: "BuildingOffice", path: "#" },
+    { name: "Dashboard", icon: "ChartBarSquare", path: "/" },
+    { name: "ROP Fungible", icon: "ArrowsRightLeft", path: "#" },
+    { name: "ROP Brokerage", icon: "Scale", path: "#" },
+    { name: "ICP Retail", icon: "ShoppingCart", path: "#" },
+    { name: "ICP Wholesale", icon: "TruckIcon", path: "#" },
   ]
 };
 
