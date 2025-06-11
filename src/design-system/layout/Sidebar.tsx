@@ -25,7 +25,16 @@ import {
   BuildingOfficeIcon,
   TruckIcon,
   CpuChipIcon,
-  ShoppingCartIcon
+  ShoppingCartIcon,
+  ServerStackIcon,
+  SignalIcon,
+  TvIcon,
+  ComputerDesktopIcon,
+  ClockIcon,
+  ArchiveBoxIcon,
+  WrenchScrewdriverIcon,
+  CloudIcon,
+  InboxIcon
 } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
@@ -55,8 +64,13 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     if (currentTab) {
       return currentTab.name;
     }
-    // Always default to first tab for consistent SSR/client hydration
-    return currentAppTabs[0]?.name || 'Snapshot';
+    // Find the first tab with a real path (not "#")
+    const firstFunctionalTab = currentAppTabs.find(tab => tab.path && tab.path !== '#');
+    if (firstFunctionalTab) {
+      return firstFunctionalTab.name;
+    }
+    // Fallback to first tab if no functional tabs found
+    return currentAppTabs[0]?.name || 'Dashboard';
   };
   
   const [activeTab, setActiveTab] = useState<string>(getInitialTab());
@@ -166,22 +180,24 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   }, [isExpanded, handleExpandChange]);
 
   const handleTabClick = (tabName: string, tabPath?: string) => {
-    setActiveTab(tabName);
-    if (isHydrated) {
-      localStorage.setItem(`activeTab_${currentApp}`, tabName);
+    // Don't do anything if clicking on the already active tab
+    if (tabName === activeTab) {
+      return;
     }
     
-    // Don't navigate or show loading for placeholder paths
+    // For demo purposes, only allow navigation to tabs with real paths (not "#")
     if (tabPath && tabPath !== '#') {
+      setActiveTab(tabName);
+      if (isHydrated) {
+        localStorage.setItem(`activeTab_${currentApp}`, tabName);
+      }
+      
       // Set loading state for the clicked tab
       setLoadingTab(tabName);
       
       // Navigate to the specified path
       router.push(tabPath);
     }
-    
-    // Collapse sidebar when a tab is clicked
-    handleExpandChange(false);
   };
 
   const handleAppSwitcherClick = () => {
@@ -192,7 +208,6 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const handleAppSwitch = (appName: AppName) => {
     setCurrentApp(appName);
     setIsAppSwitcherOpen(false);
-    handleExpandChange(false);
   };
 
   const handleExpandClick = (event: React.MouseEvent) => {
@@ -246,6 +261,24 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       return <CpuChipIcon className={iconClass} />;
     } else if (iconName === 'ShoppingCart') {
       return <ShoppingCartIcon className={iconClass} />;
+    } else if (iconName === 'ServerStack') {
+      return <ServerStackIcon className={iconClass} />;
+    } else if (iconName === 'Signal') {
+      return <SignalIcon className={iconClass} />;
+    } else if (iconName === 'Tv') {
+      return <TvIcon className={iconClass} />;
+    } else if (iconName === 'ComputerDesktop') {
+      return <ComputerDesktopIcon className={iconClass} />;
+    } else if (iconName === 'Clock') {
+      return <ClockIcon className={iconClass} />;
+    } else if (iconName === 'ArchiveBox') {
+      return <ArchiveBoxIcon className={iconClass} />;
+    } else if (iconName === 'WrenchScrewdriver') {
+      return <WrenchScrewdriverIcon className={iconClass} />;
+    } else if (iconName === 'Cloud') {
+      return <CloudIcon className={iconClass} />;
+    } else if (iconName === 'Inbox') {
+      return <InboxIcon className={iconClass} />;
     } else {
       return (
         <Image 
