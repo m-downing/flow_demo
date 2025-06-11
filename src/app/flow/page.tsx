@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { PageContainer } from '@/design-system/layout/PageContainer';
 import Card from '@/design-system/layout/Card';
 import { 
@@ -277,24 +277,24 @@ export default function HomePage() {
                     fontSize: '14px'
                   }}
                 />
-                <Bar dataKey="late" stackId="a" fill={colors.dataViz.negative} fillOpacity={0.7} />
-                <Bar dataKey="atRisk" stackId="a" fill={colors.dataViz.highlight} fillOpacity={0.7} />
-                <Bar dataKey="onTrack" stackId="a" fill={colors.dataViz.positive} fillOpacity={0.7} />
+                <Bar dataKey="late" stackId="a" fill={colors.dataViz.highlight} />
+                <Bar dataKey="atRisk" stackId="a" fill={colors.dataViz.primary} />
+                <Bar dataKey="onTrack" stackId="a" fill={colors.dataViz.secondary} />
               </BarChart>
             </ResponsiveContainer>
             
             {/* Custom Legend */}
             <div className="flex justify-center items-center gap-6 mt-4 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.negative }}></div>
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.highlight }}></div>
                 <span className="text-neutral-900 dark:text-neutral-100">Late</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.highlight }}></div>
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.primary }}></div>
                 <span className="text-neutral-900 dark:text-neutral-100">At Risk</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.positive }}></div>
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.secondary }}></div>
                 <span className="text-neutral-900 dark:text-neutral-100">On Track</span>
               </div>
             </div>
@@ -318,7 +318,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
+                  colors={[colors.dataViz.highlight, colors.dataViz.primary, colors.dataViz.secondary]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -334,7 +334,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
+                  colors={[colors.dataViz.highlight, colors.dataViz.primary, colors.dataViz.secondary]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -350,7 +350,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
+                  colors={[colors.dataViz.highlight, colors.dataViz.primary, colors.dataViz.secondary]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -368,7 +368,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
+                  colors={[colors.dataViz.highlight, colors.dataViz.primary, colors.dataViz.secondary]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -384,7 +384,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
+                  colors={[colors.dataViz.highlight, colors.dataViz.primary, colors.dataViz.secondary]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -400,7 +400,7 @@ export default function HomePage() {
                   ]}
                   height={150}
                   mode="summary"
-                  colors={[`${colors.dataViz.negative}B3`, `${colors.dataViz.highlight}B3`, `${colors.dataViz.positive}B3`]}
+                  colors={[colors.dataViz.highlight, colors.dataViz.primary, colors.dataViz.secondary]}
                   innerRadius={30}
                   outerRadius={60}
                   showLegend={false}
@@ -412,15 +412,15 @@ export default function HomePage() {
             {/* Legend for all pie charts */}
             <div className="flex justify-center items-center gap-6 mt-6 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.negative }}></div>
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.highlight }}></div>
                 <span className="text-neutral-900 dark:text-neutral-100">Late</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.highlight }}></div>
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.primary }}></div>
                 <span className="text-neutral-900 dark:text-neutral-100">At Risk</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.positive }}></div>
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: colors.dataViz.secondary }}></div>
                 <span className="text-neutral-900 dark:text-neutral-100">On Track</span>
               </div>
             </div>

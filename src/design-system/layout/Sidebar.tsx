@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { appTabs, NavTab } from './constants';
+import { appTabs } from './constants';
 import { 
   ChartBarSquareIcon, 
   BriefcaseIcon, 
@@ -57,7 +57,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const pathname = usePathname();
   
   // Get the tabs for the current app
-  const currentAppTabs = appTabs[currentApp] || [];
+  const currentAppTabs = useMemo(() => appTabs[currentApp] || [], [currentApp]);
   
   // Initialize activeTab based on current pathname only (no localStorage during SSR)
   const getInitialTab = () => {

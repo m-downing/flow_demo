@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { PageContainer } from '@/design-system/layout';
 import { Card } from '@/design-system/layout';
 import { colors } from '@/design-system/foundations/tokens';
@@ -65,10 +66,12 @@ export default function HomePage() {
         {/* Logo and Title */}
         <div className="flex items-center justify-between mb-12">
           <div className="flex items-center gap-3">
-            <img 
+            <Image 
               src={theme === 'dark' ? "/icons/ui/oculus.svg" : "/icons/ui/oculus-dark.svg"} 
               alt="Oculus Logo" 
               className="w-12 h-12"
+              width={48}
+              height={48}
             />
             <div>
               <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">OCULUS</h1>

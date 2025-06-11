@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
 export type AppName = 'oculus' | 'hyperion' | 'mimir' | 'flow' | 'helius';
@@ -76,13 +76,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const router = useRouter();
   
   // Determine initial app based on pathname
-  const getInitialApp = (): AppName => {
+  const getInitialApp = useCallback((): AppName => {
     if (pathname.startsWith('/hyperion')) return 'hyperion';
     if (pathname.startsWith('/mimir')) return 'mimir';
     if (pathname.startsWith('/flow')) return 'flow';
     if (pathname.startsWith('/helius')) return 'helius';
     return 'oculus'; // Default to oculus for root and other paths
-  };
+  }, [pathname]);
   
   const [currentApp, setCurrentAppState] = useState<AppName>(getInitialApp());
 
@@ -92,7 +92,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     if (newApp !== currentApp) {
       setCurrentAppState(newApp);
     }
-  }, [pathname]);
+  }, [pathname, currentApp, getInitialApp]);
 
   const setCurrentApp = (app: AppName) => {
     setCurrentAppState(app);
