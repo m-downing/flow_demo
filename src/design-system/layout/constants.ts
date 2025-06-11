@@ -38,9 +38,6 @@ export const appTabs: Record<string, NavTab[]> = {
   ],
   'mimir': [
     { name: "Overview", icon: "ChartBarSquare", path: "/mimir" },
-    { name: "Insights", icon: "PresentationChartLine", path: "#" },
-    { name: "Predictions", icon: "AcademicCapIcon", path: "#" },
-    { name: "Models", icon: "CpuChipIcon", path: "#" },
   ],
   'hyperion': [
     { name: "Supply Chain", icon: "GlobeAlt", path: "/hyperion" },
