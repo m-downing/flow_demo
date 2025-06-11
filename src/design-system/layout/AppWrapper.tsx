@@ -9,23 +9,12 @@ import MainLoadingSpinner from './MainLoadingScreen';
 import { InfoBanner, CriticalBanner } from '@/design-system/components/feedback';
 import { NotificationProvider } from '@/app/contexts/NotificationContext';
 import { ThemeProvider } from '@/app/contexts/ThemeContext';
+import { AppProvider, useApp } from '@/app/contexts/AppContext';
 import { useDemoNotifications } from '@/app/hooks/useDemoNotifications';
 
 interface AppWrapperProps {
   children: React.ReactNode;
 }
-
-// Map of app names to their corresponding browser tab titles
-const APP_TITLES: Record<string, string> = {
-  'OCULUS': 'OCULUS',
-};
-
-// Map of app names to their corresponding favicon paths
-const APP_FAVICONS: Record<string, string> = {
-  'OCULUS': '/icons/favicons/oculus.ico',
-};
-
-const DEFAULT_FAVICON = '/icons/favicons/oculus.ico';
 
 const updateFavicon = (iconPath: string) => {
   const linkElements = document.querySelectorAll("link[rel*='icon']");
@@ -68,8 +57,9 @@ const DemoNotificationsInitializer: React.FC = () => {
   return null;
 };
 
-// Inner component that uses the demo hook
-const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
+// Inner component that uses the app context
+const AppContentWithContext: React.FC<AppWrapperProps> = ({ children }) => {
+  const { currentAppConfig } = useApp();
   const [loading, setLoading] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
@@ -88,10 +78,11 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
   const showInfoBanner = true;     // Set to 'true' to enable InfoBanner
   const showCriticalBanner = false;  // Set to 'true' to enable CriticalBanner
 
+  // Update title and favicon when app changes
   useEffect(() => {
-    document.title = APP_TITLES['OCULUS'] || 'OCULUS | UI Demo';
-    updateFavicon(APP_FAVICONS['OCULUS'] || DEFAULT_FAVICON);
-  }, []);
+    document.title = `${currentAppConfig.displayName} | IP Supply Chain`;
+    updateFavicon(currentAppConfig.favicon);
+  }, [currentAppConfig]);
 
   useEffect(() => {
     if (!pathname.includes('/dashboard')) {
@@ -117,7 +108,7 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
       />
       <main className="overflow-y-auto min-h-screen relative bg-neutral-50 dark:bg-neutral-950">
         {/* ======================================== */}
-        {/* SYSTEM BANNERS - Configure above at lines 86-87 */}
+        {/* SYSTEM BANNERS - Configure above at lines 75-76 */}
         {/* ======================================== */}
         
         {/* CriticalBanner - For urgent alerts, maintenance, security issues */}
@@ -157,6 +148,15 @@ const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
         {!loading && children}
       </main>
     </div>
+  );
+};
+
+// Inner component that uses the demo hook
+const AppContent: React.FC<AppWrapperProps> = ({ children }) => {
+  return (
+    <AppProvider>
+      <AppContentWithContext>{children}</AppContentWithContext>
+    </AppProvider>
   );
 };
 

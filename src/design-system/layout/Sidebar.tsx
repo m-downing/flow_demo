@@ -4,13 +4,34 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { appTabs } from './constants';
-import { ChartBarSquareIcon, BriefcaseIcon, ChartPieIcon, PresentationChartLineIcon, ArrowRightStartOnRectangleIcon, ArrowLeftStartOnRectangleIcon, GlobeAltIcon, FireIcon, EyeIcon, TableCellsIcon, SwatchIcon, Squares2X2Icon, AcademicCapIcon, ArrowsRightLeftIcon, ScaleIcon, TagIcon, BuildingOfficeIcon } from '@heroicons/react/24/outline';
+import { appTabs, NavTab } from './constants';
+import { 
+  ChartBarSquareIcon, 
+  BriefcaseIcon, 
+  ChartPieIcon, 
+  PresentationChartLineIcon, 
+  ArrowRightStartOnRectangleIcon, 
+  ArrowLeftStartOnRectangleIcon, 
+  GlobeAltIcon, 
+  FireIcon, 
+  EyeIcon, 
+  TableCellsIcon, 
+  SwatchIcon, 
+  Squares2X2Icon, 
+  AcademicCapIcon, 
+  ArrowsRightLeftIcon, 
+  ScaleIcon, 
+  TagIcon, 
+  BuildingOfficeIcon,
+  TruckIcon,
+  CpuChipIcon
+} from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
 import Tooltip from '@/design-system/components/feedback/Tooltip';
 import AIChatBox from '@/design-system/utilities/AIChatBox';
 import { useTheme } from '@/app/contexts/ThemeContext';
+import { useApp, APP_CONFIGS, AppName } from '@/app/contexts/AppContext';
 
 interface SidebarProps {
   isExpanded: boolean;
@@ -19,18 +40,22 @@ interface SidebarProps {
 
 export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) {
   const { theme } = useTheme();
+  const { currentApp, setCurrentApp, currentAppConfig } = useApp();
   const isDark = theme === 'dark';
   const pathname = usePathname();
+  
+  // Get the tabs for the current app
+  const currentAppTabs = appTabs[currentApp] || [];
   
   // Initialize activeTab based on current pathname only (no localStorage during SSR)
   const getInitialTab = () => {
     // Only check if current pathname matches any tab
-    const currentTab = appTabs['oculus'].find(tab => tab.path === pathname);
+    const currentTab = currentAppTabs.find(tab => tab.path === pathname);
     if (currentTab) {
       return currentTab.name;
     }
-    // Always default to Snapshot for consistent SSR/client hydration
-    return 'Snapshot';
+    // Always default to first tab for consistent SSR/client hydration
+    return currentAppTabs[0]?.name || 'Snapshot';
   };
   
   const [activeTab, setActiveTab] = useState<string>(getInitialTab());
@@ -55,12 +80,12 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     setIsHydrated(true);
     
     // Now that we're hydrated, check localStorage and update activeTab if needed
-    const savedTab = localStorage.getItem('activeTab_flux');
-    if (savedTab && !appTabs['oculus'].find(tab => tab.path === pathname)) {
+    const savedTab = localStorage.getItem(`activeTab_${currentApp}`);
+    if (savedTab && !currentAppTabs.find(tab => tab.path === pathname)) {
       // Only use saved tab if current pathname doesn't match any tab
       setActiveTab(savedTab);
     }
-  }, [pathname]);
+  }, [pathname, currentApp, currentAppTabs]);
 
   // Handle text visibility based on expansion state
   useEffect(() => {
@@ -78,16 +103,16 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
 
   useEffect(() => {
     // Determine active tab based on current pathname
-    // Check all flow tabs for matching paths
-    const currentTab = appTabs['oculus'].find(tab => tab.path === pathname);
+    // Check all tabs for matching paths
+    const currentTab = currentAppTabs.find(tab => tab.path === pathname);
     if (currentTab) {
       setActiveTab(currentTab.name);
       if (isHydrated) {
-        localStorage.setItem('activeTab_flux', currentTab.name);
+        localStorage.setItem(`activeTab_${currentApp}`, currentTab.name);
       }
     } else if (isHydrated) {
       // Fallback to localStorage if no path match (only after hydration)
-      const savedTab = localStorage.getItem('activeTab_flux');
+      const savedTab = localStorage.getItem(`activeTab_${currentApp}`);
       if (savedTab) {
         setActiveTab(savedTab);
       }
@@ -95,7 +120,7 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     
     // Clear loading state when pathname changes (navigation completed)
     setLoadingTab(null);
-  }, [pathname, isHydrated]);
+  }, [pathname, isHydrated, currentApp, currentAppTabs]);
 
   // Handle expansion state changes
   const handleExpandChange = useCallback((expanded: boolean) => {
@@ -142,29 +167,31 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
   const handleTabClick = (tabName: string, tabPath?: string) => {
     setActiveTab(tabName);
     if (isHydrated) {
-      localStorage.setItem('activeTab_flux', tabName);
+      localStorage.setItem(`activeTab_${currentApp}`, tabName);
     }
     
-    // Set loading state for the clicked tab
-    if (tabPath) {
+    // Don't navigate or show loading for placeholder paths
+    if (tabPath && tabPath !== '#') {
+      // Set loading state for the clicked tab
       setLoadingTab(tabName);
+      
+      // Navigate to the specified path
+      router.push(tabPath);
     }
     
     // Collapse sidebar when a tab is clicked
     handleExpandChange(false);
-    
-    // Navigate to the specified path
-    if (tabPath) {
-      router.push(tabPath);
-    } else {
-      // Fallback to the old event system for tabs without paths
-      window.dispatchEvent(new Event('app:change'));
-    }
   };
 
   const handleAppSwitcherClick = () => {
     handleExpandChange(true);
     setIsAppSwitcherOpen(!isAppSwitcherOpen);
+  };
+
+  const handleAppSwitch = (appName: AppName) => {
+    setCurrentApp(appName);
+    setIsAppSwitcherOpen(false);
+    handleExpandChange(false);
   };
 
   const handleExpandClick = (event: React.MouseEvent) => {
@@ -204,6 +231,18 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       return <TagIcon className={iconClass} />;
     } else if (iconName === 'BuildingOffice') {
       return <BuildingOfficeIcon className={iconClass} />;
+    } else if (iconName === 'GlobeAlt') {
+      return <GlobeAltIcon className={iconClass} />;
+    } else if (iconName === 'EyeIcon') {
+      return <EyeIcon className={iconClass} />;
+    } else if (iconName === 'FireIcon') {
+      return <FireIcon className={iconClass} />;
+    } else if (iconName === 'AcademicCapIcon') {
+      return <AcademicCapIcon className={iconClass} />;
+    } else if (iconName === 'TruckIcon') {
+      return <TruckIcon className={iconClass} />;
+    } else if (iconName === 'CpuChipIcon') {
+      return <CpuChipIcon className={iconClass} />;
     } else {
       return (
         <Image 
@@ -217,6 +256,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
     }
   };
 
+  // Get the list of apps to show in the switcher (all apps except current)
+  const availableApps = Object.entries(APP_CONFIGS).filter(([appName]) => appName !== currentApp);
+
   return (
     <>
       <div className="relative" ref={sidebarRef}>
@@ -229,9 +271,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           {/* Fixed Top section - App icon and switcher */}
           <div className={`w-full transition-all duration-150 ease-in-out relative z-10 mb-4`}>
             {/* App Home Icon - Fixed height container */}
-            <Link href="/">
+            <Link href={currentAppConfig.path}>
               <Tooltip 
-                content="Oculus UI" 
+                content={`${currentAppConfig.displayName} UI`} 
                 position="right" 
                 disabled={isExpanded}
                 delay={100}
@@ -241,15 +283,17 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
                   <div className="flex flex-col items-center gap-[5px]">
                     <div className="h-[26px] flex items-center justify-center">
                       <Image 
-                        src="/icons/ui/oculus.svg"
-                        alt="Oculus"
+                        src={currentAppConfig.icon}
+                        alt={currentAppConfig.displayName}
                         width={26}
                         height={26}
                         className="group-hover:opacity-60 transition-opacity duration-50"
                       />
                     </div>
                     {isExpanded && (
-                      <h1 className={`text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>OCULUS</h1>
+                      <h1 className={`text-neutral-50 group-hover:text-neutral-50/[.6] text-[16px] tracking-wider font-body transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                        {currentAppConfig.displayName}
+                      </h1>
                     )}
                   </div>
                 </div>
@@ -280,57 +324,28 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           {isExpanded && isAppSwitcherOpen && (
             <div className={`${submenuBg} w-full py-4 px-4 transition-all duration-300 ease-in-out relative z-10 ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
               <div className="flex flex-col gap-5">
-                <Link href="#">
-                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
+                {availableApps.map(([appName, appConfig]) => (
+                  <div 
+                    key={appName}
+                    onClick={() => handleAppSwitch(appName as AppName)}
+                    className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer"
+                  >
                     <Image 
-                      src="/icons/ui/hyperion.svg"
-                      alt="Hyperion"
+                      src={appConfig.icon}
+                      alt={appConfig.displayName}
                       width={20}
                       height={20}
                     />
-                    <span className="uppercase">HYPERION</span>
+                    <span className="uppercase">{appConfig.displayName}</span>
                   </div>
-                </Link>
-                <Link href="#">
-                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <Image 
-                      src="/icons/ui/mimir.svg"
-                      alt="Mimir"
-                      width={20}
-                      height={20}
-                    />
-                    <span className="uppercase">MIMIR</span>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <Image 
-                      src="/icons/ui/flow.svg"
-                      alt="Flow"
-                      width={20}
-                      height={20}
-                    />
-                    <span className="uppercase">FLOW</span>
-                  </div>
-                </Link>
-                <Link href="#">
-                  <div className="flex items-center gap-3 font-normal text-neutral-50 text-[14px] tracking-widest hover:text-neutral-300 transition-colors duration-200 cursor-pointer">
-                    <Image 
-                      src="/icons/ui/helius.svg"
-                      alt="Helius"
-                      width={20}
-                      height={20}
-                    />
-                    <span className="uppercase">HELIUS</span>
-                  </div>
-                </Link>
+                ))}
               </div>
             </div>
           )}
 
           {/* Middle section - navigation tabs */}
           <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-6 gap-6 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out relative z-10`}>
-            {appTabs['oculus'].map((tab) => (
+            {currentAppTabs.map((tab) => (
               <Tooltip
                 key={tab.name}
                 content={tab.name}
