@@ -5,15 +5,18 @@ import { PageContainer, Card } from '@/design-system/layout';
 import Button from '@/design-system/components/primitives/Button';
 import Badge from '@/design-system/components/feedback/Badge';
 import Image from 'next/image';
+import { useTheme } from '@/app/contexts/ThemeContext';
 
 export default function HomePage() {
+  const { theme } = useTheme();
+  
   return (
     <PageContainer>
       <div className="mx-10 py-10">
         {/* Logo and Welcome Text - Centered */}
         <div className="flex flex-col items-center mb-8">
           <Image 
-            src="/icons/ui/helius-dark.svg" 
+            src={theme === 'dark' ? "/icons/ui/helius.svg" : "/icons/ui/helius-dark.svg"} 
             alt="Helius Logo" 
             width={48} 
             height={48}
