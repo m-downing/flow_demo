@@ -382,9 +382,9 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
           {/* Middle section - navigation tabs */}
           <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-6 gap-6 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out relative z-10`}>
             {currentAppTabs.map((tab, index) => {
-              // Override first tab to always show Dashboard with briefcase icon
+              // Override first tab to always show Dashboard with presentation chart line icon
               const displayName = index === 0 ? 'Dashboard' : tab.name;
-              const displayIcon = index === 0 ? 'Briefcase' : tab.icon;
+              const displayIcon = index === 0 ? 'PresentationChartLine' : tab.icon;
               
               return (
                 <Tooltip
