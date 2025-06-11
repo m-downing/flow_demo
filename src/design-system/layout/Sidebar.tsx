@@ -24,7 +24,8 @@ import {
   TagIcon, 
   BuildingOfficeIcon,
   TruckIcon,
-  CpuChipIcon
+  CpuChipIcon,
+  ShoppingCartIcon
 } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Spinner } from '@/design-system/components/feedback';
@@ -243,6 +244,8 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
       return <TruckIcon className={iconClass} />;
     } else if (iconName === 'CpuChipIcon') {
       return <CpuChipIcon className={iconClass} />;
+    } else if (iconName === 'ShoppingCart') {
+      return <ShoppingCartIcon className={iconClass} />;
     } else {
       return (
         <Image 
@@ -345,42 +348,48 @@ export default function Sidebar({ isExpanded, onExpandedChange }: SidebarProps) 
 
           {/* Middle section - navigation tabs */}
           <div className={`flex-1 flex flex-col ${isExpanded ? 'items-start' : 'items-center'} py-6 gap-6 overflow-y-auto min-h-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out relative z-10`}>
-            {currentAppTabs.map((tab) => (
-              <Tooltip
-                key={tab.name}
-                content={tab.name}
-                position="right"
-                disabled={isExpanded}
-                delay={100}
-              >
-                <div 
-                  className={`flex ${isExpanded ? 'flex-row w-full px-4 gap-3' : 'flex-col'} items-center cursor-pointer group relative ${activeTab === tab.name ? 'opacity-100' : 'opacity-50'} hover:opacity-100 transition-opacity duration-200`}
-                  onClick={() => handleTabClick(tab.name, tab.path)}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`Go to ${tab.name}`}
+            {currentAppTabs.map((tab, index) => {
+              // Override first tab to always show Dashboard with briefcase icon
+              const displayName = index === 0 ? 'Dashboard' : tab.name;
+              const displayIcon = index === 0 ? 'Briefcase' : tab.icon;
+              
+              return (
+                <Tooltip
+                  key={tab.name}
+                  content={displayName}
+                  position="right"
+                  disabled={isExpanded}
+                  delay={100}
                 >
-                  {/* Loading spinner overlay */}
-                  {loadingTab === tab.name && (
-                    <div className={`absolute inset-0 flex items-center justify-center ${loadingBg} rounded-lg z-10`}>
-                      <Spinner variant="light" size="md" aria-label={`Loading ${tab.name}`} />
-                    </div>
-                  )}
-                  
-                  {/* Tab content */}
-                  <div className={`flex ${isExpanded ? 'flex-row gap-3' : 'flex-col'} items-center ${loadingTab === tab.name ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}>
-                    <div className={isExpanded ? '' : 'mb-2'}>
-                      {renderIcon(tab.icon, isExpanded)}
-                    </div>
-                    {isExpanded && (
-                      <span className={`text-neutral-50 tracking-wider text-[15px] transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-                        {tab.name}
-                      </span>
+                  <div 
+                    className={`flex ${isExpanded ? 'flex-row w-full px-4 gap-3' : 'flex-col'} items-center cursor-pointer group relative ${activeTab === tab.name ? 'opacity-100' : 'opacity-50'} hover:opacity-100 transition-opacity duration-200`}
+                    onClick={() => handleTabClick(tab.name, tab.path)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Go to ${displayName}`}
+                  >
+                    {/* Loading spinner overlay */}
+                    {loadingTab === tab.name && (
+                      <div className={`absolute inset-0 flex items-center justify-center ${loadingBg} rounded-lg z-10`}>
+                        <Spinner variant="light" size="md" aria-label={`Loading ${displayName}`} />
+                      </div>
                     )}
+                    
+                    {/* Tab content */}
+                    <div className={`flex ${isExpanded ? 'flex-row gap-3' : 'flex-col'} items-center ${loadingTab === tab.name ? 'opacity-0' : 'opacity-100'} transition-opacity duration-200`}>
+                      <div className={isExpanded ? '' : 'mb-2'}>
+                        {renderIcon(displayIcon, isExpanded)}
+                      </div>
+                      {isExpanded && (
+                        <span className={`text-neutral-50 tracking-wider text-[15px] transition-all duration-300 ease-in-out ${showText ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+                          {displayName}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Tooltip>
-            ))}
+                </Tooltip>
+              );
+            })}
           </div>
 
           {/* Bottom section - AI Chat button and expand button */}

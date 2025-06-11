@@ -38,7 +38,7 @@ export const appTabs: Record<string, NavTab[]> = {
   'hyperion': [
     { name: "Supply Chain", icon: "GlobeAlt", path: "/hyperion" },
     { name: "Inventory", icon: "BuildingOffice", path: "#" },
-    { name: "Orders", icon: "Briefcase", path: "#" },
+    { name: "Orders", icon: "ShoppingCart", path: "#" },
     { name: "Logistics", icon: "TruckIcon", path: "#" },
     { name: "Analytics", icon: "ChartPie", path: "#" },
   ],
